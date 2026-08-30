@@ -1,0 +1,1598 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		009A3E77D1F3CC8383BB0548 /* NativePresentationAndShareRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3D88295D07CA8EF5F8D4E8 /* NativePresentationAndShareRecipeGallery.swift */; };
+		02EBB3FCB6FE33BF4F2DFF8A /* NativeListSidebarAndDisclosureRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF095D555F58CBE33B3C37D4 /* NativeListSidebarAndDisclosureRecipeGallery.swift */; };
+		03B3B6BD7D6E5D0438854024 /* DesignOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = AA805DF8088A8900868B5563 /* DesignOSApple */; };
+		10FECE11883754F020A67A09 /* OmniActCommandRowStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333E24FF41B6A0AEAC1117A5 /* OmniActCommandRowStory.swift */; };
+		14BA282B085D332B4BFF99C4 /* SidebarToolbarContentGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1620EE2AEC0258D67EA92FE /* SidebarToolbarContentGallery.swift */; };
+		156156533C916EFE28BFC298 /* PlatformSemanticColorGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC46EA82AF667853F2E03A7 /* PlatformSemanticColorGallery.swift */; };
+		1672A72047315E41B2B35868 /* ExtensionControlWidgetGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533131D89D4C414FC902C1B1 /* ExtensionControlWidgetGallery.swift */; };
+		181F569EBEDACAA43503B1B8 /* TypographyGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF794C8D5109B50FABAE9F16 /* TypographyGallery.swift */; };
+		1879C4BD91D82A2A8517A151 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4773A7D5D2234E7576CB1A37 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift */; };
+		1FA985EC49581EBEC26F9B52 /* DogfoodCatalogViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB0A21C5E6E4436D7EC079 /* DogfoodCatalogViewTests.swift */; };
+		203DF49EDCDEB9E69D5F4558 /* TocChienDictionarySearchStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */; };
+		23D298150D13E87CAA124A56 /* TocChienDogfoodPilotMacOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C0EB3405ADD45F9F038EB /* TocChienDogfoodPilotMacOSUITests.swift */; };
+		24827B83E5901D4A2AC96BC5 /* NativeHomeScreenQuickActionRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25507FDA6E89B072605F80CF /* NativeHomeScreenQuickActionRecipeGallery.swift */; };
+		26767B4B852A402DF0FF8602 /* GalleryRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BA78C28566F3E3C659E7AE /* GalleryRootView.swift */; };
+		273AF6C41AD39D317A29C2BB /* NativePresentationAndShareRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3D88295D07CA8EF5F8D4E8 /* NativePresentationAndShareRecipeGallery.swift */; };
+		2907843376976C51E446BB78 /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = 70A98C4722E9DD62F0B4CA3D /* DesignOSAppleCatalog */; };
+		29187892BC1AA296A742FD9F /* NativeContentUnavailableViewRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F71F7CFF73D1B9E95CBF09 /* NativeContentUnavailableViewRecipeGallery.swift */; };
+		2B1CE58AC72476ED3F036AF3 /* DogfoodStoryPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388FA0370B5FD45C079F024F /* DogfoodStoryPresentationTests.swift */; };
+		2D76B558D1F0EFEEC567B01F /* ProfileCustomizationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD5785BA6E2806223B0C80 /* ProfileCustomizationGallery.swift */; };
+		2EA088861E89D2AB9501325B /* NativeMenuContextAndEditActionsRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF41CE35844BEBDC5941B583 /* NativeMenuContextAndEditActionsRecipeGallery.swift */; };
+		31352B08E9A39CB1DBA276AC /* OmniActHUDAutocompleteMaterialStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721708D2061E2790D4C38BC9 /* OmniActHUDAutocompleteMaterialStory.swift */; };
+		34ACF14C6C6C5CA9F5EC1C32 /* GalleryOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDD8191EBF6443CB8CA051 /* GalleryOverview.swift */; };
+		34B081E9BF459F2E1DE7A406 /* DesignOSSidebarRowGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B12921BF59EF1B6CDA16E /* DesignOSSidebarRowGallery.swift */; };
+		35F49E69E87E3479072CF619 /* NativeContentUnavailableViewRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F71F7CFF73D1B9E95CBF09 /* NativeContentUnavailableViewRecipeGallery.swift */; };
+		3916309218337CB26A8438B0 /* DesignOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 2E41B938001E8FD2E15668C3 /* DesignOSApple */; };
+		3AD89CE3B5EFDE7F376BA364 /* TocChienNavigationTabsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */; };
+		3C7322F6B1CD4FD68F463378 /* DogfoodCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FA37A0C2A9ABB4B106EC66 /* DogfoodCatalogView.swift */; };
+		3D4C933865F34C6A977C040D /* DesignOSSidebarRowGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B12921BF59EF1B6CDA16E /* DesignOSSidebarRowGallery.swift */; };
+		3E0BBA6C8A037C56A29F3B21 /* NativePatternsGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B51F751CB88D790FCEF69E3 /* NativePatternsGallery.swift */; };
+		3EC0811F1668F864D8BAE13B /* OmniActHUDSurfaceResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C4D62D5AC9782090828BD /* OmniActHUDSurfaceResolverTests.swift */; };
+		40DF60B47D9A9107FA7BCC6D /* TocChienChampionHeroNegativeControlStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */; };
+		412F847E020CA87533D7A489 /* ProjectMembershipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A7A368D9CC42208ACB5D4 /* ProjectMembershipTests.swift */; };
+		43A50DF2029E3BA83C3FF3F4 /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = AF9ABC16C9FA2168F24CA305 /* DesignOSAppleCatalog */; };
+		44AD935C29FB9856710A64B0 /* DesignOSSurfaceRoleGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C1E33232F619B7C9A3EA17 /* DesignOSSurfaceRoleGallery.swift */; };
+		44FB7928225C9508F7433195 /* DesignOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 3B62A34CB2C435FBC19908CC /* DesignOSApple */; };
+		469FC5ECC9931878D8D78ED0 /* TocChienDogfoodPilotRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326865195E496FA93B392F8 /* TocChienDogfoodPilotRootView.swift */; };
+		48E6FFB2BB1654BE3E323D65 /* DogfoodStoryCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543DEFAEE66A677E0AA581C0 /* DogfoodStoryCanvas.swift */; };
+		49094E6F0F7394D93EF2A6F8 /* SystemDeviceChromeHostRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */; };
+		4EF4F804992B311DB6A1EF1C /* TocChienNavigationTabsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */; };
+		4FF8A3E7E488F082E46455D4 /* SymbolContentGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE82CB9429607CE65B3816F /* SymbolContentGallery.swift */; };
+		52911C822953EFD0A19CC433 /* AccessorySlotLayoutGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1D1598F39E58A1C21E19AB /* AccessorySlotLayoutGallery.swift */; };
+		53089FCDF36A6B740C467C13 /* DesignOSListRowGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012957187BD147BE906FC5F7 /* DesignOSListRowGallery.swift */; };
+		586C257C7867D21E1BC064D4 /* NativeButtonAndToolbarActionRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF991A581F87850993D6CE /* NativeButtonAndToolbarActionRecipeGallery.swift */; };
+		59368A697B6DC3D41E82B1CA /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = A4D3B50DEA39F8939EE3FB3D /* DesignOSAppleCatalog */; };
+		599BB22E152919D9A3AE49F3 /* DogfoodStoryCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543DEFAEE66A677E0AA581C0 /* DogfoodStoryCanvas.swift */; };
+		59ED11130FCE78F0CCEBDFE7 /* ExtensionControlWidgetGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533131D89D4C414FC902C1B1 /* ExtensionControlWidgetGallery.swift */; };
+		5B77622C9D0E9D2E16B93733 /* NativePickerAndDateColorInputRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8609CC4634770DEDB038B0 /* NativePickerAndDateColorInputRecipeGallery.swift */; };
+		5D8A0B08C5E69B5C7564755D /* DogfoodStoryHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D146C7809C759A60EF8AB /* DogfoodStoryHost.swift */; };
+		5E3AB5CE6E7D773D88E4F30D /* NativeMaterialAndGlassSurfaceRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0034C2B388053F93F49415 /* NativeMaterialAndGlassSurfaceRecipeGallery.swift */; };
+		61BEBB33D68FCC371FA4C72E /* DogfoodStoryRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B4823F9DE4E5E6778FFFC /* DogfoodStoryRendererTests.swift */; };
+		6302BA573E64975390AE4E1F /* DogfoodStoryRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29D24EA0CC61C2A16D5324A /* DogfoodStoryRenderer.swift */; };
+		64A0EBC323C19ADB6B2EEC6E /* NativeNavigationTabsAndToolbarsRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2806A79C3DF6E84A41EEC7 /* NativeNavigationTabsAndToolbarsRecipeGallery.swift */; };
+		6533D17EA1243859DFED1005 /* DogfoodStoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517CCEA3E4A27C5ED19D411 /* DogfoodStoryDetailView.swift */; };
+		6538C9DB539179D54E030178 /* TocChienDictionaryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */; };
+		65C31D385DB23B4664813CE0 /* TypographyGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF794C8D5109B50FABAE9F16 /* TypographyGallery.swift */; };
+		66ED46AC72EEAB3B76540A38 /* ProfileCustomizationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD5785BA6E2806223B0C80 /* ProfileCustomizationGallery.swift */; };
+		6726846F872FD203D240A337 /* OmniActHUDStoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */; };
+		6B0D8DD09FD84695321E7C7A /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = 334780B6AFC0EDC1F33912FD /* DesignOSAppleCatalog */; };
+		6B69CF56D2DE8A78D4F7C805 /* DesignOSAppleGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7730332CD46BBA35FC21DE0 /* DesignOSAppleGalleryApp.swift */; };
+		6E7B17F54B5B8D6CA12F8052 /* GalleryDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AC7EC5DA2CB6F79F86EA91 /* GalleryDestination.swift */; };
+		6FA732DEB8F881D3E74A8BBF /* DesignOSAppleGalleryStoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15C310339302D06AC0F587 /* DesignOSAppleGalleryStoryUITests.swift */; };
+		705C5B77938BE1B97C7042E2 /* DesignOSAppleGalleryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EE91E6182239B05FA7119F /* DesignOSAppleGalleryUITests.swift */; };
+		720B02B73ED6992D3222681D /* NativeElevatedBackgroundRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67C6C77313599187BC0DAF /* NativeElevatedBackgroundRecipeGallery.swift */; };
+		7227C2CFBD6BA8320DD4A64D /* NativeTextSearchAndKeyboardInputRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4773A7D5D2234E7576CB1A37 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift */; };
+		72968DA4149BDC7F0D76F275 /* ColorRolesGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083E08E68A624A4AAD9B90CC /* ColorRolesGallery.swift */; };
+		74F3C2EA076F0B2E95904BFB /* TocChienDogfoodPilotMacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F5C156947E068A45005B6A /* TocChienDogfoodPilotMacOSApp.swift */; };
+		7AFE2E2D0D2AECE87EF494FA /* NativeMaterialAndGlassSurfaceRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0034C2B388053F93F49415 /* NativeMaterialAndGlassSurfaceRecipeGallery.swift */; };
+		7B1CFD8F6BA127F90049C135 /* NativePatternsGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B51F751CB88D790FCEF69E3 /* NativePatternsGallery.swift */; };
+		7B2F3CB9DC1EF3658A8F67CD /* FoundationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C3F175A4AD0AC46946BC88 /* FoundationGallery.swift */; };
+		7BC9AE06BF6BCE608AC84053 /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = F8DE88A4D784692B38298247 /* DesignOSAppleCatalog */; };
+		7DCB07190E702C46B42D4840 /* OmniActSettingsValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40170353EF25E9A89F7AEF04 /* OmniActSettingsValues.swift */; };
+		821E8F1F4E20B314E10D0486 /* TocChienDogfoodPilotIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C9ED10884AFDFA656A4B32 /* TocChienDogfoodPilotIOSUITests.swift */; };
+		82C22BDA98D1F7D779EA09CA /* SystemDeviceChromeHostRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */; };
+		847FFB0A9E63CB5DB1A491EA /* OmniActHUDSurfaceResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E6D3290CC1332BA3B9D850 /* OmniActHUDSurfaceResolver.swift */; };
+		8679ABE25835E135E7E669A0 /* SemanticComponentsGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3721CF3E7B1B20E9FAD1362B /* SemanticComponentsGallery.swift */; };
+		86E973053EE7192CAE511FB0 /* DogfoodCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FA37A0C2A9ABB4B106EC66 /* DogfoodCatalogView.swift */; };
+		8778566010FC3EFB281B28F4 /* AccessorySlotLayoutGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1D1598F39E58A1C21E19AB /* AccessorySlotLayoutGallery.swift */; };
+		88836FC4DB5CE61EE172E1AB /* TocChienDictionarySearchStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */; };
+		8ED60DCE882BA89F6B91D021 /* DesignOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 22D8CD9D0740D4B280209C78 /* DesignOSApple */; };
+		8F522551AA44779B144FC062 /* OmniActHUDSurfaceResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E6D3290CC1332BA3B9D850 /* OmniActHUDSurfaceResolver.swift */; };
+		8FF30DA7E988CADF6821E68A /* OmniActHUDStoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */; };
+		979601B62E92C2C487B6E2C6 /* DesignOSSurfaceRoleGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C1E33232F619B7C9A3EA17 /* DesignOSSurfaceRoleGallery.swift */; };
+		97C7AA99DE167843241F208F /* SemanticComponentsGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3721CF3E7B1B20E9FAD1362B /* SemanticComponentsGallery.swift */; };
+		99500467957D1F535762DB76 /* DesignOSAppleGalleryMacOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF843AF140600BA95DBB72D2 /* DesignOSAppleGalleryMacOSUITests.swift */; };
+		9C3C421115831703124916D4 /* OmniActSettingsValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40170353EF25E9A89F7AEF04 /* OmniActSettingsValues.swift */; };
+		9C8C452B1A3FFD13FED00DFD /* FoundationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C3F175A4AD0AC46946BC88 /* FoundationGallery.swift */; };
+		9CAF8D33362869BFA27DEAD6 /* OmniActHUDAutocompleteMaterialStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721708D2061E2790D4C38BC9 /* OmniActHUDAutocompleteMaterialStory.swift */; };
+		9CC4F5C6710D63B55EF491F8 /* TocChienNavigationTabsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */; };
+		A12EDE5216B83EC234471387 /* GalleryRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BA78C28566F3E3C659E7AE /* GalleryRootView.swift */; };
+		A1D3B3AEC63F4FDF7E6DC3F4 /* ColorRolesGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083E08E68A624A4AAD9B90CC /* ColorRolesGallery.swift */; };
+		A2CC8BDD2D714163F69C41A5 /* TocChienDictionarySearchStoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590CC544786C0D806836236C /* TocChienDictionarySearchStoryTests.swift */; };
+		A2D894EE6A333DDC26D2839C /* SectionContentLayoutGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C700841F1E013B4448C9F9 /* SectionContentLayoutGallery.swift */; };
+		A9D5B14DC877056BA198DD50 /* DogfoodStoryPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC299287F36F8A81FBCE5EE /* DogfoodStoryPresentation.swift */; };
+		AB403DFD2182963B740A2CE0 /* DogfoodStoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517CCEA3E4A27C5ED19D411 /* DogfoodStoryDetailView.swift */; };
+		AFFC79CED22015F3831C634F /* TocChienChampionHeroNegativeControlStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */; };
+		B00720560E723DEF0EB392EB /* NativeHierarchicalStyleRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE14DDA0DDA8EBEF965E57 /* NativeHierarchicalStyleRecipeGallery.swift */; };
+		BA9E9A4C172D8737B5AF06A8 /* TocChienDictionarySearchStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */; };
+		BAAC2EBBE643B8B7B0FDFF5E /* NativeProgressSliderStepperRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4212B18C0C4E90D4E2DABB /* NativeProgressSliderStepperRecipeGallery.swift */; };
+		BAB9F37F0F2DD6220E2BD5BF /* NativeHierarchicalStyleRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE14DDA0DDA8EBEF965E57 /* NativeHierarchicalStyleRecipeGallery.swift */; };
+		BBB45FB369E93ED077A24325 /* OmniActCommandRowStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333E24FF41B6A0AEAC1117A5 /* OmniActCommandRowStory.swift */; };
+		C2997BA69E000CB737F80C12 /* TocChienDictionaryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */; };
+		C40D829BFD81109FDF5014B2 /* NativePickerAndDateColorInputRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8609CC4634770DEDB038B0 /* NativePickerAndDateColorInputRecipeGallery.swift */; };
+		C47E4696C322B7EBE80C1CC9 /* NativeElevatedBackgroundRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67C6C77313599187BC0DAF /* NativeElevatedBackgroundRecipeGallery.swift */; };
+		C528A3F30D354740F8AAB03C /* TocChienNavigationTabsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */; };
+		CB9CA30785F6297D28E4470A /* NativeListSidebarAndDisclosureRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF095D555F58CBE33B3C37D4 /* NativeListSidebarAndDisclosureRecipeGallery.swift */; };
+		CD75F64647ABE8D65313B40D /* NativeNavigationTabsAndToolbarsRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2806A79C3DF6E84A41EEC7 /* NativeNavigationTabsAndToolbarsRecipeGallery.swift */; };
+		D01194CA9290CC426CE0AFCF /* DesignOSAppleGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175B28D4772D0AB169D1D8DA /* DesignOSAppleGalleryApp.swift */; };
+		D0B004867C575F7581FBA660 /* TocChienDictionarySearchStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */; };
+		D0DDB56A69F9D818D24C98EE /* SidebarToolbarContentGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1620EE2AEC0258D67EA92FE /* SidebarToolbarContentGallery.swift */; };
+		D22727DC0BB9CCBCA45ACD4B /* DesignOSListRowGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012957187BD147BE906FC5F7 /* DesignOSListRowGallery.swift */; };
+		D59027F8E3BC8091A2E29155 /* GalleryDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AC7EC5DA2CB6F79F86EA91 /* GalleryDestination.swift */; };
+		D8CE7D566E6E14EE0CE765CC /* TocChienDictionaryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */; };
+		DB0E67CC4EF4CA5B643F6C2C /* TocChienChampionHeroNegativeControlStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */; };
+		DC8CBE3E298717B4EEC6F5B1 /* TocChienChampionHeroNegativeControlStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */; };
+		DD755EB9ED4E4FAB613FCBDC /* NativeHomeScreenQuickActionRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25507FDA6E89B072605F80CF /* NativeHomeScreenQuickActionRecipeGallery.swift */; };
+		E3DF293BB8BF4EAE8D3D7566 /* ExtensionWidgetGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF643513D486306209ABF7A2 /* ExtensionWidgetGallery.swift */; };
+		E7D9F5F5218C42A80E4B9B14 /* ExtensionWidgetGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF643513D486306209ABF7A2 /* ExtensionWidgetGallery.swift */; };
+		E8E0F4E08C7741E74451A445 /* OmniActSettingsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883077849A601D9C46DA1ED0 /* OmniActSettingsStory.swift */; };
+		EA5FDAAB3FEA60AEADC30CC3 /* PlatformSemanticColorGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC46EA82AF667853F2E03A7 /* PlatformSemanticColorGallery.swift */; };
+		EB3564342434852A03F9A01F /* NativeProgressSliderStepperRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4212B18C0C4E90D4E2DABB /* NativeProgressSliderStepperRecipeGallery.swift */; };
+		ED2581C17F3A1FB99BC6155E /* DogfoodStoryHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D146C7809C759A60EF8AB /* DogfoodStoryHost.swift */; };
+		EF44D9500DB2418D48488150 /* DogfoodStoryPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC299287F36F8A81FBCE5EE /* DogfoodStoryPresentation.swift */; };
+		F01CF64539579A45746C96D3 /* DogfoodStoryRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29D24EA0CC61C2A16D5324A /* DogfoodStoryRenderer.swift */; };
+		F16DC7E91D78CCDF8B815D3E /* TocChienDictionaryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */; };
+		F31CA7B2079534D6E813D62B /* GalleryOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDD8191EBF6443CB8CA051 /* GalleryOverview.swift */; };
+		F3C89189F15E24FFE74DDA2F /* OmniActSettingsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883077849A601D9C46DA1ED0 /* OmniActSettingsStory.swift */; };
+		F6AF147C9F0F3D0B479426C3 /* SectionContentLayoutGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C700841F1E013B4448C9F9 /* SectionContentLayoutGallery.swift */; };
+		F6D80580BE47A6B5469F40E3 /* TocChienDogfoodPilotIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E643A669C3D7798558357BC8 /* TocChienDogfoodPilotIOSApp.swift */; };
+		F94E73E46EA692839683EAFE /* NativeMenuContextAndEditActionsRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF41CE35844BEBDC5941B583 /* NativeMenuContextAndEditActionsRecipeGallery.swift */; };
+		FC3ACBC3846CABDA7B7DDA70 /* SymbolContentGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE82CB9429607CE65B3816F /* SymbolContentGallery.swift */; };
+		FF42A758A7601803914417EF /* NativeButtonAndToolbarActionRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF991A581F87850993D6CE /* NativeButtonAndToolbarActionRecipeGallery.swift */; };
+		FF8A0EF92FC7DA74C0610E1A /* TocChienDogfoodPilotRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326865195E496FA93B392F8 /* TocChienDogfoodPilotRootView.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		65A33D0F07167B3B2F991898 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40882047C6EDF630B5B3773E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D07BB0E29B41AF7D3D68775B;
+			remoteInfo = "DesignOSAppleGallery-macOS";
+		};
+		823C23F565732172F9BD16FF /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40882047C6EDF630B5B3773E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 289BE81CFA4E6AC4E08FAB0C;
+			remoteInfo = "DesignOSAppleGallery-iOS";
+		};
+		90AF5E2BA36D8D869BB36E02 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40882047C6EDF630B5B3773E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DCA60AD54516606C7B3CC920;
+			remoteInfo = "TocChienDogfoodPilot-iOS";
+		};
+		A124CC842F3A727E29D8833D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40882047C6EDF630B5B3773E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 3FC2C80B6E9CD6007342AD05;
+			remoteInfo = "TocChienDogfoodPilot-macOS";
+		};
+		EF5ACA9C6EACC00AF218B5AB /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 40882047C6EDF630B5B3773E /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = D07BB0E29B41AF7D3D68775B;
+			remoteInfo = "DesignOSAppleGallery-macOS";
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		012957187BD147BE906FC5F7 /* DesignOSListRowGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSListRowGallery.swift; sourceTree = "<group>"; };
+		03AF991A581F87850993D6CE /* NativeButtonAndToolbarActionRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButtonAndToolbarActionRecipeGallery.swift; sourceTree = "<group>"; };
+		03CB4693C18E657C87B1E24B /* TocChienDogfoodPilot-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "TocChienDogfoodPilot-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		083E08E68A624A4AAD9B90CC /* ColorRolesGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRolesGallery.swift; sourceTree = "<group>"; };
+		0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienChampionHeroNegativeControlStory.swift; sourceTree = "<group>"; };
+		11FA37A0C2A9ABB4B106EC66 /* DogfoodCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodCatalogView.swift; sourceTree = "<group>"; };
+		14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActHUDStoryFixtures.swift; sourceTree = "<group>"; };
+		1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienNavigationTabsStory.swift; sourceTree = "<group>"; };
+		175B28D4772D0AB169D1D8DA /* DesignOSAppleGalleryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryApp.swift; sourceTree = "<group>"; };
+		25507FDA6E89B072605F80CF /* NativeHomeScreenQuickActionRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeHomeScreenQuickActionRecipeGallery.swift; sourceTree = "<group>"; };
+		2C3D88295D07CA8EF5F8D4E8 /* NativePresentationAndShareRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePresentationAndShareRecipeGallery.swift; sourceTree = "<group>"; };
+		2E4F81EBB6144750854AC798 /* DesignOSAppleGalleryRendererTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignOSAppleGalleryRendererTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		333E24FF41B6A0AEAC1117A5 /* OmniActCommandRowStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActCommandRowStory.swift; sourceTree = "<group>"; };
+		3721CF3E7B1B20E9FAD1362B /* SemanticComponentsGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticComponentsGallery.swift; sourceTree = "<group>"; };
+		388FA0370B5FD45C079F024F /* DogfoodStoryPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryPresentationTests.swift; sourceTree = "<group>"; };
+		38BA78C28566F3E3C659E7AE /* GalleryRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryRootView.swift; sourceTree = "<group>"; };
+		3C9241B39B420B83AF5F0131 /* TocChienDogfoodPilotMacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TocChienDogfoodPilotMacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3F9B4823F9DE4E5E6778FFFC /* DogfoodStoryRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryRendererTests.swift; sourceTree = "<group>"; };
+		40170353EF25E9A89F7AEF04 /* OmniActSettingsValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActSettingsValues.swift; sourceTree = "<group>"; };
+		4517CCEA3E4A27C5ED19D411 /* DogfoodStoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryDetailView.swift; sourceTree = "<group>"; };
+		4773A7D5D2234E7576CB1A37 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTextSearchAndKeyboardInputRecipeGallery.swift; sourceTree = "<group>"; };
+		49C9ED10884AFDFA656A4B32 /* TocChienDogfoodPilotIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotIOSUITests.swift; sourceTree = "<group>"; };
+		4B51F751CB88D790FCEF69E3 /* NativePatternsGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePatternsGallery.swift; sourceTree = "<group>"; };
+		521289D2284DB609D8EACB53 /* design-os-apple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "design-os-apple"; path = ../..; sourceTree = SOURCE_ROOT; };
+		52F71F7CFF73D1B9E95CBF09 /* NativeContentUnavailableViewRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeContentUnavailableViewRecipeGallery.swift; sourceTree = "<group>"; };
+		533131D89D4C414FC902C1B1 /* ExtensionControlWidgetGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionControlWidgetGallery.swift; sourceTree = "<group>"; };
+		543DEFAEE66A677E0AA581C0 /* DogfoodStoryCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryCanvas.swift; sourceTree = "<group>"; };
+		590CC544786C0D806836236C /* TocChienDictionarySearchStoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDictionarySearchStoryTests.swift; sourceTree = "<group>"; };
+		64C700841F1E013B4448C9F9 /* SectionContentLayoutGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionContentLayoutGallery.swift; sourceTree = "<group>"; };
+		676C0EB3405ADD45F9F038EB /* TocChienDogfoodPilotMacOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotMacOSUITests.swift; sourceTree = "<group>"; };
+		68C1E33232F619B7C9A3EA17 /* DesignOSSurfaceRoleGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSSurfaceRoleGallery.swift; sourceTree = "<group>"; };
+		696C4D62D5AC9782090828BD /* OmniActHUDSurfaceResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActHUDSurfaceResolverTests.swift; sourceTree = "<group>"; };
+		6E1D1598F39E58A1C21E19AB /* AccessorySlotLayoutGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessorySlotLayoutGallery.swift; sourceTree = "<group>"; };
+		713C309D547FA3BD576536A3 /* DesignOSAppleGalleryUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DesignOSAppleGalleryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		721708D2061E2790D4C38BC9 /* OmniActHUDAutocompleteMaterialStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActHUDAutocompleteMaterialStory.swift; sourceTree = "<group>"; };
+		73EE91E6182239B05FA7119F /* DesignOSAppleGalleryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryUITests.swift; sourceTree = "<group>"; };
+		7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDictionarySearchStory.swift; sourceTree = "<group>"; };
+		7E2806A79C3DF6E84A41EEC7 /* NativeNavigationTabsAndToolbarsRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeNavigationTabsAndToolbarsRecipeGallery.swift; sourceTree = "<group>"; };
+		81C3F175A4AD0AC46946BC88 /* FoundationGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationGallery.swift; sourceTree = "<group>"; };
+		86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDeviceChromeHostRecipeGallery.swift; sourceTree = "<group>"; };
+		883077849A601D9C46DA1ED0 /* OmniActSettingsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActSettingsStory.swift; sourceTree = "<group>"; };
+		8C0034C2B388053F93F49415 /* NativeMaterialAndGlassSurfaceRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMaterialAndGlassSurfaceRecipeGallery.swift; sourceTree = "<group>"; };
+		8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDictionaryFixtures.swift; sourceTree = "<group>"; };
+		8D4212B18C0C4E90D4E2DABB /* NativeProgressSliderStepperRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeProgressSliderStepperRecipeGallery.swift; sourceTree = "<group>"; };
+		8F0C79274625AC3DFCD133CE /* DesignOSAppleGallery-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DesignOSAppleGallery-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9096B19F35408FC6CB714804 /* DesignOSAppleGallery-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "DesignOSAppleGallery-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		93BEB1CFC87C7B319F64ACF2 /* DesignOSAppleGalleryMacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignOSAppleGalleryMacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		95FE14DDA0DDA8EBEF965E57 /* NativeHierarchicalStyleRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeHierarchicalStyleRecipeGallery.swift; sourceTree = "<group>"; };
+		987B12921BF59EF1B6CDA16E /* DesignOSSidebarRowGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSSidebarRowGallery.swift; sourceTree = "<group>"; };
+		9A67C6C77313599187BC0DAF /* NativeElevatedBackgroundRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeElevatedBackgroundRecipeGallery.swift; sourceTree = "<group>"; };
+		A29D24EA0CC61C2A16D5324A /* DogfoodStoryRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryRenderer.swift; sourceTree = "<group>"; };
+		AF095D555F58CBE33B3C37D4 /* NativeListSidebarAndDisclosureRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeListSidebarAndDisclosureRecipeGallery.swift; sourceTree = "<group>"; };
+		AF843AF140600BA95DBB72D2 /* DesignOSAppleGalleryMacOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryMacOSUITests.swift; sourceTree = "<group>"; };
+		B31D146C7809C759A60EF8AB /* DogfoodStoryHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryHost.swift; sourceTree = "<group>"; };
+		B7AC7EC5DA2CB6F79F86EA91 /* GalleryDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryDestination.swift; sourceTree = "<group>"; };
+		B9EB0A21C5E6E4436D7EC079 /* DogfoodCatalogViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodCatalogViewTests.swift; sourceTree = "<group>"; };
+		BF643513D486306209ABF7A2 /* ExtensionWidgetGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionWidgetGallery.swift; sourceTree = "<group>"; };
+		C08F81C2A43ABF3072F485F2 /* TocChienDogfoodPilot-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TocChienDogfoodPilot-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C3BDD8191EBF6443CB8CA051 /* GalleryOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryOverview.swift; sourceTree = "<group>"; };
+		C8E6D3290CC1332BA3B9D850 /* OmniActHUDSurfaceResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActHUDSurfaceResolver.swift; sourceTree = "<group>"; };
+		CCC46EA82AF667853F2E03A7 /* PlatformSemanticColorGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformSemanticColorGallery.swift; sourceTree = "<group>"; };
+		CF41CE35844BEBDC5941B583 /* NativeMenuContextAndEditActionsRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMenuContextAndEditActionsRecipeGallery.swift; sourceTree = "<group>"; };
+		D07A7A368D9CC42208ACB5D4 /* ProjectMembershipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMembershipTests.swift; sourceTree = "<group>"; };
+		D1620EE2AEC0258D67EA92FE /* SidebarToolbarContentGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarToolbarContentGallery.swift; sourceTree = "<group>"; };
+		D7730332CD46BBA35FC21DE0 /* DesignOSAppleGalleryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryApp.swift; sourceTree = "<group>"; };
+		D9AD5785BA6E2806223B0C80 /* ProfileCustomizationGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCustomizationGallery.swift; sourceTree = "<group>"; };
+		DCC299287F36F8A81FBCE5EE /* DogfoodStoryPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryPresentation.swift; sourceTree = "<group>"; };
+		DFE82CB9429607CE65B3816F /* SymbolContentGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolContentGallery.swift; sourceTree = "<group>"; };
+		E0F5C156947E068A45005B6A /* TocChienDogfoodPilotMacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotMacOSApp.swift; sourceTree = "<group>"; };
+		E643A669C3D7798558357BC8 /* TocChienDogfoodPilotIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotIOSApp.swift; sourceTree = "<group>"; };
+		EC15C310339302D06AC0F587 /* DesignOSAppleGalleryStoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryStoryUITests.swift; sourceTree = "<group>"; };
+		F326865195E496FA93B392F8 /* TocChienDogfoodPilotRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotRootView.swift; sourceTree = "<group>"; };
+		FBC14194281D161F1670E256 /* TocChienDogfoodPilotIOSUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TocChienDogfoodPilotIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		FC8609CC4634770DEDB038B0 /* NativePickerAndDateColorInputRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePickerAndDateColorInputRecipeGallery.swift; sourceTree = "<group>"; };
+		FF794C8D5109B50FABAE9F16 /* TypographyGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyGallery.swift; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		4DD1A85A2B720E8AD63CB293 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				7BC9AE06BF6BCE608AC84053 /* DesignOSAppleCatalog in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		5AAD5B9E54CD2DA67C068974 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44FB7928225C9508F7433195 /* DesignOSApple in Frameworks */,
+				43A50DF2029E3BA83C3FF3F4 /* DesignOSAppleCatalog in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		669E66C6A3C1F6E45F1D027D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8ED60DCE882BA89F6B91D021 /* DesignOSApple in Frameworks */,
+				2907843376976C51E446BB78 /* DesignOSAppleCatalog in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C0DD8B5AC36317C19152EB48 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				3916309218337CB26A8438B0 /* DesignOSApple in Frameworks */,
+				59368A697B6DC3D41E82B1CA /* DesignOSAppleCatalog in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		F4A26C0E99CF071ADC11DBE1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				03B3B6BD7D6E5D0438854024 /* DesignOSApple in Frameworks */,
+				6B0D8DD09FD84695321E7C7A /* DesignOSAppleCatalog in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		10E9E545799C43B8C644F597 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				533131D89D4C414FC902C1B1 /* ExtensionControlWidgetGallery.swift */,
+				BF643513D486306209ABF7A2 /* ExtensionWidgetGallery.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		11DC5496A35713BF538C6ACE /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				012957187BD147BE906FC5F7 /* DesignOSListRowGallery.swift */,
+				987B12921BF59EF1B6CDA16E /* DesignOSSidebarRowGallery.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		15DE3DAAE30096D877651196 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				E0F5C156947E068A45005B6A /* TocChienDogfoodPilotMacOSApp.swift */,
+			);
+			name = macOS;
+			path = App/TocChien/macOS;
+			sourceTree = "<group>";
+		};
+		2744D48D2C4A8A6E914E9C1E /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				E643A669C3D7798558357BC8 /* TocChienDogfoodPilotIOSApp.swift */,
+			);
+			name = iOS;
+			path = App/TocChien/iOS;
+			sourceTree = "<group>";
+		};
+		2B27FFAE754389708C80FAA8 /* Primitives */ = {
+			isa = PBXGroup;
+			children = (
+				6E1D1598F39E58A1C21E19AB /* AccessorySlotLayoutGallery.swift */,
+				64C700841F1E013B4448C9F9 /* SectionContentLayoutGallery.swift */,
+				D1620EE2AEC0258D67EA92FE /* SidebarToolbarContentGallery.swift */,
+				DFE82CB9429607CE65B3816F /* SymbolContentGallery.swift */,
+			);
+			path = Primitives;
+			sourceTree = "<group>";
+		};
+		34B875998437754D1FE2DB9A /* Packages */ = {
+			isa = PBXGroup;
+			children = (
+				521289D2284DB609D8EACB53 /* design-os-apple */,
+			);
+			name = Packages;
+			sourceTree = "<group>";
+		};
+		3CC55E6B1BE5E540D778293A /* GalleryRendererTests */ = {
+			isa = PBXGroup;
+			children = (
+				B9EB0A21C5E6E4436D7EC079 /* DogfoodCatalogViewTests.swift */,
+				388FA0370B5FD45C079F024F /* DogfoodStoryPresentationTests.swift */,
+				3F9B4823F9DE4E5E6778FFFC /* DogfoodStoryRendererTests.swift */,
+				696C4D62D5AC9782090828BD /* OmniActHUDSurfaceResolverTests.swift */,
+				590CC544786C0D806836236C /* TocChienDictionarySearchStoryTests.swift */,
+			);
+			name = GalleryRendererTests;
+			path = Tests/GalleryRendererTests;
+			sourceTree = "<group>";
+		};
+		3E421EFC9EF0ACDD9C04AD32 /* UITests */ = {
+			isa = PBXGroup;
+			children = (
+				EC15C310339302D06AC0F587 /* DesignOSAppleGalleryStoryUITests.swift */,
+				73EE91E6182239B05FA7119F /* DesignOSAppleGalleryUITests.swift */,
+			);
+			path = UITests;
+			sourceTree = "<group>";
+		};
+		41C63B4DD52DAA030BF91518 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				81C3F175A4AD0AC46946BC88 /* FoundationGallery.swift */,
+				B7AC7EC5DA2CB6F79F86EA91 /* GalleryDestination.swift */,
+				C3BDD8191EBF6443CB8CA051 /* GalleryOverview.swift */,
+				38BA78C28566F3E3C659E7AE /* GalleryRootView.swift */,
+				4B51F751CB88D790FCEF69E3 /* NativePatternsGallery.swift */,
+				3721CF3E7B1B20E9FAD1362B /* SemanticComponentsGallery.swift */,
+			);
+			name = Shared;
+			path = App/Shared;
+			sourceTree = "<group>";
+		};
+		5EA45D20EA658FEC806352AC = {
+			isa = PBXGroup;
+			children = (
+				083E08E68A624A4AAD9B90CC /* ColorRolesGallery.swift */,
+				68C1E33232F619B7C9A3EA17 /* DesignOSSurfaceRoleGallery.swift */,
+				03AF991A581F87850993D6CE /* NativeButtonAndToolbarActionRecipeGallery.swift */,
+				52F71F7CFF73D1B9E95CBF09 /* NativeContentUnavailableViewRecipeGallery.swift */,
+				9A67C6C77313599187BC0DAF /* NativeElevatedBackgroundRecipeGallery.swift */,
+				95FE14DDA0DDA8EBEF965E57 /* NativeHierarchicalStyleRecipeGallery.swift */,
+				25507FDA6E89B072605F80CF /* NativeHomeScreenQuickActionRecipeGallery.swift */,
+				AF095D555F58CBE33B3C37D4 /* NativeListSidebarAndDisclosureRecipeGallery.swift */,
+				8C0034C2B388053F93F49415 /* NativeMaterialAndGlassSurfaceRecipeGallery.swift */,
+				CF41CE35844BEBDC5941B583 /* NativeMenuContextAndEditActionsRecipeGallery.swift */,
+				7E2806A79C3DF6E84A41EEC7 /* NativeNavigationTabsAndToolbarsRecipeGallery.swift */,
+				FC8609CC4634770DEDB038B0 /* NativePickerAndDateColorInputRecipeGallery.swift */,
+				2C3D88295D07CA8EF5F8D4E8 /* NativePresentationAndShareRecipeGallery.swift */,
+				8D4212B18C0C4E90D4E2DABB /* NativeProgressSliderStepperRecipeGallery.swift */,
+				4773A7D5D2234E7576CB1A37 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift */,
+				CCC46EA82AF667853F2E03A7 /* PlatformSemanticColorGallery.swift */,
+				D9AD5785BA6E2806223B0C80 /* ProfileCustomizationGallery.swift */,
+				86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */,
+				FF794C8D5109B50FABAE9F16 /* TypographyGallery.swift */,
+				11DC5496A35713BF538C6ACE /* Components */,
+				10E9E545799C43B8C644F597 /* Extensions */,
+				F08FF8FCA90188B61E6F5620 /* Gallery */,
+				85447D6C17E9224ECFE2F5ED /* GalleryMacOS */,
+				3CC55E6B1BE5E540D778293A /* GalleryRendererTests */,
+				939CC3D117BC037A24F5E99C /* iOS */,
+				2744D48D2C4A8A6E914E9C1E /* iOS */,
+				C72957E0DBCC65B076B4CF9B /* iOS */,
+				5F3830292A71747C69981979 /* macOS */,
+				15DE3DAAE30096D877651196 /* macOS */,
+				61F08477B467F8152E44CA9E /* macOS */,
+				34B875998437754D1FE2DB9A /* Packages */,
+				2B27FFAE754389708C80FAA8 /* Primitives */,
+				D4B0D21127CE92A1A1611705 /* ProjectMembershipTests */,
+				41C63B4DD52DAA030BF91518 /* Shared */,
+				E3A0D66A9D6637F5F4347957 /* Shared */,
+				7BF1AF8A276C40956198F2FD /* TocChien */,
+				3E421EFC9EF0ACDD9C04AD32 /* UITests */,
+				C8A5E5FB76684FC6211FA1E9 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		5F3830292A71747C69981979 /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				D7730332CD46BBA35FC21DE0 /* DesignOSAppleGalleryApp.swift */,
+			);
+			name = macOS;
+			path = App/macOS;
+			sourceTree = "<group>";
+		};
+		61F08477B467F8152E44CA9E /* macOS */ = {
+			isa = PBXGroup;
+			children = (
+				676C0EB3405ADD45F9F038EB /* TocChienDogfoodPilotMacOSUITests.swift */,
+			);
+			name = macOS;
+			path = UITests/TocChien/macOS;
+			sourceTree = "<group>";
+		};
+		7BF1AF8A276C40956198F2FD /* TocChien */ = {
+			isa = PBXGroup;
+			children = (
+				F326865195E496FA93B392F8 /* TocChienDogfoodPilotRootView.swift */,
+			);
+			name = TocChien;
+			path = App/Shared/Dogfood/TocChien;
+			sourceTree = "<group>";
+		};
+		85447D6C17E9224ECFE2F5ED /* GalleryMacOS */ = {
+			isa = PBXGroup;
+			children = (
+				AF843AF140600BA95DBB72D2 /* DesignOSAppleGalleryMacOSUITests.swift */,
+			);
+			name = GalleryMacOS;
+			path = UITests/GalleryMacOS;
+			sourceTree = "<group>";
+		};
+		939CC3D117BC037A24F5E99C /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				175B28D4772D0AB169D1D8DA /* DesignOSAppleGalleryApp.swift */,
+			);
+			name = iOS;
+			path = App/iOS;
+			sourceTree = "<group>";
+		};
+		C72957E0DBCC65B076B4CF9B /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				49C9ED10884AFDFA656A4B32 /* TocChienDogfoodPilotIOSUITests.swift */,
+			);
+			name = iOS;
+			path = UITests/TocChien/iOS;
+			sourceTree = "<group>";
+		};
+		C8A5E5FB76684FC6211FA1E9 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				9096B19F35408FC6CB714804 /* DesignOSAppleGallery-iOS.app */,
+				8F0C79274625AC3DFCD133CE /* DesignOSAppleGallery-macOS.app */,
+				93BEB1CFC87C7B319F64ACF2 /* DesignOSAppleGalleryMacOSUITests.xctest */,
+				2E4F81EBB6144750854AC798 /* DesignOSAppleGalleryRendererTests.xctest */,
+				713C309D547FA3BD576536A3 /* DesignOSAppleGalleryUITests.xctest */,
+				03CB4693C18E657C87B1E24B /* TocChienDogfoodPilot-iOS.app */,
+				C08F81C2A43ABF3072F485F2 /* TocChienDogfoodPilot-macOS.app */,
+				FBC14194281D161F1670E256 /* TocChienDogfoodPilotIOSUITests.xctest */,
+				3C9241B39B420B83AF5F0131 /* TocChienDogfoodPilotMacOSUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		D4B0D21127CE92A1A1611705 /* ProjectMembershipTests */ = {
+			isa = PBXGroup;
+			children = (
+				D07A7A368D9CC42208ACB5D4 /* ProjectMembershipTests.swift */,
+			);
+			name = ProjectMembershipTests;
+			path = Tests/ProjectMembershipTests;
+			sourceTree = "<group>";
+		};
+		E3A0D66A9D6637F5F4347957 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				333E24FF41B6A0AEAC1117A5 /* OmniActCommandRowStory.swift */,
+				721708D2061E2790D4C38BC9 /* OmniActHUDAutocompleteMaterialStory.swift */,
+				14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */,
+				C8E6D3290CC1332BA3B9D850 /* OmniActHUDSurfaceResolver.swift */,
+				883077849A601D9C46DA1ED0 /* OmniActSettingsStory.swift */,
+				40170353EF25E9A89F7AEF04 /* OmniActSettingsValues.swift */,
+				0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */,
+				8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */,
+				7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */,
+				1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */,
+			);
+			name = Shared;
+			path = App/Shared/Dogfood/Shared;
+			sourceTree = "<group>";
+		};
+		F08FF8FCA90188B61E6F5620 /* Gallery */ = {
+			isa = PBXGroup;
+			children = (
+				11FA37A0C2A9ABB4B106EC66 /* DogfoodCatalogView.swift */,
+				543DEFAEE66A677E0AA581C0 /* DogfoodStoryCanvas.swift */,
+				4517CCEA3E4A27C5ED19D411 /* DogfoodStoryDetailView.swift */,
+				B31D146C7809C759A60EF8AB /* DogfoodStoryHost.swift */,
+				DCC299287F36F8A81FBCE5EE /* DogfoodStoryPresentation.swift */,
+				A29D24EA0CC61C2A16D5324A /* DogfoodStoryRenderer.swift */,
+			);
+			name = Gallery;
+			path = App/Shared/Dogfood/Gallery;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		02EB6AF1CFB1AB6A880BBA7A /* DesignOSAppleGalleryMacOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E2D4E654805CA0FFE0DEE1D0 /* Build configuration list for PBXNativeTarget "DesignOSAppleGalleryMacOSUITests" */;
+			buildPhases = (
+				54885A591C6A1BD1FD0173D5 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				35A56E6D20ADA057DF3AC26E /* PBXTargetDependency */,
+			);
+			name = DesignOSAppleGalleryMacOSUITests;
+			packageProductDependencies = (
+			);
+			productName = DesignOSAppleGalleryMacOSUITests;
+			productReference = 93BEB1CFC87C7B319F64ACF2 /* DesignOSAppleGalleryMacOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		113B8DD97FCB2EC4DFC2BE90 /* TocChienDogfoodPilotIOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 576852A46577A6251FEB79EF /* Build configuration list for PBXNativeTarget "TocChienDogfoodPilotIOSUITests" */;
+			buildPhases = (
+				36C25E6266268A19EFFC6BDC /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				8C5EB275445ECA22D1183FAB /* PBXTargetDependency */,
+			);
+			name = TocChienDogfoodPilotIOSUITests;
+			packageProductDependencies = (
+			);
+			productName = TocChienDogfoodPilotIOSUITests;
+			productReference = FBC14194281D161F1670E256 /* TocChienDogfoodPilotIOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		130458467FB4DFF288EBD387 /* DesignOSAppleGalleryUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 7BF0CFA34C7A7DE45F30FE9B /* Build configuration list for PBXNativeTarget "DesignOSAppleGalleryUITests" */;
+			buildPhases = (
+				8109F5DB0B8EC6CF4F526D5E /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				0150EDBA9E68DC98D10D616B /* PBXTargetDependency */,
+			);
+			name = DesignOSAppleGalleryUITests;
+			packageProductDependencies = (
+			);
+			productName = DesignOSAppleGalleryUITests;
+			productReference = 713C309D547FA3BD576536A3 /* DesignOSAppleGalleryUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		289BE81CFA4E6AC4E08FAB0C /* DesignOSAppleGallery-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = BB7EC5384585D84708BC8D67 /* Build configuration list for PBXNativeTarget "DesignOSAppleGallery-iOS" */;
+			buildPhases = (
+				4458715B3713948BDB3F413E /* Sources */,
+				5AAD5B9E54CD2DA67C068974 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DesignOSAppleGallery-iOS";
+			packageProductDependencies = (
+				3B62A34CB2C435FBC19908CC /* DesignOSApple */,
+				AF9ABC16C9FA2168F24CA305 /* DesignOSAppleCatalog */,
+			);
+			productName = "DesignOSAppleGallery-iOS";
+			productReference = 9096B19F35408FC6CB714804 /* DesignOSAppleGallery-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		3FC2C80B6E9CD6007342AD05 /* TocChienDogfoodPilot-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 988AFBF2A176620A60C69E28 /* Build configuration list for PBXNativeTarget "TocChienDogfoodPilot-macOS" */;
+			buildPhases = (
+				EE83EBB8B0611C00533BCE7B /* Sources */,
+				C0DD8B5AC36317C19152EB48 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TocChienDogfoodPilot-macOS";
+			packageProductDependencies = (
+				2E41B938001E8FD2E15668C3 /* DesignOSApple */,
+				A4D3B50DEA39F8939EE3FB3D /* DesignOSAppleCatalog */,
+			);
+			productName = "TocChienDogfoodPilot-macOS";
+			productReference = C08F81C2A43ABF3072F485F2 /* TocChienDogfoodPilot-macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		544207536A05A12FCF3ADE7B /* DesignOSAppleGalleryRendererTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 5734106557ED0AEC57A6BB1E /* Build configuration list for PBXNativeTarget "DesignOSAppleGalleryRendererTests" */;
+			buildPhases = (
+				2B8F9D126ADB79E6520D53CA /* Sources */,
+				4DD1A85A2B720E8AD63CB293 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				A52CA258BB0915BFB33A5861 /* PBXTargetDependency */,
+			);
+			name = DesignOSAppleGalleryRendererTests;
+			packageProductDependencies = (
+				F8DE88A4D784692B38298247 /* DesignOSAppleCatalog */,
+			);
+			productName = DesignOSAppleGalleryRendererTests;
+			productReference = 2E4F81EBB6144750854AC798 /* DesignOSAppleGalleryRendererTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		D07BB0E29B41AF7D3D68775B /* DesignOSAppleGallery-macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 2DC71E19184D4A4F6A25514B /* Build configuration list for PBXNativeTarget "DesignOSAppleGallery-macOS" */;
+			buildPhases = (
+				E68D4169B383C0086FF302C4 /* Sources */,
+				F4A26C0E99CF071ADC11DBE1 /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "DesignOSAppleGallery-macOS";
+			packageProductDependencies = (
+				AA805DF8088A8900868B5563 /* DesignOSApple */,
+				334780B6AFC0EDC1F33912FD /* DesignOSAppleCatalog */,
+			);
+			productName = "DesignOSAppleGallery-macOS";
+			productReference = 8F0C79274625AC3DFCD133CE /* DesignOSAppleGallery-macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+		D3BCD4054FA84C1EA96A3E6B /* TocChienDogfoodPilotMacOSUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1CE71BF54B80F33D1C72A1FA /* Build configuration list for PBXNativeTarget "TocChienDogfoodPilotMacOSUITests" */;
+			buildPhases = (
+				8258CDE87892B277AFB6B8D7 /* Sources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				16F7E412CFC4CF73ECAD9F32 /* PBXTargetDependency */,
+			);
+			name = TocChienDogfoodPilotMacOSUITests;
+			packageProductDependencies = (
+			);
+			productName = TocChienDogfoodPilotMacOSUITests;
+			productReference = 3C9241B39B420B83AF5F0131 /* TocChienDogfoodPilotMacOSUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+		DCA60AD54516606C7B3CC920 /* TocChienDogfoodPilot-iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 4FD9822BD4E7544F3FB1766A /* Build configuration list for PBXNativeTarget "TocChienDogfoodPilot-iOS" */;
+			buildPhases = (
+				B75999A0A82039D1F96778D7 /* Sources */,
+				669E66C6A3C1F6E45F1D027D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "TocChienDogfoodPilot-iOS";
+			packageProductDependencies = (
+				22D8CD9D0740D4B280209C78 /* DesignOSApple */,
+				70A98C4722E9DD62F0B4CA3D /* DesignOSAppleCatalog */,
+			);
+			productName = "TocChienDogfoodPilot-iOS";
+			productReference = 03CB4693C18E657C87B1E24B /* TocChienDogfoodPilot-iOS.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		40882047C6EDF630B5B3773E /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = YES;
+				LastUpgradeCheck = 1430;
+				TargetAttributes = {
+					02EB6AF1CFB1AB6A880BBA7A = {
+						TestTargetID = D07BB0E29B41AF7D3D68775B;
+					};
+					113B8DD97FCB2EC4DFC2BE90 = {
+						TestTargetID = DCA60AD54516606C7B3CC920;
+					};
+					130458467FB4DFF288EBD387 = {
+						TestTargetID = 289BE81CFA4E6AC4E08FAB0C;
+					};
+					544207536A05A12FCF3ADE7B = {
+						TestTargetID = D07BB0E29B41AF7D3D68775B;
+					};
+					D3BCD4054FA84C1EA96A3E6B = {
+						TestTargetID = 3FC2C80B6E9CD6007342AD05;
+					};
+				};
+			};
+			buildConfigurationList = 1C3344B3F65590A342E1BCC0 /* Build configuration list for PBXProject "DesignOSAppleGallery" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				Base,
+				en,
+			);
+			mainGroup = 5EA45D20EA658FEC806352AC;
+			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				8A967B6E7EC27D6DBB7471D5 /* XCLocalSwiftPackageReference "../.." */,
+			);
+			preferredProjectObjectVersion = 77;
+			productRefGroup = C8A5E5FB76684FC6211FA1E9 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				289BE81CFA4E6AC4E08FAB0C /* DesignOSAppleGallery-iOS */,
+				D07BB0E29B41AF7D3D68775B /* DesignOSAppleGallery-macOS */,
+				02EB6AF1CFB1AB6A880BBA7A /* DesignOSAppleGalleryMacOSUITests */,
+				544207536A05A12FCF3ADE7B /* DesignOSAppleGalleryRendererTests */,
+				130458467FB4DFF288EBD387 /* DesignOSAppleGalleryUITests */,
+				DCA60AD54516606C7B3CC920 /* TocChienDogfoodPilot-iOS */,
+				3FC2C80B6E9CD6007342AD05 /* TocChienDogfoodPilot-macOS */,
+				113B8DD97FCB2EC4DFC2BE90 /* TocChienDogfoodPilotIOSUITests */,
+				D3BCD4054FA84C1EA96A3E6B /* TocChienDogfoodPilotMacOSUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		2B8F9D126ADB79E6520D53CA /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1FA985EC49581EBEC26F9B52 /* DogfoodCatalogViewTests.swift in Sources */,
+				2B1CE58AC72476ED3F036AF3 /* DogfoodStoryPresentationTests.swift in Sources */,
+				61BEBB33D68FCC371FA4C72E /* DogfoodStoryRendererTests.swift in Sources */,
+				3EC0811F1668F864D8BAE13B /* OmniActHUDSurfaceResolverTests.swift in Sources */,
+				412F847E020CA87533D7A489 /* ProjectMembershipTests.swift in Sources */,
+				A2CC8BDD2D714163F69C41A5 /* TocChienDictionarySearchStoryTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		36C25E6266268A19EFFC6BDC /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				821E8F1F4E20B314E10D0486 /* TocChienDogfoodPilotIOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4458715B3713948BDB3F413E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				52911C822953EFD0A19CC433 /* AccessorySlotLayoutGallery.swift in Sources */,
+				A1D3B3AEC63F4FDF7E6DC3F4 /* ColorRolesGallery.swift in Sources */,
+				D01194CA9290CC426CE0AFCF /* DesignOSAppleGalleryApp.swift in Sources */,
+				D22727DC0BB9CCBCA45ACD4B /* DesignOSListRowGallery.swift in Sources */,
+				3D4C933865F34C6A977C040D /* DesignOSSidebarRowGallery.swift in Sources */,
+				979601B62E92C2C487B6E2C6 /* DesignOSSurfaceRoleGallery.swift in Sources */,
+				86E973053EE7192CAE511FB0 /* DogfoodCatalogView.swift in Sources */,
+				599BB22E152919D9A3AE49F3 /* DogfoodStoryCanvas.swift in Sources */,
+				6533D17EA1243859DFED1005 /* DogfoodStoryDetailView.swift in Sources */,
+				ED2581C17F3A1FB99BC6155E /* DogfoodStoryHost.swift in Sources */,
+				EF44D9500DB2418D48488150 /* DogfoodStoryPresentation.swift in Sources */,
+				F01CF64539579A45746C96D3 /* DogfoodStoryRenderer.swift in Sources */,
+				59ED11130FCE78F0CCEBDFE7 /* ExtensionControlWidgetGallery.swift in Sources */,
+				E7D9F5F5218C42A80E4B9B14 /* ExtensionWidgetGallery.swift in Sources */,
+				9C8C452B1A3FFD13FED00DFD /* FoundationGallery.swift in Sources */,
+				6E7B17F54B5B8D6CA12F8052 /* GalleryDestination.swift in Sources */,
+				34ACF14C6C6C5CA9F5EC1C32 /* GalleryOverview.swift in Sources */,
+				26767B4B852A402DF0FF8602 /* GalleryRootView.swift in Sources */,
+				586C257C7867D21E1BC064D4 /* NativeButtonAndToolbarActionRecipeGallery.swift in Sources */,
+				29187892BC1AA296A742FD9F /* NativeContentUnavailableViewRecipeGallery.swift in Sources */,
+				720B02B73ED6992D3222681D /* NativeElevatedBackgroundRecipeGallery.swift in Sources */,
+				BAB9F37F0F2DD6220E2BD5BF /* NativeHierarchicalStyleRecipeGallery.swift in Sources */,
+				24827B83E5901D4A2AC96BC5 /* NativeHomeScreenQuickActionRecipeGallery.swift in Sources */,
+				CB9CA30785F6297D28E4470A /* NativeListSidebarAndDisclosureRecipeGallery.swift in Sources */,
+				5E3AB5CE6E7D773D88E4F30D /* NativeMaterialAndGlassSurfaceRecipeGallery.swift in Sources */,
+				2EA088861E89D2AB9501325B /* NativeMenuContextAndEditActionsRecipeGallery.swift in Sources */,
+				CD75F64647ABE8D65313B40D /* NativeNavigationTabsAndToolbarsRecipeGallery.swift in Sources */,
+				3E0BBA6C8A037C56A29F3B21 /* NativePatternsGallery.swift in Sources */,
+				C40D829BFD81109FDF5014B2 /* NativePickerAndDateColorInputRecipeGallery.swift in Sources */,
+				273AF6C41AD39D317A29C2BB /* NativePresentationAndShareRecipeGallery.swift in Sources */,
+				EB3564342434852A03F9A01F /* NativeProgressSliderStepperRecipeGallery.swift in Sources */,
+				1879C4BD91D82A2A8517A151 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift in Sources */,
+				BBB45FB369E93ED077A24325 /* OmniActCommandRowStory.swift in Sources */,
+				31352B08E9A39CB1DBA276AC /* OmniActHUDAutocompleteMaterialStory.swift in Sources */,
+				8FF30DA7E988CADF6821E68A /* OmniActHUDStoryFixtures.swift in Sources */,
+				847FFB0A9E63CB5DB1A491EA /* OmniActHUDSurfaceResolver.swift in Sources */,
+				F3C89189F15E24FFE74DDA2F /* OmniActSettingsStory.swift in Sources */,
+				9C3C421115831703124916D4 /* OmniActSettingsValues.swift in Sources */,
+				EA5FDAAB3FEA60AEADC30CC3 /* PlatformSemanticColorGallery.swift in Sources */,
+				66ED46AC72EEAB3B76540A38 /* ProfileCustomizationGallery.swift in Sources */,
+				A2D894EE6A333DDC26D2839C /* SectionContentLayoutGallery.swift in Sources */,
+				97C7AA99DE167843241F208F /* SemanticComponentsGallery.swift in Sources */,
+				D0DDB56A69F9D818D24C98EE /* SidebarToolbarContentGallery.swift in Sources */,
+				FC3ACBC3846CABDA7B7DDA70 /* SymbolContentGallery.swift in Sources */,
+				82C22BDA98D1F7D779EA09CA /* SystemDeviceChromeHostRecipeGallery.swift in Sources */,
+				40DF60B47D9A9107FA7BCC6D /* TocChienChampionHeroNegativeControlStory.swift in Sources */,
+				D8CE7D566E6E14EE0CE765CC /* TocChienDictionaryFixtures.swift in Sources */,
+				88836FC4DB5CE61EE172E1AB /* TocChienDictionarySearchStory.swift in Sources */,
+				9CC4F5C6710D63B55EF491F8 /* TocChienNavigationTabsStory.swift in Sources */,
+				181F569EBEDACAA43503B1B8 /* TypographyGallery.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		54885A591C6A1BD1FD0173D5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				99500467957D1F535762DB76 /* DesignOSAppleGalleryMacOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8109F5DB0B8EC6CF4F526D5E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				6FA732DEB8F881D3E74A8BBF /* DesignOSAppleGalleryStoryUITests.swift in Sources */,
+				705C5B77938BE1B97C7042E2 /* DesignOSAppleGalleryUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		8258CDE87892B277AFB6B8D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				23D298150D13E87CAA124A56 /* TocChienDogfoodPilotMacOSUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		B75999A0A82039D1F96778D7 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DB0E67CC4EF4CA5B643F6C2C /* TocChienChampionHeroNegativeControlStory.swift in Sources */,
+				F16DC7E91D78CCDF8B815D3E /* TocChienDictionaryFixtures.swift in Sources */,
+				BA9E9A4C172D8737B5AF06A8 /* TocChienDictionarySearchStory.swift in Sources */,
+				F6D80580BE47A6B5469F40E3 /* TocChienDogfoodPilotIOSApp.swift in Sources */,
+				469FC5ECC9931878D8D78ED0 /* TocChienDogfoodPilotRootView.swift in Sources */,
+				3AD89CE3B5EFDE7F376BA364 /* TocChienNavigationTabsStory.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E68D4169B383C0086FF302C4 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				8778566010FC3EFB281B28F4 /* AccessorySlotLayoutGallery.swift in Sources */,
+				72968DA4149BDC7F0D76F275 /* ColorRolesGallery.swift in Sources */,
+				6B69CF56D2DE8A78D4F7C805 /* DesignOSAppleGalleryApp.swift in Sources */,
+				53089FCDF36A6B740C467C13 /* DesignOSListRowGallery.swift in Sources */,
+				34B081E9BF459F2E1DE7A406 /* DesignOSSidebarRowGallery.swift in Sources */,
+				44AD935C29FB9856710A64B0 /* DesignOSSurfaceRoleGallery.swift in Sources */,
+				3C7322F6B1CD4FD68F463378 /* DogfoodCatalogView.swift in Sources */,
+				48E6FFB2BB1654BE3E323D65 /* DogfoodStoryCanvas.swift in Sources */,
+				AB403DFD2182963B740A2CE0 /* DogfoodStoryDetailView.swift in Sources */,
+				5D8A0B08C5E69B5C7564755D /* DogfoodStoryHost.swift in Sources */,
+				A9D5B14DC877056BA198DD50 /* DogfoodStoryPresentation.swift in Sources */,
+				6302BA573E64975390AE4E1F /* DogfoodStoryRenderer.swift in Sources */,
+				1672A72047315E41B2B35868 /* ExtensionControlWidgetGallery.swift in Sources */,
+				E3DF293BB8BF4EAE8D3D7566 /* ExtensionWidgetGallery.swift in Sources */,
+				7B2F3CB9DC1EF3658A8F67CD /* FoundationGallery.swift in Sources */,
+				D59027F8E3BC8091A2E29155 /* GalleryDestination.swift in Sources */,
+				F31CA7B2079534D6E813D62B /* GalleryOverview.swift in Sources */,
+				A12EDE5216B83EC234471387 /* GalleryRootView.swift in Sources */,
+				FF42A758A7601803914417EF /* NativeButtonAndToolbarActionRecipeGallery.swift in Sources */,
+				35F49E69E87E3479072CF619 /* NativeContentUnavailableViewRecipeGallery.swift in Sources */,
+				C47E4696C322B7EBE80C1CC9 /* NativeElevatedBackgroundRecipeGallery.swift in Sources */,
+				B00720560E723DEF0EB392EB /* NativeHierarchicalStyleRecipeGallery.swift in Sources */,
+				DD755EB9ED4E4FAB613FCBDC /* NativeHomeScreenQuickActionRecipeGallery.swift in Sources */,
+				02EBB3FCB6FE33BF4F2DFF8A /* NativeListSidebarAndDisclosureRecipeGallery.swift in Sources */,
+				7AFE2E2D0D2AECE87EF494FA /* NativeMaterialAndGlassSurfaceRecipeGallery.swift in Sources */,
+				F94E73E46EA692839683EAFE /* NativeMenuContextAndEditActionsRecipeGallery.swift in Sources */,
+				64A0EBC323C19ADB6B2EEC6E /* NativeNavigationTabsAndToolbarsRecipeGallery.swift in Sources */,
+				7B1CFD8F6BA127F90049C135 /* NativePatternsGallery.swift in Sources */,
+				5B77622C9D0E9D2E16B93733 /* NativePickerAndDateColorInputRecipeGallery.swift in Sources */,
+				009A3E77D1F3CC8383BB0548 /* NativePresentationAndShareRecipeGallery.swift in Sources */,
+				BAAC2EBBE643B8B7B0FDFF5E /* NativeProgressSliderStepperRecipeGallery.swift in Sources */,
+				7227C2CFBD6BA8320DD4A64D /* NativeTextSearchAndKeyboardInputRecipeGallery.swift in Sources */,
+				10FECE11883754F020A67A09 /* OmniActCommandRowStory.swift in Sources */,
+				9CAF8D33362869BFA27DEAD6 /* OmniActHUDAutocompleteMaterialStory.swift in Sources */,
+				6726846F872FD203D240A337 /* OmniActHUDStoryFixtures.swift in Sources */,
+				8F522551AA44779B144FC062 /* OmniActHUDSurfaceResolver.swift in Sources */,
+				E8E0F4E08C7741E74451A445 /* OmniActSettingsStory.swift in Sources */,
+				7DCB07190E702C46B42D4840 /* OmniActSettingsValues.swift in Sources */,
+				156156533C916EFE28BFC298 /* PlatformSemanticColorGallery.swift in Sources */,
+				2D76B558D1F0EFEEC567B01F /* ProfileCustomizationGallery.swift in Sources */,
+				F6AF147C9F0F3D0B479426C3 /* SectionContentLayoutGallery.swift in Sources */,
+				8679ABE25835E135E7E669A0 /* SemanticComponentsGallery.swift in Sources */,
+				14BA282B085D332B4BFF99C4 /* SidebarToolbarContentGallery.swift in Sources */,
+				4FF8A3E7E488F082E46455D4 /* SymbolContentGallery.swift in Sources */,
+				49094E6F0F7394D93EF2A6F8 /* SystemDeviceChromeHostRecipeGallery.swift in Sources */,
+				DC8CBE3E298717B4EEC6F5B1 /* TocChienChampionHeroNegativeControlStory.swift in Sources */,
+				C2997BA69E000CB737F80C12 /* TocChienDictionaryFixtures.swift in Sources */,
+				203DF49EDCDEB9E69D5F4558 /* TocChienDictionarySearchStory.swift in Sources */,
+				C528A3F30D354740F8AAB03C /* TocChienNavigationTabsStory.swift in Sources */,
+				65C31D385DB23B4664813CE0 /* TypographyGallery.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		EE83EBB8B0611C00533BCE7B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AFFC79CED22015F3831C634F /* TocChienChampionHeroNegativeControlStory.swift in Sources */,
+				6538C9DB539179D54E030178 /* TocChienDictionaryFixtures.swift in Sources */,
+				D0B004867C575F7581FBA660 /* TocChienDictionarySearchStory.swift in Sources */,
+				74F3C2EA076F0B2E95904BFB /* TocChienDogfoodPilotMacOSApp.swift in Sources */,
+				FF8A0EF92FC7DA74C0610E1A /* TocChienDogfoodPilotRootView.swift in Sources */,
+				4EF4F804992B311DB6A1EF1C /* TocChienNavigationTabsStory.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		0150EDBA9E68DC98D10D616B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 289BE81CFA4E6AC4E08FAB0C /* DesignOSAppleGallery-iOS */;
+			targetProxy = 823C23F565732172F9BD16FF /* PBXContainerItemProxy */;
+		};
+		16F7E412CFC4CF73ECAD9F32 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 3FC2C80B6E9CD6007342AD05 /* TocChienDogfoodPilot-macOS */;
+			targetProxy = A124CC842F3A727E29D8833D /* PBXContainerItemProxy */;
+		};
+		35A56E6D20ADA057DF3AC26E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D07BB0E29B41AF7D3D68775B /* DesignOSAppleGallery-macOS */;
+			targetProxy = 65A33D0F07167B3B2F991898 /* PBXContainerItemProxy */;
+		};
+		8C5EB275445ECA22D1183FAB /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DCA60AD54516606C7B3CC920 /* TocChienDogfoodPilot-iOS */;
+			targetProxy = 90AF5E2BA36D8D869BB36E02 /* PBXContainerItemProxy */;
+		};
+		A52CA258BB0915BFB33A5861 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = D07BB0E29B41AF7D3D68775B /* DesignOSAppleGallery-macOS */;
+			targetProxy = EF5ACA9C6EACC00AF218B5AB /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		03CFB6C8D368E902A95F6B9D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.apple.gallery.macos.uitests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_TARGET_NAME = "DesignOSAppleGallery-macOS";
+			};
+			name = Release;
+		};
+		078C630536E9E4C4BBF19C5F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.apple.gallery;
+				PRODUCT_MODULE_NAME = DESIGN_OS_Apple;
+				PRODUCT_NAME = "Apple Design OS";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		1B52B18B30B43E668D42BFA1 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.apple.gallery;
+				PRODUCT_MODULE_NAME = DESIGN_OS_Apple;
+				PRODUCT_NAME = "Apple Design OS";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		1CCECAAF6CD7686C804568E5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jang.designos.apple.gallery.renderer-tests";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Apple Design OS.app/Contents/MacOS/Apple Design OS";
+				TEST_TARGET_NAME = "DesignOSAppleGallery-macOS";
+			};
+			name = Debug;
+		};
+		2291BB457D156D30FE121715 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.tocchien.macos;
+				PRODUCT_NAME = "TocChien Dogfood Pilot macOS";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		2DFDC15D5CF54BA8F185E01B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.tocchien.macos.uitests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_TARGET_NAME = "TocChienDogfoodPilot-macOS";
+			};
+			name = Debug;
+		};
+		58930B8ABBBC7A2AFFB2D23D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.apple.gallery.macos;
+				PRODUCT_MODULE_NAME = DESIGN_OS_Apple;
+				PRODUCT_NAME = "Apple Design OS";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Release;
+		};
+		58F2F4F776791477735E6117 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.tocchien.macos.uitests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_TARGET_NAME = "TocChienDogfoodPilot-macOS";
+			};
+			name = Release;
+		};
+		63E78D9BF3FA9FB8063FBB75 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.apple.gallery.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "DesignOSAppleGallery-iOS";
+			};
+			name = Release;
+		};
+		7177CB79AF7CC362BE42E549 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"$(inherited)",
+					"DEBUG=1",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		83B21DC9ACA6CE5B4366FF93 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.apple.gallery.macos;
+				PRODUCT_MODULE_NAME = DESIGN_OS_Apple;
+				PRODUCT_NAME = "Apple Design OS";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		8AEF70A243530D5166DB4057 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.tocchien.ios.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "TocChienDogfoodPilot-iOS";
+			};
+			name = Debug;
+		};
+		A3AE3502FBF7CA155C504BA6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.tocchien.macos;
+				PRODUCT_NAME = "TocChien Dogfood Pilot macOS";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+			};
+			name = Debug;
+		};
+		B1DA13309DAE1DE6EE538F50 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.tocchien.ios.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "TocChienDogfoodPilot-iOS";
+			};
+			name = Release;
+		};
+		CFDE116A0743F8B95AFFDDA7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.tocchien.ios;
+				PRODUCT_NAME = "TocChien Dogfood Pilot iOS";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D4E320B8FE4773AE1E68AE58 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.apple.gallery.macos.uitests;
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_TARGET_NAME = "DesignOSAppleGallery-macOS";
+			};
+			name = Debug;
+		};
+		DA0F1D863CD39CF8D147B664 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.tocchien.ios;
+				PRODUCT_NAME = "TocChien Dogfood Pilot iOS";
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		E5A15638FB7FDA359979F408 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				MACOSX_DEPLOYMENT_TARGET = 14.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+			};
+			name = Release;
+		};
+		E87B69C44D738AEDD8A8A7F8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				COMBINE_HIDPI_IMAGES = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/../Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = "com.jang.designos.apple.gallery.renderer-tests";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 6.0;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Apple Design OS.app/Contents/MacOS/Apple Design OS";
+				TEST_TARGET_NAME = "DesignOSAppleGallery-macOS";
+			};
+			name = Release;
+		};
+		FEAE4CF79C69EE3A4D5DF506 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				GENERATE_INFOPLIST_FILE = YES;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.jang.designos.apple.gallery.uitests;
+				SDKROOT = iphoneos;
+				SWIFT_VERSION = 6.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = "DesignOSAppleGallery-iOS";
+			};
+			name = Debug;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1C3344B3F65590A342E1BCC0 /* Build configuration list for PBXProject "DesignOSAppleGallery" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				7177CB79AF7CC362BE42E549 /* Debug */,
+				E5A15638FB7FDA359979F408 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		1CE71BF54B80F33D1C72A1FA /* Build configuration list for PBXNativeTarget "TocChienDogfoodPilotMacOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				2DFDC15D5CF54BA8F185E01B /* Debug */,
+				58F2F4F776791477735E6117 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		2DC71E19184D4A4F6A25514B /* Build configuration list for PBXNativeTarget "DesignOSAppleGallery-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				83B21DC9ACA6CE5B4366FF93 /* Debug */,
+				58930B8ABBBC7A2AFFB2D23D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		4FD9822BD4E7544F3FB1766A /* Build configuration list for PBXNativeTarget "TocChienDogfoodPilot-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				CFDE116A0743F8B95AFFDDA7 /* Debug */,
+				DA0F1D863CD39CF8D147B664 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		5734106557ED0AEC57A6BB1E /* Build configuration list for PBXNativeTarget "DesignOSAppleGalleryRendererTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1CCECAAF6CD7686C804568E5 /* Debug */,
+				E87B69C44D738AEDD8A8A7F8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		576852A46577A6251FEB79EF /* Build configuration list for PBXNativeTarget "TocChienDogfoodPilotIOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8AEF70A243530D5166DB4057 /* Debug */,
+				B1DA13309DAE1DE6EE538F50 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		7BF0CFA34C7A7DE45F30FE9B /* Build configuration list for PBXNativeTarget "DesignOSAppleGalleryUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FEAE4CF79C69EE3A4D5DF506 /* Debug */,
+				63E78D9BF3FA9FB8063FBB75 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		988AFBF2A176620A60C69E28 /* Build configuration list for PBXNativeTarget "TocChienDogfoodPilot-macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A3AE3502FBF7CA155C504BA6 /* Debug */,
+				2291BB457D156D30FE121715 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		BB7EC5384585D84708BC8D67 /* Build configuration list for PBXNativeTarget "DesignOSAppleGallery-iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				078C630536E9E4C4BBF19C5F /* Debug */,
+				1B52B18B30B43E668D42BFA1 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		E2D4E654805CA0FFE0DEE1D0 /* Build configuration list for PBXNativeTarget "DesignOSAppleGalleryMacOSUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				D4E320B8FE4773AE1E68AE58 /* Debug */,
+				03CFB6C8D368E902A95F6B9D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCLocalSwiftPackageReference section */
+		8A967B6E7EC27D6DBB7471D5 /* XCLocalSwiftPackageReference "../.." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ../..;
+		};
+/* End XCLocalSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		22D8CD9D0740D4B280209C78 /* DesignOSApple */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignOSApple;
+		};
+		2E41B938001E8FD2E15668C3 /* DesignOSApple */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignOSApple;
+		};
+		334780B6AFC0EDC1F33912FD /* DesignOSAppleCatalog */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignOSAppleCatalog;
+		};
+		3B62A34CB2C435FBC19908CC /* DesignOSApple */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignOSApple;
+		};
+		70A98C4722E9DD62F0B4CA3D /* DesignOSAppleCatalog */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignOSAppleCatalog;
+		};
+		A4D3B50DEA39F8939EE3FB3D /* DesignOSAppleCatalog */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignOSAppleCatalog;
+		};
+		AA805DF8088A8900868B5563 /* DesignOSApple */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignOSApple;
+		};
+		AF9ABC16C9FA2168F24CA305 /* DesignOSAppleCatalog */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignOSAppleCatalog;
+		};
+		F8DE88A4D784692B38298247 /* DesignOSAppleCatalog */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = DesignOSAppleCatalog;
+		};
+/* End XCSwiftPackageProductDependency section */
+	};
+	rootObject = 40882047C6EDF630B5B3773E /* Project object */;
+}

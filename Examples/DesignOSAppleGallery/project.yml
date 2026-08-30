@@ -1,0 +1,310 @@
+name: DesignOSAppleGallery
+options:
+  minimumXcodeGenVersion: 2.45.4
+  bundleIdPrefix: com.jang.designos
+  deploymentTarget:
+    iOS: "17.0"
+    macOS: "14.0"
+packages:
+  DesignOSApple:
+    path: ../..
+targetTemplates:
+  GallerySources:
+    sources:
+      - path: App/Shared
+        includes:
+          - FoundationGallery.swift
+          - GalleryDestination.swift
+          - GalleryOverview.swift
+          - GalleryRootView.swift
+          - NativePatternsGallery.swift
+          - SemanticComponentsGallery.swift
+        excludes:
+          - Dogfood
+      - Components
+      - Extensions
+      - Primitives
+      - ColorRolesGallery.swift
+      - DesignOSSurfaceRoleGallery.swift
+      - NativeButtonAndToolbarActionRecipeGallery.swift
+      - NativeContentUnavailableViewRecipeGallery.swift
+      - NativeElevatedBackgroundRecipeGallery.swift
+      - NativeHierarchicalStyleRecipeGallery.swift
+      - NativeHomeScreenQuickActionRecipeGallery.swift
+      - NativeListSidebarAndDisclosureRecipeGallery.swift
+      - NativeMaterialAndGlassSurfaceRecipeGallery.swift
+      - NativeMenuContextAndEditActionsRecipeGallery.swift
+      - NativeNavigationTabsAndToolbarsRecipeGallery.swift
+      - NativePickerAndDateColorInputRecipeGallery.swift
+      - NativePresentationAndShareRecipeGallery.swift
+      - NativeProgressSliderStepperRecipeGallery.swift
+      - NativeTextSearchAndKeyboardInputRecipeGallery.swift
+      - PlatformSemanticColorGallery.swift
+      - ProfileCustomizationGallery.swift
+      - SystemDeviceChromeHostRecipeGallery.swift
+      - TypographyGallery.swift
+  DogfoodGalleryStorySources:
+    sources:
+      - path: App/Shared/Dogfood/Shared
+        includes:
+          - OmniActCommandRowStory.swift
+          - OmniActHUDAutocompleteMaterialStory.swift
+          - OmniActHUDStoryFixtures.swift
+          - OmniActHUDSurfaceResolver.swift
+          - OmniActSettingsStory.swift
+          - OmniActSettingsValues.swift
+          - TocChienDictionaryFixtures.swift
+          - TocChienDictionarySearchStory.swift
+          - TocChienNavigationTabsStory.swift
+          - TocChienChampionHeroNegativeControlStory.swift
+  DogfoodGallerySources:
+    sources:
+      - path: App/Shared/Dogfood/Gallery
+        includes:
+          - DogfoodCatalogView.swift
+          - DogfoodStoryCanvas.swift
+          - DogfoodStoryDetailView.swift
+          - DogfoodStoryHost.swift
+          - DogfoodStoryPresentation.swift
+          - DogfoodStoryRenderer.swift
+  TocChienSharedStorySources:
+    sources:
+      - path: App/Shared/Dogfood/Shared
+        includes:
+          - TocChienDictionaryFixtures.swift
+          - TocChienDictionarySearchStory.swift
+          - TocChienNavigationTabsStory.swift
+          - TocChienChampionHeroNegativeControlStory.swift
+  TocChienDogfoodSources:
+    sources:
+      - path: App/Shared/Dogfood/TocChien
+        includes:
+          - TocChienDogfoodPilotRootView.swift
+  TocChienIOSAppSources:
+    sources:
+      - path: App/TocChien/iOS
+        includes:
+          - TocChienDogfoodPilotIOSApp.swift
+  TocChienMacOSAppSources:
+    sources:
+      - path: App/TocChien/macOS
+        includes:
+          - TocChienDogfoodPilotMacOSApp.swift
+  TocChienIOSUITestSources:
+    sources:
+      - path: UITests/TocChien/iOS
+        includes:
+          - TocChienDogfoodPilotIOSUITests.swift
+  TocChienMacOSUITestSources:
+    sources:
+      - path: UITests/TocChien/macOS
+        includes:
+          - TocChienDogfoodPilotMacOSUITests.swift
+targets:
+  DesignOSAppleGallery-iOS:
+    templates:
+      - GallerySources
+      - DogfoodGalleryStorySources
+      - DogfoodGallerySources
+    type: application
+    platform: iOS
+    sources:
+      - App/iOS
+    dependencies:
+      - package: DesignOSApple
+        product: DesignOSApple
+      - package: DesignOSApple
+        product: DesignOSAppleCatalog
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UISupportedInterfaceOrientations: >-
+          UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad: >-
+          UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight
+        PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.apple.gallery
+        PRODUCT_NAME: Apple Design OS
+        PRODUCT_MODULE_NAME: DESIGN_OS_Apple
+        SWIFT_VERSION: 6.0
+  DesignOSAppleGallery-macOS:
+    templates:
+      - GallerySources
+      - DogfoodGalleryStorySources
+      - DogfoodGallerySources
+    type: application
+    platform: macOS
+    sources:
+      - App/macOS
+    dependencies:
+      - package: DesignOSApple
+        product: DesignOSApple
+      - package: DesignOSApple
+        product: DesignOSAppleCatalog
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.apple.gallery.macos
+        PRODUCT_NAME: Apple Design OS
+        PRODUCT_MODULE_NAME: DESIGN_OS_Apple
+        SWIFT_VERSION: 6.0
+  DesignOSAppleGalleryUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    sources:
+      - path: UITests
+        includes:
+          - DesignOSAppleGalleryUITests.swift
+          - DesignOSAppleGalleryStoryUITests.swift
+    dependencies:
+      - target: DesignOSAppleGallery-iOS
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.apple.gallery.uitests
+        SWIFT_VERSION: 6.0
+        TEST_TARGET_NAME: DesignOSAppleGallery-iOS
+  DesignOSAppleGalleryRendererTests:
+    type: bundle.unit-test
+    platform: macOS
+    sources:
+      - path: Tests/GalleryRendererTests
+        includes:
+          - DogfoodStoryRendererTests.swift
+          - DogfoodCatalogViewTests.swift
+          - DogfoodStoryPresentationTests.swift
+          - OmniActHUDSurfaceResolverTests.swift
+          - TocChienDictionarySearchStoryTests.swift
+      - path: Tests/ProjectMembershipTests
+        includes:
+          - ProjectMembershipTests.swift
+    dependencies:
+      - target: DesignOSAppleGallery-macOS
+      - package: DesignOSApple
+        product: DesignOSAppleCatalog
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.apple.gallery.renderer-tests
+        SWIFT_VERSION: 6.0
+        TEST_TARGET_NAME: DesignOSAppleGallery-macOS
+        TEST_HOST: "$(BUILT_PRODUCTS_DIR)/Apple Design OS.app/Contents/MacOS/Apple Design OS"
+        BUNDLE_LOADER: "$(TEST_HOST)"
+  DesignOSAppleGalleryMacOSUITests:
+    type: bundle.ui-testing
+    platform: macOS
+    sources:
+      - path: UITests/GalleryMacOS
+        includes:
+          - DesignOSAppleGalleryMacOSUITests.swift
+    dependencies:
+      - target: DesignOSAppleGallery-macOS
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.apple.gallery.macos.uitests
+        SWIFT_VERSION: 6.0
+        TEST_TARGET_NAME: DesignOSAppleGallery-macOS
+  TocChienDogfoodPilot-iOS:
+    templates:
+      - TocChienSharedStorySources
+      - TocChienDogfoodSources
+      - TocChienIOSAppSources
+    type: application
+    platform: iOS
+    resources: []
+    dependencies:
+      - package: DesignOSApple
+        product: DesignOSApple
+      - package: DesignOSApple
+        product: DesignOSAppleCatalog
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.tocchien.ios
+        PRODUCT_NAME: TocChien Dogfood Pilot iOS
+        SWIFT_VERSION: 6.0
+  TocChienDogfoodPilot-macOS:
+    templates:
+      - TocChienSharedStorySources
+      - TocChienDogfoodSources
+      - TocChienMacOSAppSources
+    type: application
+    platform: macOS
+    resources: []
+    dependencies:
+      - package: DesignOSApple
+        product: DesignOSApple
+      - package: DesignOSApple
+        product: DesignOSAppleCatalog
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.tocchien.macos
+        PRODUCT_NAME: TocChien Dogfood Pilot macOS
+        SWIFT_VERSION: 6.0
+  TocChienDogfoodPilotIOSUITests:
+    templates:
+      - TocChienIOSUITestSources
+    type: bundle.ui-testing
+    platform: iOS
+    dependencies:
+      - target: TocChienDogfoodPilot-iOS
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.tocchien.ios.uitests
+        SWIFT_VERSION: 6.0
+        TEST_TARGET_NAME: TocChienDogfoodPilot-iOS
+  TocChienDogfoodPilotMacOSUITests:
+    templates:
+      - TocChienMacOSUITestSources
+    type: bundle.ui-testing
+    platform: macOS
+    dependencies:
+      - target: TocChienDogfoodPilot-macOS
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+        PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.tocchien.macos.uitests
+        SWIFT_VERSION: 6.0
+        TEST_TARGET_NAME: TocChienDogfoodPilot-macOS
+schemes:
+  DesignOSAppleGallery-iOS:
+    build:
+      targets:
+        DesignOSAppleGallery-iOS: all
+    run:
+      config: Debug
+    test:
+      targets:
+        - DesignOSAppleGalleryUITests
+  DesignOSAppleGallery-macOS:
+    build:
+      targets:
+        DesignOSAppleGallery-macOS: all
+    run:
+      config: Debug
+    test:
+      targets:
+        - DesignOSAppleGalleryRendererTests
+        - DesignOSAppleGalleryMacOSUITests
+  TocChienDogfoodPilot-iOS:
+    build:
+      targets:
+        TocChienDogfoodPilot-iOS: all
+    run:
+      config: Debug
+    test:
+      targets:
+        - TocChienDogfoodPilotIOSUITests
+  TocChienDogfoodPilot-macOS:
+    build:
+      targets:
+        TocChienDogfoodPilot-macOS: all
+    run:
+      config: Debug
+    test:
+      targets:
+        - TocChienDogfoodPilotMacOSUITests

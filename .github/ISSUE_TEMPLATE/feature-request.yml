@@ -1,0 +1,33 @@
+name: Feature request
+description: Propose a semantic runtime contract or native recipe.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: outcome
+    attributes:
+      label: User outcome
+      description: Describe the product behavior, not a preferred wrapper.
+    validations:
+      required: true
+  - type: textarea
+    id: native-owner
+    attributes:
+      label: Native ownership
+      description: Which control, interaction, or platform behavior must remain owned by SwiftUI?
+    validations:
+      required: true
+  - type: textarea
+    id: platforms
+    attributes:
+      label: Platform differences
+      description: Expected behavior on iOS, iPadOS, and macOS.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence and alternatives
+      description: Relevant Apple documentation, existing APIs, recipes, or rejected alternatives.
+    validations:
+      required: true

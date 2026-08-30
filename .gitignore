@@ -1,0 +1,26 @@
+.DS_Store
+.build/
+.swiftpm/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# Local orchestration, evidence, and maintainer state are not publication inputs.
+.agentkit/
+.brv/
+.exit
+plans/
+design/changes/
+design/figma-bind.json
+design/figma-contention.json
+design/figma-errors.jsonl
+design/heartbeat.json
+Sources/DesignOSDogfoodEvidenceValidator/
+Tests/DesignOSDogfoodEvidenceValidatorTests/
+
+# Local agent configuration and maintainer launchers are not public package inputs.
+.project-agent.md
+AGENTS.md
+AGENTS.*.json
+CLAUDE.md
+design-os-model.sh

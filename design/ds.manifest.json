@@ -1,0 +1,28 @@
+{
+  "changelog": [
+    {
+      "by": "ui ds init",
+      "kind": "init",
+      "note": "compiled from persona=liquid-glass",
+      "ts": "2026-08-26T08:35:58.602Z"
+    }
+  ],
+  "compiledHash": "sha256-jrDJB1t9CNmDWVjPGBYOGK6v2CV-APXjZ2lV2l7SfjM",
+  "createdAt": "2026-08-26T08:35:58.602Z",
+  "generation": 1,
+  "intent": "Native Apple-platform design system for iOS, iPadOS, and macOS with semantic tokens, SwiftUI components, accessibility, and platform-adaptive behavior.",
+  "name": "design-os-apple",
+  "persona": {
+    "antiPatterns": [
+      "opaque backgrounds",
+      "hard shadows",
+      "sharp corners",
+      "flat surfaces",
+      "heavy borders"
+    ],
+    "family": "material-surface",
+    "slug": "liquid-glass"
+  },
+  "registryHash": "sha256-SSt6U5_2txSLRWCLIhVJ2XMsW2WODUBMKGFj44qhvZI",
+  "version": "1.0.0"
+}

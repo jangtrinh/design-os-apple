@@ -1,0 +1,32 @@
+# Root consumer and contributor contract
+.github/
+.gitignore
+CHANGELOG.md
+CODE_OF_CONDUCT.md
+CONTEXT.md
+CONTRIBUTING.md
+LICENSE
+Package.swift
+README.md
+RELEASING.md
+SECURITY.md
+SUPPORT.md
+config/public-release-files.txt
+
+# Public package, Gallery, tests, and executable verification
+Examples/
+Extensions/
+Sources/DesignOSApple/
+Sources/DesignOSAppleCatalog/
+Sources/DesignOSAppleCatalogBundleTool/
+Tests/DesignOSAppleCatalogTests/
+Tests/DesignOSAppleTests/
+docs/
+scripts/
+
+# Rights-reviewed DESIGN:OS intent only; raw Figma operations stay local
+design/component-registry.json
+design/design.tokens.json
+design/ds.manifest.json
+design/registry/
+design/soul.md
