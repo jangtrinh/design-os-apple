@@ -34,6 +34,9 @@ open Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj
 Run `DesignOSAppleGallery-iOS` or `DesignOSAppleGallery-macOS`. The default route is the
 searchable Catalog. A specific admitted story can be opened with launch arguments:
 
+Foundation reference stories combine a live native preview, copyable SwiftUI code, and
+usage, ownership, and accessibility guidance in one scrollable page.
+
 ```text
 --design-os-story <story-id>
 --design-os-profile <profile-id>

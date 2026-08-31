@@ -42,6 +42,7 @@ targetTemplates:
       - PlatformSemanticColorGallery.swift
       - ProfileCustomizationGallery.swift
       - SystemDeviceChromeHostRecipeGallery.swift
+      - StorybookPage.swift
       - TypographyGallery.swift
   DogfoodGalleryStorySources:
     sources:
@@ -156,6 +157,7 @@ targets:
         includes:
           - DesignOSAppleGalleryUITests.swift
           - DesignOSAppleGalleryStoryUITests.swift
+          - DesignOSAppleGalleryFoundationStoryUITests.swift
     dependencies:
       - target: DesignOSAppleGallery-iOS
     settings:

@@ -28,6 +28,7 @@
 		2D76B558D1F0EFEEC567B01F /* ProfileCustomizationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD5785BA6E2806223B0C80 /* ProfileCustomizationGallery.swift */; };
 		2EA088861E89D2AB9501325B /* NativeMenuContextAndEditActionsRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF41CE35844BEBDC5941B583 /* NativeMenuContextAndEditActionsRecipeGallery.swift */; };
 		31352B08E9A39CB1DBA276AC /* OmniActHUDAutocompleteMaterialStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721708D2061E2790D4C38BC9 /* OmniActHUDAutocompleteMaterialStory.swift */; };
+		33EDDC4A5F447C08B28E76CF /* StorybookPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE3DC4F0B0428B256F87F13 /* StorybookPage.swift */; };
 		34ACF14C6C6C5CA9F5EC1C32 /* GalleryOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDD8191EBF6443CB8CA051 /* GalleryOverview.swift */; };
 		34B081E9BF459F2E1DE7A406 /* DesignOSSidebarRowGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B12921BF59EF1B6CDA16E /* DesignOSSidebarRowGallery.swift */; };
 		35F49E69E87E3479072CF619 /* NativeContentUnavailableViewRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F71F7CFF73D1B9E95CBF09 /* NativeContentUnavailableViewRecipeGallery.swift */; };
@@ -66,6 +67,7 @@
 		6726846F872FD203D240A337 /* OmniActHUDStoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */; };
 		6B0D8DD09FD84695321E7C7A /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = 334780B6AFC0EDC1F33912FD /* DesignOSAppleCatalog */; };
 		6B69CF56D2DE8A78D4F7C805 /* DesignOSAppleGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7730332CD46BBA35FC21DE0 /* DesignOSAppleGalleryApp.swift */; };
+		6E1F6E957D2DAEF2DA903620 /* DesignOSAppleGalleryFoundationStoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D79BD34C9485A5339D3C2E /* DesignOSAppleGalleryFoundationStoryUITests.swift */; };
 		6E7B17F54B5B8D6CA12F8052 /* GalleryDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AC7EC5DA2CB6F79F86EA91 /* GalleryDestination.swift */; };
 		6FA732DEB8F881D3E74A8BBF /* DesignOSAppleGalleryStoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15C310339302D06AC0F587 /* DesignOSAppleGalleryStoryUITests.swift */; };
 		705C5B77938BE1B97C7042E2 /* DesignOSAppleGalleryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EE91E6182239B05FA7119F /* DesignOSAppleGalleryUITests.swift */; };
@@ -78,6 +80,7 @@
 		7B2F3CB9DC1EF3658A8F67CD /* FoundationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C3F175A4AD0AC46946BC88 /* FoundationGallery.swift */; };
 		7BC9AE06BF6BCE608AC84053 /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = F8DE88A4D784692B38298247 /* DesignOSAppleCatalog */; };
 		7DCB07190E702C46B42D4840 /* OmniActSettingsValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40170353EF25E9A89F7AEF04 /* OmniActSettingsValues.swift */; };
+		805E817F3BFE2C87D9A6DF06 /* StorybookPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE3DC4F0B0428B256F87F13 /* StorybookPage.swift */; };
 		821E8F1F4E20B314E10D0486 /* TocChienDogfoodPilotIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C9ED10884AFDFA656A4B32 /* TocChienDogfoodPilotIOSUITests.swift */; };
 		82C22BDA98D1F7D779EA09CA /* SystemDeviceChromeHostRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */; };
 		847FFB0A9E63CB5DB1A491EA /* OmniActHUDSurfaceResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E6D3290CC1332BA3B9D850 /* OmniActHUDSurfaceResolver.swift */; };
@@ -189,6 +192,7 @@
 		14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActHUDStoryFixtures.swift; sourceTree = "<group>"; };
 		1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienNavigationTabsStory.swift; sourceTree = "<group>"; };
 		175B28D4772D0AB169D1D8DA /* DesignOSAppleGalleryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryApp.swift; sourceTree = "<group>"; };
+		1AE3DC4F0B0428B256F87F13 /* StorybookPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookPage.swift; sourceTree = "<group>"; };
 		25507FDA6E89B072605F80CF /* NativeHomeScreenQuickActionRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeHomeScreenQuickActionRecipeGallery.swift; sourceTree = "<group>"; };
 		2C3D88295D07CA8EF5F8D4E8 /* NativePresentationAndShareRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePresentationAndShareRecipeGallery.swift; sourceTree = "<group>"; };
 		2E4F81EBB6144750854AC798 /* DesignOSAppleGalleryRendererTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignOSAppleGalleryRendererTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -221,6 +225,7 @@
 		81C3F175A4AD0AC46946BC88 /* FoundationGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationGallery.swift; sourceTree = "<group>"; };
 		86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDeviceChromeHostRecipeGallery.swift; sourceTree = "<group>"; };
 		883077849A601D9C46DA1ED0 /* OmniActSettingsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActSettingsStory.swift; sourceTree = "<group>"; };
+		89D79BD34C9485A5339D3C2E /* DesignOSAppleGalleryFoundationStoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryFoundationStoryUITests.swift; sourceTree = "<group>"; };
 		8C0034C2B388053F93F49415 /* NativeMaterialAndGlassSurfaceRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMaterialAndGlassSurfaceRecipeGallery.swift; sourceTree = "<group>"; };
 		8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDictionaryFixtures.swift; sourceTree = "<group>"; };
 		8D4212B18C0C4E90D4E2DABB /* NativeProgressSliderStepperRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeProgressSliderStepperRecipeGallery.swift; sourceTree = "<group>"; };
@@ -376,6 +381,7 @@
 		3E421EFC9EF0ACDD9C04AD32 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
+				89D79BD34C9485A5339D3C2E /* DesignOSAppleGalleryFoundationStoryUITests.swift */,
 				EC15C310339302D06AC0F587 /* DesignOSAppleGalleryStoryUITests.swift */,
 				73EE91E6182239B05FA7119F /* DesignOSAppleGalleryUITests.swift */,
 			);
@@ -416,6 +422,7 @@
 				4773A7D5D2234E7576CB1A37 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift */,
 				CCC46EA82AF667853F2E03A7 /* PlatformSemanticColorGallery.swift */,
 				D9AD5785BA6E2806223B0C80 /* ProfileCustomizationGallery.swift */,
+				1AE3DC4F0B0428B256F87F13 /* StorybookPage.swift */,
 				86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */,
 				FF794C8D5109B50FABAE9F16 /* TypographyGallery.swift */,
 				11DC5496A35713BF538C6ACE /* Components */,
@@ -851,6 +858,7 @@
 				A2D894EE6A333DDC26D2839C /* SectionContentLayoutGallery.swift in Sources */,
 				97C7AA99DE167843241F208F /* SemanticComponentsGallery.swift in Sources */,
 				D0DDB56A69F9D818D24C98EE /* SidebarToolbarContentGallery.swift in Sources */,
+				33EDDC4A5F447C08B28E76CF /* StorybookPage.swift in Sources */,
 				FC3ACBC3846CABDA7B7DDA70 /* SymbolContentGallery.swift in Sources */,
 				82C22BDA98D1F7D779EA09CA /* SystemDeviceChromeHostRecipeGallery.swift in Sources */,
 				40DF60B47D9A9107FA7BCC6D /* TocChienChampionHeroNegativeControlStory.swift in Sources */,
@@ -873,6 +881,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6E1F6E957D2DAEF2DA903620 /* DesignOSAppleGalleryFoundationStoryUITests.swift in Sources */,
 				6FA732DEB8F881D3E74A8BBF /* DesignOSAppleGalleryStoryUITests.swift in Sources */,
 				705C5B77938BE1B97C7042E2 /* DesignOSAppleGalleryUITests.swift in Sources */,
 			);
@@ -946,6 +955,7 @@
 				F6AF147C9F0F3D0B479426C3 /* SectionContentLayoutGallery.swift in Sources */,
 				8679ABE25835E135E7E669A0 /* SemanticComponentsGallery.swift in Sources */,
 				14BA282B085D332B4BFF99C4 /* SidebarToolbarContentGallery.swift in Sources */,
+				805E817F3BFE2C87D9A6DF06 /* StorybookPage.swift in Sources */,
 				4FF8A3E7E488F082E46455D4 /* SymbolContentGallery.swift in Sources */,
 				49094E6F0F7394D93EF2A6F8 /* SystemDeviceChromeHostRecipeGallery.swift in Sources */,
 				DC8CBE3E298717B4EEC6F5B1 /* TocChienChampionHeroNegativeControlStory.swift in Sources */,
