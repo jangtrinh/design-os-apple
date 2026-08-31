@@ -3,10 +3,12 @@ import SwiftUI
 
 struct DogfoodStoryHost<Catalog: View>: View {
   private let selection: Result<DesignOSStorySelection?, DesignOSStorySelectorError>
-  private let catalog: Catalog
+  private let catalog: (DesignOSStorySelection?) -> Catalog
 
-  init(arguments: [String] = ProcessInfo.processInfo.arguments, @ViewBuilder catalog: () -> Catalog)
-  {
+  init(
+    arguments: [String] = ProcessInfo.processInfo.arguments,
+    @ViewBuilder catalog: @escaping (DesignOSStorySelection?) -> Catalog
+  ) {
     do {
       selection = .success(try DesignOSStorySelector.select(arguments: arguments))
     } catch let error as DesignOSStorySelectorError {
@@ -14,17 +16,13 @@ struct DogfoodStoryHost<Catalog: View>: View {
     } catch {
       selection = .failure(.storyArgument)
     }
-    self.catalog = catalog()
+    self.catalog = catalog
   }
 
   var body: some View {
     switch selection {
-    case .success(.some(let selected)):
-      DogfoodStoryCanvas(descriptor: selected.descriptor)
-        .id(selected.descriptor.id)
-        .designOSProfile(selected.profile)
-    case .success(.none):
-      catalog
+    case .success(let selected):
+      catalog(selected)
     case .failure(let error):
       VStack {
         ContentUnavailableView(

@@ -1,12 +1,14 @@
+import DesignOSApple
 import DesignOSAppleCatalog
 import SwiftUI
 
 struct DogfoodStoryDetailView: View {
-  let descriptor: DesignOSStoryDescriptor
+  let selection: DesignOSStorySelection
 
   var body: some View {
-    DogfoodStoryCanvas(descriptor: descriptor)
-      .id(descriptor.id)
-      .navigationTitle(descriptor.title)
+    DogfoodStoryCanvas(descriptor: selection.descriptor)
+      .id(selection.descriptor.id)
+      .designOSProfile(selection.profile)
+      .navigationTitle(selection.descriptor.title)
   }
 }

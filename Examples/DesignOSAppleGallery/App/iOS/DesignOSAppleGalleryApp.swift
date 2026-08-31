@@ -4,8 +4,8 @@ import SwiftUI
 struct DesignOSAppleGalleryApp: App {
   var body: some Scene {
     WindowGroup {
-      DogfoodStoryHost {
-        GalleryRootView()
+      DogfoodStoryHost { initialStorySelection in
+        GalleryRootView(initialStorySelection: initialStorySelection)
       }
     }
   }

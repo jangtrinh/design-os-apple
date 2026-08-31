@@ -92,6 +92,26 @@ final class DesignOSAppleGalleryUITests: XCTestCase {
   }
 
   @MainActor
+  func testDirectStoryLaunchReturnsToCatalogWithNativeBackButton() {
+    let app = XCUIApplication()
+    app.launchArguments = ["--design-os-story", "foundation.typography"]
+    app.launch()
+
+    let storyCanvas = element("design-os.gallery.story.foundation.typography.ready", in: app)
+    XCTAssertTrue(storyCanvas.waitForExistence(timeout: galleryUITestTimeout))
+
+    let catalogBackButton = app.navigationBars.buttons["Catalog"]
+    XCTAssertEqual(app.navigationBars.buttons.matching(identifier: "Catalog").count, 1)
+    XCTAssertTrue(catalogBackButton.waitForExistence(timeout: galleryUITestTimeout))
+    catalogBackButton.tap()
+
+    XCTAssertTrue(storyCanvas.waitForNonExistence(timeout: galleryUITestTimeout))
+    XCTAssertTrue(
+      element("design-os.gallery.catalog.ready", in: app).waitForExistence(
+        timeout: galleryUITestTimeout))
+  }
+
+  @MainActor
   func testCriticalGalleryStatesPassStructuralAccessibilityAudit() throws {
     let app = XCUIApplication()
     let auditTypes: XCUIAccessibilityAuditType = [

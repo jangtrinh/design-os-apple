@@ -17,6 +17,31 @@ final class DesignOSAppleGalleryStoryUITests: XCTestCase {
   }
 
   @MainActor
+  func testDirectHUDStoryPreservesResolvedProfileAndNativeBackPath() {
+    let app = XCUIApplication()
+    app.launchArguments = [
+      "--design-os-story", "omniact.hud-autocomplete-material",
+      "--design-os-profile", "omniact-hud",
+    ]
+    app.launch()
+
+    let profiledSurface = app.descendants(matching: .any)[
+      "design-os.gallery.omniact-hud.native-material"
+    ]
+    XCTAssertTrue(
+      profiledSurface.waitForExistence(timeout: galleryUITestTimeout),
+      app.debugDescription
+    )
+
+    let catalogBackButton = app.navigationBars.buttons["Catalog"]
+    XCTAssertTrue(catalogBackButton.waitForExistence(timeout: galleryUITestTimeout))
+    catalogBackButton.tap()
+    XCTAssertTrue(
+      element("design-os.gallery.catalog.ready", in: app).waitForExistence(
+        timeout: galleryUITestTimeout))
+  }
+
+  @MainActor
   func testExactDictionarySelectorExposesCanvasWithoutVisibleReadyText() {
     assertExactSelector(storyID: "tocchien.dictionary-search")
   }

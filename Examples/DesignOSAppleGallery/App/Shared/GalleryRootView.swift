@@ -3,9 +3,14 @@ import SwiftUI
 
 struct GalleryRootView: View {
   @State private var selection: GalleryDestination?
+  @State private var storyPath: [DesignOSStorySelection]
 
-  init(initialSelection: GalleryDestination? = .catalog) {
+  init(
+    initialSelection: GalleryDestination? = .catalog,
+    initialStorySelection: DesignOSStorySelection? = nil
+  ) {
     _selection = State(initialValue: initialSelection)
+    _storyPath = State(initialValue: initialStorySelection.map { [$0] } ?? [])
   }
 
   var body: some View {
@@ -17,11 +22,11 @@ struct GalleryRootView: View {
       }
       .navigationTitle("Apple Design OS")
     } detail: {
-      NavigationStack {
+      NavigationStack(path: $storyPath) {
         detail
           .navigationTitle(selection?.rawValue ?? "Apple Design OS")
-          .navigationDestination(for: DesignOSStoryDescriptor.self) { descriptor in
-            DogfoodStoryDetailView(descriptor: descriptor)
+          .navigationDestination(for: DesignOSStorySelection.self) { storySelection in
+            DogfoodStoryDetailView(selection: storySelection)
           }
       }
     }

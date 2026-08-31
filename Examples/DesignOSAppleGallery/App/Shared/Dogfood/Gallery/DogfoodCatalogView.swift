@@ -1,3 +1,4 @@
+import DesignOSApple
 import DesignOSAppleCatalog
 import SwiftUI
 
@@ -12,7 +13,9 @@ struct DogfoodCatalogView: View {
     List {
       Section("Admitted stories") {
         ForEach(stories, id: \.id) { descriptor in
-          NavigationLink(value: descriptor) {
+          NavigationLink(
+            value: DesignOSStorySelection(descriptor: descriptor, profile: .default)
+          ) {
             DogfoodCatalogRow(descriptor: descriptor)
           }
           .accessibilityIdentifier("design-os.gallery.catalog.story.\(descriptor.id.rawValue)")
