@@ -32,22 +32,44 @@ open Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj
 ```
 
 Run `DesignOSAppleGallery-iOS` or `DesignOSAppleGallery-macOS`. The default route is the
-searchable Catalog. A specific admitted story can be opened with launch arguments:
+searchable Catalog. Open **Examples** for original, local-only two-screen mini-apps that
+show native SwiftUI composition in product-shaped contexts. These examples use fictional
+fixtures and SF Symbols; they are learning surfaces, not public runtime APIs or release
+catalog entries.
 
-Foundation reference stories combine a live native preview, copyable SwiftUI code, and
-usage, ownership, and accessibility guidance in one scrollable page.
+A specific admitted Catalog story can be opened with launch arguments:
+
+Catalog artwork is generated and verified separately from the executable SwiftUI stories.
+Maintainers should follow the [catalog thumbnail workflow](docs/catalog-thumbnail-workflow.md)
+instead of drawing thumbnail plates in SwiftUI.
+
+New research-driven mini apps follow the
+[reference reconstruction workflow](docs/reference-reconstruction-workflow.md), which
+keeps native ownership, clean-room provenance, source-bound screenshots, and independent
+visual review as separate contracts.
+
+Every Catalog story is an instructional reference page: stable AI keyword, executable preview or
+native destination, concrete use/avoid/placement guidance, copyable SwiftUI call site, ownership,
+availability, fallback, related stories, and source path. Package-internal primitives remain
+browsable under **Implementation internals** but point product code toward semantic components.
 
 ```text
 --design-os-story <story-id>
 --design-os-profile <profile-id>
 ```
 
-The complete typed Gallery authority is
+The complete typed release-story authority is
 [`DesignOSReleaseCatalog`](Sources/DesignOSAppleCatalog/DesignOSReleaseCatalog.swift). The
-[machine-readable catalog bundle](Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v1.json)
+[machine-readable catalog bundle](Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v2.json)
 is a checked projection for tools and AI agents, not a second catalog authority. The
-separate `DesignOSPilotCatalog` preserves the original six-story dogfood evidence boundary;
+previous `v1` artifact remains frozen for compatibility and is not current discovery authority. The
+separate `DesignOSPilotCatalog` preserves the current owner-approved five-story dogfood evidence boundary;
 it is not the public Gallery inventory.
+
+The [local demo catalog](Examples/DesignOSAppleGallery/Generated/local-demo-catalog.v2.json)
+is a separate `localOnly` manifest for six two-state mini apps. Its 12 live SwiftUI states
+are composition examples, not copied screenshots or public package APIs. Tools must not
+merge its IDs into the typed release catalog or infer package API availability from it.
 
 ## Choose the right API
 

@@ -1,4 +1,4 @@
-/// The closed set of executable Gallery story identifiers.
+/// Stable identities for executable Gallery stories and retained compatibility routes.
 public enum DesignOSStoryID: String, CaseIterable, Codable, Hashable, Sendable {
   case profileCustomization = "foundation.profile-customization"
   case colorRoles = "foundation.color-roles"
@@ -29,8 +29,31 @@ public enum DesignOSStoryID: String, CaseIterable, Codable, Hashable, Sendable {
   case extensionControlWidget = "extension.control-widget"
   case omniactSettingsShell = "omniact.settings-shell"
   case omniactCommandRow = "omniact.command-row"
+  /// Historical identity retained for source compatibility; no longer an admitted story.
+  @available(
+    *, deprecated, message: "The HUD story is no longer part of the current release catalog."
+  )
   case omniactHUDAutocompleteMaterial = "omniact.hud-autocomplete-material"
   case tocchienDictionarySearch = "tocchien.dictionary-search"
   case tocchienNavigationTabs = "tocchien.navigation-tabs"
   case tocchienChampionHeroNegativeControl = "tocchien.champion-hero-negative-control"
+
+  /// All identities, including deprecated compatibility routes.
+  public static let allCases: [Self] = [
+    .profileCustomization, .colorRoles, .platformSemanticColor, .typographyRoles, .surfaceRoles,
+    .listRow, .sidebarRow, .accessorySlotLayout, .sectionContentLayout, .sidebarToolbarContent,
+    .symbolContent, .buttonAndToolbarActions, .contentUnavailable, .elevatedBackground,
+    .hierarchicalStyle, .homeScreenQuickActions, .listSidebarAndDisclosure,
+    .materialAndGlassSurface, .menuContextAndEditActions, .navigationTabsAndToolbars,
+    .pickerAndDateColorInput, .presentationAndShare, .progressSliderStepper,
+    .textSearchAndKeyboardInput, .systemDeviceChromeHost, .extensionWidget,
+    .extensionControlWidget, .omniactSettingsShell, .omniactCommandRow,
+    Self(rawValue: "omniact.hud-autocomplete-material")!, .tocchienDictionarySearch,
+    .tocchienNavigationTabs, .tocchienChampionHeroNegativeControl,
+  ]
+
+  /// The exact 32 identities admitted by the current release catalog and v2 bundle.
+  public static let currentExecutableCases = allCases.filter {
+    $0.rawValue != "omniact.hud-autocomplete-material"
+  }
 }

@@ -13,7 +13,7 @@ func bundleCarriesReleaseCandidateAuthority() throws {
   for id in RuntimeDeliverableID.allCases {
     #expect(text.contains("\"\(id.rawValue)\""))
   }
-  for id in DesignOSStoryID.allCases {
+  for id in DesignOSStoryID.currentExecutableCases {
     #expect(text.contains("\"\(id.rawValue)\""))
   }
   for field in [
@@ -25,7 +25,6 @@ func bundleCarriesReleaseCandidateAuthority() throws {
   }
   #expect(text.contains("omniact.settings-shell"))
   #expect(text.contains("omniact.command-row"))
-  #expect(text.contains("omniact.hud-autocomplete-material"))
   #expect(text.contains("tocchien.dictionary-search"))
   #expect(text.contains("tocchien.navigation-tabs"))
   #expect(text.contains("tocchien.champion-hero-negative-control"))
@@ -38,8 +37,14 @@ func bundleCarriesReleaseCandidateAuthority() throws {
   #expect(text.contains("schemaSHA256"))
   #expect(text.contains("\"envelope\""))
   #expect(text.contains("\"story\""))
+  #expect(text.contains("\"storyDiscovery\""))
+  #expect(text.contains("\"storyRelationship\""))
   #expect(text.contains("additionalProperties"))
   #expect(text.contains("\"owner\""))
+  #expect(text.contains("\"discovery\""))
+  #expect(text.contains("\"relationship\""))
+  #expect(text.contains("CANONICAL_RUNTIME_STORY"))
+  #expect(text.contains("APP_OWNED_EXAMPLE"))
   #expect(try DesignOSStoryCatalogBundle.validatedExpectedBytes(from: data) == data)
 }
 
@@ -61,7 +66,7 @@ func bundleRejectsStalePayloads() throws {
       of: "\"summary\":\"Native macOS settings navigation, values, and actions.\"",
       with: "\"summary\":\"Changed\""),
     text.replacingOccurrences(of: "\"manifestSHA256\":\"", with: "\"manifestSHA256\":\"0"),
-    text.replacingOccurrences(of: "\"schemaVersion\":1", with: "\"schemaVersion\":2"),
+    text.replacingOccurrences(of: "\"schemaVersion\":2", with: "\"schemaVersion\":3"),
   ]
   for staleText in staleTexts {
     let stale = Data(staleText.utf8)

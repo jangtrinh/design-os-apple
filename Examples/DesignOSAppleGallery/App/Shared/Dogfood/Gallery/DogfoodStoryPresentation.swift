@@ -21,6 +21,8 @@ enum DogfoodStoryPresentation: Equatable {
       .omniactCommandRow, .omniactHUDAutocompleteMaterial,
       .tocchienChampionHeroNegativeControl:
       .contained
+    @unknown default:
+      .contained
     }
   }
 }

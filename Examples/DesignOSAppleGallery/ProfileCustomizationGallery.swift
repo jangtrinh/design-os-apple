@@ -18,29 +18,7 @@ struct ProfileCustomizationGallery: View {
   )
 
   var body: some View {
-    StorybookPage(
-      storyID: "foundation.profile-customization",
-      summary:
-        "Switch the same component between typed design-language profiles. Native behavior stays intact while package-owned typography, spacing, radius, color, surface, and accessibility policy change together.",
-      code: Self.code,
-      guidance: [
-        .init(
-          title: "Use it when",
-          detail:
-            "A product needs a coherent design language injected into a SwiftUI subtree without replacing native controls."
-        ),
-        .init(
-          title: "Ownership",
-          detail:
-            "The app owns profile selection. Apple Design OS owns package composition. SwiftUI and system accessibility settings remain authoritative."
-        ),
-        .init(
-          title: "Accessibility",
-          detail:
-            "A profile may constrain optional package translucency, but never overrides Reduce Transparency or other system preferences."
-        ),
-      ]
-    ) {
+    ScrollView {
       VStack(alignment: .leading, spacing: 16) {
         Picker("Profile", selection: $selection) {
           ForEach(ProfileOption.allCases) { option in
@@ -54,7 +32,7 @@ struct ProfileCustomizationGallery: View {
 
         VStack(spacing: 0) {
           ForEach(selectedFacts) { fact in
-            LabeledContent(fact.axis, value: fact.value)
+            ProfileCustomizationFactRow(fact: fact)
               .padding(.vertical, 7)
             if fact.id != selectedFacts.last?.id {
               Divider()
@@ -63,6 +41,7 @@ struct ProfileCustomizationGallery: View {
         }
         .font(DesignOSTypographyRole.callout.font)
       }
+      .padding()
     }
   }
 
@@ -87,36 +66,26 @@ struct ProfileCustomizationGallery: View {
     }
   }
 
-  private static let code = """
-    import DesignOSApple
-    import SwiftUI
+}
 
-    struct BrandedRoot: View {
-      private let profile: DesignOSProfile = {
-        do {
-          return DesignOSProfile(
-            typography: DesignOSTypographyProfile(fontDesign: .expressive),
-            spacing: try DesignOSSpacingProfile(
-              titleSubtitle: 6,
-              sidebarContent: 14,
-              listRowContent: 18
-            ),
-            radius: try DesignOSRadiusProfile(customContent: 24),
-            semanticColors: DesignOSSemanticColorProfile(secondaryContent: .purple),
-            surface: DesignOSSurfaceProfile(role: .translucentContent),
-            accessibility: .opaqueOnly
-          )
-        } catch {
-          return .default
-        }
-      }()
+private struct ProfileCustomizationFactRow: View {
+  @Environment(\.dynamicTypeSize) private var dynamicTypeSize
 
-      var body: some View {
-        ContentView()
-          .designOSProfile(profile)
+  let fact: ProfileFact
+
+  @ViewBuilder
+  var body: some View {
+    if dynamicTypeSize.isAccessibilitySize {
+      VStack(alignment: .leading, spacing: 4) {
+        Text(fact.axis)
+          .foregroundStyle(.secondary)
+        Text(fact.value)
       }
+      .frame(maxWidth: .infinity, alignment: .leading)
+    } else {
+      LabeledContent(fact.axis, value: fact.value)
     }
-    """
+  }
 }
 
 private enum ProfileOption: String, CaseIterable, Identifiable {

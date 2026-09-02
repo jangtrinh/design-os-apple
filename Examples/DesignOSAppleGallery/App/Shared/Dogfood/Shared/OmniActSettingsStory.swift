@@ -3,6 +3,7 @@ import SwiftUI
 struct OmniActSettingsStory: View {
   @Environment(\.horizontalSizeClass) private var horizontalSizeClass
   @State private var values = OmniActSettingsValues()
+  @State private var status = "No pending changes"
 
   var body: some View {
     if horizontalSizeClass == .compact {
@@ -31,11 +32,13 @@ struct OmniActSettingsStory: View {
       }
       Section {
         HStack {
-          Button("Test connection") {}
+          Button("Test connection") { status = "Connection available" }
           Spacer()
-          Button("Save") {}
+          Button("Save") { status = "Settings saved" }
             .buttonStyle(.borderedProminent)
         }
+        Text(status)
+          .foregroundStyle(.secondary)
       }
     }
     .formStyle(.grouped)

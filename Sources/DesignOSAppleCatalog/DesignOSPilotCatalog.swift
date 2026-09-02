@@ -57,7 +57,7 @@ public struct DesignOSProfileRegistry: Equatable, Sendable {
   }
 }
 
-/// The story-admission and profile authority for the six-story dogfood pilot.
+/// The story-admission and profile authority for the owner-approved five-story dogfood pilot.
 public enum DesignOSPilotCatalog {
   private static let profileRegistry: DesignOSProfileRegistry = {
     do {
@@ -67,19 +67,10 @@ public enum DesignOSPilotCatalog {
         sidebarContentSpacing: 8,
         listRowContentSpacing: 10
       )
-      let omniactHUDProfile = try DesignOSProfile(
-        fontDesign: .standard,
-        titleSubtitleSpacing: 2,
-        sidebarContentSpacing: 8,
-        listRowContentSpacing: 12,
-        customContentCornerRadius: 18,
-        surfaceRole: .translucentContent
-      )
       return try DesignOSProfileRegistry(
         registrations: [
           .init(id: "default", profile: .default),
           .init(id: "omniact", profile: omniactProfile),
-          .init(id: "omniact-hud", profile: omniactHUDProfile),
         ]
       )
     } catch {
@@ -87,7 +78,7 @@ public enum DesignOSPilotCatalog {
     }
   }()
 
-  /// The original six dogfood stories in stable identity order.
+  /// The current five dogfood stories in stable identity order.
   public static let admittedStories: [DesignOSStoryDescriptor] = {
     let values = ExtensionAndDogfoodStoryRegistrations.dogfoodValues
     precondition(Set(values.map(\.id)).count == values.count)

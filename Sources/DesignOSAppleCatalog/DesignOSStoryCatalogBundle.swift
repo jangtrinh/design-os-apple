@@ -5,7 +5,7 @@ import Foundation
 public enum DesignOSStoryCatalogBundle {
   /// The only repository-relative publication path accepted by the bundle tool.
   public static let allowedRelativePath =
-    "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v1.json"
+    "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v2.json"
 
   /// Produces canonical bytes for the typed release-candidate authority.
   public static func encoded() throws -> Data {
@@ -18,7 +18,7 @@ public enum DesignOSStoryCatalogBundle {
     let manifestData = try canonicalData(manifest)
     let schemaData = try canonicalData(schema)
     let envelope = CatalogBundleEnvelope(
-      bundleVersion: 1,
+      bundleVersion: 2,
       manifest: manifest,
       manifestSHA256: digest(manifestData),
       schema: schema,
@@ -43,7 +43,7 @@ public enum DesignOSStoryCatalogBundle {
   }
 
   private static func validate(_ envelope: CatalogBundleEnvelope) throws {
-    guard envelope.bundleVersion == 1, envelope.schema == CatalogBundleSchema() else {
+    guard envelope.bundleVersion == 2, envelope.schema == CatalogBundleSchema() else {
       throw BundleError.invalid
     }
     try validateManifest(envelope.manifest, against: envelope.schema)
@@ -63,9 +63,9 @@ public enum DesignOSStoryCatalogBundle {
       Set(deliverableIDs) == Set(RuntimeDeliverableID.allCases),
       storyIDs == storyIDs.sorted(by: { $0.rawValue < $1.rawValue }),
       Set(storyIDs).count == storyIDs.count,
-      Set(storyIDs) == Set(DesignOSStoryID.allCases),
+      Set(storyIDs) == Set(DesignOSStoryID.currentExecutableCases),
       schema.runtimeDeliverableIDs == RuntimeDeliverableID.allCases,
-      schema.storyIDs == DesignOSStoryID.allCases
+      schema.storyIDs == DesignOSStoryID.currentExecutableCases
     else { throw BundleError.invalid }
 
     let deliverables = Dictionary(uniqueKeysWithValues: manifest.deliverables.map { ($0.id, $0) })
@@ -74,7 +74,7 @@ public enum DesignOSStoryCatalogBundle {
       guard deliverable.isComplete,
         let canonicalStoryID = deliverable.storyDisposition.storyID,
         let story = stories[canonicalStoryID],
-        story.runtimeDeliverableID == deliverable.id,
+        story.relationship == .canonicalRuntimeStory(deliverable.id),
         story.examplePath == deliverable.examplePath
       else { throw BundleError.invalid }
     }
@@ -82,12 +82,15 @@ public enum DesignOSStoryCatalogBundle {
       guard !story.title.isEmpty, !story.summary.isEmpty, !story.examplePath.isEmpty else {
         throw BundleError.invalid
       }
-      if let deliverableID = story.runtimeDeliverableID {
+      switch story.relationship {
+      case .canonicalRuntimeStory(let deliverableID):
         guard deliverables[deliverableID] != nil, story.owner == .runtimeImplementation else {
           throw BundleError.invalid
         }
-      } else if story.owner != .appSpecific {
-        throw BundleError.invalid
+      case .appOwnedExample(let usesRuntimeDeliverables):
+        guard story.owner == .appSpecific,
+          usesRuntimeDeliverables.allSatisfy({ deliverables[$0] != nil })
+        else { throw BundleError.invalid }
       }
     }
   }

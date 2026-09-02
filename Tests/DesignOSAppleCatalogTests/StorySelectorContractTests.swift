@@ -26,20 +26,6 @@ func selectorAdmitsOmniActCommandRow() throws {
   #expect(selection.profile == expectedProfile)
 }
 
-@Test("Selector admits the exact HUD story with its dedicated profile")
-func selectorAdmitsOmniActHUD() throws {
-  let selected = try DesignOSStorySelector.select(
-    arguments: [
-      "--design-os-story", "omniact.hud-autocomplete-material", "--design-os-profile",
-      "omniact-hud",
-    ]
-  )
-  let selection = try #require(selected)
-  #expect(selection.descriptor.id == .omniactHUDAutocompleteMaterial)
-  #expect(selection.profile.surfaceRole == .translucentContent)
-  #expect(selection.profile.customContentCornerRadius == 18)
-}
-
 @Test("Selector admits the exact TocChien dictionary story")
 func selectorAdmitsTocChienDictionary() throws {
   let selected = try DesignOSStorySelector.select(
@@ -58,7 +44,7 @@ func selectorAdmitsPhaseFiveTocChienStories() throws {
       arguments: ["--design-os-story", "tocchien.navigation-tabs"]
     ))
   #expect(tabs.descriptor.id == .tocchienNavigationTabs)
-  #expect(tabs.descriptor.owner == .runtimeImplementation)
+  #expect(tabs.descriptor.owner == .appSpecific)
 
   let control = try #require(
     try DesignOSStorySelector.select(
@@ -108,24 +94,12 @@ func productionProfileRegistryIsExact() throws {
   let expected: [String: DesignOSProfile] = [
     "default": .default,
     "omniact": try commandRowProfile(),
-    "omniact-hud": try hudProfile(),
   ]
   let identifiers = DesignOSPilotCatalog.registeredProfileIdentifiers
-  #expect(identifiers == ["default", "omniact", "omniact-hud"])
+  #expect(identifiers == ["default", "omniact"])
   for identifier in identifiers {
     #expect(try DesignOSPilotCatalog.profile(for: identifier) == expected[identifier])
   }
-}
-
-private func hudProfile() throws -> DesignOSProfile {
-  try DesignOSProfile(
-    fontDesign: .standard,
-    titleSubtitleSpacing: 2,
-    sidebarContentSpacing: 8,
-    listRowContentSpacing: 12,
-    customContentCornerRadius: 18,
-    surfaceRole: .translucentContent
-  )
 }
 
 @Test("Selector rejects malformed, duplicate, and unknown story inputs")

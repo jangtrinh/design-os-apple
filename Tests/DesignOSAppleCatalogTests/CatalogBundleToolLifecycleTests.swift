@@ -9,7 +9,7 @@ func bundleLifecycleGeneratesAndChecks() throws {
   let root = try temporaryRoot()
   defer { try? FileManager.default.removeItem(at: root) }
   let bundle = root.appendingPathComponent(
-    "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v1.json")
+    "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v2.json")
   try FileManager.default.createDirectory(
     at: bundle.deletingLastPathComponent(), withIntermediateDirectories: true)
 
@@ -44,7 +44,7 @@ func bundleLifecycleRejectsUnsafePaths() throws {
       arguments: ["generate", "--bundle-output", "outside.json"], currentDirectory: root)
   }
   let bundle = root.appendingPathComponent(
-    "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v1.json")
+    "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v2.json")
   try FileManager.default.createDirectory(at: bundle, withIntermediateDirectories: true)
   #expect(throws: BundleCommand.ToolError.file) {
     try BundleCommand.run(
@@ -111,7 +111,7 @@ func bundleLifecycleRejectsSymlinkedParent() throws {
 }
 
 private let allowedPath =
-  "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v1.json"
+  "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v2.json"
 
 private func temporaryRoot() throws -> URL {
   let root = FileManager.default.temporaryDirectory.appendingPathComponent(UUID().uuidString)
@@ -121,7 +121,7 @@ private func temporaryRoot() throws -> URL {
 
 private func bundleURL(in root: URL) throws -> URL {
   let bundle = root.appendingPathComponent(
-    "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v1.json")
+    "Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v2.json")
   try FileManager.default.createDirectory(
     at: bundle.deletingLastPathComponent(), withIntermediateDirectories: true)
   return bundle

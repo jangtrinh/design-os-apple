@@ -15,6 +15,36 @@ final class ProjectMembershipTests: XCTestCase {
       "ProfileCustomizationGallery.swift": [
         "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS",
       ],
+      "LocalDemoDestination.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
+      "LocalDemoDefinition.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
+      "LocalDemoGalleryView.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
+      "LocalDemoAdaptiveColor.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
+      "LocalDemoDefinitions+Assistants.swift": [
+        "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS",
+      ],
+      "LocalDemoDefinitions+Mobility.swift": [
+        "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS",
+      ],
+      "LocalDemoDefinitions+Entertainment.swift": [
+        "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS",
+      ],
+      "ThoughtfulChatHomeDemoView.swift": galleryTargets,
+      "ThoughtfulChatThreadDemoView.swift": galleryTargets,
+      "VisualAssistantHomeDemoView.swift": galleryTargets,
+      "VisualAssistantAnswerDemoView.swift": galleryTargets,
+      "FlightTrackerBoardDemoView.swift": galleryTargets,
+      "FlightTrackerLiveDemoView.swift": galleryTargets,
+      "CityRideSelectionDemoView.swift": galleryTargets,
+      "CityRideTrackingDemoView.swift": galleryTargets,
+      "StreamingLibraryBrowseDemoView.swift": galleryTargets,
+      "StreamingLibraryHero.swift": galleryTargets,
+      "SongFinderListeningDemoView.swift": galleryTargets,
+      "SongFinderResultDemoView.swift": galleryTargets,
+      "CatalogStorySection.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
+      "CatalogStoryThumbnail.swift": [
+        "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS",
+      ],
+      "DogfoodCatalogCard.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
       "DogfoodCatalogView.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
       "DogfoodStoryCanvas.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
       "DogfoodStoryDetailView.swift": [
@@ -25,6 +55,16 @@ final class ProjectMembershipTests: XCTestCase {
         "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS",
       ],
       "DogfoodStoryRenderer.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
+      "DesignOSStoryDescriptor+GalleryPresentation.swift": galleryTargets,
+      "StoryPreviewDestination.swift": galleryTargets,
+      "StoryReferenceContent.swift": galleryTargets,
+      "StoryReferenceContent+Components.swift": galleryTargets,
+      "StoryReferenceContent+ExtensionsAndProducts.swift": galleryTargets,
+      "StoryReferenceContent+Foundations.swift": galleryTargets,
+      "StoryReferenceContent+NativeRecipesA.swift": galleryTargets,
+      "StoryReferenceContent+NativeRecipesB.swift": galleryTargets,
+      "StoryReferencePage.swift": galleryTargets,
+      "StoryReferencePageSupport.swift": galleryTargets,
       "TocChienDictionaryFixtures.swift": [
         "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS", "TocChienDogfoodPilot-iOS",
         "TocChienDogfoodPilot-macOS",
@@ -49,24 +89,24 @@ final class ProjectMembershipTests: XCTestCase {
       "OmniActCommandRowStory.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
       "OmniActSettingsStory.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
       "OmniActSettingsValues.swift": ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"],
-      "OmniActHUDSurfaceResolver.swift": [
-        "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS",
-      ],
-      "OmniActHUDStoryFixtures.swift": [
-        "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS",
-      ],
-      "OmniActHUDAutocompleteMaterialStory.swift": [
-        "DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS",
-      ],
       "DogfoodStoryRendererTests.swift": ["DesignOSAppleGalleryRendererTests"],
       "DogfoodCatalogViewTests.swift": ["DesignOSAppleGalleryRendererTests"],
       "DogfoodStoryPresentationTests.swift": ["DesignOSAppleGalleryRendererTests"],
-      "OmniActHUDSurfaceResolverTests.swift": ["DesignOSAppleGalleryRendererTests"],
+      "StoryReferenceContentTests.swift": ["DesignOSAppleGalleryRendererTests"],
+      "LocalDemoCatalogTests.swift": ["DesignOSAppleGalleryRendererTests"],
+      "AssistantMiniAppTests.swift": ["DesignOSAppleGalleryRendererTests"],
+      "MobilityMiniAppTests.swift": ["DesignOSAppleGalleryRendererTests"],
+      "EntertainmentMiniAppTests.swift": ["DesignOSAppleGalleryRendererTests"],
       "TocChienDictionarySearchStoryTests.swift": ["DesignOSAppleGalleryRendererTests"],
       "ProjectMembershipTests.swift": ["DesignOSAppleGalleryRendererTests"],
       "DesignOSAppleGalleryUITests.swift": ["DesignOSAppleGalleryUITests"],
       "DesignOSAppleGalleryStoryUITests.swift": ["DesignOSAppleGalleryUITests"],
+      "DesignOSAppleGalleryDesignFloorUITests.swift": ["DesignOSAppleGalleryUITests"],
+      "DesignOSAppleGalleryLocalDemoUITests.swift": ["DesignOSAppleGalleryUITests"],
       "DesignOSAppleGalleryMacOSUITests.swift": ["DesignOSAppleGalleryMacOSUITests"],
+      "DesignOSAppleGalleryLocalDemoMacOSUITests.swift": [
+        "DesignOSAppleGalleryMacOSUITests"
+      ],
       "TocChienDogfoodPilotIOSUITests.swift": ["TocChienDogfoodPilotIOSUITests"],
       "TocChienDogfoodPilotMacOSUITests.swift": ["TocChienDogfoodPilotMacOSUITests"],
     ]
@@ -76,6 +116,12 @@ final class ProjectMembershipTests: XCTestCase {
     }
     XCTAssertFalse(contents.contains("TocChienNavigationTabsStory.swift in Resources"))
     XCTAssertFalse(contents.contains("TocChienChampionHeroNegativeControlStory.swift in Resources"))
+    XCTAssertTrue(contents.contains("CatalogThumbnails.xcassets in Resources"))
+    XCTAssertTrue(contents.contains("LocalDemoMedia.xcassets in Resources"))
+  }
+
+  private var galleryTargets: Set<String> {
+    ["DesignOSAppleGallery-iOS", "DesignOSAppleGallery-macOS"]
   }
 
   private var projectURL: URL {

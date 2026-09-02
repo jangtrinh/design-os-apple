@@ -12,36 +12,6 @@ final class DesignOSAppleGalleryStoryUITests: XCTestCase {
   }
 
   @MainActor
-  func testExactHUDSelectorExposesCanvasWithoutVisibleReadyText() {
-    assertExactSelector(storyID: "omniact.hud-autocomplete-material")
-  }
-
-  @MainActor
-  func testDirectHUDStoryPreservesResolvedProfileAndNativeBackPath() {
-    let app = XCUIApplication()
-    app.launchArguments = [
-      "--design-os-story", "omniact.hud-autocomplete-material",
-      "--design-os-profile", "omniact-hud",
-    ]
-    app.launch()
-
-    let profiledSurface = app.descendants(matching: .any)[
-      "design-os.gallery.omniact-hud.native-material"
-    ]
-    XCTAssertTrue(
-      profiledSurface.waitForExistence(timeout: galleryUITestTimeout),
-      app.debugDescription
-    )
-
-    let catalogBackButton = app.navigationBars.buttons["Catalog"]
-    XCTAssertTrue(catalogBackButton.waitForExistence(timeout: galleryUITestTimeout))
-    catalogBackButton.tap()
-    XCTAssertTrue(
-      element("design-os.gallery.catalog.ready", in: app).waitForExistence(
-        timeout: galleryUITestTimeout))
-  }
-
-  @MainActor
   func testExactDictionarySelectorExposesCanvasWithoutVisibleReadyText() {
     assertExactSelector(storyID: "tocchien.dictionary-search")
   }
@@ -74,7 +44,7 @@ final class DesignOSAppleGalleryStoryUITests: XCTestCase {
       "UICTContentSizeCategoryAccessibilityXXXL"
     app.launch()
 
-    let catalogSearch = app.searchFields["Search admitted stories"]
+    let catalogSearch = app.searchFields["Search stories and keywords"]
     focusAndType("tocchien.dictionary-search", into: catalogSearch, in: app)
     let dictionaryRow = element(
       "design-os.gallery.catalog.story.tocchien.dictionary-search", in: app)
@@ -84,6 +54,7 @@ final class DesignOSAppleGalleryStoryUITests: XCTestCase {
     XCTAssertTrue(
       element("design-os.gallery.story.tocchien.dictionary-search.ready", in: app)
         .waitForExistence(timeout: galleryUITestTimeout))
+    openInteractiveExample(in: app)
     let dictionarySearch = app.searchFields["Tra từ điển"]
     focusAndType("Mưa xanh", into: dictionarySearch, in: app)
 
@@ -130,6 +101,7 @@ final class DesignOSAppleGalleryStoryUITests: XCTestCase {
       XCTAssertTrue(
         element(readinessIdentifier, in: app).waitForExistence(timeout: galleryUITestTimeout)
       )
+      openInteractiveExample(in: app)
       let descendant =
         storyID == "tocchien.dictionary-search"
         ? app.searchFields[descendantLabel]
@@ -162,11 +134,18 @@ final class DesignOSAppleGalleryStoryUITests: XCTestCase {
   private func launchCatalogStory(_ storyID: String) -> XCUIApplication {
     let app = XCUIApplication()
     app.launch()
-    focusAndType(storyID, into: app.searchFields["Search admitted stories"], in: app)
+    focusAndType(storyID, into: app.searchFields["Search stories and keywords"], in: app)
     let row = element("design-os.gallery.catalog.story.\(storyID)", in: app)
     XCTAssertTrue(row.waitForExistence(timeout: galleryUITestTimeout))
     row.tap()
     return app
+  }
+
+  @MainActor
+  private func openInteractiveExample(in app: XCUIApplication) {
+    let button = app.buttons["Open interactive example"]
+    XCTAssertTrue(button.waitForExistence(timeout: galleryUITestTimeout))
+    button.tap()
   }
 
   @MainActor

@@ -8,22 +8,19 @@ final class DesignOSAppleGalleryFoundationStoryUITests: XCTestCase {
       "foundation.color-roles",
       "foundation.platform-semantic-color",
       "foundation.typography",
+      "foundation.surface-roles",
     ]
 
     for (index, storyID) in stories.enumerated() {
       let app = launchStory(storyID)
-      assertExists("design-os.storybook.\(storyID).preview", in: app)
-      assertExists("design-os.storybook.\(storyID).code-content", in: app)
-      assertExists("design-os.storybook.\(storyID).guidance.use-it-when", in: app)
+      assertExists("design-os.reference.\(storyID).preview", in: app)
+      assertExists("design-os.reference.\(storyID).code", in: app)
+      assertExists("design-os.reference.\(storyID).apply", in: app)
 
       if index == 0 {
-        let copyButton = element("design-os.storybook.\(storyID).copy", in: app)
-        scrollUntilHittable(copyButton, in: app)
+        let copyButton = element("design-os.reference.\(storyID).copy-keyword", in: app)
         copyButton.tap()
-        XCTAssertEqual(
-          element("design-os.storybook.\(storyID).copy", in: app).label,
-          "Copied"
-        )
+        XCTAssertTrue(app.buttons["Copied"].exists)
       }
       app.terminate()
     }
@@ -66,6 +63,10 @@ final class DesignOSAppleGalleryFoundationStoryUITests: XCTestCase {
     secondID: String
   ) {
     let app = launchStory(storyID)
+    let openExample = app.buttons["Open interactive example"]
+    if openExample.waitForExistence(timeout: galleryUITestTimeout) {
+      openExample.tap()
+    }
     let first = element(firstID, in: app)
     let second = element(secondID, in: app)
     XCTAssertTrue(first.waitForExistence(timeout: galleryUITestTimeout))

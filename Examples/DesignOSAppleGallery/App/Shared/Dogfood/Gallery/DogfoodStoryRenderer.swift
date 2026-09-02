@@ -65,13 +65,23 @@ enum DogfoodStoryRenderer {
     case .omniactCommandRow:
       OmniActCommandRowStory()
     case .omniactHUDAutocompleteMaterial:
-      OmniActHUDAutocompleteMaterialStory()
+      ContentUnavailableView(
+        "Story unavailable",
+        systemImage: "rectangle.slash",
+        description: Text("This compatibility identity is not part of the current catalog.")
+      )
     case .tocchienDictionarySearch:
       TocChienDictionarySearchStory()
     case .tocchienNavigationTabs:
       TocChienNavigationTabsStory()
     case .tocchienChampionHeroNegativeControl:
       TocChienChampionHeroNegativeControlStory()
+    @unknown default:
+      ContentUnavailableView(
+        "Story unavailable",
+        systemImage: "rectangle.slash",
+        description: Text("This compatibility identity is not part of the current catalog.")
+      )
     }
   }
 }

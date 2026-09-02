@@ -19,3 +19,9 @@ _Avoid_: generated UI, app shell
 **Platform-adaptive component**:
 A component with one semantic contract whose interaction and presentation respect each Apple platform.
 _Avoid_: identical cross-platform component, universal widget
+
+**Local demo catalog**:
+The Gallery-only manifest of fictional, product-shaped SwiftUI examples that teach reusable
+composition and native interaction patterns without becoming public runtime API or release-story
+authority.
+_Avoid_: release catalog, runtime component library

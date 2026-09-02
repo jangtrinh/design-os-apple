@@ -3,6 +3,7 @@ import SwiftUI
 /// Caller-owned list-row content that preserves native container and interaction ownership.
 public struct DesignOSListRow<Leading: View, Title: View, Subtitle: View, Trailing: View>: View {
   @Environment(\.designOSProfile) private var profile
+  @Environment(\.dynamicTypeSize) private var dynamicTypeSize
   private let leading: Leading
   private let title: Title
   private let subtitle: Subtitle
@@ -22,22 +23,53 @@ public struct DesignOSListRow<Leading: View, Title: View, Subtitle: View, Traili
   }
 
   public var body: some View {
+    switch DesignOSListRowMetrics.layoutAxis(for: dynamicTypeSize) {
+    case .horizontal:
+      horizontalLayout
+    case .vertical:
+      verticalLayout
+    }
+  }
+
+  private var horizontalLayout: some View {
     HStack(alignment: .center, spacing: DesignOSListRowMetrics.contentSpacing(for: profile)) {
       SymbolContent(scale: .regular, kind: .symbol) {
         leading
       }
 
       SectionContentLayout {
-        VStack(
-          alignment: .leading, spacing: DesignOSListRowMetrics.titleSubtitleSpacing(for: profile)
-        ) {
-          title
-          subtitle
-            .foregroundStyle(DesignOSListRowStyle.secondaryContentRole(for: profile).color)
-        }
+        labelContent
       } trailing: {
         trailing
       }
+    }
+  }
+
+  private var verticalLayout: some View {
+    VStack(alignment: .leading, spacing: DesignOSListRowMetrics.contentSpacing(for: profile)) {
+      HStack(alignment: .top, spacing: DesignOSListRowMetrics.contentSpacing(for: profile)) {
+        SymbolContent(scale: .regular, kind: .symbol) {
+          leading
+        }
+
+        labelContent
+          .frame(maxWidth: .infinity, alignment: .leading)
+      }
+
+      AccessorySlotLayout {
+        trailing
+      }
+      .frame(maxWidth: .infinity, alignment: .leading)
+    }
+  }
+
+  private var labelContent: some View {
+    VStack(
+      alignment: .leading, spacing: DesignOSListRowMetrics.titleSubtitleSpacing(for: profile)
+    ) {
+      title
+      subtitle
+        .foregroundStyle(DesignOSListRowStyle.secondaryContentRole(for: profile).color)
     }
   }
 }
@@ -55,6 +87,10 @@ internal enum DesignOSListRowMetrics {
 
   static func titleSubtitleSpacing(for profile: DesignOSProfile) -> CGFloat {
     profile.spacing.titleSubtitle
+  }
+
+  static func layoutAxis(for dynamicTypeSize: DynamicTypeSize) -> Axis {
+    dynamicTypeSize.isAccessibilitySize ? .vertical : .horizontal
   }
 }
 

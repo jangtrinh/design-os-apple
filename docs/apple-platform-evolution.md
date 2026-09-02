@@ -25,7 +25,7 @@ package-owned APIs describe intent instead of freezing annual visual details.
   appearance, Figma names, or historical screenshots.
 - `DesignOSReleaseCatalog` is the compiled release inventory. Its generated bundle is a
   checked projection for people and agents, never an independent source of truth.
-- `DesignOSPilotCatalog` remains a frozen six-story evidence boundary and does not grow with
+- `DesignOSPilotCatalog` remains a frozen five-story evidence boundary and does not grow with
   annual platform intake.
 - New Apple-owned controls stay native. Add a package component only for reusable semantic
   composition that SwiftUI does not already own.

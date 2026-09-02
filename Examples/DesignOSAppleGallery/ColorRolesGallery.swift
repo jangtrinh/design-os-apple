@@ -15,27 +15,7 @@ struct ColorRolesGallery: View {
   ]
 
   var body: some View {
-    StorybookPage(
-      storyID: "foundation.color-roles",
-      summary:
-        "Choose a semantic intent first. UIKit or AppKit resolves the actual color for the active appearance and accessibility settings.",
-      code: Self.code,
-      guidance: [
-        .init(
-          title: "Use it when",
-          detail: "Styling custom content that cannot use a native hierarchical style directly."),
-        .init(
-          title: "Native owner",
-          detail:
-            "UIKit and AppKit resolve appearance and contrast. The design system stores semantic intent, never a cached RGB value."
-        ),
-        .init(
-          title: "Accessibility",
-          detail:
-            "Role names and status text carry meaning without relying on color alone. Verify contrast in the real container."
-        ),
-      ]
-    ) {
+    ScrollView {
       VStack(spacing: 0) {
         ForEach(roles) { sample in
           HStack(spacing: 14) {
@@ -65,24 +45,9 @@ struct ColorRolesGallery: View {
           }
         }
       }
+      .padding()
     }
   }
-
-  private static let code = """
-    import DesignOSApple
-    import SwiftUI
-
-    struct SemanticLabels: View {
-      var body: some View {
-        VStack(alignment: .leading) {
-          Text("Primary content")
-            .foregroundStyle(DesignOSColorRole.labelPrimary.color)
-          Text("Supporting content")
-            .foregroundStyle(DesignOSColorRole.labelSecondary.color)
-        }
-      }
-    }
-    """
 }
 
 private struct ColorRoleSample: Identifiable {

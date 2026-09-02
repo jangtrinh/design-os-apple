@@ -15,6 +15,8 @@ design/figma-bind.json
 design/figma-contention.json
 design/figma-errors.jsonl
 design/heartbeat.json
+design/memory.events.jsonl
+design/memory.events.count.json
 Sources/DesignOSDogfoodEvidenceValidator/
 Tests/DesignOSDogfoodEvidenceValidatorTests/
 

@@ -49,25 +49,38 @@ targetTemplates:
       - path: App/Shared/Dogfood/Shared
         includes:
           - OmniActCommandRowStory.swift
-          - OmniActHUDAutocompleteMaterialStory.swift
-          - OmniActHUDStoryFixtures.swift
-          - OmniActHUDSurfaceResolver.swift
           - OmniActSettingsStory.swift
           - OmniActSettingsValues.swift
           - TocChienDictionaryFixtures.swift
           - TocChienDictionarySearchStory.swift
           - TocChienNavigationTabsStory.swift
           - TocChienChampionHeroNegativeControlStory.swift
+  LocalDemoSources:
+    sources:
+      - path: App/Shared/Flows
   DogfoodGallerySources:
     sources:
       - path: App/Shared/Dogfood/Gallery
         includes:
           - DogfoodCatalogView.swift
+          - CatalogStorySection.swift
+          - CatalogStoryThumbnail.swift
+          - DogfoodCatalogCard.swift
           - DogfoodStoryCanvas.swift
           - DogfoodStoryDetailView.swift
           - DogfoodStoryHost.swift
           - DogfoodStoryPresentation.swift
           - DogfoodStoryRenderer.swift
+          - DesignOSStoryDescriptor+GalleryPresentation.swift
+          - StoryPreviewDestination.swift
+          - StoryReferenceContent.swift
+          - StoryReferenceContent+Components.swift
+          - StoryReferenceContent+ExtensionsAndProducts.swift
+          - StoryReferenceContent+Foundations.swift
+          - StoryReferenceContent+NativeRecipesA.swift
+          - StoryReferenceContent+NativeRecipesB.swift
+          - StoryReferencePage.swift
+          - StoryReferencePageSupport.swift
   TocChienSharedStorySources:
     sources:
       - path: App/Shared/Dogfood/Shared
@@ -107,10 +120,15 @@ targets:
       - GallerySources
       - DogfoodGalleryStorySources
       - DogfoodGallerySources
+      - LocalDemoSources
     type: application
     platform: iOS
     sources:
       - App/iOS
+      - path: Resources/CatalogThumbnails.xcassets
+        buildPhase: resources
+      - path: Resources/LocalDemoMedia.xcassets
+        buildPhase: resources
     dependencies:
       - package: DesignOSApple
         product: DesignOSApple
@@ -118,6 +136,7 @@ targets:
         product: DesignOSAppleCatalog
     settings:
       base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: ""
         GENERATE_INFOPLIST_FILE: YES
         INFOPLIST_KEY_UILaunchScreen_Generation: YES
         INFOPLIST_KEY_UISupportedInterfaceOrientations: >-
@@ -133,10 +152,15 @@ targets:
       - GallerySources
       - DogfoodGalleryStorySources
       - DogfoodGallerySources
+      - LocalDemoSources
     type: application
     platform: macOS
     sources:
       - App/macOS
+      - path: Resources/CatalogThumbnails.xcassets
+        buildPhase: resources
+      - path: Resources/LocalDemoMedia.xcassets
+        buildPhase: resources
     dependencies:
       - package: DesignOSApple
         product: DesignOSApple
@@ -144,6 +168,7 @@ targets:
         product: DesignOSAppleCatalog
     settings:
       base:
+        ASSETCATALOG_COMPILER_APPICON_NAME: ""
         GENERATE_INFOPLIST_FILE: YES
         PRODUCT_BUNDLE_IDENTIFIER: com.jang.designos.apple.gallery.macos
         PRODUCT_NAME: Apple Design OS
@@ -157,7 +182,10 @@ targets:
         includes:
           - DesignOSAppleGalleryUITests.swift
           - DesignOSAppleGalleryStoryUITests.swift
+          - DesignOSAppleGalleryDesignFloorUITests.swift
           - DesignOSAppleGalleryFoundationStoryUITests.swift
+          - DesignOSAppleGalleryLocalDemoUITests.swift
+          - LocalDemoUITestSupport.swift
     dependencies:
       - target: DesignOSAppleGallery-iOS
     settings:
@@ -175,7 +203,11 @@ targets:
           - DogfoodStoryRendererTests.swift
           - DogfoodCatalogViewTests.swift
           - DogfoodStoryPresentationTests.swift
-          - OmniActHUDSurfaceResolverTests.swift
+          - StoryReferenceContentTests.swift
+          - LocalDemoCatalogTests.swift
+          - AssistantMiniAppTests.swift
+          - MobilityMiniAppTests.swift
+          - EntertainmentMiniAppTests.swift
           - TocChienDictionarySearchStoryTests.swift
       - path: Tests/ProjectMembershipTests
         includes:
@@ -199,6 +231,7 @@ targets:
       - path: UITests/GalleryMacOS
         includes:
           - DesignOSAppleGalleryMacOSUITests.swift
+          - DesignOSAppleGalleryLocalDemoMacOSUITests.swift
     dependencies:
       - target: DesignOSAppleGallery-macOS
     settings:

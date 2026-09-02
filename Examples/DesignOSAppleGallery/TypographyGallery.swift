@@ -15,28 +15,7 @@ struct TypographyGallery: View {
   ]
 
   var body: some View {
-    StorybookPage(
-      storyID: "foundation.typography",
-      summary:
-        "Semantic roles preserve Dynamic Type and native platform metrics while a profile may change the font design.",
-      code: Self.code,
-      guidance: [
-        .init(
-          title: "Use it when",
-          detail:
-            "Package-owned custom text needs a stable semantic role across iOS, iPadOS, and macOS."),
-        .init(
-          title: "Native owner",
-          detail:
-            "SwiftUI owns text metrics and Dynamic Type. Apple Design OS projects only semantic role and optional emphasis, italic, or font design."
-        ),
-        .init(
-          title: "Accessibility",
-          detail:
-            "Never replace semantic roles with fixed point sizes. Test the real layout at accessibility text sizes."
-        ),
-      ]
-    ) {
+    ScrollView {
       VStack(alignment: .leading, spacing: 16) {
         Picker("Preview text size", selection: $previewSize) {
           Text("Default").tag(DynamicTypeSize.large)
@@ -68,24 +47,9 @@ struct TypographyGallery: View {
         }
         .dynamicTypeSize(previewSize)
       }
+      .padding()
     }
   }
-
-  private static let code = """
-    import DesignOSApple
-    import SwiftUI
-
-    struct SemanticType: View {
-      var body: some View {
-        VStack(alignment: .leading) {
-          Text("Screen title")
-            .font(DesignOSTypographyRole.largeTitle.font)
-          Text("Supporting detail")
-            .font(DesignOSTypographyRole.body.font)
-        }
-      }
-    }
-    """
 }
 
 private struct TypographyRoleSample: Identifiable {

@@ -15,11 +15,26 @@ final class DesignOSAppleGalleryUITests: XCTestCase {
   }
 
   @MainActor
+  func testCatalogCardExposesOneUsefulAccessibleNavigationTarget() {
+    let app = XCUIApplication()
+    app.launch()
+
+    let card = element(
+      "design-os.gallery.catalog.story.foundation.profile-customization", in: app)
+    XCTAssertTrue(card.waitForExistence(timeout: galleryUITestTimeout))
+    XCTAssertEqual(card.label, "Profile customization")
+    XCTAssertFalse((card.value as? String)?.contains("foundation.profile-customization") == true)
+    XCTAssertFalse((card.value as? String)?.contains("Runtime implementation") == true)
+    XCTAssertGreaterThanOrEqual(card.frame.width, 44)
+    XCTAssertGreaterThanOrEqual(card.frame.height, 44)
+  }
+
+  @MainActor
   func testCatalogSearchOpensDictionaryStoryAndReturnsToCatalog() {
     let app = XCUIApplication()
     app.launch()
 
-    let searchField = app.searchFields["Search admitted stories"]
+    let searchField = app.searchFields["Search stories and keywords"]
     focusAndType("tocchien.dictionary-search", into: searchField, in: app)
 
     let dictionaryRow = element(
@@ -46,7 +61,7 @@ final class DesignOSAppleGalleryUITests: XCTestCase {
     let app = XCUIApplication()
     app.launch()
 
-    let searchField = app.searchFields["Search admitted stories"]
+    let searchField = app.searchFields["Search stories and keywords"]
     focusAndType("not-an-admitted-story", into: searchField, in: app)
 
     let noResults = app.descendants(matching: .any)
@@ -60,7 +75,7 @@ final class DesignOSAppleGalleryUITests: XCTestCase {
     let app = XCUIApplication()
     app.launch()
 
-    let searchField = app.searchFields["Search admitted stories"]
+    let searchField = app.searchFields["Search stories and keywords"]
     focusAndType("omniact.settings-shell", into: searchField, in: app)
     let settingsRow = element("design-os.gallery.catalog.story.omniact.settings-shell", in: app)
     XCTAssertTrue(settingsRow.waitForExistence(timeout: galleryUITestTimeout))

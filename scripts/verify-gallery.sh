@@ -79,24 +79,34 @@ xcodebuild build \
 
 iphone_id=$(simulator_id_for iPhone)
 ipad_id=$(simulator_id_for iPad)
+ios_test_selection=(
+  -only-testing:DesignOSAppleGalleryUITests/DesignOSAppleGalleryUITests/testDefaultLaunchShowsCatalogWithoutDebugText
+  -only-testing:DesignOSAppleGalleryUITests/DesignOSAppleGalleryLocalDemoUITests
+)
 for simulator_id in "$iphone_id" "$ipad_id"; do
   xcodebuild test \
     -project Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj \
     -scheme DesignOSAppleGallery-iOS \
     -destination "id=$simulator_id" \
     -derivedDataPath "$temporary_root/DerivedData-$simulator_id" \
-    -only-testing:DesignOSAppleGalleryUITests/DesignOSAppleGalleryUITests/testDefaultLaunchShowsCatalogWithoutDebugText \
+    "${ios_test_selection[@]}" \
     CODE_SIGNING_ALLOWED=NO \
     -quiet
 done
 
+macos_test_selection=(
+  -only-testing:DesignOSAppleGalleryRendererTests
+  -only-testing:DesignOSAppleGalleryMacOSUITests/DesignOSAppleGalleryLocalDemoMacOSUITests
+)
 xcodebuild test \
   -project Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj \
   -scheme DesignOSAppleGallery-macOS \
   -destination 'platform=macOS' \
   -derivedDataPath "$temporary_root/DerivedData" \
-  -only-testing:DesignOSAppleGalleryRendererTests \
-  CODE_SIGNING_ALLOWED=NO \
+  "${macos_test_selection[@]}" \
+  CODE_SIGNING_ALLOWED=YES \
+  CODE_SIGN_STYLE=Manual \
+  CODE_SIGN_IDENTITY=- \
   -quiet
 
-print -- "Gallery project drift, iOS/iPadOS build and UI smoke, and macOS renderer checks passed."
+print -- "Gallery project drift, iOS/iPadOS local-demo behavior, and macOS renderer/local-demo checks passed."

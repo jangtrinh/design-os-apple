@@ -14,7 +14,7 @@ final class DesignOSAppleGalleryMacOSUITests: XCTestCase {
     let app = XCUIApplication()
     app.launch()
 
-    let searchField = app.searchFields["Search admitted stories"]
+    let searchField = app.searchFields["Search stories and keywords"]
     XCTAssertTrue(searchField.waitForExistence(timeout: 2))
     searchField.click()
     searchField.typeText("tocchien.dictionary-search")
@@ -52,19 +52,6 @@ final class DesignOSAppleGalleryMacOSUITests: XCTestCase {
       element("design-os.gallery.story.omniact.command-row.ready", in: app).waitForExistence(
         timeout: 2)
     )
-  }
-
-  @MainActor
-  func testExactHUDStoryShowsReadyMarker() {
-    let app = XCUIApplication()
-    app.launchArguments = [
-      "--design-os-story", "omniact.hud-autocomplete-material", "--design-os-profile",
-      "omniact-hud",
-    ]
-    app.launch()
-    XCTAssertTrue(
-      element("design-os.gallery.story.omniact.hud-autocomplete-material.ready", in: app)
-        .waitForExistence(timeout: 2))
   }
 
   @MainActor
@@ -133,6 +120,61 @@ final class DesignOSAppleGalleryMacOSUITests: XCTestCase {
     app.launch()
     XCTAssertTrue(
       app.staticTexts["design-os.gallery.story.selector-failure"].waitForExistence(timeout: 2))
+  }
+
+  @MainActor
+  func testCatalogAndRepresentativeStoryRenderInLightDarkAndAccessibilityLayouts() {
+    for appearance in ["Light", "Dark"] {
+      let catalog = launch(appearance: appearance, contentSize: "UICTContentSizeCategoryL")
+      XCTAssertTrue(element("design-os.gallery.catalog.ready", in: catalog).waitForExistence(timeout: 2))
+      capture("macos-catalog-\(appearance.lowercased())", app: catalog)
+      catalog.terminate()
+
+      let story = launch(
+        appearance: appearance,
+        contentSize: "UICTContentSizeCategoryL",
+        storyID: "native.content-unavailable"
+      )
+      XCTAssertTrue(
+        element("design-os.gallery.story.native.content-unavailable.ready", in: story)
+          .waitForExistence(timeout: 2)
+      )
+      capture("macos-story-content-unavailable-\(appearance.lowercased())", app: story)
+      story.terminate()
+    }
+
+    let accessibilityStory = launch(
+      appearance: "Light",
+      contentSize: "UICTContentSizeCategoryAccessibilityXXXL",
+      storyID: "component.list-row"
+    )
+    XCTAssertTrue(
+      element("design-os.gallery.story.component.list-row.ready", in: accessibilityStory)
+        .waitForExistence(timeout: 2)
+    )
+    capture("macos-story-list-row-accessibility-xxxl", app: accessibilityStory)
+  }
+
+  @MainActor
+  private func launch(
+    appearance: String,
+    contentSize: String,
+    storyID: String? = nil
+  ) -> XCUIApplication {
+    let app = XCUIApplication()
+    app.launchArguments = ["-AppleInterfaceStyle", appearance]
+    if let storyID { app.launchArguments += ["--design-os-story", storyID] }
+    app.launchEnvironment["UIPreferredContentSizeCategoryName"] = contentSize
+    app.launch()
+    return app
+  }
+
+  @MainActor
+  private func capture(_ name: String, app: XCUIApplication) {
+    let attachment = XCTAttachment(screenshot: app.screenshot())
+    attachment.name = name
+    attachment.lifetime = .keepAlways
+    add(attachment)
   }
 
   @MainActor

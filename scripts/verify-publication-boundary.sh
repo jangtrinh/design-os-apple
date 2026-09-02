@@ -81,10 +81,46 @@ is_allowed() {
   return 1
 }
 
+is_approved_catalog_thumbnail() {
+  local candidate=$1 parent leaf stem
+  [[ "$candidate" == \
+    Examples/DesignOSAppleGallery/Resources/CatalogThumbnails.xcassets/catalog-*.imageset/catalog-*.png \
+  ]] || return 1
+  parent=${candidate%/*}
+  parent=${parent##*/}
+  leaf=${candidate##*/}
+  stem=${parent%.imageset}
+  [[ "$parent" == catalog-*.imageset && "$leaf" == "$stem.png" ]]
+}
+is_gallery_generated_art() {
+  case "$1" in
+    Examples/DesignOSAppleGallery/Resources/CatalogThumbnails.xcassets/demo-thoughtful-chat-thumbnail.imageset/demo-thoughtful-chat-thumbnail.png|\
+      Examples/DesignOSAppleGallery/Resources/CatalogThumbnails.xcassets/demo-visual-assistant-thumbnail.imageset/demo-visual-assistant-thumbnail.png|\
+      Examples/DesignOSAppleGallery/Resources/CatalogThumbnails.xcassets/demo-flight-tracker-thumbnail.imageset/demo-flight-tracker-thumbnail.png|\
+      Examples/DesignOSAppleGallery/Resources/CatalogThumbnails.xcassets/demo-city-ride-thumbnail.imageset/demo-city-ride-thumbnail.png|\
+      Examples/DesignOSAppleGallery/Resources/CatalogThumbnails.xcassets/demo-streaming-library-thumbnail.imageset/demo-streaming-library-thumbnail.png|\
+      Examples/DesignOSAppleGallery/Resources/CatalogThumbnails.xcassets/demo-song-finder-thumbnail.imageset/demo-song-finder-thumbnail.png|\
+      Examples/DesignOSAppleGallery/Resources/LocalDemoMedia.xcassets/visual-assistant-answer-art.imageset/visual-assistant-answer-art.png|\
+      Examples/DesignOSAppleGallery/Resources/LocalDemoMedia.xcassets/streaming-library-poster-atlas.imageset/streaming-library-poster-atlas.png|\
+      Examples/DesignOSAppleGallery/Resources/LocalDemoMedia.xcassets/song-finder-afterglow-cover.imageset/song-finder-afterglow-cover.png|\
+      Examples/DesignOSAppleGallery/Resources/LocalDemoMedia.xcassets/city-ride-arrival-essentials.imageset/city-ride-arrival-essentials.png)
+      return 0
+      ;;
+  esac
+  return 1
+}
 report() {
   print -u2 -- "E_PUBLIC_BOUNDARY: $1"
   failures=$((failures + 1))
 }
+gallery_generated_art_admitted=0
+if grep -Eq '^Examples/DesignOSAppleGallery/(Generated/local-demo-image-provenance\.v1\.json|Resources/(CatalogThumbnails|LocalDemoMedia)\.xcassets/(demo-(thoughtful-chat|visual-assistant|flight-tracker|city-ride|streaming-library|song-finder)-thumbnail|visual-assistant-answer-art|streaming-library-poster-atlas|song-finder-afterglow-cover|city-ride-arrival-essentials)\.imageset/[^/]+\.png)$' "$temporary_list"; then
+  if node "$scan_root/scripts/verify-local-demo-image-provenance.mjs" --root "$scan_root"; then
+    gallery_generated_art_admitted=1
+  else
+    report "gallery-generated-art provenance admission failed"
+  fi
+fi
 
 while IFS= read -r relative_path; do
   [[ -z "$relative_path" ]] && continue
@@ -125,17 +161,28 @@ while IFS= read -r relative_path; do
   fi
 
   size=$(stat -f %z "$absolute_path")
-  (( size <= 1048576 )) || report "file exceeds 1 MiB '$relative_path'"
+  if (( size > 1048576 )); then
+    if ! (( gallery_generated_art_admitted )) || ! is_gallery_generated_art "$relative_path"; then
+      report "file exceeds 1 MiB '$relative_path'"
+    fi
+  fi
 
   case "$relative_path" in
     *.png|*.jpg|*.jpeg|*.gif|*.pdf|*.fig|*.sketch|*.zip|*.dmg|*.pkg|*.bin)
-      report "unapproved binary or design asset '$relative_path'"
+      is_approved_catalog_thumbnail "$relative_path" \
+        || { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
+        || report "unapproved binary or design asset '$relative_path'"
       ;;
   esac
 
   mime_type=$(file -b --mime-type "$absolute_path")
   case "$mime_type" in
     text/*|application/json|application/xml) ;;
+    image/png)
+      is_approved_catalog_thumbnail "$relative_path" \
+        || { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
+        || report "unclassified non-text content '$relative_path' ($mime_type)"
+      ;;
     *) report "unclassified non-text content '$relative_path' ($mime_type)" ;;
   esac
 

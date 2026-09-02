@@ -9,7 +9,7 @@ final class DogfoodStoryPresentationTests: XCTestCase {
       uniqueKeysWithValues: DesignOSReleaseCatalog.stories.map {
         ($0.id, DogfoodStoryPresentation.presentation(for: $0.id))
       })
-    XCTAssertEqual(actual.count, DesignOSStoryID.allCases.count)
+    XCTAssertEqual(actual.count, DesignOSStoryID.currentExecutableCases.count)
     XCTAssertEqual(actual[.omniactSettingsShell], .fullBleed)
     XCTAssertEqual(actual[.profileCustomization], .contained)
   }

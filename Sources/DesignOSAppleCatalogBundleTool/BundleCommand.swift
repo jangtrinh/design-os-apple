@@ -35,7 +35,7 @@ enum BundleCommand {
   }
 
   private static let parentComponents = ["Examples", "DesignOSAppleGallery", "Generated"]
-  private static let finalName = "design-os-apple-catalog-bundle.v1.json"
+  private static let finalName = "design-os-apple-catalog-bundle.v2.json"
 
   private static func withParentDirectory<Value>(
     at root: URL, _ body: (Int32) throws -> Value

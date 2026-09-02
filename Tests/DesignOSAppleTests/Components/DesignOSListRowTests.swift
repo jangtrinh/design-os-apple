@@ -39,6 +39,14 @@ func designOSListRowProfileMetrics() throws {
   #expect(DesignOSListRowMetrics.titleSubtitleSpacing(for: custom) == 2)
 }
 
+@Test("List row moves accessory content below the label at accessibility sizes")
+func designOSListRowAccessibilityLayoutAxis() {
+  #expect(DesignOSListRowMetrics.layoutAxis(for: .large) == .horizontal)
+  #expect(
+    DesignOSListRowMetrics.layoutAxis(for: .accessibility3) == .vertical
+  )
+}
+
 private func commandRowProfile() throws -> DesignOSProfile {
   try DesignOSProfile(
     fontDesign: .expressive,

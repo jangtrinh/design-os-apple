@@ -19,13 +19,15 @@ struct CatalogBundleSchema: Codable, Equatable {
   let manifest: CatalogObjectSchema
   let runtimeDeliverable: CatalogObjectSchema
   let story: CatalogObjectSchema
+  let storyDiscovery: CatalogObjectSchema
+  let storyRelationship: CatalogObjectSchema
   let minimumAvailability: CatalogObjectSchema
   let storyDisposition: CatalogObjectSchema
 
   init() {
-    schemaVersion = 1
+    schemaVersion = 2
     runtimeDeliverableIDs = RuntimeDeliverableID.allCases
-    storyIDs = DesignOSStoryID.allCases
+    storyIDs = DesignOSStoryID.currentExecutableCases
     envelope = CatalogObjectSchema(
       required: ["bundleVersion", "manifest", "manifestSHA256", "schema", "schemaSHA256"],
       properties: [
@@ -55,11 +57,29 @@ struct CatalogBundleSchema: Codable, Equatable {
       ]
     )
     story = CatalogObjectSchema(
-      required: ["examplePath", "id", "owner", "runtimeDeliverableID", "summary", "title"],
+      required: [
+        "discovery", "examplePath", "id", "kind", "owner", "relatedStoryIDs", "relationship",
+        "runtimeDeliverableID", "summary", "title",
+      ],
       properties: [
-        .init("examplePath", "string"), .init("id", "string"),
-        .init("owner", "string"), .init("runtimeDeliverableID", "string|null"),
+        .init("discovery", "object"), .init("examplePath", "string"), .init("id", "string"),
+        .init("kind", "string"), .init("owner", "string"), .init("relatedStoryIDs", "array"),
+        .init("relationship", "object"), .init("runtimeDeliverableID", "string|null"),
         .init("summary", "string"), .init("title", "string"),
+      ]
+    )
+    storyDiscovery = CatalogObjectSchema(
+      required: ["aliases", "intentQueries", "primaryKeyword"],
+      properties: [
+        .init("aliases", "array"), .init("intentQueries", "array"),
+        .init("primaryKeyword", "string"),
+      ]
+    )
+    storyRelationship = CatalogObjectSchema(
+      required: ["runtimeDeliverableID", "type", "usedRuntimeDeliverableIDs"],
+      properties: [
+        .init("runtimeDeliverableID", "string|null"), .init("type", "string"),
+        .init("usedRuntimeDeliverableIDs", "array"),
       ]
     )
     minimumAvailability = CatalogObjectSchema(

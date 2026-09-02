@@ -8,140 +8,244 @@
 
 /* Begin PBXBuildFile section */
 		009A3E77D1F3CC8383BB0548 /* NativePresentationAndShareRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3D88295D07CA8EF5F8D4E8 /* NativePresentationAndShareRecipeGallery.swift */; };
+		00A7A699F1EB63649236A9FD /* MobilityMapLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F059FC16B2D9373184552B /* MobilityMapLayers.swift */; };
 		02EBB3FCB6FE33BF4F2DFF8A /* NativeListSidebarAndDisclosureRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF095D555F58CBE33B3C37D4 /* NativeListSidebarAndDisclosureRecipeGallery.swift */; };
 		03B3B6BD7D6E5D0438854024 /* DesignOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = AA805DF8088A8900868B5563 /* DesignOSApple */; };
+		078DBBAE3A0AB8F277AC43AC /* ThoughtfulChatThreadDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D28440C4C77168AB56851 /* ThoughtfulChatThreadDemoView.swift */; };
+		0905F0714431BFD0B5BE4113 /* LocalDemoPasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A581CB5B3A331104F54E6310 /* LocalDemoPasteboard.swift */; };
+		0AC5EE8123B2520605F4580A /* VisualAssistantAnswerSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982FABF124CB1C5AC92E0FE3 /* VisualAssistantAnswerSupport.swift */; };
+		0F187EDAE28F83D7241E64C5 /* StoryReferenceContent+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87CF9B97758A51DAB3ACAA3 /* StoryReferenceContent+Components.swift */; };
+		0FB0E062BBB0A98D907EEB0D /* MobilityDemoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97297DBD70D7EEFEADC2E12B /* MobilityDemoTheme.swift */; };
+		10EFB7EFB2CCA6577FE2A517 /* LocalDemoRootMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBC3A175F6EA797A8B85523 /* LocalDemoRootMarker.swift */; };
 		10FECE11883754F020A67A09 /* OmniActCommandRowStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333E24FF41B6A0AEAC1117A5 /* OmniActCommandRowStory.swift */; };
+		1184B3E7EDC7CC1C8E665882 /* AssistantMiniAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A22F6713ADE80E52A1AA221 /* AssistantMiniAppTests.swift */; };
 		14BA282B085D332B4BFF99C4 /* SidebarToolbarContentGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1620EE2AEC0258D67EA92FE /* SidebarToolbarContentGallery.swift */; };
 		156156533C916EFE28BFC298 /* PlatformSemanticColorGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC46EA82AF667853F2E03A7 /* PlatformSemanticColorGallery.swift */; };
+		1655799703EA7B772810A7FD /* CityRideTrackingDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738106DC6CD28B9671FD38F1 /* CityRideTrackingDemoView.swift */; };
 		1672A72047315E41B2B35868 /* ExtensionControlWidgetGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533131D89D4C414FC902C1B1 /* ExtensionControlWidgetGallery.swift */; };
 		181F569EBEDACAA43503B1B8 /* TypographyGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF794C8D5109B50FABAE9F16 /* TypographyGallery.swift */; };
+		1832D2807381BC6D3D385EB8 /* StoryReferenceContent+Foundations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178396A02B1AF229BC499648 /* StoryReferenceContent+Foundations.swift */; };
 		1879C4BD91D82A2A8517A151 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4773A7D5D2234E7576CB1A37 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift */; };
+		18B54278152F774CEB61C883 /* EntertainmentMiniAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40E58544D6336D77F9AA8EFE /* EntertainmentMiniAppTests.swift */; };
+		1CA1EC2B13CBE784CD95C827 /* VisualAssistantHomeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C86FC99407224B7A0E21F /* VisualAssistantHomeDemoView.swift */; };
+		1EF58963C05BB247CF876D00 /* DesignOSStoryDescriptor+GalleryPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F9F52B132B8AA5DF1FB6C8 /* DesignOSStoryDescriptor+GalleryPresentation.swift */; };
 		1FA985EC49581EBEC26F9B52 /* DogfoodCatalogViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B9EB0A21C5E6E4436D7EC079 /* DogfoodCatalogViewTests.swift */; };
+		202699E2747125FA461E1CC5 /* CatalogThumbnails.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE87C46D2EDE8A8E0DA6DC21 /* CatalogThumbnails.xcassets */; };
 		203DF49EDCDEB9E69D5F4558 /* TocChienDictionarySearchStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */; };
+		21B146A012C6E0F85CFEF707 /* MobilityDemoTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 97297DBD70D7EEFEADC2E12B /* MobilityDemoTheme.swift */; };
 		23D298150D13E87CAA124A56 /* TocChienDogfoodPilotMacOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 676C0EB3405ADD45F9F038EB /* TocChienDogfoodPilotMacOSUITests.swift */; };
 		24827B83E5901D4A2AC96BC5 /* NativeHomeScreenQuickActionRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25507FDA6E89B072605F80CF /* NativeHomeScreenQuickActionRecipeGallery.swift */; };
+		26540D197D08126AE7136A22 /* StreamingLibraryBrowseDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7978E344BE180B5B62223E /* StreamingLibraryBrowseDemoView.swift */; };
 		26767B4B852A402DF0FF8602 /* GalleryRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BA78C28566F3E3C659E7AE /* GalleryRootView.swift */; };
 		273AF6C41AD39D317A29C2BB /* NativePresentationAndShareRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C3D88295D07CA8EF5F8D4E8 /* NativePresentationAndShareRecipeGallery.swift */; };
+		2783344BF1EE51284ACC6655 /* LocalDemoDefinitions+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4019EA65C92CCE4FD6E3C20 /* LocalDemoDefinitions+Assistants.swift */; };
 		2907843376976C51E446BB78 /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = 70A98C4722E9DD62F0B4CA3D /* DesignOSAppleCatalog */; };
 		29187892BC1AA296A742FD9F /* NativeContentUnavailableViewRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F71F7CFF73D1B9E95CBF09 /* NativeContentUnavailableViewRecipeGallery.swift */; };
 		2B1CE58AC72476ED3F036AF3 /* DogfoodStoryPresentationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 388FA0370B5FD45C079F024F /* DogfoodStoryPresentationTests.swift */; };
+		2CAE711CDFF3940527FCD13F /* VisualAssistantAnswerDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451F38A8F6441D21A35D274 /* VisualAssistantAnswerDemoView.swift */; };
 		2D76B558D1F0EFEEC567B01F /* ProfileCustomizationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD5785BA6E2806223B0C80 /* ProfileCustomizationGallery.swift */; };
 		2EA088861E89D2AB9501325B /* NativeMenuContextAndEditActionsRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF41CE35844BEBDC5941B583 /* NativeMenuContextAndEditActionsRecipeGallery.swift */; };
-		31352B08E9A39CB1DBA276AC /* OmniActHUDAutocompleteMaterialStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721708D2061E2790D4C38BC9 /* OmniActHUDAutocompleteMaterialStory.swift */; };
+		3002F1E914C55C165937FCE0 /* CityRideTrackingDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 738106DC6CD28B9671FD38F1 /* CityRideTrackingDemoView.swift */; };
+		305336DEAD1418F29BEC148A /* MobilityMiniAppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A425E18E7BA525C032442848 /* MobilityMiniAppTests.swift */; };
+		30B6DD9D4764BF11FF188290 /* LocalDemoAdaptiveColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4492BC84D993FEE2B34AFEAC /* LocalDemoAdaptiveColor.swift */; };
+		310375C96822267E4D67E332 /* StreamingLibraryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DE3F8CE59982BC4CB4DB6 /* StreamingLibraryFixtures.swift */; };
 		33EDDC4A5F447C08B28E76CF /* StorybookPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE3DC4F0B0428B256F87F13 /* StorybookPage.swift */; };
+		34972E63A43B6E750E76EE39 /* LocalDemoDefinitions+Assistants.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4019EA65C92CCE4FD6E3C20 /* LocalDemoDefinitions+Assistants.swift */; };
 		34ACF14C6C6C5CA9F5EC1C32 /* GalleryOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDD8191EBF6443CB8CA051 /* GalleryOverview.swift */; };
 		34B081E9BF459F2E1DE7A406 /* DesignOSSidebarRowGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B12921BF59EF1B6CDA16E /* DesignOSSidebarRowGallery.swift */; };
 		35F49E69E87E3479072CF619 /* NativeContentUnavailableViewRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52F71F7CFF73D1B9E95CBF09 /* NativeContentUnavailableViewRecipeGallery.swift */; };
+		37065EF4E5C2E32BC9918720 /* LocalDemoInteractionMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4EFFF9BC951E593CBCE2F /* LocalDemoInteractionMotion.swift */; };
 		3916309218337CB26A8438B0 /* DesignOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 2E41B938001E8FD2E15668C3 /* DesignOSApple */; };
+		39B33968D87F0A79543C7415 /* LocalDemoDefinitions+Entertainment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F20C07689911EB4B73BBDFA /* LocalDemoDefinitions+Entertainment.swift */; };
 		3AD89CE3B5EFDE7F376BA364 /* TocChienNavigationTabsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */; };
+		3B1C46C88CE0DCD4D4FFB4CF /* VisualAssistantAnswerDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = D451F38A8F6441D21A35D274 /* VisualAssistantAnswerDemoView.swift */; };
 		3C7322F6B1CD4FD68F463378 /* DogfoodCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FA37A0C2A9ABB4B106EC66 /* DogfoodCatalogView.swift */; };
 		3D4C933865F34C6A977C040D /* DesignOSSidebarRowGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 987B12921BF59EF1B6CDA16E /* DesignOSSidebarRowGallery.swift */; };
+		3DA1F8CCB982DFEC5AF39B6C /* StoryReferenceContent+NativeRecipesB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44F87C5F0B5C8D942BD9F3 /* StoryReferenceContent+NativeRecipesB.swift */; };
 		3E0BBA6C8A037C56A29F3B21 /* NativePatternsGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B51F751CB88D790FCEF69E3 /* NativePatternsGallery.swift */; };
-		3EC0811F1668F864D8BAE13B /* OmniActHUDSurfaceResolverTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 696C4D62D5AC9782090828BD /* OmniActHUDSurfaceResolverTests.swift */; };
+		3FAEFD7293F4E0C20E4F3963 /* VisualAssistantHomeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5C86FC99407224B7A0E21F /* VisualAssistantHomeDemoView.swift */; };
 		40DF60B47D9A9107FA7BCC6D /* TocChienChampionHeroNegativeControlStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */; };
 		412F847E020CA87533D7A489 /* ProjectMembershipTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D07A7A368D9CC42208ACB5D4 /* ProjectMembershipTests.swift */; };
+		427D6A797EBD109670D8D71C /* SongFinderResultDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C42AEB50F47501EA47DBEF /* SongFinderResultDemoView.swift */; };
+		4293D93897CF1B7944DD9E63 /* ThoughtfulChatHomeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B39E96D419FD2A890C9683 /* ThoughtfulChatHomeDemoView.swift */; };
+		42ED20BECA404D9D6C869C61 /* LocalDemoDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24DD692F340B173724059D9 /* LocalDemoDestination.swift */; };
 		43A50DF2029E3BA83C3FF3F4 /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = AF9ABC16C9FA2168F24CA305 /* DesignOSAppleCatalog */; };
 		44AD935C29FB9856710A64B0 /* DesignOSSurfaceRoleGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C1E33232F619B7C9A3EA17 /* DesignOSSurfaceRoleGallery.swift */; };
 		44FB7928225C9508F7433195 /* DesignOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 3B62A34CB2C435FBC19908CC /* DesignOSApple */; };
+		4570262D5F8A6F77AAD3A713 /* LocalDemoDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF934A21FF17EAA65C3A3E /* LocalDemoDefinition.swift */; };
 		469FC5ECC9931878D8D78ED0 /* TocChienDogfoodPilotRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326865195E496FA93B392F8 /* TocChienDogfoodPilotRootView.swift */; };
+		48AB3AA8CB46ADD7B6E562A2 /* LocalDemoDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = C24DD692F340B173724059D9 /* LocalDemoDestination.swift */; };
 		48E6FFB2BB1654BE3E323D65 /* DogfoodStoryCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543DEFAEE66A677E0AA581C0 /* DogfoodStoryCanvas.swift */; };
 		49094E6F0F7394D93EF2A6F8 /* SystemDeviceChromeHostRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */; };
+		4B8E6E1E99C156122DE3DB58 /* StoryReferenceContent+NativeRecipesB.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5A44F87C5F0B5C8D942BD9F3 /* StoryReferenceContent+NativeRecipesB.swift */; };
+		4BD99A6934DE356DE1CDF5B1 /* LocalDemoUITestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FFBE65FBCFD23DD44A10B68A /* LocalDemoUITestSupport.swift */; };
+		4BE8E2B98E7621D66345317C /* SongFinderResultDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77C42AEB50F47501EA47DBEF /* SongFinderResultDemoView.swift */; };
+		4C278D7D9CC855AEE049603D /* CatalogStorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B54F7A25CDF757AF1488C8E /* CatalogStorySection.swift */; };
 		4EF4F804992B311DB6A1EF1C /* TocChienNavigationTabsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */; };
+		4FA6ADCDAF3DDC43A0F9A579 /* MobilityMapLayers.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4F059FC16B2D9373184552B /* MobilityMapLayers.swift */; };
 		4FF8A3E7E488F082E46455D4 /* SymbolContentGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE82CB9429607CE65B3816F /* SymbolContentGallery.swift */; };
+		51EB84B1C8636F4B31BA8E1B /* StoryReferencePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7292635697A3615B249E72B /* StoryReferencePage.swift */; };
 		52911C822953EFD0A19CC433 /* AccessorySlotLayoutGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1D1598F39E58A1C21E19AB /* AccessorySlotLayoutGallery.swift */; };
 		53089FCDF36A6B740C467C13 /* DesignOSListRowGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012957187BD147BE906FC5F7 /* DesignOSListRowGallery.swift */; };
+		54171BB7B4284C0E5BAD9A24 /* LocalDemoCatalogTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = A93F399DC04C11389515E734 /* LocalDemoCatalogTests.swift */; };
+		579C7CC753A68DEC5720F4AD /* LocalDemoDefinitions+Mobility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E5BB2CB38189F2FF057633 /* LocalDemoDefinitions+Mobility.swift */; };
 		586C257C7867D21E1BC064D4 /* NativeButtonAndToolbarActionRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF991A581F87850993D6CE /* NativeButtonAndToolbarActionRecipeGallery.swift */; };
+		58CBCDCACA3483FE72EF181A /* EntertainmentTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA2A8E3B1C4FB219B535771 /* EntertainmentTheme.swift */; };
 		59368A697B6DC3D41E82B1CA /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = A4D3B50DEA39F8939EE3FB3D /* DesignOSAppleCatalog */; };
 		599BB22E152919D9A3AE49F3 /* DogfoodStoryCanvas.swift in Sources */ = {isa = PBXBuildFile; fileRef = 543DEFAEE66A677E0AA581C0 /* DogfoodStoryCanvas.swift */; };
 		59ED11130FCE78F0CCEBDFE7 /* ExtensionControlWidgetGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 533131D89D4C414FC902C1B1 /* ExtensionControlWidgetGallery.swift */; };
 		5B77622C9D0E9D2E16B93733 /* NativePickerAndDateColorInputRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8609CC4634770DEDB038B0 /* NativePickerAndDateColorInputRecipeGallery.swift */; };
+		5D30B2C04138FBF13BC4E4B1 /* DesignOSAppleGalleryLocalDemoUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 804F772A8923CB5000D3B376 /* DesignOSAppleGalleryLocalDemoUITests.swift */; };
 		5D8A0B08C5E69B5C7564755D /* DogfoodStoryHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D146C7809C759A60EF8AB /* DogfoodStoryHost.swift */; };
 		5E3AB5CE6E7D773D88E4F30D /* NativeMaterialAndGlassSurfaceRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0034C2B388053F93F49415 /* NativeMaterialAndGlassSurfaceRecipeGallery.swift */; };
+		6193BCB18972519B0D357EF7 /* StoryReferenceContent+Components.swift in Sources */ = {isa = PBXBuildFile; fileRef = C87CF9B97758A51DAB3ACAA3 /* StoryReferenceContent+Components.swift */; };
 		61BEBB33D68FCC371FA4C72E /* DogfoodStoryRendererTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3F9B4823F9DE4E5E6778FFFC /* DogfoodStoryRendererTests.swift */; };
+		6263E07A51865A395C1CB376 /* FlightTrackerLiveDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEC9F44D29737B28F32F9CA /* FlightTrackerLiveDemoView.swift */; };
 		6302BA573E64975390AE4E1F /* DogfoodStoryRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29D24EA0CC61C2A16D5324A /* DogfoodStoryRenderer.swift */; };
 		64A0EBC323C19ADB6B2EEC6E /* NativeNavigationTabsAndToolbarsRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2806A79C3DF6E84A41EEC7 /* NativeNavigationTabsAndToolbarsRecipeGallery.swift */; };
+		64B1D76169069F49716A4CF0 /* CatalogStoryThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA27839306E1554344B17F /* CatalogStoryThumbnail.swift */; };
 		6533D17EA1243859DFED1005 /* DogfoodStoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517CCEA3E4A27C5ED19D411 /* DogfoodStoryDetailView.swift */; };
 		6538C9DB539179D54E030178 /* TocChienDictionaryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */; };
 		65C31D385DB23B4664813CE0 /* TypographyGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FF794C8D5109B50FABAE9F16 /* TypographyGallery.swift */; };
+		669A5F3D8F5C547F535B7D84 /* CityRideNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7964E2DA13FA56C0C03B70B0 /* CityRideNotice.swift */; };
 		66ED46AC72EEAB3B76540A38 /* ProfileCustomizationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9AD5785BA6E2806223B0C80 /* ProfileCustomizationGallery.swift */; };
-		6726846F872FD203D240A337 /* OmniActHUDStoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */; };
+		67C79515ED6E6A87D4796E7B /* CityRideSelectionDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254B0C4FD0F4F5256A2BF34 /* CityRideSelectionDemoView.swift */; };
+		6A15621D16AA3977EF3AB2CF /* FlightTrackerLiveDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DEC9F44D29737B28F32F9CA /* FlightTrackerLiveDemoView.swift */; };
 		6B0D8DD09FD84695321E7C7A /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = 334780B6AFC0EDC1F33912FD /* DesignOSAppleCatalog */; };
+		6B19E741931D0C7BC0199A98 /* StreamingMediaArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AA3B2ADAFFD67FA5C60F6E /* StreamingMediaArtwork.swift */; };
 		6B69CF56D2DE8A78D4F7C805 /* DesignOSAppleGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7730332CD46BBA35FC21DE0 /* DesignOSAppleGalleryApp.swift */; };
 		6E1F6E957D2DAEF2DA903620 /* DesignOSAppleGalleryFoundationStoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 89D79BD34C9485A5339D3C2E /* DesignOSAppleGalleryFoundationStoryUITests.swift */; };
 		6E7B17F54B5B8D6CA12F8052 /* GalleryDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AC7EC5DA2CB6F79F86EA91 /* GalleryDestination.swift */; };
+		6F9C4D1F51A239FE67D278E0 /* FlightTripPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF178A7987C88D4FEE7B9B /* FlightTripPicker.swift */; };
 		6FA732DEB8F881D3E74A8BBF /* DesignOSAppleGalleryStoryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EC15C310339302D06AC0F587 /* DesignOSAppleGalleryStoryUITests.swift */; };
 		705C5B77938BE1B97C7042E2 /* DesignOSAppleGalleryUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 73EE91E6182239B05FA7119F /* DesignOSAppleGalleryUITests.swift */; };
 		720B02B73ED6992D3222681D /* NativeElevatedBackgroundRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67C6C77313599187BC0DAF /* NativeElevatedBackgroundRecipeGallery.swift */; };
 		7227C2CFBD6BA8320DD4A64D /* NativeTextSearchAndKeyboardInputRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4773A7D5D2234E7576CB1A37 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift */; };
 		72968DA4149BDC7F0D76F275 /* ColorRolesGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083E08E68A624A4AAD9B90CC /* ColorRolesGallery.swift */; };
+		72BC5E8FD50920F501D9FD4F /* LocalDemoGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0D50972CCD32D94C876BC7 /* LocalDemoGalleryView.swift */; };
+		74691CA8829448B224BB4274 /* SongFinderListeningDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5909919B2654BC6D602DD7AA /* SongFinderListeningDemoView.swift */; };
 		74F3C2EA076F0B2E95904BFB /* TocChienDogfoodPilotMacOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0F5C156947E068A45005B6A /* TocChienDogfoodPilotMacOSApp.swift */; };
+		75C6F2F673503015767B9862 /* StreamingLibraryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = E53DE3F8CE59982BC4CB4DB6 /* StreamingLibraryFixtures.swift */; };
+		79CC8D7431478475FC1C33A5 /* CatalogThumbnails.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = AE87C46D2EDE8A8E0DA6DC21 /* CatalogThumbnails.xcassets */; };
 		7AFE2E2D0D2AECE87EF494FA /* NativeMaterialAndGlassSurfaceRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8C0034C2B388053F93F49415 /* NativeMaterialAndGlassSurfaceRecipeGallery.swift */; };
 		7B1CFD8F6BA127F90049C135 /* NativePatternsGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4B51F751CB88D790FCEF69E3 /* NativePatternsGallery.swift */; };
 		7B2F3CB9DC1EF3658A8F67CD /* FoundationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C3F175A4AD0AC46946BC88 /* FoundationGallery.swift */; };
 		7BC9AE06BF6BCE608AC84053 /* DesignOSAppleCatalog in Frameworks */ = {isa = PBXBuildFile; productRef = F8DE88A4D784692B38298247 /* DesignOSAppleCatalog */; };
+		7CEB5D51A03F7AB7419ED1ED /* LocalDemoNavigationMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B5149312091EF0EF0088C7 /* LocalDemoNavigationMotion.swift */; };
 		7DCB07190E702C46B42D4840 /* OmniActSettingsValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40170353EF25E9A89F7AEF04 /* OmniActSettingsValues.swift */; };
+		7E56EC240B7DC8CBD870217E /* LocalDemoMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11E3080DCAA53CD110522790 /* LocalDemoMedia.xcassets */; };
+		80361D1B501D1DF9C4ECEE18 /* MobilityMapField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD20D3CB452926386F44E838 /* MobilityMapField.swift */; };
 		805E817F3BFE2C87D9A6DF06 /* StorybookPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1AE3DC4F0B0428B256F87F13 /* StorybookPage.swift */; };
 		821E8F1F4E20B314E10D0486 /* TocChienDogfoodPilotIOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49C9ED10884AFDFA656A4B32 /* TocChienDogfoodPilotIOSUITests.swift */; };
 		82C22BDA98D1F7D779EA09CA /* SystemDeviceChromeHostRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */; };
-		847FFB0A9E63CB5DB1A491EA /* OmniActHUDSurfaceResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E6D3290CC1332BA3B9D850 /* OmniActHUDSurfaceResolver.swift */; };
+		85DD26A3EB22C71A298D2540 /* StreamingLibraryHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A5AC3816E1E2FB753E67F7 /* StreamingLibraryHero.swift */; };
+		8606BD0AF0BFC0FCF96DA021 /* LocalDemoNavigationMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 59B5149312091EF0EF0088C7 /* LocalDemoNavigationMotion.swift */; };
 		8679ABE25835E135E7E669A0 /* SemanticComponentsGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3721CF3E7B1B20E9FAD1362B /* SemanticComponentsGallery.swift */; };
 		86E973053EE7192CAE511FB0 /* DogfoodCatalogView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11FA37A0C2A9ABB4B106EC66 /* DogfoodCatalogView.swift */; };
 		8778566010FC3EFB281B28F4 /* AccessorySlotLayoutGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6E1D1598F39E58A1C21E19AB /* AccessorySlotLayoutGallery.swift */; };
 		88836FC4DB5CE61EE172E1AB /* TocChienDictionarySearchStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */; };
+		88C597144E33D53082A463B8 /* VisualAssistantTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BE708CE7B659B15E129F16 /* VisualAssistantTheme.swift */; };
+		8B0E2837998BEBE4559DC4A1 /* LocalDemoAdaptiveColor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4492BC84D993FEE2B34AFEAC /* LocalDemoAdaptiveColor.swift */; };
+		8D8400DBFD73AD89E91572A9 /* LocalDemoInteractionMotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04E4EFFF9BC951E593CBCE2F /* LocalDemoInteractionMotion.swift */; };
+		8D9AD2A2C9260B6FC8FC6102 /* StreamingLibraryHero.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01A5AC3816E1E2FB753E67F7 /* StreamingLibraryHero.swift */; };
+		8E76CA8C58A0BE810FE70D78 /* LocalDemoDefinition.swift in Sources */ = {isa = PBXBuildFile; fileRef = A3DF934A21FF17EAA65C3A3E /* LocalDemoDefinition.swift */; };
 		8ED60DCE882BA89F6B91D021 /* DesignOSApple in Frameworks */ = {isa = PBXBuildFile; productRef = 22D8CD9D0740D4B280209C78 /* DesignOSApple */; };
-		8F522551AA44779B144FC062 /* OmniActHUDSurfaceResolver.swift in Sources */ = {isa = PBXBuildFile; fileRef = C8E6D3290CC1332BA3B9D850 /* OmniActHUDSurfaceResolver.swift */; };
-		8FF30DA7E988CADF6821E68A /* OmniActHUDStoryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */; };
 		979601B62E92C2C487B6E2C6 /* DesignOSSurfaceRoleGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 68C1E33232F619B7C9A3EA17 /* DesignOSSurfaceRoleGallery.swift */; };
 		97C7AA99DE167843241F208F /* SemanticComponentsGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3721CF3E7B1B20E9FAD1362B /* SemanticComponentsGallery.swift */; };
 		99500467957D1F535762DB76 /* DesignOSAppleGalleryMacOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF843AF140600BA95DBB72D2 /* DesignOSAppleGalleryMacOSUITests.swift */; };
+		9BBCE6896E237E596320B807 /* StoryReferencePageSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84DF4C560FFEFD5A49359B9 /* StoryReferencePageSupport.swift */; };
 		9C3C421115831703124916D4 /* OmniActSettingsValues.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40170353EF25E9A89F7AEF04 /* OmniActSettingsValues.swift */; };
 		9C8C452B1A3FFD13FED00DFD /* FoundationGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81C3F175A4AD0AC46946BC88 /* FoundationGallery.swift */; };
-		9CAF8D33362869BFA27DEAD6 /* OmniActHUDAutocompleteMaterialStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 721708D2061E2790D4C38BC9 /* OmniActHUDAutocompleteMaterialStory.swift */; };
 		9CC4F5C6710D63B55EF491F8 /* TocChienNavigationTabsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */; };
+		9D7EF8D1144997B4D57DB21B /* CityRideArrivalPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F6F184D29776F773A788D2 /* CityRideArrivalPromotion.swift */; };
+		9E2401DFF13553066DC8EA7E /* StoryReferenceContent+NativeRecipesA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBC2811BE9BA7658C5AA20 /* StoryReferenceContent+NativeRecipesA.swift */; };
+		9E36A3316F5D1446A7067AFD /* DesignOSAppleGalleryDesignFloorUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC73A7D6398CDB754CB10C28 /* DesignOSAppleGalleryDesignFloorUITests.swift */; };
+		A0113DB2AC57120706F2A70E /* StoryReferenceContent+ExtensionsAndProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104C942770CEAEBE1EDDC91 /* StoryReferenceContent+ExtensionsAndProducts.swift */; };
 		A12EDE5216B83EC234471387 /* GalleryRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 38BA78C28566F3E3C659E7AE /* GalleryRootView.swift */; };
 		A1D3B3AEC63F4FDF7E6DC3F4 /* ColorRolesGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 083E08E68A624A4AAD9B90CC /* ColorRolesGallery.swift */; };
+		A1F9C8FAF4E6F6C4C67D4D45 /* DesignOSAppleGalleryLocalDemoMacOSUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DA0D03E5CBB127C2A6114494 /* DesignOSAppleGalleryLocalDemoMacOSUITests.swift */; };
 		A2CC8BDD2D714163F69C41A5 /* TocChienDictionarySearchStoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 590CC544786C0D806836236C /* TocChienDictionarySearchStoryTests.swift */; };
 		A2D894EE6A333DDC26D2839C /* SectionContentLayoutGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C700841F1E013B4448C9F9 /* SectionContentLayoutGallery.swift */; };
+		A3B99C23364E7883ABE89EF0 /* FlightTrackerBoardDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616DE537BC871DB3189C91A1 /* FlightTrackerBoardDemoView.swift */; };
+		A840DA5A6FA6472FF3D396F3 /* VisualAssistantAnswerSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = 982FABF124CB1C5AC92E0FE3 /* VisualAssistantAnswerSupport.swift */; };
 		A9D5B14DC877056BA198DD50 /* DogfoodStoryPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC299287F36F8A81FBCE5EE /* DogfoodStoryPresentation.swift */; };
+		AB2D47D2834B9BBE0649143C /* LocalDemoMedia.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 11E3080DCAA53CD110522790 /* LocalDemoMedia.xcassets */; };
 		AB403DFD2182963B740A2CE0 /* DogfoodStoryDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4517CCEA3E4A27C5ED19D411 /* DogfoodStoryDetailView.swift */; };
+		AB680627FCA60B481C36BBA1 /* StoryReferenceContent+NativeRecipesA.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74EBC2811BE9BA7658C5AA20 /* StoryReferenceContent+NativeRecipesA.swift */; };
 		AFFC79CED22015F3831C634F /* TocChienChampionHeroNegativeControlStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */; };
 		B00720560E723DEF0EB392EB /* NativeHierarchicalStyleRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE14DDA0DDA8EBEF965E57 /* NativeHierarchicalStyleRecipeGallery.swift */; };
+		B056D601ADAC1E4E0D216A3E /* StoryPreviewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BF580865D27F962A6F9795 /* StoryPreviewDestination.swift */; };
+		B27987266FBB66EC99386B74 /* VisualAssistantTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = E2BE708CE7B659B15E129F16 /* VisualAssistantTheme.swift */; };
+		B37F3CBFCD1619390A1DF639 /* StreamingLibraryTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574E587E2D25D380C2CA0C1B /* StreamingLibraryTabBar.swift */; };
 		BA9E9A4C172D8737B5AF06A8 /* TocChienDictionarySearchStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */; };
 		BAAC2EBBE643B8B7B0FDFF5E /* NativeProgressSliderStepperRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4212B18C0C4E90D4E2DABB /* NativeProgressSliderStepperRecipeGallery.swift */; };
 		BAB9F37F0F2DD6220E2BD5BF /* NativeHierarchicalStyleRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 95FE14DDA0DDA8EBEF965E57 /* NativeHierarchicalStyleRecipeGallery.swift */; };
+		BB654A23CDA2B72533866218 /* StoryReferenceContentTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4814A23409D302C5929341A2 /* StoryReferenceContentTests.swift */; };
 		BBB45FB369E93ED077A24325 /* OmniActCommandRowStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 333E24FF41B6A0AEAC1117A5 /* OmniActCommandRowStory.swift */; };
+		BF4A21F4D6D1B30F8AEE1568 /* LocalDemoRootMarker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6EBC3A175F6EA797A8B85523 /* LocalDemoRootMarker.swift */; };
+		C0C44014D8378D74820A358F /* CatalogStorySection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0B54F7A25CDF757AF1488C8E /* CatalogStorySection.swift */; };
+		C1C3341738E8AE99240C1D1A /* DogfoodCatalogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01350B34C5F3917F99F39967 /* DogfoodCatalogCard.swift */; };
+		C1E86694A71343036A8B4185 /* DogfoodCatalogCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01350B34C5F3917F99F39967 /* DogfoodCatalogCard.swift */; };
+		C28FD3BFAFD4F99C0BFD0256 /* StreamingLibraryBrowseDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9C7978E344BE180B5B62223E /* StreamingLibraryBrowseDemoView.swift */; };
 		C2997BA69E000CB737F80C12 /* TocChienDictionaryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */; };
+		C38A48D53427FCA9FA458C42 /* FlightTripPicker.swift in Sources */ = {isa = PBXBuildFile; fileRef = 45AF178A7987C88D4FEE7B9B /* FlightTripPicker.swift */; };
 		C40D829BFD81109FDF5014B2 /* NativePickerAndDateColorInputRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC8609CC4634770DEDB038B0 /* NativePickerAndDateColorInputRecipeGallery.swift */; };
 		C47E4696C322B7EBE80C1CC9 /* NativeElevatedBackgroundRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A67C6C77313599187BC0DAF /* NativeElevatedBackgroundRecipeGallery.swift */; };
+		C514CA8F0A1AE2C0E3AAF114 /* MobilityMapField.swift in Sources */ = {isa = PBXBuildFile; fileRef = CD20D3CB452926386F44E838 /* MobilityMapField.swift */; };
 		C528A3F30D354740F8AAB03C /* TocChienNavigationTabsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */; };
+		C72B331793C6932B1EE9423D /* StreamingLibraryTabBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 574E587E2D25D380C2CA0C1B /* StreamingLibraryTabBar.swift */; };
+		C8EAC7B36D6B2B1A8F69B52A /* StoryReferenceContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E78170E78A04E812F4B4DA /* StoryReferenceContent.swift */; };
+		C906ECE0867B5DCB58568664 /* LocalDemoGalleryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8E0D50972CCD32D94C876BC7 /* LocalDemoGalleryView.swift */; };
+		C960414D7B0B8C719BE4CB2C /* CityRideNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7964E2DA13FA56C0C03B70B0 /* CityRideNotice.swift */; };
+		CA7CB3A7BFD79D6A1DE2585A /* ThoughtfulChatThreadDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 938D28440C4C77168AB56851 /* ThoughtfulChatThreadDemoView.swift */; };
+		CAC589E927681D09663B7FE4 /* SongFinderListeningDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5909919B2654BC6D602DD7AA /* SongFinderListeningDemoView.swift */; };
 		CB9CA30785F6297D28E4470A /* NativeListSidebarAndDisclosureRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = AF095D555F58CBE33B3C37D4 /* NativeListSidebarAndDisclosureRecipeGallery.swift */; };
+		CC677F3C72C4D53A21BE0DC1 /* LocalDemoDefinitions+Entertainment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F20C07689911EB4B73BBDFA /* LocalDemoDefinitions+Entertainment.swift */; };
+		CD122BD938D529C9076194EC /* ThoughtfulChatTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81941DFEDC5F59CE5CCD33AA /* ThoughtfulChatTheme.swift */; };
 		CD75F64647ABE8D65313B40D /* NativeNavigationTabsAndToolbarsRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E2806A79C3DF6E84A41EEC7 /* NativeNavigationTabsAndToolbarsRecipeGallery.swift */; };
+		CE36E689C96DB47078F648FA /* FlightTrackerBoardDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 616DE537BC871DB3189C91A1 /* FlightTrackerBoardDemoView.swift */; };
 		D01194CA9290CC426CE0AFCF /* DesignOSAppleGalleryApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 175B28D4772D0AB169D1D8DA /* DesignOSAppleGalleryApp.swift */; };
 		D0B004867C575F7581FBA660 /* TocChienDictionarySearchStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */; };
+		D0D7608E54E90764A7A3D3B7 /* ThoughtfulChatTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81941DFEDC5F59CE5CCD33AA /* ThoughtfulChatTheme.swift */; };
 		D0DDB56A69F9D818D24C98EE /* SidebarToolbarContentGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = D1620EE2AEC0258D67EA92FE /* SidebarToolbarContentGallery.swift */; };
 		D22727DC0BB9CCBCA45ACD4B /* DesignOSListRowGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 012957187BD147BE906FC5F7 /* DesignOSListRowGallery.swift */; };
 		D59027F8E3BC8091A2E29155 /* GalleryDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = B7AC7EC5DA2CB6F79F86EA91 /* GalleryDestination.swift */; };
+		D6062535D1E8A248F751C95E /* CityRideArrivalPromotion.swift in Sources */ = {isa = PBXBuildFile; fileRef = 14F6F184D29776F773A788D2 /* CityRideArrivalPromotion.swift */; };
+		D82DD9F5CDCCBA6A0F08FB3F /* ThoughtfulChatHomeDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79B39E96D419FD2A890C9683 /* ThoughtfulChatHomeDemoView.swift */; };
 		D8CE7D566E6E14EE0CE765CC /* TocChienDictionaryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */; };
 		DB0E67CC4EF4CA5B643F6C2C /* TocChienChampionHeroNegativeControlStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */; };
 		DC8CBE3E298717B4EEC6F5B1 /* TocChienChampionHeroNegativeControlStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */; };
 		DD755EB9ED4E4FAB613FCBDC /* NativeHomeScreenQuickActionRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25507FDA6E89B072605F80CF /* NativeHomeScreenQuickActionRecipeGallery.swift */; };
+		E06CE83A5646781A1E3B2951 /* StoryReferenceContent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 07E78170E78A04E812F4B4DA /* StoryReferenceContent.swift */; };
+		E3496D8E90F005B636CA6081 /* StoryReferencePageSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = D84DF4C560FFEFD5A49359B9 /* StoryReferencePageSupport.swift */; };
 		E3DF293BB8BF4EAE8D3D7566 /* ExtensionWidgetGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF643513D486306209ABF7A2 /* ExtensionWidgetGallery.swift */; };
 		E7D9F5F5218C42A80E4B9B14 /* ExtensionWidgetGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = BF643513D486306209ABF7A2 /* ExtensionWidgetGallery.swift */; };
 		E8E0F4E08C7741E74451A445 /* OmniActSettingsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883077849A601D9C46DA1ED0 /* OmniActSettingsStory.swift */; };
 		EA5FDAAB3FEA60AEADC30CC3 /* PlatformSemanticColorGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CCC46EA82AF667853F2E03A7 /* PlatformSemanticColorGallery.swift */; };
+		EACE4838A8036FDD74D103A6 /* StoryPreviewDestination.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7BF580865D27F962A6F9795 /* StoryPreviewDestination.swift */; };
 		EB3564342434852A03F9A01F /* NativeProgressSliderStepperRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8D4212B18C0C4E90D4E2DABB /* NativeProgressSliderStepperRecipeGallery.swift */; };
+		EBED9DC28D0685EC986A952B /* StoryReferencePage.swift in Sources */ = {isa = PBXBuildFile; fileRef = D7292635697A3615B249E72B /* StoryReferencePage.swift */; };
 		ED2581C17F3A1FB99BC6155E /* DogfoodStoryHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = B31D146C7809C759A60EF8AB /* DogfoodStoryHost.swift */; };
 		EF44D9500DB2418D48488150 /* DogfoodStoryPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = DCC299287F36F8A81FBCE5EE /* DogfoodStoryPresentation.swift */; };
 		F01CF64539579A45746C96D3 /* DogfoodStoryRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A29D24EA0CC61C2A16D5324A /* DogfoodStoryRenderer.swift */; };
+		F0D4CF07AD423C3E7F1FB69D /* StreamingMediaArtwork.swift in Sources */ = {isa = PBXBuildFile; fileRef = 47AA3B2ADAFFD67FA5C60F6E /* StreamingMediaArtwork.swift */; };
 		F16DC7E91D78CCDF8B815D3E /* TocChienDictionaryFixtures.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */; };
+		F1FF5FADEEAB5672F08FB3A9 /* StoryReferenceContent+Foundations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 178396A02B1AF229BC499648 /* StoryReferenceContent+Foundations.swift */; };
 		F31CA7B2079534D6E813D62B /* GalleryOverview.swift in Sources */ = {isa = PBXBuildFile; fileRef = C3BDD8191EBF6443CB8CA051 /* GalleryOverview.swift */; };
 		F3C89189F15E24FFE74DDA2F /* OmniActSettingsStory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 883077849A601D9C46DA1ED0 /* OmniActSettingsStory.swift */; };
+		F45B3F4EA99FC04016E7A99F /* CityRideSelectionDemoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3254B0C4FD0F4F5256A2BF34 /* CityRideSelectionDemoView.swift */; };
+		F659EC0B2DE8821C145B6C52 /* LocalDemoPasteboard.swift in Sources */ = {isa = PBXBuildFile; fileRef = A581CB5B3A331104F54E6310 /* LocalDemoPasteboard.swift */; };
+		F69F60E0F5778E0B5EB91A07 /* DesignOSStoryDescriptor+GalleryPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = D9F9F52B132B8AA5DF1FB6C8 /* DesignOSStoryDescriptor+GalleryPresentation.swift */; };
 		F6AF147C9F0F3D0B479426C3 /* SectionContentLayoutGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64C700841F1E013B4448C9F9 /* SectionContentLayoutGallery.swift */; };
 		F6D80580BE47A6B5469F40E3 /* TocChienDogfoodPilotIOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E643A669C3D7798558357BC8 /* TocChienDogfoodPilotIOSApp.swift */; };
+		F7D8E25FF1B414963DFDC103 /* CatalogStoryThumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 98AA27839306E1554344B17F /* CatalogStoryThumbnail.swift */; };
 		F94E73E46EA692839683EAFE /* NativeMenuContextAndEditActionsRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = CF41CE35844BEBDC5941B583 /* NativeMenuContextAndEditActionsRecipeGallery.swift */; };
+		FC3943EC6C5BAE92748E59EC /* LocalDemoDefinitions+Mobility.swift in Sources */ = {isa = PBXBuildFile; fileRef = 77E5BB2CB38189F2FF057633 /* LocalDemoDefinitions+Mobility.swift */; };
 		FC3ACBC3846CABDA7B7DDA70 /* SymbolContentGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = DFE82CB9429607CE65B3816F /* SymbolContentGallery.swift */; };
+		FF351CA157CD5222D84468C8 /* EntertainmentTheme.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EA2A8E3B1C4FB219B535771 /* EntertainmentTheme.swift */; };
 		FF42A758A7601803914417EF /* NativeButtonAndToolbarActionRecipeGallery.swift in Sources */ = {isa = PBXBuildFile; fileRef = 03AF991A581F87850993D6CE /* NativeButtonAndToolbarActionRecipeGallery.swift */; };
 		FF8A0EF92FC7DA74C0610E1A /* TocChienDogfoodPilotRootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F326865195E496FA93B392F8 /* TocChienDogfoodPilotRootView.swift */; };
+		FFE1FA39E835B223707001F9 /* StoryReferenceContent+ExtensionsAndProducts.swift in Sources */ = {isa = PBXBuildFile; fileRef = C104C942770CEAEBE1EDDC91 /* StoryReferenceContent+ExtensionsAndProducts.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -184,18 +288,29 @@
 
 /* Begin PBXFileReference section */
 		012957187BD147BE906FC5F7 /* DesignOSListRowGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSListRowGallery.swift; sourceTree = "<group>"; };
+		01350B34C5F3917F99F39967 /* DogfoodCatalogCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodCatalogCard.swift; sourceTree = "<group>"; };
+		01A5AC3816E1E2FB753E67F7 /* StreamingLibraryHero.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingLibraryHero.swift; sourceTree = "<group>"; };
 		03AF991A581F87850993D6CE /* NativeButtonAndToolbarActionRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeButtonAndToolbarActionRecipeGallery.swift; sourceTree = "<group>"; };
 		03CB4693C18E657C87B1E24B /* TocChienDogfoodPilot-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "TocChienDogfoodPilot-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		04E4EFFF9BC951E593CBCE2F /* LocalDemoInteractionMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoInteractionMotion.swift; sourceTree = "<group>"; };
+		07E78170E78A04E812F4B4DA /* StoryReferenceContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryReferenceContent.swift; sourceTree = "<group>"; };
 		083E08E68A624A4AAD9B90CC /* ColorRolesGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorRolesGallery.swift; sourceTree = "<group>"; };
+		0B54F7A25CDF757AF1488C8E /* CatalogStorySection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogStorySection.swift; sourceTree = "<group>"; };
 		0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienChampionHeroNegativeControlStory.swift; sourceTree = "<group>"; };
+		11E3080DCAA53CD110522790 /* LocalDemoMedia.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = LocalDemoMedia.xcassets; sourceTree = "<group>"; };
 		11FA37A0C2A9ABB4B106EC66 /* DogfoodCatalogView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodCatalogView.swift; sourceTree = "<group>"; };
-		14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActHUDStoryFixtures.swift; sourceTree = "<group>"; };
+		14F6F184D29776F773A788D2 /* CityRideArrivalPromotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRideArrivalPromotion.swift; sourceTree = "<group>"; };
 		1663F6A781F54BC259737443 /* TocChienNavigationTabsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienNavigationTabsStory.swift; sourceTree = "<group>"; };
 		175B28D4772D0AB169D1D8DA /* DesignOSAppleGalleryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryApp.swift; sourceTree = "<group>"; };
+		178396A02B1AF229BC499648 /* StoryReferenceContent+Foundations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryReferenceContent+Foundations.swift"; sourceTree = "<group>"; };
 		1AE3DC4F0B0428B256F87F13 /* StorybookPage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorybookPage.swift; sourceTree = "<group>"; };
+		1EA2A8E3B1C4FB219B535771 /* EntertainmentTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntertainmentTheme.swift; sourceTree = "<group>"; };
+		1F20C07689911EB4B73BBDFA /* LocalDemoDefinitions+Entertainment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalDemoDefinitions+Entertainment.swift"; sourceTree = "<group>"; };
+		1F5C86FC99407224B7A0E21F /* VisualAssistantHomeDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualAssistantHomeDemoView.swift; sourceTree = "<group>"; };
 		25507FDA6E89B072605F80CF /* NativeHomeScreenQuickActionRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeHomeScreenQuickActionRecipeGallery.swift; sourceTree = "<group>"; };
 		2C3D88295D07CA8EF5F8D4E8 /* NativePresentationAndShareRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePresentationAndShareRecipeGallery.swift; sourceTree = "<group>"; };
 		2E4F81EBB6144750854AC798 /* DesignOSAppleGalleryRendererTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignOSAppleGalleryRendererTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		3254B0C4FD0F4F5256A2BF34 /* CityRideSelectionDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRideSelectionDemoView.swift; sourceTree = "<group>"; };
 		333E24FF41B6A0AEAC1117A5 /* OmniActCommandRowStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActCommandRowStory.swift; sourceTree = "<group>"; };
 		3721CF3E7B1B20E9FAD1362B /* SemanticComponentsGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SemanticComponentsGallery.swift; sourceTree = "<group>"; };
 		388FA0370B5FD45C079F024F /* DogfoodStoryPresentationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryPresentationTests.swift; sourceTree = "<group>"; };
@@ -203,25 +318,44 @@
 		3C9241B39B420B83AF5F0131 /* TocChienDogfoodPilotMacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = TocChienDogfoodPilotMacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3F9B4823F9DE4E5E6778FFFC /* DogfoodStoryRendererTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryRendererTests.swift; sourceTree = "<group>"; };
 		40170353EF25E9A89F7AEF04 /* OmniActSettingsValues.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActSettingsValues.swift; sourceTree = "<group>"; };
+		40E58544D6336D77F9AA8EFE /* EntertainmentMiniAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EntertainmentMiniAppTests.swift; sourceTree = "<group>"; };
+		4492BC84D993FEE2B34AFEAC /* LocalDemoAdaptiveColor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoAdaptiveColor.swift; sourceTree = "<group>"; };
 		4517CCEA3E4A27C5ED19D411 /* DogfoodStoryDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryDetailView.swift; sourceTree = "<group>"; };
+		45AF178A7987C88D4FEE7B9B /* FlightTripPicker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightTripPicker.swift; sourceTree = "<group>"; };
 		4773A7D5D2234E7576CB1A37 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeTextSearchAndKeyboardInputRecipeGallery.swift; sourceTree = "<group>"; };
+		47AA3B2ADAFFD67FA5C60F6E /* StreamingMediaArtwork.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingMediaArtwork.swift; sourceTree = "<group>"; };
+		4814A23409D302C5929341A2 /* StoryReferenceContentTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryReferenceContentTests.swift; sourceTree = "<group>"; };
 		49C9ED10884AFDFA656A4B32 /* TocChienDogfoodPilotIOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotIOSUITests.swift; sourceTree = "<group>"; };
 		4B51F751CB88D790FCEF69E3 /* NativePatternsGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePatternsGallery.swift; sourceTree = "<group>"; };
+		4DEC9F44D29737B28F32F9CA /* FlightTrackerLiveDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightTrackerLiveDemoView.swift; sourceTree = "<group>"; };
 		521289D2284DB609D8EACB53 /* design-os-apple */ = {isa = PBXFileReference; lastKnownFileType = folder; name = "design-os-apple"; path = ../..; sourceTree = SOURCE_ROOT; };
 		52F71F7CFF73D1B9E95CBF09 /* NativeContentUnavailableViewRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeContentUnavailableViewRecipeGallery.swift; sourceTree = "<group>"; };
 		533131D89D4C414FC902C1B1 /* ExtensionControlWidgetGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionControlWidgetGallery.swift; sourceTree = "<group>"; };
 		543DEFAEE66A677E0AA581C0 /* DogfoodStoryCanvas.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryCanvas.swift; sourceTree = "<group>"; };
+		574E587E2D25D380C2CA0C1B /* StreamingLibraryTabBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingLibraryTabBar.swift; sourceTree = "<group>"; };
+		5909919B2654BC6D602DD7AA /* SongFinderListeningDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongFinderListeningDemoView.swift; sourceTree = "<group>"; };
 		590CC544786C0D806836236C /* TocChienDictionarySearchStoryTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDictionarySearchStoryTests.swift; sourceTree = "<group>"; };
+		59B5149312091EF0EF0088C7 /* LocalDemoNavigationMotion.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoNavigationMotion.swift; sourceTree = "<group>"; };
+		5A44F87C5F0B5C8D942BD9F3 /* StoryReferenceContent+NativeRecipesB.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryReferenceContent+NativeRecipesB.swift"; sourceTree = "<group>"; };
+		616DE537BC871DB3189C91A1 /* FlightTrackerBoardDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlightTrackerBoardDemoView.swift; sourceTree = "<group>"; };
 		64C700841F1E013B4448C9F9 /* SectionContentLayoutGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SectionContentLayoutGallery.swift; sourceTree = "<group>"; };
 		676C0EB3405ADD45F9F038EB /* TocChienDogfoodPilotMacOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotMacOSUITests.swift; sourceTree = "<group>"; };
 		68C1E33232F619B7C9A3EA17 /* DesignOSSurfaceRoleGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSSurfaceRoleGallery.swift; sourceTree = "<group>"; };
-		696C4D62D5AC9782090828BD /* OmniActHUDSurfaceResolverTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActHUDSurfaceResolverTests.swift; sourceTree = "<group>"; };
+		6A22F6713ADE80E52A1AA221 /* AssistantMiniAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AssistantMiniAppTests.swift; sourceTree = "<group>"; };
 		6E1D1598F39E58A1C21E19AB /* AccessorySlotLayoutGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccessorySlotLayoutGallery.swift; sourceTree = "<group>"; };
+		6EBC3A175F6EA797A8B85523 /* LocalDemoRootMarker.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoRootMarker.swift; sourceTree = "<group>"; };
 		713C309D547FA3BD576536A3 /* DesignOSAppleGalleryUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = DesignOSAppleGalleryUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		721708D2061E2790D4C38BC9 /* OmniActHUDAutocompleteMaterialStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActHUDAutocompleteMaterialStory.swift; sourceTree = "<group>"; };
+		738106DC6CD28B9671FD38F1 /* CityRideTrackingDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRideTrackingDemoView.swift; sourceTree = "<group>"; };
 		73EE91E6182239B05FA7119F /* DesignOSAppleGalleryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryUITests.swift; sourceTree = "<group>"; };
+		74EBC2811BE9BA7658C5AA20 /* StoryReferenceContent+NativeRecipesA.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryReferenceContent+NativeRecipesA.swift"; sourceTree = "<group>"; };
+		77C42AEB50F47501EA47DBEF /* SongFinderResultDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SongFinderResultDemoView.swift; sourceTree = "<group>"; };
+		77E5BB2CB38189F2FF057633 /* LocalDemoDefinitions+Mobility.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalDemoDefinitions+Mobility.swift"; sourceTree = "<group>"; };
+		7964E2DA13FA56C0C03B70B0 /* CityRideNotice.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CityRideNotice.swift; sourceTree = "<group>"; };
+		79B39E96D419FD2A890C9683 /* ThoughtfulChatHomeDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThoughtfulChatHomeDemoView.swift; sourceTree = "<group>"; };
 		7CE0923667EC0B7C90C3AF61 /* TocChienDictionarySearchStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDictionarySearchStory.swift; sourceTree = "<group>"; };
 		7E2806A79C3DF6E84A41EEC7 /* NativeNavigationTabsAndToolbarsRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeNavigationTabsAndToolbarsRecipeGallery.swift; sourceTree = "<group>"; };
+		804F772A8923CB5000D3B376 /* DesignOSAppleGalleryLocalDemoUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryLocalDemoUITests.swift; sourceTree = "<group>"; };
+		81941DFEDC5F59CE5CCD33AA /* ThoughtfulChatTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThoughtfulChatTheme.swift; sourceTree = "<group>"; };
 		81C3F175A4AD0AC46946BC88 /* FoundationGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoundationGallery.swift; sourceTree = "<group>"; };
 		86FFD0A4A029405502FC08B2 /* SystemDeviceChromeHostRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemDeviceChromeHostRecipeGallery.swift; sourceTree = "<group>"; };
 		883077849A601D9C46DA1ED0 /* OmniActSettingsStory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActSettingsStory.swift; sourceTree = "<group>"; };
@@ -229,13 +363,25 @@
 		8C0034C2B388053F93F49415 /* NativeMaterialAndGlassSurfaceRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMaterialAndGlassSurfaceRecipeGallery.swift; sourceTree = "<group>"; };
 		8CFAAADC53941E4542AFC834 /* TocChienDictionaryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDictionaryFixtures.swift; sourceTree = "<group>"; };
 		8D4212B18C0C4E90D4E2DABB /* NativeProgressSliderStepperRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeProgressSliderStepperRecipeGallery.swift; sourceTree = "<group>"; };
+		8E0D50972CCD32D94C876BC7 /* LocalDemoGalleryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoGalleryView.swift; sourceTree = "<group>"; };
 		8F0C79274625AC3DFCD133CE /* DesignOSAppleGallery-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "DesignOSAppleGallery-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9096B19F35408FC6CB714804 /* DesignOSAppleGallery-iOS.app */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.application; path = "DesignOSAppleGallery-iOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		938D28440C4C77168AB56851 /* ThoughtfulChatThreadDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ThoughtfulChatThreadDemoView.swift; sourceTree = "<group>"; };
 		93BEB1CFC87C7B319F64ACF2 /* DesignOSAppleGalleryMacOSUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = DesignOSAppleGalleryMacOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		95FE14DDA0DDA8EBEF965E57 /* NativeHierarchicalStyleRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeHierarchicalStyleRecipeGallery.swift; sourceTree = "<group>"; };
+		97297DBD70D7EEFEADC2E12B /* MobilityDemoTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilityDemoTheme.swift; sourceTree = "<group>"; };
+		982FABF124CB1C5AC92E0FE3 /* VisualAssistantAnswerSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualAssistantAnswerSupport.swift; sourceTree = "<group>"; };
 		987B12921BF59EF1B6CDA16E /* DesignOSSidebarRowGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSSidebarRowGallery.swift; sourceTree = "<group>"; };
+		98AA27839306E1554344B17F /* CatalogStoryThumbnail.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CatalogStoryThumbnail.swift; sourceTree = "<group>"; };
 		9A67C6C77313599187BC0DAF /* NativeElevatedBackgroundRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeElevatedBackgroundRecipeGallery.swift; sourceTree = "<group>"; };
+		9C7978E344BE180B5B62223E /* StreamingLibraryBrowseDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingLibraryBrowseDemoView.swift; sourceTree = "<group>"; };
 		A29D24EA0CC61C2A16D5324A /* DogfoodStoryRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryRenderer.swift; sourceTree = "<group>"; };
+		A3DF934A21FF17EAA65C3A3E /* LocalDemoDefinition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoDefinition.swift; sourceTree = "<group>"; };
+		A425E18E7BA525C032442848 /* MobilityMiniAppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilityMiniAppTests.swift; sourceTree = "<group>"; };
+		A581CB5B3A331104F54E6310 /* LocalDemoPasteboard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoPasteboard.swift; sourceTree = "<group>"; };
+		A93F399DC04C11389515E734 /* LocalDemoCatalogTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoCatalogTests.swift; sourceTree = "<group>"; };
+		AC73A7D6398CDB754CB10C28 /* DesignOSAppleGalleryDesignFloorUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryDesignFloorUITests.swift; sourceTree = "<group>"; };
+		AE87C46D2EDE8A8E0DA6DC21 /* CatalogThumbnails.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = CatalogThumbnails.xcassets; sourceTree = "<group>"; };
 		AF095D555F58CBE33B3C37D4 /* NativeListSidebarAndDisclosureRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeListSidebarAndDisclosureRecipeGallery.swift; sourceTree = "<group>"; };
 		AF843AF140600BA95DBB72D2 /* DesignOSAppleGalleryMacOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryMacOSUITests.swift; sourceTree = "<group>"; };
 		B31D146C7809C759A60EF8AB /* DogfoodStoryHost.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryHost.swift; sourceTree = "<group>"; };
@@ -243,23 +389,37 @@
 		B9EB0A21C5E6E4436D7EC079 /* DogfoodCatalogViewTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodCatalogViewTests.swift; sourceTree = "<group>"; };
 		BF643513D486306209ABF7A2 /* ExtensionWidgetGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExtensionWidgetGallery.swift; sourceTree = "<group>"; };
 		C08F81C2A43ABF3072F485F2 /* TocChienDogfoodPilot-macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "TocChienDogfoodPilot-macOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C104C942770CEAEBE1EDDC91 /* StoryReferenceContent+ExtensionsAndProducts.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryReferenceContent+ExtensionsAndProducts.swift"; sourceTree = "<group>"; };
+		C24DD692F340B173724059D9 /* LocalDemoDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoDestination.swift; sourceTree = "<group>"; };
 		C3BDD8191EBF6443CB8CA051 /* GalleryOverview.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GalleryOverview.swift; sourceTree = "<group>"; };
-		C8E6D3290CC1332BA3B9D850 /* OmniActHUDSurfaceResolver.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OmniActHUDSurfaceResolver.swift; sourceTree = "<group>"; };
+		C4F059FC16B2D9373184552B /* MobilityMapLayers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilityMapLayers.swift; sourceTree = "<group>"; };
+		C87CF9B97758A51DAB3ACAA3 /* StoryReferenceContent+Components.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "StoryReferenceContent+Components.swift"; sourceTree = "<group>"; };
 		CCC46EA82AF667853F2E03A7 /* PlatformSemanticColorGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformSemanticColorGallery.swift; sourceTree = "<group>"; };
+		CD20D3CB452926386F44E838 /* MobilityMapField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MobilityMapField.swift; sourceTree = "<group>"; };
 		CF41CE35844BEBDC5941B583 /* NativeMenuContextAndEditActionsRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativeMenuContextAndEditActionsRecipeGallery.swift; sourceTree = "<group>"; };
 		D07A7A368D9CC42208ACB5D4 /* ProjectMembershipTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProjectMembershipTests.swift; sourceTree = "<group>"; };
 		D1620EE2AEC0258D67EA92FE /* SidebarToolbarContentGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SidebarToolbarContentGallery.swift; sourceTree = "<group>"; };
+		D451F38A8F6441D21A35D274 /* VisualAssistantAnswerDemoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualAssistantAnswerDemoView.swift; sourceTree = "<group>"; };
+		D7292635697A3615B249E72B /* StoryReferencePage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryReferencePage.swift; sourceTree = "<group>"; };
 		D7730332CD46BBA35FC21DE0 /* DesignOSAppleGalleryApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryApp.swift; sourceTree = "<group>"; };
+		D84DF4C560FFEFD5A49359B9 /* StoryReferencePageSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryReferencePageSupport.swift; sourceTree = "<group>"; };
 		D9AD5785BA6E2806223B0C80 /* ProfileCustomizationGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileCustomizationGallery.swift; sourceTree = "<group>"; };
+		D9F9F52B132B8AA5DF1FB6C8 /* DesignOSStoryDescriptor+GalleryPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DesignOSStoryDescriptor+GalleryPresentation.swift"; sourceTree = "<group>"; };
+		DA0D03E5CBB127C2A6114494 /* DesignOSAppleGalleryLocalDemoMacOSUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryLocalDemoMacOSUITests.swift; sourceTree = "<group>"; };
 		DCC299287F36F8A81FBCE5EE /* DogfoodStoryPresentation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DogfoodStoryPresentation.swift; sourceTree = "<group>"; };
 		DFE82CB9429607CE65B3816F /* SymbolContentGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SymbolContentGallery.swift; sourceTree = "<group>"; };
 		E0F5C156947E068A45005B6A /* TocChienDogfoodPilotMacOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotMacOSApp.swift; sourceTree = "<group>"; };
+		E2BE708CE7B659B15E129F16 /* VisualAssistantTheme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VisualAssistantTheme.swift; sourceTree = "<group>"; };
+		E53DE3F8CE59982BC4CB4DB6 /* StreamingLibraryFixtures.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StreamingLibraryFixtures.swift; sourceTree = "<group>"; };
 		E643A669C3D7798558357BC8 /* TocChienDogfoodPilotIOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotIOSApp.swift; sourceTree = "<group>"; };
 		EC15C310339302D06AC0F587 /* DesignOSAppleGalleryStoryUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignOSAppleGalleryStoryUITests.swift; sourceTree = "<group>"; };
 		F326865195E496FA93B392F8 /* TocChienDogfoodPilotRootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TocChienDogfoodPilotRootView.swift; sourceTree = "<group>"; };
+		F4019EA65C92CCE4FD6E3C20 /* LocalDemoDefinitions+Assistants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "LocalDemoDefinitions+Assistants.swift"; sourceTree = "<group>"; };
+		F7BF580865D27F962A6F9795 /* StoryPreviewDestination.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StoryPreviewDestination.swift; sourceTree = "<group>"; };
 		FBC14194281D161F1670E256 /* TocChienDogfoodPilotIOSUITests.xctest */ = {isa = PBXFileReference; includeInIndex = 0; lastKnownFileType = wrapper.cfbundle; path = TocChienDogfoodPilotIOSUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		FC8609CC4634770DEDB038B0 /* NativePickerAndDateColorInputRecipeGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NativePickerAndDateColorInputRecipeGallery.swift; sourceTree = "<group>"; };
 		FF794C8D5109B50FABAE9F16 /* TypographyGallery.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TypographyGallery.swift; sourceTree = "<group>"; };
+		FFBE65FBCFD23DD44A10B68A /* LocalDemoUITestSupport.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDemoUITestSupport.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -365,13 +525,34 @@
 			name = Packages;
 			sourceTree = "<group>";
 		};
+		38E737F207862478530473FC /* Mobility */ = {
+			isa = PBXGroup;
+			children = (
+				14F6F184D29776F773A788D2 /* CityRideArrivalPromotion.swift */,
+				7964E2DA13FA56C0C03B70B0 /* CityRideNotice.swift */,
+				3254B0C4FD0F4F5256A2BF34 /* CityRideSelectionDemoView.swift */,
+				738106DC6CD28B9671FD38F1 /* CityRideTrackingDemoView.swift */,
+				616DE537BC871DB3189C91A1 /* FlightTrackerBoardDemoView.swift */,
+				4DEC9F44D29737B28F32F9CA /* FlightTrackerLiveDemoView.swift */,
+				45AF178A7987C88D4FEE7B9B /* FlightTripPicker.swift */,
+				97297DBD70D7EEFEADC2E12B /* MobilityDemoTheme.swift */,
+				CD20D3CB452926386F44E838 /* MobilityMapField.swift */,
+				C4F059FC16B2D9373184552B /* MobilityMapLayers.swift */,
+			);
+			path = Mobility;
+			sourceTree = "<group>";
+		};
 		3CC55E6B1BE5E540D778293A /* GalleryRendererTests */ = {
 			isa = PBXGroup;
 			children = (
+				6A22F6713ADE80E52A1AA221 /* AssistantMiniAppTests.swift */,
 				B9EB0A21C5E6E4436D7EC079 /* DogfoodCatalogViewTests.swift */,
 				388FA0370B5FD45C079F024F /* DogfoodStoryPresentationTests.swift */,
 				3F9B4823F9DE4E5E6778FFFC /* DogfoodStoryRendererTests.swift */,
-				696C4D62D5AC9782090828BD /* OmniActHUDSurfaceResolverTests.swift */,
+				40E58544D6336D77F9AA8EFE /* EntertainmentMiniAppTests.swift */,
+				A93F399DC04C11389515E734 /* LocalDemoCatalogTests.swift */,
+				A425E18E7BA525C032442848 /* MobilityMiniAppTests.swift */,
+				4814A23409D302C5929341A2 /* StoryReferenceContentTests.swift */,
 				590CC544786C0D806836236C /* TocChienDictionarySearchStoryTests.swift */,
 			);
 			name = GalleryRendererTests;
@@ -381,9 +562,12 @@
 		3E421EFC9EF0ACDD9C04AD32 /* UITests */ = {
 			isa = PBXGroup;
 			children = (
+				AC73A7D6398CDB754CB10C28 /* DesignOSAppleGalleryDesignFloorUITests.swift */,
 				89D79BD34C9485A5339D3C2E /* DesignOSAppleGalleryFoundationStoryUITests.swift */,
+				804F772A8923CB5000D3B376 /* DesignOSAppleGalleryLocalDemoUITests.swift */,
 				EC15C310339302D06AC0F587 /* DesignOSAppleGalleryStoryUITests.swift */,
 				73EE91E6182239B05FA7119F /* DesignOSAppleGalleryUITests.swift */,
+				FFBE65FBCFD23DD44A10B68A /* LocalDemoUITestSupport.swift */,
 			);
 			path = UITests;
 			sourceTree = "<group>";
@@ -427,6 +611,7 @@
 				FF794C8D5109B50FABAE9F16 /* TypographyGallery.swift */,
 				11DC5496A35713BF538C6ACE /* Components */,
 				10E9E545799C43B8C644F597 /* Extensions */,
+				DB796EA8EDBCA095CF10C9D0 /* Flows */,
 				F08FF8FCA90188B61E6F5620 /* Gallery */,
 				85447D6C17E9224ECFE2F5ED /* GalleryMacOS */,
 				3CC55E6B1BE5E540D778293A /* GalleryRendererTests */,
@@ -439,6 +624,7 @@
 				34B875998437754D1FE2DB9A /* Packages */,
 				2B27FFAE754389708C80FAA8 /* Primitives */,
 				D4B0D21127CE92A1A1611705 /* ProjectMembershipTests */,
+				6507E5A3BF4407344DE4D76F /* Resources */,
 				41C63B4DD52DAA030BF91518 /* Shared */,
 				E3A0D66A9D6637F5F4347957 /* Shared */,
 				7BF1AF8A276C40956198F2FD /* TocChien */,
@@ -465,6 +651,15 @@
 			path = UITests/TocChien/macOS;
 			sourceTree = "<group>";
 		};
+		6507E5A3BF4407344DE4D76F /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				AE87C46D2EDE8A8E0DA6DC21 /* CatalogThumbnails.xcassets */,
+				11E3080DCAA53CD110522790 /* LocalDemoMedia.xcassets */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
 		7BF1AF8A276C40956198F2FD /* TocChien */ = {
 			isa = PBXGroup;
 			children = (
@@ -474,9 +669,24 @@
 			path = App/Shared/Dogfood/TocChien;
 			sourceTree = "<group>";
 		};
+		809575485CE0B59A39B1FBE4 /* Assistants */ = {
+			isa = PBXGroup;
+			children = (
+				79B39E96D419FD2A890C9683 /* ThoughtfulChatHomeDemoView.swift */,
+				81941DFEDC5F59CE5CCD33AA /* ThoughtfulChatTheme.swift */,
+				938D28440C4C77168AB56851 /* ThoughtfulChatThreadDemoView.swift */,
+				D451F38A8F6441D21A35D274 /* VisualAssistantAnswerDemoView.swift */,
+				982FABF124CB1C5AC92E0FE3 /* VisualAssistantAnswerSupport.swift */,
+				1F5C86FC99407224B7A0E21F /* VisualAssistantHomeDemoView.swift */,
+				E2BE708CE7B659B15E129F16 /* VisualAssistantTheme.swift */,
+			);
+			path = Assistants;
+			sourceTree = "<group>";
+		};
 		85447D6C17E9224ECFE2F5ED /* GalleryMacOS */ = {
 			isa = PBXGroup;
 			children = (
+				DA0D03E5CBB127C2A6114494 /* DesignOSAppleGalleryLocalDemoMacOSUITests.swift */,
 				AF843AF140600BA95DBB72D2 /* DesignOSAppleGalleryMacOSUITests.swift */,
 			);
 			name = GalleryMacOS;
@@ -490,6 +700,21 @@
 			);
 			name = iOS;
 			path = App/iOS;
+			sourceTree = "<group>";
+		};
+		A55E368D2C25029D9669FBB0 /* Entertainment */ = {
+			isa = PBXGroup;
+			children = (
+				1EA2A8E3B1C4FB219B535771 /* EntertainmentTheme.swift */,
+				5909919B2654BC6D602DD7AA /* SongFinderListeningDemoView.swift */,
+				77C42AEB50F47501EA47DBEF /* SongFinderResultDemoView.swift */,
+				9C7978E344BE180B5B62223E /* StreamingLibraryBrowseDemoView.swift */,
+				E53DE3F8CE59982BC4CB4DB6 /* StreamingLibraryFixtures.swift */,
+				01A5AC3816E1E2FB753E67F7 /* StreamingLibraryHero.swift */,
+				574E587E2D25D380C2CA0C1B /* StreamingLibraryTabBar.swift */,
+				47AA3B2ADAFFD67FA5C60F6E /* StreamingMediaArtwork.swift */,
+			);
+			path = Entertainment;
 			sourceTree = "<group>";
 		};
 		C72957E0DBCC65B076B4CF9B /* iOS */ = {
@@ -526,13 +751,32 @@
 			path = Tests/ProjectMembershipTests;
 			sourceTree = "<group>";
 		};
+		DB796EA8EDBCA095CF10C9D0 /* Flows */ = {
+			isa = PBXGroup;
+			children = (
+				4492BC84D993FEE2B34AFEAC /* LocalDemoAdaptiveColor.swift */,
+				A3DF934A21FF17EAA65C3A3E /* LocalDemoDefinition.swift */,
+				F4019EA65C92CCE4FD6E3C20 /* LocalDemoDefinitions+Assistants.swift */,
+				1F20C07689911EB4B73BBDFA /* LocalDemoDefinitions+Entertainment.swift */,
+				77E5BB2CB38189F2FF057633 /* LocalDemoDefinitions+Mobility.swift */,
+				C24DD692F340B173724059D9 /* LocalDemoDestination.swift */,
+				8E0D50972CCD32D94C876BC7 /* LocalDemoGalleryView.swift */,
+				04E4EFFF9BC951E593CBCE2F /* LocalDemoInteractionMotion.swift */,
+				59B5149312091EF0EF0088C7 /* LocalDemoNavigationMotion.swift */,
+				A581CB5B3A331104F54E6310 /* LocalDemoPasteboard.swift */,
+				6EBC3A175F6EA797A8B85523 /* LocalDemoRootMarker.swift */,
+				809575485CE0B59A39B1FBE4 /* Assistants */,
+				A55E368D2C25029D9669FBB0 /* Entertainment */,
+				38E737F207862478530473FC /* Mobility */,
+			);
+			name = Flows;
+			path = App/Shared/Flows;
+			sourceTree = "<group>";
+		};
 		E3A0D66A9D6637F5F4347957 /* Shared */ = {
 			isa = PBXGroup;
 			children = (
 				333E24FF41B6A0AEAC1117A5 /* OmniActCommandRowStory.swift */,
-				721708D2061E2790D4C38BC9 /* OmniActHUDAutocompleteMaterialStory.swift */,
-				14D82E7804229566C31C21D7 /* OmniActHUDStoryFixtures.swift */,
-				C8E6D3290CC1332BA3B9D850 /* OmniActHUDSurfaceResolver.swift */,
 				883077849A601D9C46DA1ED0 /* OmniActSettingsStory.swift */,
 				40170353EF25E9A89F7AEF04 /* OmniActSettingsValues.swift */,
 				0BE5CCFE6B3BB201CDC11942 /* TocChienChampionHeroNegativeControlStory.swift */,
@@ -547,12 +791,25 @@
 		F08FF8FCA90188B61E6F5620 /* Gallery */ = {
 			isa = PBXGroup;
 			children = (
+				0B54F7A25CDF757AF1488C8E /* CatalogStorySection.swift */,
+				98AA27839306E1554344B17F /* CatalogStoryThumbnail.swift */,
+				D9F9F52B132B8AA5DF1FB6C8 /* DesignOSStoryDescriptor+GalleryPresentation.swift */,
+				01350B34C5F3917F99F39967 /* DogfoodCatalogCard.swift */,
 				11FA37A0C2A9ABB4B106EC66 /* DogfoodCatalogView.swift */,
 				543DEFAEE66A677E0AA581C0 /* DogfoodStoryCanvas.swift */,
 				4517CCEA3E4A27C5ED19D411 /* DogfoodStoryDetailView.swift */,
 				B31D146C7809C759A60EF8AB /* DogfoodStoryHost.swift */,
 				DCC299287F36F8A81FBCE5EE /* DogfoodStoryPresentation.swift */,
 				A29D24EA0CC61C2A16D5324A /* DogfoodStoryRenderer.swift */,
+				F7BF580865D27F962A6F9795 /* StoryPreviewDestination.swift */,
+				07E78170E78A04E812F4B4DA /* StoryReferenceContent.swift */,
+				C87CF9B97758A51DAB3ACAA3 /* StoryReferenceContent+Components.swift */,
+				C104C942770CEAEBE1EDDC91 /* StoryReferenceContent+ExtensionsAndProducts.swift */,
+				178396A02B1AF229BC499648 /* StoryReferenceContent+Foundations.swift */,
+				74EBC2811BE9BA7658C5AA20 /* StoryReferenceContent+NativeRecipesA.swift */,
+				5A44F87C5F0B5C8D942BD9F3 /* StoryReferenceContent+NativeRecipesB.swift */,
+				D7292635697A3615B249E72B /* StoryReferencePage.swift */,
+				D84DF4C560FFEFD5A49359B9 /* StoryReferencePageSupport.swift */,
 			);
 			name = Gallery;
 			path = App/Shared/Dogfood/Gallery;
@@ -620,6 +877,7 @@
 			buildConfigurationList = BB7EC5384585D84708BC8D67 /* Build configuration list for PBXNativeTarget "DesignOSAppleGallery-iOS" */;
 			buildPhases = (
 				4458715B3713948BDB3F413E /* Sources */,
+				AF064577558380CA8139FA05 /* Resources */,
 				5AAD5B9E54CD2DA67C068974 /* Frameworks */,
 			);
 			buildRules = (
@@ -680,6 +938,7 @@
 			buildConfigurationList = 2DC71E19184D4A4F6A25514B /* Build configuration list for PBXNativeTarget "DesignOSAppleGallery-macOS" */;
 			buildPhases = (
 				E68D4169B383C0086FF302C4 /* Sources */,
+				2B87C9221E28EB286B14E9DD /* Resources */,
 				F4A26C0E99CF071ADC11DBE1 /* Frameworks */,
 			);
 			buildRules = (
@@ -789,16 +1048,41 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXResourcesBuildPhase section */
+		2B87C9221E28EB286B14E9DD /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				79CC8D7431478475FC1C33A5 /* CatalogThumbnails.xcassets in Resources */,
+				7E56EC240B7DC8CBD870217E /* LocalDemoMedia.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		AF064577558380CA8139FA05 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				202699E2747125FA461E1CC5 /* CatalogThumbnails.xcassets in Resources */,
+				AB2D47D2834B9BBE0649143C /* LocalDemoMedia.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		2B8F9D126ADB79E6520D53CA /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1184B3E7EDC7CC1C8E665882 /* AssistantMiniAppTests.swift in Sources */,
 				1FA985EC49581EBEC26F9B52 /* DogfoodCatalogViewTests.swift in Sources */,
 				2B1CE58AC72476ED3F036AF3 /* DogfoodStoryPresentationTests.swift in Sources */,
 				61BEBB33D68FCC371FA4C72E /* DogfoodStoryRendererTests.swift in Sources */,
-				3EC0811F1668F864D8BAE13B /* OmniActHUDSurfaceResolverTests.swift in Sources */,
+				18B54278152F774CEB61C883 /* EntertainmentMiniAppTests.swift in Sources */,
+				54171BB7B4284C0E5BAD9A24 /* LocalDemoCatalogTests.swift in Sources */,
+				305336DEAD1418F29BEC148A /* MobilityMiniAppTests.swift in Sources */,
 				412F847E020CA87533D7A489 /* ProjectMembershipTests.swift in Sources */,
+				BB654A23CDA2B72533866218 /* StoryReferenceContentTests.swift in Sources */,
 				A2CC8BDD2D714163F69C41A5 /* TocChienDictionarySearchStoryTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -816,23 +1100,49 @@
 			buildActionMask = 2147483647;
 			files = (
 				52911C822953EFD0A19CC433 /* AccessorySlotLayoutGallery.swift in Sources */,
+				C0C44014D8378D74820A358F /* CatalogStorySection.swift in Sources */,
+				64B1D76169069F49716A4CF0 /* CatalogStoryThumbnail.swift in Sources */,
+				D6062535D1E8A248F751C95E /* CityRideArrivalPromotion.swift in Sources */,
+				C960414D7B0B8C719BE4CB2C /* CityRideNotice.swift in Sources */,
+				F45B3F4EA99FC04016E7A99F /* CityRideSelectionDemoView.swift in Sources */,
+				1655799703EA7B772810A7FD /* CityRideTrackingDemoView.swift in Sources */,
 				A1D3B3AEC63F4FDF7E6DC3F4 /* ColorRolesGallery.swift in Sources */,
 				D01194CA9290CC426CE0AFCF /* DesignOSAppleGalleryApp.swift in Sources */,
 				D22727DC0BB9CCBCA45ACD4B /* DesignOSListRowGallery.swift in Sources */,
 				3D4C933865F34C6A977C040D /* DesignOSSidebarRowGallery.swift in Sources */,
+				1EF58963C05BB247CF876D00 /* DesignOSStoryDescriptor+GalleryPresentation.swift in Sources */,
 				979601B62E92C2C487B6E2C6 /* DesignOSSurfaceRoleGallery.swift in Sources */,
+				C1E86694A71343036A8B4185 /* DogfoodCatalogCard.swift in Sources */,
 				86E973053EE7192CAE511FB0 /* DogfoodCatalogView.swift in Sources */,
 				599BB22E152919D9A3AE49F3 /* DogfoodStoryCanvas.swift in Sources */,
 				6533D17EA1243859DFED1005 /* DogfoodStoryDetailView.swift in Sources */,
 				ED2581C17F3A1FB99BC6155E /* DogfoodStoryHost.swift in Sources */,
 				EF44D9500DB2418D48488150 /* DogfoodStoryPresentation.swift in Sources */,
 				F01CF64539579A45746C96D3 /* DogfoodStoryRenderer.swift in Sources */,
+				58CBCDCACA3483FE72EF181A /* EntertainmentTheme.swift in Sources */,
 				59ED11130FCE78F0CCEBDFE7 /* ExtensionControlWidgetGallery.swift in Sources */,
 				E7D9F5F5218C42A80E4B9B14 /* ExtensionWidgetGallery.swift in Sources */,
+				A3B99C23364E7883ABE89EF0 /* FlightTrackerBoardDemoView.swift in Sources */,
+				6263E07A51865A395C1CB376 /* FlightTrackerLiveDemoView.swift in Sources */,
+				6F9C4D1F51A239FE67D278E0 /* FlightTripPicker.swift in Sources */,
 				9C8C452B1A3FFD13FED00DFD /* FoundationGallery.swift in Sources */,
 				6E7B17F54B5B8D6CA12F8052 /* GalleryDestination.swift in Sources */,
 				34ACF14C6C6C5CA9F5EC1C32 /* GalleryOverview.swift in Sources */,
 				26767B4B852A402DF0FF8602 /* GalleryRootView.swift in Sources */,
+				8B0E2837998BEBE4559DC4A1 /* LocalDemoAdaptiveColor.swift in Sources */,
+				4570262D5F8A6F77AAD3A713 /* LocalDemoDefinition.swift in Sources */,
+				34972E63A43B6E750E76EE39 /* LocalDemoDefinitions+Assistants.swift in Sources */,
+				39B33968D87F0A79543C7415 /* LocalDemoDefinitions+Entertainment.swift in Sources */,
+				FC3943EC6C5BAE92748E59EC /* LocalDemoDefinitions+Mobility.swift in Sources */,
+				48AB3AA8CB46ADD7B6E562A2 /* LocalDemoDestination.swift in Sources */,
+				C906ECE0867B5DCB58568664 /* LocalDemoGalleryView.swift in Sources */,
+				8D8400DBFD73AD89E91572A9 /* LocalDemoInteractionMotion.swift in Sources */,
+				8606BD0AF0BFC0FCF96DA021 /* LocalDemoNavigationMotion.swift in Sources */,
+				F659EC0B2DE8821C145B6C52 /* LocalDemoPasteboard.swift in Sources */,
+				10EFB7EFB2CCA6577FE2A517 /* LocalDemoRootMarker.swift in Sources */,
+				21B146A012C6E0F85CFEF707 /* MobilityDemoTheme.swift in Sources */,
+				80361D1B501D1DF9C4ECEE18 /* MobilityMapField.swift in Sources */,
+				00A7A699F1EB63649236A9FD /* MobilityMapLayers.swift in Sources */,
 				586C257C7867D21E1BC064D4 /* NativeButtonAndToolbarActionRecipeGallery.swift in Sources */,
 				29187892BC1AA296A742FD9F /* NativeContentUnavailableViewRecipeGallery.swift in Sources */,
 				720B02B73ED6992D3222681D /* NativeElevatedBackgroundRecipeGallery.swift in Sources */,
@@ -848,9 +1158,6 @@
 				EB3564342434852A03F9A01F /* NativeProgressSliderStepperRecipeGallery.swift in Sources */,
 				1879C4BD91D82A2A8517A151 /* NativeTextSearchAndKeyboardInputRecipeGallery.swift in Sources */,
 				BBB45FB369E93ED077A24325 /* OmniActCommandRowStory.swift in Sources */,
-				31352B08E9A39CB1DBA276AC /* OmniActHUDAutocompleteMaterialStory.swift in Sources */,
-				8FF30DA7E988CADF6821E68A /* OmniActHUDStoryFixtures.swift in Sources */,
-				847FFB0A9E63CB5DB1A491EA /* OmniActHUDSurfaceResolver.swift in Sources */,
 				F3C89189F15E24FFE74DDA2F /* OmniActSettingsStory.swift in Sources */,
 				9C3C421115831703124916D4 /* OmniActSettingsValues.swift in Sources */,
 				EA5FDAAB3FEA60AEADC30CC3 /* PlatformSemanticColorGallery.swift in Sources */,
@@ -858,14 +1165,37 @@
 				A2D894EE6A333DDC26D2839C /* SectionContentLayoutGallery.swift in Sources */,
 				97C7AA99DE167843241F208F /* SemanticComponentsGallery.swift in Sources */,
 				D0DDB56A69F9D818D24C98EE /* SidebarToolbarContentGallery.swift in Sources */,
+				74691CA8829448B224BB4274 /* SongFinderListeningDemoView.swift in Sources */,
+				4BE8E2B98E7621D66345317C /* SongFinderResultDemoView.swift in Sources */,
+				B056D601ADAC1E4E0D216A3E /* StoryPreviewDestination.swift in Sources */,
+				0F187EDAE28F83D7241E64C5 /* StoryReferenceContent+Components.swift in Sources */,
+				A0113DB2AC57120706F2A70E /* StoryReferenceContent+ExtensionsAndProducts.swift in Sources */,
+				F1FF5FADEEAB5672F08FB3A9 /* StoryReferenceContent+Foundations.swift in Sources */,
+				9E2401DFF13553066DC8EA7E /* StoryReferenceContent+NativeRecipesA.swift in Sources */,
+				4B8E6E1E99C156122DE3DB58 /* StoryReferenceContent+NativeRecipesB.swift in Sources */,
+				C8EAC7B36D6B2B1A8F69B52A /* StoryReferenceContent.swift in Sources */,
+				51EB84B1C8636F4B31BA8E1B /* StoryReferencePage.swift in Sources */,
+				9BBCE6896E237E596320B807 /* StoryReferencePageSupport.swift in Sources */,
 				33EDDC4A5F447C08B28E76CF /* StorybookPage.swift in Sources */,
+				C28FD3BFAFD4F99C0BFD0256 /* StreamingLibraryBrowseDemoView.swift in Sources */,
+				310375C96822267E4D67E332 /* StreamingLibraryFixtures.swift in Sources */,
+				8D9AD2A2C9260B6FC8FC6102 /* StreamingLibraryHero.swift in Sources */,
+				C72B331793C6932B1EE9423D /* StreamingLibraryTabBar.swift in Sources */,
+				6B19E741931D0C7BC0199A98 /* StreamingMediaArtwork.swift in Sources */,
 				FC3ACBC3846CABDA7B7DDA70 /* SymbolContentGallery.swift in Sources */,
 				82C22BDA98D1F7D779EA09CA /* SystemDeviceChromeHostRecipeGallery.swift in Sources */,
+				D82DD9F5CDCCBA6A0F08FB3F /* ThoughtfulChatHomeDemoView.swift in Sources */,
+				CD122BD938D529C9076194EC /* ThoughtfulChatTheme.swift in Sources */,
+				078DBBAE3A0AB8F277AC43AC /* ThoughtfulChatThreadDemoView.swift in Sources */,
 				40DF60B47D9A9107FA7BCC6D /* TocChienChampionHeroNegativeControlStory.swift in Sources */,
 				D8CE7D566E6E14EE0CE765CC /* TocChienDictionaryFixtures.swift in Sources */,
 				88836FC4DB5CE61EE172E1AB /* TocChienDictionarySearchStory.swift in Sources */,
 				9CC4F5C6710D63B55EF491F8 /* TocChienNavigationTabsStory.swift in Sources */,
 				181F569EBEDACAA43503B1B8 /* TypographyGallery.swift in Sources */,
+				2CAE711CDFF3940527FCD13F /* VisualAssistantAnswerDemoView.swift in Sources */,
+				0AC5EE8123B2520605F4580A /* VisualAssistantAnswerSupport.swift in Sources */,
+				3FAEFD7293F4E0C20E4F3963 /* VisualAssistantHomeDemoView.swift in Sources */,
+				88C597144E33D53082A463B8 /* VisualAssistantTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -873,6 +1203,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A1F9C8FAF4E6F6C4C67D4D45 /* DesignOSAppleGalleryLocalDemoMacOSUITests.swift in Sources */,
 				99500467957D1F535762DB76 /* DesignOSAppleGalleryMacOSUITests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -881,9 +1212,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9E36A3316F5D1446A7067AFD /* DesignOSAppleGalleryDesignFloorUITests.swift in Sources */,
 				6E1F6E957D2DAEF2DA903620 /* DesignOSAppleGalleryFoundationStoryUITests.swift in Sources */,
+				5D30B2C04138FBF13BC4E4B1 /* DesignOSAppleGalleryLocalDemoUITests.swift in Sources */,
 				6FA732DEB8F881D3E74A8BBF /* DesignOSAppleGalleryStoryUITests.swift in Sources */,
 				705C5B77938BE1B97C7042E2 /* DesignOSAppleGalleryUITests.swift in Sources */,
+				4BD99A6934DE356DE1CDF5B1 /* LocalDemoUITestSupport.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -913,23 +1247,49 @@
 			buildActionMask = 2147483647;
 			files = (
 				8778566010FC3EFB281B28F4 /* AccessorySlotLayoutGallery.swift in Sources */,
+				4C278D7D9CC855AEE049603D /* CatalogStorySection.swift in Sources */,
+				F7D8E25FF1B414963DFDC103 /* CatalogStoryThumbnail.swift in Sources */,
+				9D7EF8D1144997B4D57DB21B /* CityRideArrivalPromotion.swift in Sources */,
+				669A5F3D8F5C547F535B7D84 /* CityRideNotice.swift in Sources */,
+				67C79515ED6E6A87D4796E7B /* CityRideSelectionDemoView.swift in Sources */,
+				3002F1E914C55C165937FCE0 /* CityRideTrackingDemoView.swift in Sources */,
 				72968DA4149BDC7F0D76F275 /* ColorRolesGallery.swift in Sources */,
 				6B69CF56D2DE8A78D4F7C805 /* DesignOSAppleGalleryApp.swift in Sources */,
 				53089FCDF36A6B740C467C13 /* DesignOSListRowGallery.swift in Sources */,
 				34B081E9BF459F2E1DE7A406 /* DesignOSSidebarRowGallery.swift in Sources */,
+				F69F60E0F5778E0B5EB91A07 /* DesignOSStoryDescriptor+GalleryPresentation.swift in Sources */,
 				44AD935C29FB9856710A64B0 /* DesignOSSurfaceRoleGallery.swift in Sources */,
+				C1C3341738E8AE99240C1D1A /* DogfoodCatalogCard.swift in Sources */,
 				3C7322F6B1CD4FD68F463378 /* DogfoodCatalogView.swift in Sources */,
 				48E6FFB2BB1654BE3E323D65 /* DogfoodStoryCanvas.swift in Sources */,
 				AB403DFD2182963B740A2CE0 /* DogfoodStoryDetailView.swift in Sources */,
 				5D8A0B08C5E69B5C7564755D /* DogfoodStoryHost.swift in Sources */,
 				A9D5B14DC877056BA198DD50 /* DogfoodStoryPresentation.swift in Sources */,
 				6302BA573E64975390AE4E1F /* DogfoodStoryRenderer.swift in Sources */,
+				FF351CA157CD5222D84468C8 /* EntertainmentTheme.swift in Sources */,
 				1672A72047315E41B2B35868 /* ExtensionControlWidgetGallery.swift in Sources */,
 				E3DF293BB8BF4EAE8D3D7566 /* ExtensionWidgetGallery.swift in Sources */,
+				CE36E689C96DB47078F648FA /* FlightTrackerBoardDemoView.swift in Sources */,
+				6A15621D16AA3977EF3AB2CF /* FlightTrackerLiveDemoView.swift in Sources */,
+				C38A48D53427FCA9FA458C42 /* FlightTripPicker.swift in Sources */,
 				7B2F3CB9DC1EF3658A8F67CD /* FoundationGallery.swift in Sources */,
 				D59027F8E3BC8091A2E29155 /* GalleryDestination.swift in Sources */,
 				F31CA7B2079534D6E813D62B /* GalleryOverview.swift in Sources */,
 				A12EDE5216B83EC234471387 /* GalleryRootView.swift in Sources */,
+				30B6DD9D4764BF11FF188290 /* LocalDemoAdaptiveColor.swift in Sources */,
+				8E76CA8C58A0BE810FE70D78 /* LocalDemoDefinition.swift in Sources */,
+				2783344BF1EE51284ACC6655 /* LocalDemoDefinitions+Assistants.swift in Sources */,
+				CC677F3C72C4D53A21BE0DC1 /* LocalDemoDefinitions+Entertainment.swift in Sources */,
+				579C7CC753A68DEC5720F4AD /* LocalDemoDefinitions+Mobility.swift in Sources */,
+				42ED20BECA404D9D6C869C61 /* LocalDemoDestination.swift in Sources */,
+				72BC5E8FD50920F501D9FD4F /* LocalDemoGalleryView.swift in Sources */,
+				37065EF4E5C2E32BC9918720 /* LocalDemoInteractionMotion.swift in Sources */,
+				7CEB5D51A03F7AB7419ED1ED /* LocalDemoNavigationMotion.swift in Sources */,
+				0905F0714431BFD0B5BE4113 /* LocalDemoPasteboard.swift in Sources */,
+				BF4A21F4D6D1B30F8AEE1568 /* LocalDemoRootMarker.swift in Sources */,
+				0FB0E062BBB0A98D907EEB0D /* MobilityDemoTheme.swift in Sources */,
+				C514CA8F0A1AE2C0E3AAF114 /* MobilityMapField.swift in Sources */,
+				4FA6ADCDAF3DDC43A0F9A579 /* MobilityMapLayers.swift in Sources */,
 				FF42A758A7601803914417EF /* NativeButtonAndToolbarActionRecipeGallery.swift in Sources */,
 				35F49E69E87E3479072CF619 /* NativeContentUnavailableViewRecipeGallery.swift in Sources */,
 				C47E4696C322B7EBE80C1CC9 /* NativeElevatedBackgroundRecipeGallery.swift in Sources */,
@@ -945,9 +1305,6 @@
 				BAAC2EBBE643B8B7B0FDFF5E /* NativeProgressSliderStepperRecipeGallery.swift in Sources */,
 				7227C2CFBD6BA8320DD4A64D /* NativeTextSearchAndKeyboardInputRecipeGallery.swift in Sources */,
 				10FECE11883754F020A67A09 /* OmniActCommandRowStory.swift in Sources */,
-				9CAF8D33362869BFA27DEAD6 /* OmniActHUDAutocompleteMaterialStory.swift in Sources */,
-				6726846F872FD203D240A337 /* OmniActHUDStoryFixtures.swift in Sources */,
-				8F522551AA44779B144FC062 /* OmniActHUDSurfaceResolver.swift in Sources */,
 				E8E0F4E08C7741E74451A445 /* OmniActSettingsStory.swift in Sources */,
 				7DCB07190E702C46B42D4840 /* OmniActSettingsValues.swift in Sources */,
 				156156533C916EFE28BFC298 /* PlatformSemanticColorGallery.swift in Sources */,
@@ -955,14 +1312,37 @@
 				F6AF147C9F0F3D0B479426C3 /* SectionContentLayoutGallery.swift in Sources */,
 				8679ABE25835E135E7E669A0 /* SemanticComponentsGallery.swift in Sources */,
 				14BA282B085D332B4BFF99C4 /* SidebarToolbarContentGallery.swift in Sources */,
+				CAC589E927681D09663B7FE4 /* SongFinderListeningDemoView.swift in Sources */,
+				427D6A797EBD109670D8D71C /* SongFinderResultDemoView.swift in Sources */,
+				EACE4838A8036FDD74D103A6 /* StoryPreviewDestination.swift in Sources */,
+				6193BCB18972519B0D357EF7 /* StoryReferenceContent+Components.swift in Sources */,
+				FFE1FA39E835B223707001F9 /* StoryReferenceContent+ExtensionsAndProducts.swift in Sources */,
+				1832D2807381BC6D3D385EB8 /* StoryReferenceContent+Foundations.swift in Sources */,
+				AB680627FCA60B481C36BBA1 /* StoryReferenceContent+NativeRecipesA.swift in Sources */,
+				3DA1F8CCB982DFEC5AF39B6C /* StoryReferenceContent+NativeRecipesB.swift in Sources */,
+				E06CE83A5646781A1E3B2951 /* StoryReferenceContent.swift in Sources */,
+				EBED9DC28D0685EC986A952B /* StoryReferencePage.swift in Sources */,
+				E3496D8E90F005B636CA6081 /* StoryReferencePageSupport.swift in Sources */,
 				805E817F3BFE2C87D9A6DF06 /* StorybookPage.swift in Sources */,
+				26540D197D08126AE7136A22 /* StreamingLibraryBrowseDemoView.swift in Sources */,
+				75C6F2F673503015767B9862 /* StreamingLibraryFixtures.swift in Sources */,
+				85DD26A3EB22C71A298D2540 /* StreamingLibraryHero.swift in Sources */,
+				B37F3CBFCD1619390A1DF639 /* StreamingLibraryTabBar.swift in Sources */,
+				F0D4CF07AD423C3E7F1FB69D /* StreamingMediaArtwork.swift in Sources */,
 				4FF8A3E7E488F082E46455D4 /* SymbolContentGallery.swift in Sources */,
 				49094E6F0F7394D93EF2A6F8 /* SystemDeviceChromeHostRecipeGallery.swift in Sources */,
+				4293D93897CF1B7944DD9E63 /* ThoughtfulChatHomeDemoView.swift in Sources */,
+				D0D7608E54E90764A7A3D3B7 /* ThoughtfulChatTheme.swift in Sources */,
+				CA7CB3A7BFD79D6A1DE2585A /* ThoughtfulChatThreadDemoView.swift in Sources */,
 				DC8CBE3E298717B4EEC6F5B1 /* TocChienChampionHeroNegativeControlStory.swift in Sources */,
 				C2997BA69E000CB737F80C12 /* TocChienDictionaryFixtures.swift in Sources */,
 				203DF49EDCDEB9E69D5F4558 /* TocChienDictionarySearchStory.swift in Sources */,
 				C528A3F30D354740F8AAB03C /* TocChienNavigationTabsStory.swift in Sources */,
 				65C31D385DB23B4664813CE0 /* TypographyGallery.swift in Sources */,
+				3B1C46C88CE0DCD4D4FFB4CF /* VisualAssistantAnswerDemoView.swift in Sources */,
+				A840DA5A6FA6472FF3D396F3 /* VisualAssistantAnswerSupport.swift in Sources */,
+				1CA1EC2B13CBE784CD95C827 /* VisualAssistantHomeDemoView.swift in Sources */,
+				B27987266FBB66EC99386B74 /* VisualAssistantTheme.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1031,7 +1411,7 @@
 		078C630536E9E4C4BBF19C5F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1053,7 +1433,7 @@
 		1B52B18B30B43E668D42BFA1 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -1129,7 +1509,7 @@
 		58930B8ABBBC7A2AFFB2D23D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -1246,7 +1626,7 @@
 		83B21DC9ACA6CE5B4366FF93 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "";
 				COMBINE_HIDPI_IMAGES = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				LD_RUNPATH_SEARCH_PATHS = (
