@@ -1037,9 +1037,9 @@
 			targets = (
 				289BE81CFA4E6AC4E08FAB0C /* DesignOSAppleGallery-iOS */,
 				D07BB0E29B41AF7D3D68775B /* DesignOSAppleGallery-macOS */,
-				02EB6AF1CFB1AB6A880BBA7A /* DesignOSAppleGalleryMacOSUITests */,
-				544207536A05A12FCF3ADE7B /* DesignOSAppleGalleryRendererTests */,
 				130458467FB4DFF288EBD387 /* DesignOSAppleGalleryUITests */,
+				544207536A05A12FCF3ADE7B /* DesignOSAppleGalleryRendererTests */,
+				02EB6AF1CFB1AB6A880BBA7A /* DesignOSAppleGalleryMacOSUITests */,
 				DCA60AD54516606C7B3CC920 /* TocChienDogfoodPilot-iOS */,
 				3FC2C80B6E9CD6007342AD05 /* TocChienDogfoodPilot-macOS */,
 				113B8DD97FCB2EC4DFC2BE90 /* TocChienDogfoodPilotIOSUITests */,
