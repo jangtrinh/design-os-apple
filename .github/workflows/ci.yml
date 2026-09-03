@@ -20,7 +20,7 @@ jobs:
     steps:
       - name: Check out source
         uses: actions/checkout@v6
-      - name: Install XcodeGen
-        run: brew install xcodegen
+      - name: Install XcodeGen and ripgrep
+        run: brew install xcodegen ripgrep
       - name: Verify the same release-candidate gates used locally
         run: scripts/verify-release-candidate.sh

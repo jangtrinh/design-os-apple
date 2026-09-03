@@ -15,7 +15,8 @@ sanctioned `ui ds` command. Contributors consuming the package do not need DESIG
 
 ## Verify
 
-Run the narrowest affected test first. Before a pull request, run:
+Run the narrowest affected test first. The release gate needs Xcode, [XcodeGen](https://github.com/yonaskolb/XcodeGen),
+and [ripgrep](https://github.com/BurntSushi/ripgrep) (`brew install xcodegen ripgrep`). Before a pull request, run:
 
 ```bash
 scripts/verify-release-candidate.sh
