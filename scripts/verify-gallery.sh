@@ -68,6 +68,15 @@ for relative_file in \
   fi
 done
 
+# Optional result bundles keep failing UI-test attachments diagnosable outside -quiet output.
+results_dir="${DESIGN_OS_APPLE_GALLERY_RESULTS_DIR:-}"
+result_bundle_for() {
+  if [[ -n "$results_dir" ]]; then
+    mkdir -p "$results_dir"
+    print -- -resultBundlePath "$results_dir/$1.xcresult"
+  fi
+}
+
 cd "$project_root"
 xcodebuild build \
   -project Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj \
@@ -90,6 +99,7 @@ for simulator_id in "$iphone_id" "$ipad_id"; do
     -destination "id=$simulator_id" \
     -derivedDataPath "$temporary_root/DerivedData-$simulator_id" \
     "${ios_test_selection[@]}" \
+    ${(z)$(result_bundle_for "ios-$simulator_id")} \
     CODE_SIGNING_ALLOWED=NO \
     -quiet
 done
@@ -104,6 +114,7 @@ xcodebuild test \
   -destination 'platform=macOS' \
   -derivedDataPath "$temporary_root/DerivedData" \
   "${macos_test_selection[@]}" \
+  ${(z)$(result_bundle_for macos)} \
   CODE_SIGNING_ALLOWED=YES \
   CODE_SIGN_STYLE=Manual \
   CODE_SIGN_IDENTITY=- \
