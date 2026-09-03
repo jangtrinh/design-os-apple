@@ -61,14 +61,20 @@ final class DesignOSAppleGalleryLocalDemoMacOSUITests: XCTestCase {
     return target
   }
 
+  /// Scrolls the streaming page in bounded wheel steps until the rail header is on screen.
+  /// A swipe scrolls a viewport-dependent distance; on a small display such as a CI runner it
+  /// jumps past the header, and further swipes only move it further away. A negative delta moves
+  /// the content up by roughly 75 points per step, so each step lands inside the window.
   @MainActor
   private func scrollUntilVisibleState(_ target: XCUIElement, in app: XCUIApplication) {
     XCTAssertTrue(target.waitForExistence(timeout: 5))
     let initialMinY = target.frame.minY
     let scrollView = element("design-os.demo.entertainment.streaming-library.page", in: app)
-    scrollView.swipeUp()
     let windowFrame = app.windows.firstMatch.frame
-    for _ in 0..<5 where !target.frame.intersects(windowFrame) { scrollView.swipeUp() }
+    scrollView.scroll(byDeltaX: 0, deltaY: -100)
+    for _ in 0..<40 where target.frame.minY >= windowFrame.maxY {
+      scrollView.scroll(byDeltaX: 0, deltaY: -100)
+    }
     XCTAssertLessThan(target.frame.minY, initialMinY)
     XCTAssertTrue(target.frame.intersects(windowFrame))
   }
