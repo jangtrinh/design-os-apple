@@ -1,0 +1,487 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Apple Design OS — SwiftUI Design System for iOS, iPadOS, and macOS</title>
+<meta name="description" content="Apple Design OS: a native SwiftUI design-system library for iOS 17+, iPadOS 17+, and macOS 14+ with semantic roles, typed profiles, and verified recipes.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1">
+<link rel="canonical" href="https://jangtrinh.github.io/design-os-apple/">
+<link rel="alternate" type="text/plain" href="https://jangtrinh.github.io/design-os-apple/llms.txt" title="LLM documentation">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Apple Design OS — SwiftUI Design System for iOS, iPadOS, and macOS">
+<meta property="og:description" content="Apple Design OS: a native SwiftUI design-system library for iOS 17+, iPadOS 17+, and macOS 14+ with semantic roles, typed profiles, and verified recipes.">
+<meta property="og:url" content="https://jangtrinh.github.io/design-os-apple/">
+<meta property="og:image" content="https://jangtrinh.github.io/design-os-apple/specimens/specimen-ipadpro-wide.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Apple Design OS — SwiftUI Design System for iOS, iPadOS, and macOS">
+<meta name="twitter:description" content="Apple Design OS: a native SwiftUI design-system library for iOS 17+, iPadOS 17+, and macOS 14+ with semantic roles, typed profiles, and verified recipes.">
+<meta name="twitter:image" content="https://jangtrinh.github.io/design-os-apple/specimens/specimen-ipadpro-wide.png">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "SoftwareSourceCode",
+      "name": "Apple Design OS",
+      "description": "Apple Design OS: a native SwiftUI design-system library for iOS 17+, iPadOS 17+, and macOS 14+ with semantic roles, typed profiles, and verified recipes.",
+      "url": "https://jangtrinh.github.io/design-os-apple/",
+      "codeRepository": "https://github.com/jangtrinh/design-os-apple",
+      "license": "https://opensource.org/licenses/MIT",
+      "author": {
+        "@type": "Person",
+        "name": "Jang Trịnh",
+        "url": "https://github.com/jangtrinh"
+      },
+      "keywords": "swift, swiftui, apple, ios, ipados, macos, design-system, accessibility"
+    },
+    {
+      "@type": "FAQPage",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What is Apple Design OS?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Apple Design OS is a native SwiftUI design-system library for iOS, iPadOS, and macOS. It keeps controls native while adding semantic roles, typed profiles, content components, and platform-adaptive recipes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "What platforms and Swift versions are supported?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Apple Design OS requires minimum platform versions of iOS 17, iPadOS 17, and macOS 14. It compiles with the Swift 6.2 toolchain using standard Swift Package Manager with zero third-party dependencies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Apple Design OS support iOS 27 and iPhone Duo?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "The September 2026 Apple announcements (iOS 27, iPadOS 27, macOS 27, and iPhone Duo) are documented in the repository intake report using 10 primary Apple sources and 4 UKMC units. Native runtime execution was verified on iOS 26.2 and iPadOS 26.2 simulators (build 23C54); local OS 27 and iPhone Duo SDKs or simulator runtimes remain unavailable locally (local SDK and runtime absence only is verified)."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Apple Design OS differ from third-party UI kits?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Apple Design OS directly uses native SwiftUI primitives, preserves platform-specific interaction models, and separates semantic design intent from runtime code without introducing external runtime dependencies."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Does Apple Design OS collect telemetry or track usage?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No first-party telemetry, tracking, or network phone-home mechanisms exist in the library or documentation. The third-party Buy Me a Coffee widget script loads externally from cdnjs.buymeacoffee.com."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Under what license is Apple Design OS distributed?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Original library code and documentation are released under the permissive MIT License. Apple platform visual styles, UI components, and SF Symbols remain the proprietary property of Apple Inc."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+<link rel="stylesheet" href="assets/site.css">
+</head>
+<body>
+<a class="ds-skip-link" href="#main">Skip to content</a>
+<div class="ds-shell">
+  <nav class="ds-shell-nav" aria-label="Primary">
+    <a class="wordmark" href="https://github.com/jangtrinh">JANG<span>OS</span></a>
+    <div class="home-nav-links">
+      <a class="ds-tab" href="#why">Why</a>
+      <a class="ds-tab" href="#matrix">Support Matrix</a>
+      <a class="ds-tab" href="#install">Install</a>
+      <a class="ds-tab" href="#specimens">Specimens</a>
+      <a class="ds-tab" href="#faq">FAQ</a>
+      <a class="ds-tab" href="#ecosystem">Ecosystem</a>
+      <a class="ds-tab" href="https://github.com/jangtrinh/design-os-apple" aria-label="GitHub Repository"><svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M208.31,75.68A59.78,59.78,0,0,0,202.93,28,8,8,0,0,0,196,24a59.75,59.75,0,0,0-48,24H124A59.75,59.75,0,0,0,76,24a8,8,0,0,0-6.93,4,59.78,59.78,0,0,0-5.38,47.68A58.14,58.14,0,0,0,56,104v8a56.06,56.06,0,0,0,48.44,55.47A39.8,39.8,0,0,0,96,192v8H72a24,24,0,0,1-24-24A40,40,0,0,0,8,136a8,8,0,0,0,0,16,24,24,0,0,1,24,24,40,40,0,0,0,40,40H96v16a8,8,0,0,0,16,0V192a24,24,0,0,1,48,0v40a8,8,0,0,0,16,0V192a39.8,39.8,0,0,0-8.44-24.53A56.06,56.06,0,0,0,216,112v-8A58.14,58.14,0,0,0,208.31,75.68ZM200,112a40,40,0,0,1-40,40H112a40,40,0,0,1-40-40v-8a41.74,41.74,0,0,1,6.9-22.48A8,8,0,0,0,80,73.83a43.81,43.81,0,0,1,.79-33.58,43.88,43.88,0,0,1,32.32,20.06A8,8,0,0,0,119.82,64h32.35a8,8,0,0,0,6.74-3.69,43.87,43.87,0,0,1,32.32-20.06A43.81,43.81,0,0,1,192,73.83a8.09,8.09,0,0,0,1,7.65A41.72,41.72,0,0,1,200,104Z"/></svg>GitHub</a>
+    </div>
+  </nav>
+
+  <main id="main" class="ds-shell-main" tabindex="-1">
+    <!-- Hero Section -->
+    <section id="hero">
+      <h1 class="ds-heading" data-level="1">Apple Design OS</h1>
+      <p class="lede">A SwiftUI design-system library that keeps controls native while adding semantic roles, typed profiles, and platform-adaptive recipes. Built on iOS 17+, iPadOS 17+, and macOS 14+ floors with zero third-party package dependencies.</p>
+      <div class="badges">
+        <img src="https://img.shields.io/badge/Swift-6.2-F05138.svg?style=flat&amp;logo=swift&amp;logoColor=white" alt="Swift 6.2" height="28">
+        <img src="https://img.shields.io/badge/Platforms-iOS%2017%20%7C%20iPadOS%2017%20%7C%20macOS%2014-0071e3.svg?style=flat" alt="Supported Platforms: iOS 17, iPadOS 17, macOS 14" height="28">
+        <img src="https://img.shields.io/badge/License-MIT-green.svg?style=flat" alt="MIT License" height="28">
+        <img src="https://img.shields.io/badge/Dependencies-Zero-blue.svg?style=flat" alt="Zero Dependencies" height="28">
+        <img src="https://img.shields.io/badge/State-0.1.0--rc.1%20(untagged)-gray.svg?style=flat" alt="Candidate 0.1.0-rc.1 untagged" height="28">
+      </div>
+      <div class="hero-actions">
+        <a class="ds-btn-pill" href="#install">Add Package Dependency</a>
+        <a class="text-link" href="https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md">Getting Started Guide <svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg></a>
+      </div>
+    </section>
+
+    <!-- Why Section -->
+    <section id="why">
+      <h2 class="ds-heading" data-level="2">Native SwiftUI primitives with semantic governance</h2>
+      <p>Standard SwiftUI gives teams expressive building blocks, but large projects frequently encounter inconsistent content metrics, untyped styling overrides, and brittle navigation scaffolding across form factors. Apple Design OS introduces typed profiles and semantic roles without abstracting away native platform behaviors.</p>
+      
+      <div class="fact-table-wrap">
+        <table class="fact-table">
+          <thead>
+            <tr>
+              <th scope="col">Key Specification</th>
+              <th scope="col">Contract &amp; Scope</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Repository</td>
+              <td><a href="https://github.com/jangtrinh/design-os-apple">jangtrinh/design-os-apple</a></td>
+            </tr>
+            <tr>
+              <td>Requires</td>
+              <td>iOS 17+, iPadOS 17+, macOS 14+ · Swift 6.2 · Zero external package dependencies</td>
+            </tr>
+            <tr>
+              <td>Interface</td>
+              <td>Native SwiftUI Library (Swift Package Manager)</td>
+            </tr>
+            <tr>
+              <td>Transport / Protocol</td>
+              <td>In-process Swift Package · DocC Documentation</td>
+            </tr>
+            <tr>
+              <td>Telemetry / Privacy</td>
+              <td>Zero first-party telemetry or tracking in library; page loads external Shields badges and Buy Me a Coffee widget</td>
+            </tr>
+            <tr>
+              <td>License</td>
+              <td>MIT License</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fact-table-wrap">
+        <table class="fact-table">
+          <thead>
+            <tr>
+              <th scope="col">Boundary</th>
+              <th scope="col">Guidance</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Use When</td>
+              <td>Building native SwiftUI apps for iOS 17+, iPadOS 17+, and macOS 14+ that need semantic roles, typed profiles, and adaptive recipes without third-party dependencies.</td>
+            </tr>
+            <tr>
+              <td>Avoid When</td>
+              <td>Requiring cross-platform abstractions (Flutter/React Native), custom non-native rendering engines, or legacy deployments below iOS 17 / macOS 14.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fact-table-wrap">
+        <table class="fact-table">
+          <thead>
+            <tr>
+              <th scope="col">Safe-Use Step</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1. Add Package</td>
+              <td>Link <code>DesignOSApple</code> via Swift Package Manager with zero external dependencies.</td>
+            </tr>
+            <tr>
+              <td>2. Compose Natively</td>
+              <td>Place <code>DesignOSListRow</code> inside native <code>List</code> or <code>NavigationSplitView</code>.</td>
+            </tr>
+            <tr>
+              <td>3. Inject Profile</td>
+              <td>Apply <code>.designOSProfile(.default)</code> once at a product subtree boundary.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="fact-table-wrap">
+        <table class="fact-table">
+          <thead>
+            <tr>
+              <th scope="col">Practical Verb</th>
+              <th scope="col">Command &amp; Verified Scope</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>build</td>
+              <td><code>swift build</code> — Compiles package in debug mode.</td>
+            </tr>
+            <tr>
+              <td>test</td>
+              <td><code>swift test</code> — Runs package unit tests (historically recorded 90 passed, not a guaranteed fixed count).</td>
+            </tr>
+            <tr>
+              <td>inspect</td>
+              <td><code>xcodegen generate --spec Examples/DesignOSAppleGallery/project.yml --project Examples/DesignOSAppleGallery</code> followed by <code>open Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj</code> (see <a class="text-link" href="https://github.com/jangtrinh/design-os-apple#browse-the-gallery">Browse the Gallery</a> in README) — Generates Xcode project (separate open command launches catalog).</td>
+            </tr>
+            <tr>
+              <td>verify</td>
+              <td><code>scripts/verify-release-candidate.sh</code> — Validates candidate release gate (currently fails on baseline Swift 6.2 release compiler crash).</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="ds-aside">
+        <p><strong>Baseline release compiler limitation:</strong> Under the current Swift 6.2 release toolchain, release-mode compilation (<code>-O</code>) encounters a known compiler SIL crash. The package builds and verifies cleanly under debug mode; the baseline compiler issue remains documented in the verification log.</p>
+        <p><strong>Historical test evidence:</strong> Base candidate verification at audit commit <code>2bcb5bb233380ba84336425ba484f57e56f3dc91</code> recorded 90 package tests, 10 phone UI tests, 1 iPad UI test, and 15 verifiers across 417 files. Original Task 1470 result bundle is unavailable due to rolling retention; two geometry timeouts (89 and 103) were retained in logs. Subsequent typed diagnostics suggest a harness observation mismatch, while the internal observation mechanism remains uninstrumented.</p>
+      </div>
+    </section>
+
+    <!-- Support Matrix Section -->
+    <section id="matrix">
+      <h2 class="ds-heading" data-level="2">Support Matrix (Dated 2026-10-01)</h2>
+      <p>Apple Design OS maintains explicit distinctions between declared package floors, executed runtime simulator environments, and platform announcement intake.</p>
+      
+      <div class="fact-table-wrap">
+        <table class="fact-table">
+          <thead>
+            <tr>
+              <th scope="col">Domain</th>
+              <th scope="col">Environment / Target</th>
+              <th scope="col">Execution Status</th>
+              <th scope="col">Verification Evidence &amp; Sources</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Package Floor</td>
+              <td>iOS 17.0+ · iPadOS 17.0+ · macOS 14.0+</td>
+              <td>Implemented</td>
+              <td>Declared in Package.swift; strict floor checks enforced</td>
+            </tr>
+            <tr>
+              <td>Toolchain</td>
+              <td>Swift 6.2 · Swift Package Manager</td>
+              <td>Verified (Debug)</td>
+              <td>Debug mode passes; release SIL crash recorded as known issue</td>
+            </tr>
+            <tr>
+              <td>Executed Runtime</td>
+              <td>iPhone 17 Pro · iOS 26.2 (build 23C54)</td>
+              <td>Tested</td>
+              <td>Executed simulator tests; portrait and landscape captures</td>
+            </tr>
+            <tr>
+              <td>Executed Runtime</td>
+              <td>iPad Pro 11-inch (M5) · iPadOS 26.2 (build 23C54)</td>
+              <td>Tested</td>
+              <td>Executed simulator tests; two-column split view capture</td>
+            </tr>
+            <tr>
+              <td>Navigation Architecture</td>
+              <td>Native NavigationSplitView with caller-owned selection</td>
+              <td>Implemented &amp; Tested</td>
+              <td>Native selection binding; tab state and modal preview verified</td>
+            </tr>
+            <tr>
+              <td>OS 27 &amp; iPhone Duo</td>
+              <td>iOS 27, iPadOS 27, macOS 27, iPhone Duo</td>
+              <td>Documented Intake Only</td>
+              <td><a href="https://github.com/jangtrinh/design-os-apple/blob/main/docs/os27-intake-report.md">10 primary Apple sources (2026-10-01)</a>, 4 UKMC units; local SDK unavailable</td>
+            </tr>
+            <tr>
+              <td>Hardware Intake</td>
+              <td>iPhone Duo (announced Sep 9, 2026; availability Oct 23, 2026)</td>
+              <td>Documented Only</td>
+              <td><a href="https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/">Apple Newsroom (2026-09-09)</a>; announced, not shipping as of Oct 1; no guessed APIs or points</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- Install & Quickstart Section -->
+    <section id="install">
+      <h2 class="ds-heading" data-level="2">Add the Package</h2>
+      <p>Integrate <code>DesignOSApple</code> into your project using Swift Package Manager. The package requires zero third-party dependencies.</p>
+      
+      <div class="ds-code-block">
+        <pre><code>// Package.swift
+dependencies: [
+  .package(url: "https://github.com/jangtrinh/design-os-apple.git", branch: "main")
+],
+targets: [
+  .target(name: "MyApp", dependencies: [
+    .product(name: "DesignOSApple", package: "design-os-apple")
+  ])
+]</code></pre>
+      </div>
+
+      <h2 class="ds-heading" data-level="2">First Compiling View</h2>
+      <p>The first compiling view composes <code>DesignOSListRow</code> inside a native SwiftUI <code>List</code> and injects the default design-system profile at the view hierarchy root. This exact code block is verified against the built package by <code>scripts/verify-consumer-quickstart.sh</code>:</p>
+      
+      <div class="ds-code-block">
+        <pre><code>import DesignOSApple
+import SwiftUI
+
+struct AccountList: View {
+  var body: some View {
+    List {
+      DesignOSListRow {
+        Label("Profile", systemImage: "person.crop.circle")
+      } title: {
+        Text("Account")
+      } subtitle: {
+        Text("Manage identity and sign-in")
+      } trailing: {
+        Image(systemName: "chevron.forward")
+          .foregroundStyle(.secondary)
+      }
+    }
+    .designOSProfile(.default)
+  }
+}</code></pre>
+      </div>
+    </section>
+
+    <!-- Specimens Section -->
+    <section id="specimens">
+      <h2 class="ds-heading" data-level="2">Native Implementation Specimens</h2>
+      <p>The following uncropped screenshots demonstrate native SwiftUI navigation behavior on Apple platform simulators. Click any specimen to inspect the uncropped image asset.</p>
+
+      <div class="showcase-grid">
+        <!-- Specimen 1: iPhone Portrait -->
+        <figure class="ds-card">
+          <a class="specimen-link" href="specimens/specimen-iphone17pro-compact.png" target="_blank" rel="noopener">
+            <img src="specimens/specimen-iphone17pro-compact.png" alt="Collapsed single-column navigation stack presenting Library detail pane on iPhone 17 Pro" width="1206" height="2622">
+          </a>
+          <figcaption class="case-plate-caption">
+            <p>iPhone 17 Pro · Portrait Compact Navigation</p>
+            <cite>specimen-iphone17pro-compact.png · 1206×2622 · iOS 26.2 (Simulator build 23C54) · SHA-256: 9d61d18d…</cite>
+          </figcaption>
+        </figure>
+
+        <!-- Specimen 2: iPhone Landscape -->
+        <figure class="ds-card">
+          <a class="specimen-link" href="specimens/specimen-iphone17pro-landscape.png" target="_blank" rel="noopener">
+            <img src="specimens/specimen-iphone17pro-landscape.png" alt="Rotated landscape detail view on iPhone 17 Pro after stable orientation transition" width="2622" height="1206">
+          </a>
+          <figcaption class="case-plate-caption">
+            <p>iPhone 17 Pro · Rotated Landscape Canvas</p>
+            <cite>specimen-iphone17pro-landscape.png · 2622×1206 (Orientation 8, 90° CCW) · iOS 26.2 (Simulator build 23C54) · SHA-256: a158da77…</cite>
+          </figcaption>
+        </figure>
+
+        <!-- Specimen 3: iPad Pro Wide Split -->
+        <figure class="ds-card" data-featured="true">
+          <a class="specimen-link" href="specimens/specimen-ipadpro-wide.png" target="_blank" rel="noopener">
+            <img src="specimens/specimen-ipadpro-wide.png" alt="Two-column persistent split view on iPad Pro 11-inch (M5) showing sidebar list and active content canvas" width="1668" height="2420">
+          </a>
+          <figcaption class="case-plate-caption">
+            <p>iPad Pro 11-inch (M5) · Two-Column Persistent Split View</p>
+            <cite>specimen-ipadpro-wide.png · 1668×2420 (EXIF Orientation 1) · iPadOS 26.2 (Simulator build 23C54) · SHA-256: 2ed549e7…</cite>
+          </figcaption>
+        </figure>
+      </div>
+
+      <div class="ds-aside">
+        <p><strong>Attribution &amp; Proprietary Rights:</strong> These specimens are repository-generated implementation screenshots demonstrating native SwiftUI navigation behavior on Apple platform simulators. Apple platform visual styles, UI components, and SF Symbols remain the proprietary property of Apple Inc. and are depicted here for technical reference and interoperability demonstration only. They are not subject to blanket MIT code licensing.</p>
+      </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq">
+      <h2 class="ds-heading" data-level="2">Frequently Asked Questions</h2>
+      <div class="faq">
+        <details>
+          <summary>What is Apple Design OS?<svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <p>Apple Design OS is a native SwiftUI design-system library for iOS, iPadOS, and macOS. It keeps controls native while adding semantic roles, typed profiles, content components, and platform-adaptive recipes.</p>
+        </details>
+        <details>
+          <summary>What platforms and Swift versions are supported?<svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <p>Apple Design OS requires minimum platform versions of iOS 17, iPadOS 17, and macOS 14. It compiles with the Swift 6.2 toolchain using standard Swift Package Manager with zero third-party dependencies.</p>
+        </details>
+        <details>
+          <summary>Does Apple Design OS support iOS 27 and iPhone Duo?<svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <p>The September 2026 Apple announcements (iOS 27, iPadOS 27, macOS 27, and iPhone Duo) are documented in the repository intake report using 10 primary Apple sources and 4 UKMC units. Native runtime execution was verified on iOS 26.2 and iPadOS 26.2 simulators (build 23C54); local OS 27 and iPhone Duo SDKs or simulator runtimes remain unavailable locally (local SDK and runtime absence only is verified).</p>
+        </details>
+        <details>
+          <summary>How does Apple Design OS differ from third-party UI kits?<svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <p>Apple Design OS directly uses native SwiftUI primitives, preserves platform-specific interaction models, and separates semantic design intent from runtime code without introducing external runtime dependencies.</p>
+        </details>
+        <details>
+          <summary>Does Apple Design OS collect telemetry or track usage?<svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <p>No first-party telemetry, tracking, or network phone-home mechanisms exist in the library or documentation. The third-party Buy Me a Coffee widget script loads externally from cdnjs.buymeacoffee.com.</p>
+        </details>
+        <details>
+          <summary>Under what license is Apple Design OS distributed?<svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M213.66,101.66l-80,80a8,8,0,0,1-11.32,0l-80-80A8,8,0,0,1,53.66,90.34L128,164.69l74.34-74.35a8,8,0,0,1,11.32,11.32Z"/></svg></summary>
+          <p>Original library code and documentation are released under the permissive MIT License. Apple platform visual styles, UI components, and SF Symbols remain the proprietary property of Apple Inc.</p>
+        </details>
+      </div>
+    </section>
+
+    <!-- Ecosystem & Documentation Links -->
+    <section id="ecosystem">
+      <h2 class="ds-heading" data-level="2">Documentation &amp; Ecosystem</h2>
+      <p>Explore deep-dive technical reports and companion repositories in the DESIGN:OS ecosystem.</p>
+      
+      <div class="ds-icon-row-list">
+        <a class="ds-icon-row" href="https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md">
+          <span class="ds-icon-row-title">Getting Started Guide</span>
+          <span class="ds-icon-row-meta">Step-by-step consumer onboarding and verified first view block</span>
+          <svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg>
+        </a>
+        <a class="ds-icon-row" href="https://github.com/jangtrinh/design-os-apple/blob/main/docs/os27-intake-report.md">
+          <span class="ds-icon-row-title">iPhone Duo &amp; OS 27 Intake Report</span>
+          <span class="ds-icon-row-meta">10 primary Apple sources, 4 UKMC units, and subsystem gap analysis</span>
+          <svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg>
+        </a>
+        <a class="ds-icon-row" href="https://github.com/jangtrinh/design-os-apple/blob/main/docs/quality-evidence.md">
+          <span class="ds-icon-row-title">Quality Evidence &amp; Verification</span>
+          <span class="ds-icon-row-meta">Historical test matrix, known compiler issues, and test run evidence</span>
+          <svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg>
+        </a>
+        <a class="ds-icon-row" href="https://github.com/jangtrinh/design-os">
+          <span class="ds-icon-row-title">design-os</span>
+          <span class="ds-icon-row-meta">Unified design-system engine and token management architecture</span>
+          <svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg>
+        </a>
+        <a class="ds-icon-row" href="https://github.com/jangtrinh/design-os-figma-plugin">
+          <span class="ds-icon-row-title">design-os-figma-plugin</span>
+          <span class="ds-icon-row-meta">Programmatic Figma canvas generation and token synchronizer</span>
+          <svg class="ph" viewBox="0 0 256 256" fill="currentColor" aria-hidden="true"><path d="M181.66,133.66l-80,80a8,8,0,0,1-11.32-11.32L164.69,128,90.34,53.66a8,8,0,0,1,11.32-11.32l80,80A8,8,0,0,1,181.66,133.66Z"/></svg>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <!-- Footer with Required 3 Links -->
+  <footer class="ds-shell-footer">
+    <div class="ds-shell-footer-inner">
+      <div class="footer-links-row">
+        <a class="footer-link" href="https://github.com/jangtrinh/design-os-apple">Repository</a>
+        <a class="footer-link" href="https://github.com/jangtrinh/design-os-apple/tree/main/docs">Documentation</a>
+        <a class="footer-link" href="https://github.com/jangtrinh/design-os-apple/blob/main/LICENSE">MIT License</a>
+      </div>
+      <p class="footer-copy">© 2026 Jang Trịnh. Released under the MIT License. Apple Design OS is an independent project and is not affiliated with, endorsed by, or sponsored by Apple Inc. Apple platform names and trademarks belong to Apple Inc.</p>
+    </div>
+  </footer>
+</div>
+
+<!-- Buy Me A Coffee Author Widget (loads third-party script from cdnjs.buymeacoffee.com) -->
+<script data-name="BMC-Widget" data-cfasync="false" src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js" data-id="jangtrinh" data-description="Support me on Buy me a coffee!" data-message="" data-color="#5F7FFF" data-position="Right" data-x_margin="18" data-y_margin="18"></script>
+</body>
+</html>

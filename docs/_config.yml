@@ -1,0 +1,44 @@
+# GitHub Pages site configuration for design-os-apple.
+title: Apple Design OS
+description: Native SwiftUI design-system library for iOS 17+, iPadOS 17+, and macOS 14+ with semantic roles, typed profiles, and verified recipes.
+url: https://jangtrinh.github.io
+baseurl: /design-os-apple
+lang: en
+repository: jangtrinh/design-os-apple
+repository_url: https://github.com/jangtrinh/design-os-apple
+wordmark: JANG
+wordmark_url: https://github.com/jangtrinh
+eyebrow: SwiftUI Design System · Apple Platforms
+logo: /specimens/specimen-ipadpro-wide.png
+
+exclude:
+  - corpus/
+  - tests/
+  - scripts/
+  - Gemfile
+  - Gemfile.lock
+
+nav:
+  - { title: Getting Started, url: "https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md" }
+  - { title: OS 27 Intake, url: "https://github.com/jangtrinh/design-os-apple/blob/main/docs/os27-intake-report.md" }
+  - { title: Quality Evidence, url: "https://github.com/jangtrinh/design-os-apple/blob/main/docs/quality-evidence.md" }
+
+footer:
+  - { title: Repository, url: "https://github.com/jangtrinh/design-os-apple" }
+  - { title: Documentation, url: "https://github.com/jangtrinh/design-os-apple/tree/main/docs" }
+  - { title: MIT License, url: "https://github.com/jangtrinh/design-os-apple/blob/main/LICENSE" }
+
+plugins:
+  - jekyll-seo-tag
+  - jekyll-sitemap
+  - jekyll-relative-links
+
+relative_links:
+  enabled: true
+  collections: false
+
+defaults:
+  - scope: { path: "" }
+    values: { layout: default }
+  - scope: { path: "google*.html" }
+    values: { sitemap: false }

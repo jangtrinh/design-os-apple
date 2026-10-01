@@ -1,5 +1,11 @@
 # Apple Design OS
 
+[![Swift 6.2](https://img.shields.io/badge/Swift-6.2-F05138.svg?style=flat&logo=swift&logoColor=white)](https://swift.org)
+[![Platforms: iOS 17 | iPadOS 17 | macOS 14](https://img.shields.io/badge/Platforms-iOS%2017%20%7C%20iPadOS%2017%20%7C%20macOS%2014-0071e3.svg?style=flat)](Package.swift)
+[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat)](LICENSE)
+[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero-blue.svg?style=flat)](Package.swift)
+[![State: 0.1.0-rc.1 untagged](https://img.shields.io/badge/State-0.1.0--rc.1%20(untagged)-gray.svg?style=flat)](RELEASING.md)
+
 Apple Design OS is a SwiftUI design-system library for iOS, iPadOS, and macOS. It keeps
 Apple-owned controls and interaction native, then adds semantic roles, typed profiles,
 content-only components, native API recipes, and a searchable Gallery of instructional
@@ -10,6 +16,7 @@ reference pages that both people and AI agents can read.
 
 Minimum platforms: iOS and iPadOS 17, macOS 14. Swift 6.2 toolchain, Swift Package Manager.
 DESIGN:OS maintainer tooling is not required by package consumers.
+Web documentation site (planned / unpublished URL): [https://jangtrinh.github.io/design-os-apple/](https://jangtrinh.github.io/design-os-apple/)
 
 ## Add the package
 
@@ -41,6 +48,33 @@ type-checked by `scripts/verify-consumer-quickstart.sh` against the built packag
 - Inject a validated `DesignOSProfile` once at a product subtree boundary.
 - Call `Button`, `List`, `NavigationSplitView`, presentation modifiers, and extension APIs
   directly. The DocC recipes document their layout and accessibility contracts.
+
+### Key specifications (6 facts)
+
+- **Repository:** [`jangtrinh/design-os-apple`](https://github.com/jangtrinh/design-os-apple)
+- **Requires:** iOS 17+, iPadOS 17+, macOS 14+ · Swift 6.2 · Zero external package dependencies
+- **Interface:** Native SwiftUI Library (Swift Package Manager)
+- **Transport / Protocol:** In-process Swift Package · DocC Documentation
+- **Telemetry / Privacy:** Zero first-party telemetry or tracking in library; web documentation page loads external Shields badges and Buy Me a Coffee widget
+- **License:** [MIT License](LICENSE)
+
+### Honest boundary
+
+- **Use when:** Building native SwiftUI apps for iOS 17+, iPadOS 17+, and macOS 14+ that need semantic roles, typed profiles, and adaptive recipes without third-party dependencies.
+- **Avoid when:** Requiring cross-platform abstractions (Flutter/React Native), custom non-native rendering engines, or legacy deployments below iOS 17 / macOS 14.
+
+### 3 Safe-use steps
+
+1. **Add Package:** Link `DesignOSApple` via Swift Package Manager with zero external dependencies.
+2. **Compose Natively:** Place `DesignOSListRow` inside native `List` or `NavigationSplitView`.
+3. **Inject Profile:** Apply `.designOSProfile(.default)` once at a product subtree boundary.
+
+### Practical verification verbs
+
+- `build`: `swift build` — Compiles package in debug mode.
+- `test`: `swift test` — Runs package unit tests (historically recorded 90 passed, not a guaranteed fixed count).
+- `inspect`: `xcodegen generate --spec Examples/DesignOSAppleGallery/project.yml --project Examples/DesignOSAppleGallery` followed by `open Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj` (see [Browse the Gallery](#browse-the-gallery)) — Generates Xcode project (separate open command launches catalog).
+- `verify`: `scripts/verify-release-candidate.sh` — Validates candidate release gate (currently fails on baseline Swift 6.2 release compiler crash).
 
 Start at the [DocC landing page](Sources/DesignOSApple/DesignOSApple.docc/DesignOSApple.md)
 for runtime concepts. AI-assisted consumers should read [AI Usage](docs/ai-usage.md) before
@@ -124,8 +158,17 @@ Apple documentation, platform APIs, and live behavior remain authoritative.
 
 The September 2026 Apple platform announcements (iPhone Duo hardware architecture, iOS 27, iPadOS 27, macOS 27) are audited in the [iPhone Duo & OS 27 Platform Intake Report](docs/os27-intake-report.md). Authoritative knowledge units are maintained in [`docs/knowledge/`](docs/knowledge/) under the Universal Knowledge Markdown Contract (UKMC.v1). The intake tracks repository subsystem gap inventory (`Profile/`, `Tokens/`, `Components/`, `Recipes/`, `DesignOSApple.docc/`, `Examples/DesignOSAppleGallery/`), preserves strict package floors (iOS 17, iPadOS 17, macOS 14), and documents verified simulator specimen evidence.
 
+## Implementation Specimens
+
+Native navigation behavior verified on Apple platform simulators:
+- [iPhone 17 Pro Portrait (iOS 26.2 build 23C54)](docs/specimens/specimen-iphone17pro-compact.png)
+- [iPhone 17 Pro Landscape (iOS 26.2 build 23C54)](docs/specimens/specimen-iphone17pro-landscape.png)
+- [iPad Pro 11-inch M5 Two-Column Split View (iPadOS 26.2 build 23C54)](docs/specimens/specimen-ipadpro-wide.png)
+- [Specimens Manifest](docs/specimens/manifest.json)
+
 ## Project routes
 
+- [Web Documentation Site (planned / unpublished URL)](https://jangtrinh.github.io/design-os-apple/)
 - [Contributing](CONTRIBUTING.md)
 - [Support](SUPPORT.md)
 - [Security](SECURITY.md)

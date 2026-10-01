@@ -1,0 +1,21 @@
+# Apple Design OS (DesignOSApple)
+
+> Apple Design OS: a native SwiftUI design-system library for iOS 17+, iPadOS 17+, and macOS 14+ with semantic roles, typed profiles, and verified recipes.
+
+Apple Design OS is a SwiftUI design-system library that keeps controls native while adding semantic roles, typed profiles, and platform-adaptive recipes.
+
+## Documentation
+
+- [Overview](https://jangtrinh.github.io/design-os-apple/): Main project overview, features, specimens, and verified evidence.
+- [Repository](https://github.com/jangtrinh/design-os-apple): GitHub repository, source code, and release tags.
+- [Getting Started](https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md): Swift Package Manager setup and first compiling view.
+- [iPhone Duo & OS 27 Intake Report](https://github.com/jangtrinh/design-os-apple/blob/main/docs/os27-intake-report.md): Architectural audit, UKMC knowledge units, and execution boundaries.
+- [Quality Evidence](https://github.com/jangtrinh/design-os-apple/blob/main/docs/quality-evidence.md): Test suites, verification gates, and diagnostic records.
+
+## Core Features & Architecture
+
+- **Primary Interface**: SwiftUI Library (`DesignOSApple`), Extension APIs (`DesignOSAppleExtensions`), and Metadata Catalog (`DesignOSAppleCatalog`).
+- **Platform Floors**: iOS 17+, iPadOS 17+, macOS 14+; Swift 6.2 toolchain with zero third-party dependencies.
+- **Verification Gates**: 90 package unit tests, 10 iPhone UI tests, 1 iPad targeted test, 15 UKMC verifier tests, and 417 candidate publication boundary files.
+- **Documented vs. Runtime Boundaries**: OS 27 and iPhone Duo specifications are audited from verified Apple primary sources. Native execution is verified on iOS 26.2 and iPadOS 26.2 simulator runtimes. Local OS 27 and Duo SDKs or runtimes remain unavailable.
+- **Deterministic Workflows**: Clear separation between semantic design intent (`design/`) and compiled runtime Swift implementations (`Sources/`).
