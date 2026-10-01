@@ -120,12 +120,17 @@ ui ds change-token <token.path> --value <value> --reason "<decision>" --dir .
 Never hand-edit `design/design.tokens.json`. The DESIGN:OS persona is an aesthetic seed;
 Apple documentation, platform APIs, and live behavior remain authoritative.
 
+## OS 27 & iPhone Duo Intake
+
+The September 2026 Apple platform announcements (iPhone Duo hardware architecture, iOS 27, iPadOS 27, macOS 27) are audited in the [iPhone Duo & OS 27 Platform Intake Report](docs/os27-intake-report.md). Authoritative knowledge units are maintained in [`docs/knowledge/`](docs/knowledge/) under the Universal Knowledge Markdown Contract (UKMC.v1). The intake tracks repository subsystem gap inventory (`Profile/`, `Tokens/`, `Components/`, `Recipes/`, `DesignOSApple.docc/`, `Examples/DesignOSAppleGallery/`), preserves strict package floors (iOS 17, iPadOS 17, macOS 14), and documents verified simulator specimen evidence.
+
 ## Project routes
 
 - [Contributing](CONTRIBUTING.md)
 - [Support](SUPPORT.md)
 - [Security](SECURITY.md)
 - [Apple platform evolution](docs/apple-platform-evolution.md)
+- [iPhone Duo & OS 27 Intake Report](docs/os27-intake-report.md)
 - [Release process](RELEASING.md)
 - [Changelog](CHANGELOG.md)
 

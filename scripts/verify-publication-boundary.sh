@@ -109,6 +109,35 @@ is_gallery_generated_art() {
   esac
   return 1
 }
+is_curated_specimen_asset() {
+  local candidate=$1
+  case "$candidate" in
+    docs/specimens/specimen-iphone17pro-compact.png)
+      local file_size file_hash
+      file_size=$(stat -f %z "$scan_root/$candidate" 2>/dev/null || echo 0)
+      (( file_size == 111150 )) || return 1
+      file_hash=$(shasum -a 256 "$scan_root/$candidate" 2>/dev/null | awk '{print $1}')
+      [[ "$file_hash" == "9d61d18dad925c7d8723a09fd40ace8d99c30e1fa51c329cf512535d26210717" ]]
+      ;;
+    docs/specimens/specimen-iphone17pro-landscape.png)
+      local file_size file_hash
+      file_size=$(stat -f %z "$scan_root/$candidate" 2>/dev/null || echo 0)
+      (( file_size == 124177 )) || return 1
+      file_hash=$(shasum -a 256 "$scan_root/$candidate" 2>/dev/null | awk '{print $1}')
+      [[ "$file_hash" == "a158da7780b61d45710c4f4bbce090ef0c54a33edf5d4148d41c450c4b21eb2d" ]]
+      ;;
+    docs/specimens/specimen-ipadpro-wide.png)
+      local file_size file_hash
+      file_size=$(stat -f %z "$scan_root/$candidate" 2>/dev/null || echo 0)
+      (( file_size == 140022 )) || return 1
+      file_hash=$(shasum -a 256 "$scan_root/$candidate" 2>/dev/null | awk '{print $1}')
+      [[ "$file_hash" == "2ed549e7d66e4b6c4d3be95aea0c4738704deb591b1d5eb5051c6344c223292a" ]]
+      ;;
+    *)
+      return 1
+      ;;
+  esac
+}
 report() {
   print -u2 -- "E_PUBLIC_BOUNDARY: $1"
   failures=$((failures + 1))
@@ -171,6 +200,7 @@ while IFS= read -r relative_path; do
     *.png|*.jpg|*.jpeg|*.gif|*.pdf|*.fig|*.sketch|*.zip|*.dmg|*.pkg|*.bin)
       is_approved_catalog_thumbnail "$relative_path" \
         || { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
+        || is_curated_specimen_asset "$relative_path" \
         || report "unapproved binary or design asset '$relative_path'"
       ;;
   esac
@@ -181,6 +211,7 @@ while IFS= read -r relative_path; do
     image/png)
       is_approved_catalog_thumbnail "$relative_path" \
         || { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
+        || is_curated_specimen_asset "$relative_path" \
         || report "unclassified non-text content '$relative_path' ($mime_type)"
       ;;
     *) report "unclassified non-text content '$relative_path' ($mime_type)" ;;

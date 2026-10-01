@@ -22,6 +22,154 @@ final class DesignOSAppleGalleryStoryUITests: XCTestCase {
   }
 
   @MainActor
+  func testNativeNavigationAdaptiveSplitViewSelectionAndTabsMode() {
+    let app = launchStory("native.navigation-tabs-toolbars")
+    XCTAssertTrue(
+      element("design-os.gallery.story.native.navigation-tabs-toolbars.ready", in: app)
+        .waitForExistence(timeout: galleryUITestTimeout)
+    )
+    openInteractiveExample(in: app)
+
+    let favoritesRow = element("design-os.navigation.row.favorites", in: app)
+    let libraryRow = element("design-os.navigation.row.library", in: app)
+    let detailSelection = element("design-os.navigation.detail.selection", in: app)
+
+    // Handle initial compact vs wide state:
+    // If Library row is visible and hittable, tap it to inspect Library detail
+    if libraryRow.waitForExistence(timeout: galleryUITestTimeout) && libraryRow.isHittable {
+      libraryRow.tap()
+    }
+    XCTAssertTrue(detailSelection.waitForExistence(timeout: galleryUITestTimeout))
+    XCTAssertTrue(app.staticTexts["Caller-owned selection state: Library"].exists)
+
+    let libraryAttachment = XCTAttachment(screenshot: app.screenshot())
+    libraryAttachment.name = "specimen-interactive-library"
+    libraryAttachment.lifetime = .keepAlways
+    add(libraryAttachment)
+
+    // If Favorites row is not hittable (in compact mode showing detail), tap exact Adaptive Navigation back button
+    if !favoritesRow.isHittable {
+      let backButton = app.buttons["Adaptive Navigation"]
+      if backButton.waitForExistence(timeout: galleryUITestTimeout) {
+        backButton.tap()
+      }
+    }
+
+    // Verify tabs mode switching within interactive specimen on the sidebar
+    let tabsModeButton = app.buttons["Tabs"]
+    if tabsModeButton.waitForExistence(timeout: galleryUITestTimeout) && tabsModeButton.isHittable {
+      tabsModeButton.tap()
+      let searchTab =
+        app.tabBars.buttons["Search"].exists
+        ? app.tabBars.buttons["Search"] : app.buttons["Search"]
+      XCTAssertTrue(searchTab.waitForExistence(timeout: galleryUITestTimeout))
+      let splitModeButton = app.buttons["Split View"]
+      if splitModeButton.waitForExistence(timeout: galleryUITestTimeout)
+        && splitModeButton.isHittable
+      {
+        splitModeButton.tap()
+      }
+    }
+
+    XCTAssertTrue(favoritesRow.waitForExistence(timeout: galleryUITestTimeout))
+    favoritesRow.tap()
+
+    XCTAssertTrue(detailSelection.waitForExistence(timeout: galleryUITestTimeout))
+    let favoritesDetail = app.staticTexts["Caller-owned selection state: Favorites"]
+    XCTAssertTrue(favoritesDetail.waitForExistence(timeout: galleryUITestTimeout))
+
+    // Verify useful exit via dismiss button
+    let dismissButton = element("design-os.navigation.action.dismiss-preview", in: app)
+    XCTAssertTrue(dismissButton.waitForExistence(timeout: galleryUITestTimeout))
+    XCTAssertTrue(dismissButton.isHittable)
+    dismissButton.tap()
+
+    XCTAssertTrue(
+      element("design-os.reference.native.navigation-tabs-toolbars.preview", in: app)
+        .waitForExistence(timeout: galleryUITestTimeout)
+    )
+  }
+
+  @MainActor
+  func testNativeNavigationAdaptiveSplitViewRotationDiagnostics() {
+    defer {
+      XCUIDevice.shared.orientation = .portrait
+    }
+
+    let app = launchStory("native.navigation-tabs-toolbars")
+    XCTAssertTrue(
+      element("design-os.gallery.story.native.navigation-tabs-toolbars.ready", in: app)
+        .waitForExistence(timeout: galleryUITestTimeout)
+    )
+    openInteractiveExample(in: app)
+
+    let initialWindow = app.windows.firstMatch
+    let initialFrame = initialWindow.frame
+    XCTAssertTrue(initialFrame.height > initialFrame.width, "Initial phone frame must be portrait")
+
+    let libraryRow = element("design-os.navigation.row.library", in: app)
+    let detailSelection = element("design-os.navigation.detail.selection", in: app)
+    if libraryRow.waitForExistence(timeout: galleryUITestTimeout) && libraryRow.isHittable {
+      libraryRow.tap()
+    }
+    XCTAssertTrue(detailSelection.waitForExistence(timeout: galleryUITestTimeout))
+
+    // Rotate to landscape and observe numeric active window geometry via typed predicate
+    XCUIDevice.shared.orientation = .landscapeLeft
+    let landscapeExpectation = XCTNSPredicateExpectation(
+      predicate: NSPredicate { _, _ in
+        let f = app.windows.firstMatch.frame
+        return f.width > f.height
+      },
+      object: nil
+    )
+    let landscapeResult = XCTWaiter.wait(for: [landscapeExpectation], timeout: galleryUITestTimeout)
+    let landscapeFrame = app.windows.firstMatch.frame
+
+    // Capture real native screen screenshot after orientation transition
+    let landscapeAttachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+    landscapeAttachment.name = "diagnostic-native-screen-landscape"
+    landscapeAttachment.lifetime = .keepAlways
+    add(landscapeAttachment)
+
+    // Verify detail selection survives landscape re-layout
+    XCTAssertTrue(detailSelection.waitForExistence(timeout: galleryUITestTimeout))
+
+    // Restore orientation to portrait and observe restored geometry via typed predicate
+    XCUIDevice.shared.orientation = .portrait
+    let portraitExpectation = XCTNSPredicateExpectation(
+      predicate: NSPredicate { _, _ in
+        let f = app.windows.firstMatch.frame
+        return f.height > f.width
+      },
+      object: nil
+    )
+    let portraitResult = XCTWaiter.wait(for: [portraitExpectation], timeout: galleryUITestTimeout)
+    let restoredFrame = app.windows.firstMatch.frame
+
+    let portraitAttachment = XCTAttachment(screenshot: XCUIScreen.main.screenshot())
+    portraitAttachment.name = "diagnostic-native-screen-portrait-restored"
+    portraitAttachment.lifetime = .keepAlways
+    add(portraitAttachment)
+
+    // Numeric frame assertions on typed observations
+    XCTAssertEqual(
+      landscapeResult, .completed, "Typed geometry wait for landscape orientation must complete")
+    XCTAssertTrue(
+      landscapeFrame.width > landscapeFrame.height, "Observed landscape width must exceed height")
+    XCTAssertEqual(
+      portraitResult, .completed, "Typed geometry wait for restored portrait must complete")
+    XCTAssertTrue(
+      restoredFrame.height > restoredFrame.width, "Observed restored height must exceed width")
+
+    // Verify exit via dismiss button
+    let dismissButton = element("design-os.navigation.action.dismiss-preview", in: app)
+    if dismissButton.waitForExistence(timeout: galleryUITestTimeout) && dismissButton.isHittable {
+      dismissButton.tap()
+    }
+  }
+
+  @MainActor
   func testExactNegativeControlSelectorExposesCanvasWithoutVisibleReadyText() {
     assertExactSelector(storyID: "tocchien.champion-hero-negative-control")
   }
@@ -145,7 +293,13 @@ final class DesignOSAppleGalleryStoryUITests: XCTestCase {
   private func openInteractiveExample(in app: XCUIApplication) {
     let button = app.buttons["Open interactive example"]
     XCTAssertTrue(button.waitForExistence(timeout: galleryUITestTimeout))
+    for _ in 0..<12 where !button.isHittable {
+      app.swipeUp()
+    }
     button.tap()
+    let dismissButton = element("design-os.navigation.action.dismiss-preview", in: app)
+    XCTAssertTrue(dismissButton.waitForExistence(timeout: galleryUITestTimeout))
+    XCTAssertTrue(dismissButton.isHittable)
   }
 
   @MainActor

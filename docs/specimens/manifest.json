@@ -1,0 +1,83 @@
+{
+  "version": "1.0.0",
+  "generated_at": "2026-10-01T18:15:00+07:00",
+  "provenance": {
+    "source_base_commit": "31e49d2929d24fedc1da81d6a447fd03b7180631",
+    "reviewed_source_snapshot_hashes": {
+      "Examples/DesignOSAppleGallery/NativeNavigationTabsAndToolbarsRecipeGallery.swift": "908569454f19db46d78281ef5f4748f185c1759e285cdad91098a8a789b01359",
+      "Examples/DesignOSAppleGallery/UITests/DesignOSAppleGalleryStoryUITests.swift": "a13d50c9b463b5a85f21af9c6f1f9fc1227519657e5be9c05646dc5b8f443713",
+      "Tests/DesignOSAppleTests/NativeNavigationTabsAndToolbarsRecipeTests.swift": "7bcb7823589396a53c21fd7e86f6abe0ba84b71dbd81ab40dc054e71fa78698b"
+    },
+    "source_hash_scope": "Source code hashes represent the current reviewed source snapshot at staging time, not intermediate capture-time revisions as UI test files evolved.",
+    "date": "2026-10-01"
+  },
+  "attribution_and_rights": {
+    "scope": "Repository-generated implementation specimens",
+    "notice": "These specimens are repository-generated implementation screenshots demonstrating native SwiftUI navigation behavior on Apple platform simulators. Apple platform visual styles, UI components, and SF Symbols are proprietary to Apple Inc. and depicted here for technical reference and interoperability demonstration only. They are distinguished from third-party or Apple official reference imagery and are not subject to blanket MIT code licensing."
+  },
+  "specimens": [
+    {
+      "file": "specimen-iphone17pro-compact.png",
+      "path": "docs/specimens/specimen-iphone17pro-compact.png",
+      "description": "Collapsed single-column navigation stack presenting Library detail pane on iPhone 17 Pro",
+      "byte_size": 111150,
+      "sha256": "9d61d18dad925c7d8723a09fd40ace8d99c30e1fa51c329cf512535d26210717",
+      "dimensions": {
+        "encoded_width": 1206,
+        "encoded_height": 2622,
+        "display_width": 1206,
+        "display_height": 2622,
+        "exif_orientation": 1
+      },
+      "device": {
+        "model": "iPhone 17 Pro",
+        "runtime": "iOS 26.2 (Simulator)",
+        "build": "23C54"
+      },
+      "capture_method": "XCTest (XCUIApplication.screenshot)",
+      "ui_state": "Portrait compact single-column navigation stack, selected Library item, caller-owned selection binding active"
+    },
+    {
+      "file": "specimen-iphone17pro-landscape.png",
+      "path": "docs/specimens/specimen-iphone17pro-landscape.png",
+      "description": "Rotated landscape detail view on iPhone 17 Pro after stable orientation transition",
+      "byte_size": 124177,
+      "sha256": "a158da7780b61d45710c4f4bbce090ef0c54a33edf5d4148d41c450c4b21eb2d",
+      "dimensions": {
+        "encoded_width": 1206,
+        "encoded_height": 2622,
+        "display_width": 2622,
+        "display_height": 1206,
+        "exif_orientation": 8
+      },
+      "device": {
+        "model": "iPhone 17 Pro",
+        "runtime": "iOS 26.2 (Simulator)",
+        "build": "23C54"
+      },
+      "capture_method": "XCTest (XCUIScreen.main.screenshot)",
+      "ui_state": "Rotated landscape detail canvas, compact horizontal size class, back navigation affordance, caller-owned selection preserved"
+    },
+    {
+      "file": "specimen-ipadpro-wide.png",
+      "path": "docs/specimens/specimen-ipadpro-wide.png",
+      "description": "Two-column persistent split view on iPad Pro 11-inch with sidebar list and detail canvas",
+      "byte_size": 140022,
+      "sha256": "2ed549e7d66e4b6c4d3be95aea0c4738704deb591b1d5eb5051c6344c223292a",
+      "dimensions": {
+        "encoded_width": 1668,
+        "encoded_height": 2420,
+        "display_width": 1668,
+        "display_height": 2420,
+        "exif_orientation": 1
+      },
+      "device": {
+        "model": "iPad Pro 11-inch (M5)",
+        "runtime": "iPadOS 26.2 (Simulator)",
+        "build": "23C54"
+      },
+      "capture_method": "XCTest (XCUIApplication.screenshot)",
+      "ui_state": "Portrait regular horizontal size class, 2-column NavigationSplitView with sidebar list and active detail pane"
+    }
+  ]
+}

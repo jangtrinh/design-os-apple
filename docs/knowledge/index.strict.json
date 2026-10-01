@@ -1,0 +1,62 @@
+[
+  {
+    "id": "ios27-adaptive-multitasking-and-splitview",
+    "path": "ios27-adaptive-multitasking-and-splitview.md",
+    "file_sha256": "14ec6d232c8143b169057bb67428f689b7db59cf2fa94df61986fb199a550eb5",
+    "source_uri": "https://developer.apple.com/tutorials/data/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes.json",
+    "source_sha256": "da7aaaa3899ee160e0a93a0d22b6b87b32b676121c341588fcc7415e32b9e834",
+    "linked_units": [
+      {
+        "id": "iphone-duo-hardware-and-postures",
+        "relationship": "prerequisite"
+      },
+      {
+        "id": "swiftui-os27-navigation-and-input-updates",
+        "relationship": "complements"
+      }
+    ]
+  },
+  {
+    "id": "iphone-duo-hardware-and-postures",
+    "path": "iphone-duo-hardware-and-postures.md",
+    "file_sha256": "2d0761ff50ce11765920132b312cd44e5c4309613e675d123705593a719e41f9",
+    "source_uri": "https://www.apple.com/iphone-duo/",
+    "source_sha256": "4fb160f316988bf1ef823f3d2dd40c6688e5f96c8afac49c1e4ac8f0e92eab2a",
+    "linked_units": [
+      {
+        "id": "ios27-adaptive-multitasking-and-splitview",
+        "relationship": "extends"
+      }
+    ]
+  },
+  {
+    "id": "macos27-appkit-menu-and-navigation-evolution",
+    "path": "macos27-appkit-menu-and-navigation-evolution.md",
+    "file_sha256": "409cf848512a6612db56f9c7e30176d8816aabc4a1231cd873c476ebe09f60a5",
+    "source_uri": "https://developer.apple.com/tutorials/data/documentation/macos-release-notes/macos-27-release-notes.json",
+    "source_sha256": "5c77ef7cc0c4e59d8a7fa6a3132729ec6c58492f11f49f168006a72a25bc6fdd",
+    "linked_units": [
+      {
+        "id": "swiftui-os27-navigation-and-input-updates",
+        "relationship": "complements"
+      }
+    ]
+  },
+  {
+    "id": "swiftui-os27-navigation-and-input-updates",
+    "path": "swiftui-os27-navigation-and-input-updates.md",
+    "file_sha256": "618de2ccdbebe9f233ed85d9ee0d88d79f1045cf86fcf96f755b40b939e588b2",
+    "source_uri": "https://developer.apple.com/tutorials/data/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes.json",
+    "source_sha256": "da7aaaa3899ee160e0a93a0d22b6b87b32b676121c341588fcc7415e32b9e834",
+    "linked_units": [
+      {
+        "id": "ios27-adaptive-multitasking-and-splitview",
+        "relationship": "complements"
+      },
+      {
+        "id": "macos27-appkit-menu-and-navigation-evolution",
+        "relationship": "complements"
+      }
+    ]
+  }
+]

@@ -1,0 +1,22 @@
+[
+  {
+    "id": "macos27-appkit-menu-and-navigation-evolution",
+    "path": "macos27-appkit-menu-and-navigation-evolution.md",
+    "sha256": "placeholder-hash"
+  },
+  {
+    "id": "swiftui-os27-navigation-and-input-updates",
+    "path": "swiftui-os27-navigation-and-input-updates.md",
+    "sha256": "placeholder-hash"
+  },
+  {
+    "id": "iphone-duo-hardware-and-postures",
+    "path": "iphone-duo-hardware-and-postures.md",
+    "sha256": "placeholder-hash"
+  },
+  {
+    "id": "ios27-adaptive-multitasking-and-splitview",
+    "path": "ios27-adaptive-multitasking-and-splitview.md",
+    "sha256": "placeholder-hash"
+  }
+]

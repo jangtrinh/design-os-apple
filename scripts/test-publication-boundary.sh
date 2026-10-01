@@ -206,5 +206,10 @@ expect_rejected "symlink" "$symlink_fixture" "missing, nonregular, or symlinked 
 large_fixture=${fixture_dir#$project_root/}/oversized.txt
 dd if=/dev/zero of="$project_root/$large_fixture" bs=1048577 count=1 2>/dev/null
 expect_rejected "oversized file" "$large_fixture" "file exceeds 1 MiB"
+approved_specimen="docs/specimens/specimen-iphone17pro-compact.png"
+print -r -- "$approved_specimen" > "$file_list"
+"$verifier" --file-list "$file_list" >/dev/null
+cp "$project_root/$approved_specimen" "$fixture_dir/unapproved-specimen.png"
+expect_rejected "unapproved specimen name" "${fixture_dir#$project_root/}/unapproved-specimen.png" "unapproved binary or design asset"
 
 print -- "Publication boundary hostile probes passed."
