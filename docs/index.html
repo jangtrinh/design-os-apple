@@ -230,7 +230,7 @@
             </tr>
             <tr>
               <td>test</td>
-              <td><code>swift test</code> — Runs package unit tests (historically recorded 90 passed, not a guaranteed fixed count).</td>
+              <td><code>swift test</code> — Runs package unit tests (historically recorded 90 passed in baseline; 91 passed in debug configuration).</td>
             </tr>
             <tr>
               <td>inspect</td>
@@ -238,14 +238,14 @@
             </tr>
             <tr>
               <td>verify</td>
-              <td><code>scripts/verify-release-candidate.sh</code> — Validates candidate release gate (currently fails on baseline Swift 6.2 release compiler crash).</td>
+              <td><code>scripts/verify-release-candidate.sh</code> — Validates candidate release gate (historical baseline failed Swift 6.2.3 SIL crash; workaround avoids crash with strict release build passed).</td>
             </tr>
           </tbody>
         </table>
       </div>
 
       <div class="ds-aside">
-        <p><strong>Baseline release compiler limitation:</strong> Under the current Swift 6.2 release toolchain, release-mode compilation (<code>-O</code>) encounters a known compiler SIL crash. The package builds and verifies cleanly under debug mode; the baseline compiler issue remains documented in the verification log.</p>
+        <p><strong>Release compilation verification:</strong> Initial baseline compilation under Swift 6.2.3 release mode (<code>-O</code>) encountered a CopyPropagation SIL compiler crash. A minimal source-preserving memberwise initialization workaround in descriptor decoding avoids the observed crash (compiler-internal mechanism unproven); unchanged strict release build passed cleanly, 91 unit tests passed in debug configuration, and targeted decoder regression passed release optimization.</p>
         <p><strong>Historical test evidence:</strong> Base candidate verification at audit commit <code>2bcb5bb233380ba84336425ba484f57e56f3dc91</code> recorded 90 package tests, 10 phone UI tests, 1 iPad UI test, and 15 verifiers across 417 files. Original Task 1470 result bundle is unavailable due to rolling retention; two geometry timeouts (89 and 103) were retained in logs. Subsequent typed diagnostics suggest a harness observation mismatch, while the internal observation mechanism remains uninstrumented.</p>
       </div>
     </section>
@@ -275,8 +275,8 @@
             <tr>
               <td>Toolchain</td>
               <td>Swift 6.2 · Swift Package Manager</td>
-              <td>Verified (Debug)</td>
-              <td>Debug mode passes; release SIL crash recorded as known issue</td>
+              <td>Verified (Debug &amp; Release)</td>
+              <td>Debug passes (91 tests); strict release build passes avoiding baseline CopyPropagation crash</td>
             </tr>
             <tr>
               <td>Executed Runtime</td>

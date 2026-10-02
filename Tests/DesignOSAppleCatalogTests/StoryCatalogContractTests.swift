@@ -190,3 +190,76 @@ func discoveryDecodingUsesValidatedInitialization() {
     try JSONDecoder().decode(DesignOSStoryDiscovery.self, from: invalidIntentQueries)
   }
 }
+
+@Test("Story descriptor decoding enforces validation precedence and compatibility bounds")
+func storyDescriptorDecodingEnforcesValidationPrecedenceAndCompatibility() throws {
+  let original = try #require(
+    DesignOSReleaseCatalog.stories.first {
+      $0.owner == .runtimeImplementation
+        && $0.runtimeDeliverableID != nil
+        && !$0.relatedStoryIDs.isEmpty
+    }
+  )
+  let encoder = JSONEncoder()
+  let decoder = JSONDecoder()
+
+  // 1. Valid round-trip encode and decode
+  let validData = try encoder.encode(original)
+  let decoded = try decoder.decode(DesignOSStoryDescriptor.self, from: validData)
+  #expect(decoded == original)
+
+  let validJson = try #require(String(data: validData, encoding: .utf8))
+  let deliverableID = try #require(original.runtimeDeliverableID?.rawValue)
+
+  // 2. Owner mismatch: relationship is runtimeImplementation, but owner claims appSpecific
+  let ownerMismatchJson = validJson.replacingOccurrences(
+    of: "\"owner\":\"RUNTIME_IMPLEMENTATION\"",
+    with: "\"owner\":\"APP_SPECIFIC\""
+  )
+  #expect(ownerMismatchJson != validJson)
+  #expect(throws: DecodingError.self) {
+    try decoder.decode(DesignOSStoryDescriptor.self, from: Data(ownerMismatchJson.utf8))
+  }
+
+  // 3. Runtime deliverable ID mismatch: relationship has deliverable, but runtimeDeliverableID is null
+  let runtimeMismatchJson = validJson.replacingOccurrences(
+    of: "\"runtimeDeliverableID\":\"\(deliverableID)\"",
+    with: "\"runtimeDeliverableID\":null"
+  )
+  #expect(runtimeMismatchJson != validJson)
+  #expect(throws: DecodingError.self) {
+    try decoder.decode(DesignOSStoryDescriptor.self, from: Data(runtimeMismatchJson.utf8))
+  }
+
+  // 4. Duplicate related IDs
+  let firstRelatedID = original.relatedStoryIDs[0].rawValue
+  let duplicateRelatedJson = validJson.replacingOccurrences(
+    of: "\"relatedStoryIDs\":[\"\(firstRelatedID)\"",
+    with: "\"relatedStoryIDs\":[\"\(firstRelatedID)\",\"\(firstRelatedID)\""
+  )
+  #expect(duplicateRelatedJson != validJson)
+  #expect(throws: DesignOSStoryDescriptorError.invalidRelatedStoryIDs) {
+    try decoder.decode(DesignOSStoryDescriptor.self, from: Data(duplicateRelatedJson.utf8))
+  }
+
+  // 5. Self-referential related ID
+  let selfRelatedJson = validJson.replacingOccurrences(
+    of: "\"relatedStoryIDs\":[",
+    with: "\"relatedStoryIDs\":[\"\(original.id.rawValue)\","
+  )
+  #expect(selfRelatedJson != validJson)
+  #expect(throws: DesignOSStoryDescriptorError.invalidRelatedStoryIDs) {
+    try decoder.decode(DesignOSStoryDescriptor.self, from: Data(selfRelatedJson.utf8))
+  }
+
+  // 6. Combined invalid precedence: invalid relatedStoryIDs AND owner mismatch
+  // Must throw invalidRelatedStoryIDs first rather than DecodingError
+  let combinedInvalidJson = selfRelatedJson.replacingOccurrences(
+    of: "\"owner\":\"RUNTIME_IMPLEMENTATION\"",
+    with: "\"owner\":\"APP_SPECIFIC\""
+  )
+  #expect(combinedInvalidJson != selfRelatedJson)
+  #expect(throws: DesignOSStoryDescriptorError.invalidRelatedStoryIDs) {
+    try decoder.decode(DesignOSStoryDescriptor.self, from: Data(combinedInvalidJson.utf8))
+  }
+}

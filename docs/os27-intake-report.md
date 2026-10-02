@@ -222,5 +222,6 @@ Deterministic gate verification on `audit/iphone-duo-os27` base commit `31e49d2`
 6. `test-publication-boundary.sh`: **PASSED** (Hostile probe tests pass).
 7. `swift format lint --recursive Sources Tests`: **PASSED** (Code style clean).
 8. `swift build -c release -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors`:
-   - **KNOWN BASELINE COMPILER CRASH:** `swift-frontend` fatal error in `CopyPropagation` pass on SIL function `@$s20DesignOSAppleCatalog0A17OSStoryDescriptorV4fromACs7Decoder_p_tKcfC` at line 98 of `DesignOSStoryDescriptor.swift` under Xcode 26.2 Swift 6.2.3.
-   - Gates remain unmodified and unloosened, preserving exact baseline evidence. Release gate remains a failed baseline; no false 100% pass claim is made.
+   - **Historical Baseline Toolchain Crash:** Initial release compilation on baseline commit `31e49d2` under Swift 6.2.3 encountered a fatal `CopyPropagation` SIL compiler crash in `DesignOSStoryDescriptor.init(from:)` under `-O`.
+   - **Workaround & Release Resolution:** A minimal, source-preserving memberwise initialization in `DesignOSStoryDescriptor.swift` avoids the observed `CopyPropagation` compiler crash during property evaluation (the underlying compiler-internal mechanism remains unproven). Optimization (`-O`) and strict concurrency flags remain fully enabled.
+   - **Verified Progression:** The unchanged strict release build compiles cleanly. Package tests in debug configuration pass 91 tests (historical 90 plus 1 targeted descriptor decoding regression suite covering validation precedence and compatibility bounds), and the targeted decoder regression was executed and passed release optimization.

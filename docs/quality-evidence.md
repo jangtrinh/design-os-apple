@@ -9,6 +9,15 @@ the Swift package, strict concurrency release build, formatting, DocC compilatio
 bundle drift, consumer snippet, public-file boundary, and feasible Gallery build/smoke.
 GitHub Actions calls the same script.
 
+### Release compilation verification & test suite evolution
+
+- **Historical initial failure:** Under baseline Apple Swift 6.2.3, release-mode compilation (`-O`) encountered a fatal `CopyPropagation` SIL compiler crash in `DesignOSStoryDescriptor.init(from:)`, while 90 unit tests passed under debug compilation.
+- **Workaround:** A minimal, source-preserving memberwise initialization in `DesignOSStoryDescriptor.swift` avoids the observed `CopyPropagation` compiler crash during property evaluation (the underlying compiler-internal mechanism remains unproven). Optimization (`-O`) and strict concurrency flags remain fully enabled.
+- **Verification evidence:**
+  - Unchanged strict release build (`swift build -c release -Xswiftc -strict-concurrency=complete -Xswiftc -warnings-as-errors`) passed cleanly.
+  - All 91 package tests passed in debug configuration (historical 90 plus 1 targeted descriptor decoding regression suite covering validation precedence and compatibility bounds).
+  - The targeted decoder regression was executed and passed release optimization.
+
 ## Evidence not implied by CI
 
 - Simulator or hosted Gallery checks do not prove physical-device behavior.

@@ -72,9 +72,9 @@ type-checked by `scripts/verify-consumer-quickstart.sh` against the built packag
 ### Practical verification verbs
 
 - `build`: `swift build` — Compiles package in debug mode.
-- `test`: `swift test` — Runs package unit tests (historically recorded 90 passed, not a guaranteed fixed count).
+- `test`: `swift test` — Runs package unit tests (historically recorded 90 passed in baseline; 91 passed in debug configuration).
 - `inspect`: `xcodegen generate --spec Examples/DesignOSAppleGallery/project.yml --project Examples/DesignOSAppleGallery` followed by `open Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj` (see [Browse the Gallery](#browse-the-gallery)) — Generates Xcode project (separate open command launches catalog).
-- `verify`: `scripts/verify-release-candidate.sh` — Validates candidate release gate (currently fails on baseline Swift 6.2 release compiler crash).
+- `verify`: `scripts/verify-release-candidate.sh` — Validates candidate release gate (historical baseline failed Swift 6.2.3 SIL crash; workaround avoids crash with strict release build passed).
 
 Start at the [DocC landing page](Sources/DesignOSApple/DesignOSApple.docc/DesignOSApple.md)
 for runtime concepts. AI-assisted consumers should read [AI Usage](docs/ai-usage.md) before

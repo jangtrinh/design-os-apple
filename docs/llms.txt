@@ -16,6 +16,6 @@ Apple Design OS is a SwiftUI design-system library that keeps controls native wh
 
 - **Primary Interface**: SwiftUI Library (`DesignOSApple`), Extension APIs (`DesignOSAppleExtensions`), and Metadata Catalog (`DesignOSAppleCatalog`).
 - **Platform Floors**: iOS 17+, iPadOS 17+, macOS 14+; Swift 6.2 toolchain with zero third-party dependencies.
-- **Verification Gates**: 90 package unit tests, 10 iPhone UI tests, 1 iPad targeted test, 15 UKMC verifier tests, and 417 candidate publication boundary files.
+- **Verification Gates**: Historical audit at 2bcb5bb (2026-10-01): 90 package unit tests, 10 iPhone UI tests, 1 iPad targeted test, 15 UKMC verifier tests, and 417 classified publication boundary files. Current verified candidate: 91 package unit tests (debug) with targeted descriptor decoding regression passed under release optimization, and 424 classified publication boundary files (historical UI test counts preserved).
 - **Documented vs. Runtime Boundaries**: OS 27 and iPhone Duo specifications are audited from verified Apple primary sources. Native execution is verified on iOS 26.2 and iPadOS 26.2 simulator runtimes. Local OS 27 and Duo SDKs or runtimes remain unavailable.
 - **Deterministic Workflows**: Clear separation between semantic design intent (`design/`) and compiled runtime Swift implementations (`Sources/`).
