@@ -69,10 +69,12 @@ final class DesignOSAppleGalleryLocalDemoMacOSUITests: XCTestCase {
   private func scrollUntilVisibleState(_ target: XCUIElement, in app: XCUIApplication) {
     XCTAssertTrue(target.waitForExistence(timeout: 5))
     let initialMinY = target.frame.minY
-    let scrollView = element("design-os.demo.entertainment.streaming-library.page", in: app)
+    let scrollView =
+      app.scrollViews.containing(.staticText, identifier: target.identifier).firstMatch
+    XCTAssertTrue(scrollView.waitForExistence(timeout: 5))
     let windowFrame = app.windows.firstMatch.frame
     scrollView.scroll(byDeltaX: 0, deltaY: -100)
-    for _ in 0..<40 where target.frame.minY >= windowFrame.maxY {
+    for _ in 0..<40 where target.frame.minY >= scrollView.frame.maxY {
       scrollView.scroll(byDeltaX: 0, deltaY: -100)
     }
     XCTAssertLessThan(target.frame.minY, initialMinY)
