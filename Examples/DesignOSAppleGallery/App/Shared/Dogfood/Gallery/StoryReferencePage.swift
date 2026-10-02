@@ -224,9 +224,14 @@ struct StoryReferencePage: View {
         isInteractivePreviewPresented = false
       } label: {
         Image(systemName: "xmark.circle.fill")
-          .font(.system(size: 28))
+          .font(DesignOSTypographyRole.title2.font)
           .symbolRenderingMode(.hierarchical)
           .foregroundStyle(DesignOSColorRole.labelSecondary.color)
+          .frame(
+            minWidth: GalleryDesignFloor.minimumHitTarget,
+            minHeight: GalleryDesignFloor.minimumHitTarget
+          )
+          .contentShape(.rect)
           .padding(16)
       }
       .buttonStyle(.plain)
