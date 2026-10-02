@@ -12,6 +12,11 @@ extension DesignOSAppleGalleryLocalDemoUITests {
     app.launch()
     if !app.buttons["Examples"].exists { app.navigationBars.buttons.firstMatch.tap() }
     app.buttons["Examples"].tap()
+    let dismissRegion = app.otherElements["PopoverDismissRegion"]
+    if dismissRegion.exists {
+      dismissRegion.tap()
+      XCTAssertTrue(dismissRegion.waitForNonExistence(timeout: galleryUITestTimeout))
+    }
     assertReady("design-os.gallery.examples.ready", in: app)
     return app
   }
