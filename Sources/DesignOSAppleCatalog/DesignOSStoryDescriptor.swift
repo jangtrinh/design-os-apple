@@ -108,11 +108,14 @@ public struct DesignOSStoryDescriptor: Codable, Equatable, Hashable, Sendable {
     let decodedOwner = try container.decode(DesignOSStoryOwner.self, forKey: .owner)
     let decodedRuntimeDeliverableID = try container.decode(
       RuntimeDeliverableID?.self, forKey: .runtimeDeliverableID)
-    let descriptor = try Self(
-      id: id, title: title, summary: summary, kind: kind, discovery: discovery,
-      relationship: relationship, relatedStoryIDs: relatedStoryIDs, examplePath: examplePath)
-    guard decodedOwner == descriptor.owner,
-      decodedRuntimeDeliverableID == descriptor.runtimeDeliverableID
+    guard !relatedStoryIDs.contains(id),
+      Set(relatedStoryIDs).count == relatedStoryIDs.count
+    else {
+      throw DesignOSStoryDescriptorError.invalidRelatedStoryIDs
+    }
+
+    guard decodedOwner == relationship.owner,
+      decodedRuntimeDeliverableID == relationship.runtimeDeliverableID
     else {
       throw DecodingError.dataCorruptedError(
         forKey: .relationship,
@@ -120,7 +123,15 @@ public struct DesignOSStoryDescriptor: Codable, Equatable, Hashable, Sendable {
         debugDescription: "Story compatibility fields must match the relationship boundary."
       )
     }
-    self = descriptor
+
+    self.id = id
+    self.title = title
+    self.summary = summary
+    self.kind = kind
+    self.discovery = discovery
+    self.relationship = relationship
+    self.relatedStoryIDs = relatedStoryIDs
+    self.examplePath = examplePath
   }
 
   /// Encodes relationship-derived compatibility fields as required bundle fields.

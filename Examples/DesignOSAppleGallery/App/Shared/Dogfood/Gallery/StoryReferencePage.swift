@@ -14,6 +14,7 @@ struct StoryReferencePage: View {
   let relatedStories: [DesignOSStoryDescriptor]
 
   private var descriptor: DesignOSStoryDescriptor { selection.descriptor }
+  @State private var isInteractivePreviewPresented = false
 
   var body: some View {
     ScrollView {
@@ -31,6 +32,15 @@ struct StoryReferencePage: View {
       .frame(maxWidth: .infinity, alignment: .center)
     }
     .accessibilityIdentifier("design-os.gallery.story.\(descriptor.id.rawValue).ready")
+    #if os(iOS)
+      .fullScreenCover(isPresented: $isInteractivePreviewPresented) {
+        interactivePreviewCanvas
+      }
+    #else
+      .sheet(isPresented: $isInteractivePreviewPresented) {
+        interactivePreviewCanvas
+      }
+    #endif
   }
 
   private var header: some View {
@@ -101,7 +111,9 @@ struct StoryReferencePage: View {
         case .bounded(let height):
           boundedPreview(height: height.rawValue)
         case .destination:
-          NavigationLink(value: StoryPreviewDestination(selection: selection)) {
+          Button {
+            isInteractivePreviewPresented = true
+          } label: {
             VStack(alignment: .leading, spacing: 12) {
               CatalogStoryThumbnail(storyID: descriptor.id)
                 .frame(maxHeight: 220)
@@ -192,6 +204,39 @@ struct StoryReferencePage: View {
           .buttonStyle(.plain)
         }
       }
+    }
+  }
+
+  private var interactivePreviewCanvas: some View {
+    ZStack(alignment: .topTrailing) {
+      if descriptor.id == .navigationTabsAndToolbars {
+        DogfoodStoryCanvas(descriptor: descriptor)
+          .designOSProfile(selection.profile)
+      } else {
+        NavigationStack {
+          DogfoodStoryCanvas(descriptor: descriptor)
+            .designOSProfile(selection.profile)
+            .navigationTitle(descriptor.title)
+        }
+      }
+
+      Button {
+        isInteractivePreviewPresented = false
+      } label: {
+        Image(systemName: "xmark.circle.fill")
+          .font(DesignOSTypographyRole.title2.font)
+          .symbolRenderingMode(.hierarchical)
+          .foregroundStyle(DesignOSColorRole.labelSecondary.color)
+          .frame(
+            minWidth: GalleryDesignFloor.minimumHitTarget,
+            minHeight: GalleryDesignFloor.minimumHitTarget
+          )
+          .contentShape(.rect)
+          .padding(16)
+      }
+      .buttonStyle(.plain)
+      .accessibilityLabel("Dismiss interactive example")
+      .accessibilityIdentifier("design-os.navigation.action.dismiss-preview")
     }
   }
 }

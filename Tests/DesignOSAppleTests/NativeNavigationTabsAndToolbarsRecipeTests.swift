@@ -49,3 +49,26 @@ private struct NavigationTabsAndToolbarsFixture: View {
     var title: String { "Detail" }
   }
 }
+
+/// Compile-time contract test ensuring `NavigationSplitView` composition compiles cleanly with caller-owned selection.
+/// (Runtime layout adaptation and visual behavior are verified in the Gallery UI test suite).
+@Test("Navigation split view compile coverage: caller-owned selection contract")
+@MainActor
+func navigationSplitViewAdaptiveContract() {
+  _ = NativeNavigationTabsAndToolbarsRecipe.self
+  acceptsView(AdaptiveNavigationSplitViewFixture())
+}
+
+private struct AdaptiveNavigationSplitViewFixture: View {
+  @State private var selectedItem: String? = "Item 1"
+
+  var body: some View {
+    NavigationSplitView {
+      List(["Item 1", "Item 2"], id: \.self, selection: $selectedItem) { item in
+        Text(item)
+      }
+    } detail: {
+      Text(selectedItem ?? "None")
+    }
+  }
+}

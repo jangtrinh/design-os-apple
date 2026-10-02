@@ -26,19 +26,24 @@ extension StoryReferenceContent {
     native(
       .navigationTabsAndToolbars,
       what:
-        "Uses `NavigationStack`, `TabView`, and toolbars directly so platform navigation adapts natively.",
-      use: "The app needs hierarchical navigation, peer destinations, or context-aware commands.",
-      avoid: "Custom chrome would duplicate native Back, tab selection, or toolbar placement.",
+        "Uses `NavigationSplitView`, `NavigationStack`, `TabView`, and toolbars directly so platform navigation adapts natively.",
+      use:
+        "The app needs hierarchical navigation, peer destinations, two-column split navigation, or context-aware commands.",
+      avoid:
+        "Custom chrome would duplicate native Back, tab selection, split adaptation, or toolbar placement.",
       where:
         "Choose one navigation owner per scene; place toolbars on the destination that owns their actions.",
-      api: "NavigationStack / TabView / toolbar",
+      api: "NavigationSplitView / NavigationStack / TabView / toolbar",
       code: """
-        NavigationStack {
-          List(items) { item in
-            NavigationLink(item.title, value: item)
+        TabView {
+          NavigationSplitView {
+            List(items, selection: $selectedItem) { item in
+              NavigationLink(item.title, value: item)
+            }
+          } detail: {
+            ItemDetail(item: selectedItem)
           }
-          .navigationDestination(for: Item.self) { ItemDetail(item: $0) }
-          .toolbar { Button("Add", systemImage: "plus", action: add) }
+          .tabItem { Label("Browse", systemImage: "sidebar.left") }
         }
         """,
       preview: .destination

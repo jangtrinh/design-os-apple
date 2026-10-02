@@ -1,0 +1,92 @@
+{
+  "apple-iphone-duo-landing": {
+    "uri": "https://www.apple.com/iphone-duo/",
+    "file": "docs/corpus/apple-iphone-duo-landing.html",
+    "bytes": 723842,
+    "sha256": "4fb160f316988bf1ef823f3d2dd40c6688e5f96c8afac49c1e4ac8f0e92eab2a",
+    "captured_at": "2026-10-01T08:24:26Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  },
+  "apple-newsroom-iphone-duo": {
+    "uri": "https://www.apple.com/newsroom/2026/09/apple-unveils-iphone-duo/",
+    "file": "docs/corpus/apple-newsroom-iphone-duo.html",
+    "bytes": 341663,
+    "sha256": "f90367a10319b84e71d0333396394db65bbc2d99a92ae06f98b91b05a2829eed",
+    "captured_at": "2026-10-01T08:24:26Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  },
+  "apple-os-ios": {
+    "uri": "https://www.apple.com/os/ios/",
+    "file": "docs/corpus/apple-os-ios.html",
+    "bytes": 272113,
+    "sha256": "ebb7bb9059975be8400c58e015cb3147946d61f0b22dc2dfbac0edbdead4c641",
+    "captured_at": "2026-10-01T08:24:26Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  },
+  "apple-os-ipados": {
+    "uri": "https://www.apple.com/os/ipados/",
+    "file": "docs/corpus/apple-os-ipados.html",
+    "bytes": 267672,
+    "sha256": "0da1d9fbd1483a019d4d54dfd6c2734dba429991e897bcafce76cd745107715a",
+    "captured_at": "2026-10-01T08:24:26Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  },
+  "apple-os-macos": {
+    "uri": "https://www.apple.com/os/macos/",
+    "file": "docs/corpus/apple-os-macos.html",
+    "bytes": 257153,
+    "sha256": "d038f9ae5ed6c9580d60ed38765a92e34720d47e166a53f9a3e442d9ca68060b",
+    "captured_at": "2026-10-01T08:24:26Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  },
+  "developer-macos-27-release-notes": {
+    "uri": "https://developer.apple.com/tutorials/data/documentation/macos-release-notes/macos-27-release-notes.json",
+    "file": "docs/corpus/developer-macos-27-release-notes.json",
+    "bytes": 146633,
+    "sha256": "5c77ef7cc0c4e59d8a7fa6a3132729ec6c58492f11f49f168006a72a25bc6fdd",
+    "captured_at": "2026-10-01T08:24:26Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  },
+  "developer-ios-ipados-27-release-notes": {
+    "uri": "https://developer.apple.com/tutorials/data/documentation/ios-ipados-release-notes/ios-ipados-27-release-notes.json",
+    "file": "docs/corpus/developer-ios-ipados-27-release-notes.json",
+    "bytes": 152731,
+    "sha256": "da7aaaa3899ee160e0a93a0d22b6b87b32b676121c341588fcc7415e32b9e834",
+    "captured_at": "2026-10-01T08:24:26Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  },
+  "developer-xcode-27-release-notes": {
+    "uri": "https://developer.apple.com/tutorials/data/documentation/xcode-release-notes/xcode-27-release-notes.json",
+    "file": "docs/corpus/developer-xcode-27-release-notes.json",
+    "bytes": 140916,
+    "sha256": "d2aa54180e826b74909605ce5958ac4718e00201c6ec9c7f5f4d10859e848268",
+    "captured_at": "2026-10-01T08:24:26Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  },
+  "apple-hig-layout": {
+    "uri": "https://developer.apple.com/tutorials/data/design/human-interface-guidelines/layout.json",
+    "file": "docs/corpus/apple-hig-layout.json",
+    "bytes": 84939,
+    "sha256": "d41f32ddf76c597f0edd54eac361fa294a8736cfc4ccc627d1709fe092ed7267",
+    "captured_at": "2026-10-01T08:38:33Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  },
+  "developer-swiftui-navigationsplitview": {
+    "uri": "https://developer.apple.com/tutorials/data/documentation/swiftui/navigationsplitview.json",
+    "file": "docs/corpus/developer-swiftui-navigationsplitview.json",
+    "bytes": 49127,
+    "sha256": "3b6912aa55406caeb19038399b3de8d693e4619a79c966b305b01189779d6443",
+    "captured_at": "2026-10-01T08:38:47Z",
+    "modality": "web",
+    "license": "Apple Inc. Copyright \u2014 source-reference-only; no MIT relicensing."
+  }
+}
