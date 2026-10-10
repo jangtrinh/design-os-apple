@@ -59,7 +59,7 @@ struct JournalView: View {
                     Section {
                         ForEach(meals) { meal in
                             NavigationLink(value: meal.id) {
-                                MealRow(meal: meal)
+                                MealRow(meal: meal, isSelected: selection == meal.id)
                             }
                             .accessibilityIdentifier("savedMeal-\(meal.id.uuidString)")
                             .listRowInsets(EdgeInsets(top: 0, leading: style.metrics.pageInset, bottom: 0, trailing: style.metrics.pageInset))
@@ -116,6 +116,13 @@ struct JournalView: View {
 private struct MealRow: View {
     @Environment(\.designOSAppStyle) private var style
     let meal: MealEntry
+    let isSelected: Bool
+    // Native selection can use an accent or inactive highlight independent of tint.
+    // Leave selected text automatic so the platform supplies its matching foreground.
+    @ViewBuilder private func rowText(_ text: Text, secondary: Bool = false) -> some View {
+        if isSelected { text }
+        else { text.foregroundStyle(secondary ? style.palette.secondaryInk.color : style.palette.ink.color) }
+    }
     var body: some View {
         DesignOSMediaRow {
             if meal.origin == .demo {
@@ -137,18 +144,15 @@ private struct MealRow: View {
             }
         } content: {
             VStack(alignment: .leading, spacing: style.profile.spacing.titleSubtitle) {
-                Text(meal.items.map(\.name).joined(separator: ", "))
+                rowText(Text(meal.items.map(\.name).joined(separator: ", ")))
                     .font(.body.weight(.medium))
-                    .foregroundStyle(style.palette.ink.color)
-                Text(meal.date, format: .dateTime.hour().minute())
+                rowText(Text(meal.date, format: .dateTime.hour().minute()), secondary: true)
                     .font(.subheadline)
-                    .foregroundStyle(style.palette.secondaryInk.color)
-                Text("\(meal.totalCalories.formatted(.number.precision(.fractionLength(0)))) kcal")
+                rowText(Text("\(meal.totalCalories.formatted(.number.precision(.fractionLength(0)))) kcal"))
                     .font(.subheadline)
                     .monospacedDigit()
-                Text(meal.origin.label)
+                rowText(Text(meal.origin.label), secondary: true)
                     .font(.caption)
-                    .foregroundStyle(style.palette.secondaryInk.color)
             }
         }
         .padding(.vertical, style.metrics.itemSpacing)

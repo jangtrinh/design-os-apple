@@ -56,8 +56,19 @@ final class CalorieCamUITests: XCTestCase {
         }
         let scroll = app.descendants(matching: .any).matching(identifier: "mealCaptureScroll").firstMatch
         for _ in 0..<5 {
-            if action.isHittable { action.tap(); return true }
+            // AppKit can report an offscreen scroll descendant as hittable.
+            // Require its actual tap point inside the visible viewport as well.
+            let center = CGPoint(x: action.frame.midX, y: action.frame.midY)
+            let visibleBounds = scroll.frame.intersection(app.windows.firstMatch.frame).insetBy(dx: 2, dy: 2)
+            if action.isHittable && visibleBounds.contains(center) {
+                action.tap()
+                return true
+            }
+            #if os(macOS)
+            scroll.scroll(byDeltaX: 0, deltaY: -240)
+            #else
             scroll.swipeUp()
+            #endif
         }
         XCTFail("Capture action did not become reachable by scrolling: \(identifier)")
         return false
@@ -171,7 +182,12 @@ final class CalorieCamUITests: XCTestCase {
         guard (detailName.value as? String ?? detailName.label) == "Test apple",
               (detailPortion.value as? String ?? detailPortion.label) == "1 medium",
               (detailCalories.value as? String ?? detailCalories.label) == "95 kcal" else {
-            XCTFail("Meal details must show the persisted name, portion and exact calorie value.")
+            attachScreenshot("failure-persisted-detail-values", of: reopened)
+            let hierarchy = XCTAttachment(string: reopened.debugDescription)
+            hierarchy.name = "failure-persisted-detail-accessibility"
+            hierarchy.lifetime = .keepAlways
+            add(hierarchy)
+            XCTFail("Meal details must show the persisted name, portion and exact calorie value. Name label=\(detailName.label), value=\(String(describing: detailName.value)); portion label=\(detailPortion.label), value=\(String(describing: detailPortion.value)); calories label=\(detailCalories.label), value=\(String(describing: detailCalories.value))")
             return
         }
         attachScreenshot("08-meal-detail", of: reopened)

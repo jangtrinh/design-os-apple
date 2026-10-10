@@ -48,6 +48,10 @@ struct CaptureMealView: View {
                         else { dismiss() }
                     }
                     .accessibilityIdentifier("cancelMeal")
+                    #if os(macOS)
+                    .buttonStyle(.bordered)
+                    .buttonBorderShape(.capsule)
+                    #endif
                 }
             }
         }
@@ -116,7 +120,8 @@ struct CaptureMealView: View {
     }
 
     private var captureForm: some View {
-        ScrollView {
+        let photoPickerTitle = imageData == nil ? "Choose photo" : "Replace photo"
+        return ScrollView {
             VStack(alignment: .leading, spacing: style.metrics.sectionSpacing) {
                 Label(analysisEndpoint == nil ? "On-device demo" : "Photo meal entry", systemImage: "info.circle")
                     .font(.caption)
@@ -150,7 +155,7 @@ struct CaptureMealView: View {
                     .disabled(busy)
                     #endif
                     PhotosPicker(selection: $photoItem, matching: .images) {
-                        Label(imageData == nil ? "Choose photo" : "Replace photo", systemImage: "photo")
+                        Label(photoPickerTitle, systemImage: "photo")
                             .frame(maxWidth: .infinity, minHeight: 44)
                     }
                     .buttonStyle(DesignOSSecondaryButtonStyle())

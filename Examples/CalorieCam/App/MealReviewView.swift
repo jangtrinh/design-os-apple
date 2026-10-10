@@ -34,6 +34,7 @@ struct MealReviewView: View {
                         }
                         DatePicker("Meal date", selection: $entry.date)
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 ForEach($entry.items) { $food in
                     VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
@@ -91,6 +92,10 @@ struct MealReviewView: View {
                 .disabled(didSave || validationError != nil || model.loadFailure != nil)
                 .accessibilityIdentifier("saveMeal")
                 .keyboardShortcut(.defaultAction)
+                #if os(macOS)
+                .buttonStyle(.borderedProminent)
+                .buttonBorderShape(.capsule)
+                #endif
             }
         }
         .confirmationDialog("Remove this food?", isPresented: Binding(get: { removal != nil }, set: { if !$0 { removal = nil } }), titleVisibility: .visible) {

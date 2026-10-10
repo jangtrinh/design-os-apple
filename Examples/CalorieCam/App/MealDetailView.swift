@@ -47,8 +47,10 @@ struct MealDetailView: View {
                                     .foregroundStyle(style.palette.secondaryInk.color)
                                     .accessibilityIdentifier("mealDetailPortion")
                             }
+                            .accessibilityElement(children: .contain)
                         }
                     }
+                    .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 if !meal.note.isEmpty {
                     VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
@@ -68,6 +70,8 @@ struct MealDetailView: View {
         .navigationTitle("Meal details")
         .environment(\.colorScheme, .dark)
         #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbarBackground(.visible, for: .navigationBar)
         .toolbarColorScheme(.dark, for: .navigationBar)
         #endif
     }
