@@ -35,22 +35,86 @@ final class CalorieCamUITests: XCTestCase {
         return element.label
     }
 
+    private func overlapsVisibleWindow(_ frame: CGRect, window: CGRect) -> Bool {
+        guard !frame.isNull, !frame.isInfinite, !frame.isEmpty,
+              !window.isNull, !window.isInfinite, !window.isEmpty else { return false }
+        let overlap = frame.intersection(window)
+        return !overlap.isNull && overlap.width > 0 && overlap.height > 0
+    }
+
+    private func hasVisibleKeyboardOrAccessory(in app: XCUIApplication) -> Bool {
+        let window = app.windows.firstMatch.frame
+        let done = app.buttons["finishFoodEditing"]
+        if done.exists && overlapsVisibleWindow(done.frame, window: window) && done.isHittable { return true }
+        for keyboard in app.keyboards.allElementsBoundByIndex {
+            guard keyboard.exists else { continue }
+            if overlapsVisibleWindow(keyboard.frame, window: window) && keyboard.isHittable { return true }
+            // A floating keyboard or a non-hittable container can still own active keys.
+            for key in keyboard.keys.allElementsBoundByIndex {
+                if key.exists && overlapsVisibleWindow(key.frame, window: window) && key.isHittable { return true }
+            }
+        }
+        return false
+    }
+
+    private func attachKeyboardDiagnostics(in app: XCUIApplication) {
+        attachScreenshot("failure-keyboard-dismissal", of: app)
+        let window = app.windows.firstMatch.frame
+        var facts = ["window=\(window)"]
+        let done = app.buttons["finishFoodEditing"]
+        if done.exists {
+            facts.append("Done exists=true frame=\(done.frame) hittable=\(done.isHittable) intersects=\(overlapsVisibleWindow(done.frame, window: window))")
+        } else {
+            facts.append("Done exists=false")
+        }
+        for (index, keyboard) in app.keyboards.allElementsBoundByIndex.enumerated() {
+            facts.append("Keyboard[\(index)] exists=\(keyboard.exists) frame=\(keyboard.frame) hittable=\(keyboard.isHittable) intersects=\(overlapsVisibleWindow(keyboard.frame, window: window))")
+            for key in keyboard.keys.allElementsBoundByIndex {
+                facts.append("key frame=\(key.frame) hittable=\(key.isHittable) intersects=\(overlapsVisibleWindow(key.frame, window: window))")
+            }
+        }
+        let attachment = XCTAttachment(string: facts.joined(separator: "\n") + "\n\n" + app.debugDescription)
+        attachment.name = "failure-keyboard-accessibility"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
     private func finishKeyboardEditing(in app: XCUIApplication) -> Bool {
         #if os(iOS)
-        guard app.keyboards.firstMatch.exists else { return true }
+        guard hasVisibleKeyboardOrAccessory(in: app) else { return true }
         let done = app.buttons["finishFoodEditing"]
         guard done.waitForExistence(timeout: 5) else {
+            attachKeyboardDiagnostics(in: app)
             XCTFail("Expected the native keyboard Done action.")
             return false
         }
         done.tap()
-        let closed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: app.keyboards.firstMatch)
-        guard XCTWaiter.wait(for: [closed], timeout: 5) == .completed else {
-            XCTFail("Done did not dismiss the editing keyboard.")
-            return false
-        }
-        #endif
+        // Native video proved iOS can retain an inert AX Keyboard after dismissal.
+        // Require no onscreen, hittable keyboard/keys or active editing accessory,
+        // rather than requiring deletion of that accessibility node.
+        let deadline = Date().addingTimeInterval(5)
+        repeat {
+            if !hasVisibleKeyboardOrAccessory(in: app) { return true }
+            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
+        } while Date() < deadline
+        attachKeyboardDiagnostics(in: app)
+        XCTFail("Done left a visible active keyboard or editing accessory.")
+        return false
+        #else
         return true
+        #endif
+    }
+
+    func testKeyboardVisibilityGeometryIncludesFloatingKeyboards() {
+        let window = CGRect(x: 0, y: 0, width: 1024, height: 768)
+        XCTAssertTrue(overlapsVisibleWindow(CGRect(x: 0, y: 500, width: 1024, height: 268), window: window))
+        XCTAssertTrue(overlapsVisibleWindow(CGRect(x: 600, y: 180, width: 300, height: 240), window: window))
+        XCTAssertTrue(overlapsVisibleWindow(CGRect(x: 1000, y: 200, width: 100, height: 100), window: window))
+        XCTAssertFalse(overlapsVisibleWindow(CGRect(x: 0, y: 768, width: 1024, height: 268), window: window))
+        XCTAssertFalse(overlapsVisibleWindow(CGRect(x: -400, y: 100, width: 300, height: 200), window: window))
+        XCTAssertFalse(overlapsVisibleWindow(.zero, window: window))
+        XCTAssertFalse(overlapsVisibleWindow(.null, window: window))
+        XCTAssertFalse(overlapsVisibleWindow(.infinite, window: window))
     }
 
     /// The photo-led capture screen scrolls on smaller windows; let the native
