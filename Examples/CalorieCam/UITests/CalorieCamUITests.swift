@@ -464,32 +464,63 @@ final class CalorieCamUITests: XCTestCase {
         // Retain bounded native scrolling for compact Mac/phone sheets, without tapping.
         for _ in 0..<5 {
             let viewport = scroll.frame.intersection(app.windows.firstMatch.frame)
-            if viewport.contains(action.frame) { break }
-            let towardTop = action.frame.minY < viewport.minY
+            let actionFrame = action.frame
+            if viewport.contains(actionFrame) { break }
+            let towardTop = actionFrame.minY < viewport.minY
             #if os(macOS)
             scroll.scroll(byDeltaX: 0, deltaY: towardTop ? 180 : -180)
             #else
             if towardTop { scroll.swipeDown() } else { scroll.swipeUp() }
             #endif
         }
-        let deadline = Date().addingTimeInterval(5)
+        // Native AX reads took ~6 seconds for one sample on the iPad runner.
+        // Allow three actual observations plus margin; the post-tap stage deadline
+        // remains five seconds. This budget covers instrumentation, not app work.
+        let started = Date()
+        let deadline = started.addingTimeInterval(30)
         var previousFrame: CGRect?
         var stableSamples = 0
+        var samples: [String] = []
+        var outcome = "Readiness budget exhausted before three stable samples"
+        defer {
+            let attachment = XCTAttachment(string: samples.joined(separator: "\n") + "\nOutcome: " + outcome)
+            attachment.name = "change-photo-readiness-samples"
+            attachment.lifetime = .keepAlways
+            add(attachment)
+        }
         repeat {
-            if action.exists && action.isEnabled && action.isHittable && scroll.exists {
-                let frame = action.frame
-                let viewport = scroll.frame.intersection(app.windows.firstMatch.frame)
-                if !frame.isEmpty && !frame.isNull && !frame.isInfinite && viewport.contains(frame) {
-                    stableSamples = previousFrame == frame ? stableSamples + 1 : 1
+            let sampleStarted = Date().timeIntervalSince(started)
+            do {
+                // Reuse one immutable native snapshot per element instead of issuing
+                // separate AX queries for each target/frame/enabled attribute.
+                let target = try action.snapshot()
+                let scrollSnapshot = try scroll.snapshot()
+                let windowSnapshot = try app.windows.firstMatch.snapshot()
+                let frame = target.frame
+                let viewport = scrollSnapshot.frame.intersection(windowSnapshot.frame)
+                let enabled = target.isEnabled
+                let hittable = action.isHittable
+                let contained = !frame.isEmpty && !frame.isNull && !frame.isInfinite && viewport.contains(frame)
+                let unchanged = previousFrame == frame
+                samples.append("start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s exists=true enabled=\(enabled) hittable=\(hittable) contained=\(contained) unchanged=\(unchanged) frame=\(frame) viewport=\(viewport)")
+                if enabled && hittable && contained {
+                    stableSamples = unchanged ? stableSamples + 1 : 1
                     previousFrame = frame
-                    if stableSamples >= 3 { return true }
+                    if stableSamples >= 3 {
+                        outcome = "Ready: three stable enabled, hittable, fully contained native samples"
+                        return true
+                    }
+                    outcome = "Only \(stableSamples) stable samples completed within instrumentation budget"
                 } else {
                     stableSamples = 0
                     previousFrame = nil
+                    outcome = "Not ready: enabled=\(enabled), hittable=\(hittable), contained=\(contained)"
                 }
-            } else {
+            } catch {
                 stableSamples = 0
                 previousFrame = nil
+                outcome = "Native snapshot unavailable: \(error.localizedDescription)"
+                samples.append("start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s \(outcome)")
             }
             RunLoop.current.run(until: Date().addingTimeInterval(0.1))
         } while Date() < deadline
