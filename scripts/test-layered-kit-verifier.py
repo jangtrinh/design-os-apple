@@ -48,6 +48,119 @@ class LayeredKitControls(unittest.TestCase):
         self.assertEqual(result['exact_screen_states_source_verified'], 0)
         self.assertEqual(result['exact_screen_states_visual_reviewed'], 0)
 
+    def recipe(self):
+        return next(r for r in self.index['records'] if r['id'] == 'composite/form-section')
+
+    def test_recipes_are_separate_from_public_apis(self):
+        result = gate.verify(self.root)
+        self.assertEqual(result['source_present_recipes'], 4)
+        self.assertEqual(result['native_delegation_recipes'], 2)
+        self.assertEqual(result['public_source_present_apis'], 49)
+        self.assertEqual(result['source_present_records'], 56)
+        self.assertEqual(result['exact_screen_states_source_verified'], 0)
+
+    def test_recipe_requires_fixture(self):
+        self.recipe()['compile_fixture'] = 'Tests/missing-recipe.swift'
+        self.rejected('missing artifact')
+
+    def test_recipe_requires_exact_fixture_function(self):
+        self.recipe()['recipe']['fixture_function'] = 'imaginaryFixture'
+        self.rejected('recipe fixture function missing')
+
+    def test_recipe_requires_actual_native_call_in_named_function(self):
+        record = self.recipe()
+        path = self.root / record['compile_fixture']
+        path.write_text(path.read_text() + '\nfunc fakeRecipe() { /* Section { Text("Not code") } */ }')
+        record['recipe']['fixture_function'] = 'fakeRecipe'
+        for linked in self.index['records']:
+            if linked.get('compile_fixture') == record['compile_fixture'] and linked.get('source_status') == 'recipe_present':
+                linked['compile_fixture_sha256'] = gate.sha(path)
+        doc = self.root / record['documentation']
+        doc.write_text(doc.read_text() + '\nfakeRecipe\n')
+        self.rejected('recipe fixture does not call Form')
+
+    def test_recipe_source_edit_invalidates_binding(self):
+        path = self.root / self.recipe()['compile_fixture']
+        path.write_text(path.read_text() + '\n// changed fixture\n')
+        self.rejected('stale recipe fixture source')
+
+    def test_recipe_cannot_claim_a_public_api(self):
+        self.recipe()['source_status'] = 'source_present'
+        self.recipe()['symbol'] = 'InventedFormSection'
+        self.recipe()['visibility'] = 'public'
+        self.rejected('recipe cannot be counted as a source API')
+
+    def test_recipe_cannot_hide_source_api_metadata(self):
+        self.recipe()['visibility'] = 'public'
+        self.rejected('recipe is not a source API binding')
+
+    def test_recipe_binding_cannot_omit_native_owner(self):
+        self.recipe()['recipe']['bindings'] = []
+        self.rejected('recipe native/existing bindings mismatch')
+
+    def test_recipe_documentation_must_name_fixture(self):
+        self.recipe()['documentation'] = 'docs/luma-layout-atlas.md'
+        self.rejected('recipe documentation must name contract and fixture')
+
+    def test_recipe_does_not_imply_native_execution(self):
+        self.recipe()['native_status'] = 'passed'
+        self.rejected('receipt required')
+
+    def test_recipe_native_receipt_does_not_increment_api_counts(self):
+        record = self.recipe()
+        artifact = self.root / 'recipe-control.log'
+        artifact.write_text('Synthetic evidence fixture for verifier testing only.\n')
+        record['native_status'] = 'passed'
+        record['evidence']['native_tested'] = {
+            'result': 'passed', 'module_sha256': gate.module_digest(self.root),
+            'source_revision': 'b' * 40, 'platform': 'macOS',
+            'command': 'swift test (synthetic recipe control)', 'toolchain': 'Synthetic toolchain',
+            'artifact': 'recipe-control.log', 'artifact_sha256': gate.sha(artifact),
+            'compile_fixture': record['compile_fixture'],
+            'compile_fixture_sha256': gate.sha(self.root / record['compile_fixture']),
+        }
+        self.flush()
+        result = gate.verify(self.root)
+        self.assertEqual(result['native_tested_recipes'], 1)
+        self.assertEqual(result['native_tested_apis'], 0)
+        self.assertEqual(result['exact_screen_states_native_tested'], 0)
+
+    def test_visual_receipts_bind_fixture_even_after_native_receipt_refresh(self):
+        baseline = copy.deepcopy(self.index)
+        for rid in ('semantic/media-frame', 'composite/form-section'):
+            with self.subTest(record=rid):
+                self.index = copy.deepcopy(baseline)
+                record = next(r for r in self.index['records'] if r['id'] == rid)
+                fixture = self.root / record['compile_fixture']
+                original = fixture.read_text()
+                artifact = self.root / 'visual-control.log'
+                artifact.write_text('Synthetic evidence fixture only.\n')
+                capture = self.root / 'visual-control.png'
+                capture.write_bytes(b'Synthetic capture bytes for structural verifier test only.')
+                native = {
+                    'result': 'passed', 'module_sha256': gate.module_digest(self.root),
+                    'source_revision': 'c' * 40, 'platform': 'macOS',
+                    'command': 'swift test (synthetic visual control)', 'toolchain': 'Synthetic toolchain',
+                    'artifact': 'visual-control.log', 'artifact_sha256': gate.sha(artifact),
+                    'compile_fixture': record['compile_fixture'], 'compile_fixture_sha256': gate.sha(fixture),
+                }
+                visual = dict(native, reviewer='Synthetic reviewer', appearance='light', window='800x600',
+                              variant_id='synthetic-control', capture='visual-control.png', capture_sha256=gate.sha(capture))
+                record.update(native_status='passed', visual_status='reviewed',
+                              evidence=dict(native_tested=native, visual_reviewed=visual))
+                self.flush()
+                gate.verify(self.root)
+                try:
+                    fixture.write_text(original + '\n// Fixture-only change\n')
+                    for linked in self.index['records']:
+                        if linked.get('compile_fixture') == record['compile_fixture'] and linked['source_status'] == 'recipe_present':
+                            linked['compile_fixture_sha256'] = gate.sha(fixture)
+                    native['compile_fixture_sha256'] = gate.sha(fixture)
+                    self.rejected('stale visual compile fixture')
+                finally:
+                    fixture.write_text(original)
+        self.index = baseline
+
     def test_missing_screen(self):
         self.coverage['screens'].pop()
         self.rejected('missing or unknown source IDs')

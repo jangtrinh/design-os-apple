@@ -41,27 +41,26 @@ struct PreviewNavigation: View {
                 }
             }
             .navigationTitle("Native kit")
+            .toolbar { if selected == nil { previewToolbar } }
         } detail: {
             NavigationStack {
-                if let selected {
-                    SpecimenContent(specimen: selected, variant: $variant, hideMedia: hideMedia)
-                        .navigationTitle(selected.title)
-                        .accessibilityIdentifier("specimen-\(selected.id)")
-                } else {
-                    ContentUnavailableView("Choose a specimen", systemImage: "square.grid.2x2",
-                        description: Text("Native compositions with original fixture content."))
+                Group {
+                    if let selected {
+                        SpecimenContent(specimen: selected, variant: $variant, hideMedia: hideMedia)
+                            .navigationTitle(selected.title)
+                    } else {
+                        ContentUnavailableView("Choose a specimen", systemImage: "square.grid.2x2",
+                            description: Text("Native compositions with original fixture content."))
+                    }
                 }
+                .toolbar { if selected != nil { previewToolbar } }
             }
         }
         .environment(\.layoutDirection, rightToLeft ? .rightToLeft : .leftToRight)
         .dynamicTypeSize(largeText ? .accessibility3 : .large)
-        .toolbar {
-            Button("Preview options", systemImage: "slider.horizontal.3") { options = true }
-                .accessibilityIdentifier("previewOptions")
-        }
         .sheet(isPresented: $options) {
             NavigationStack {
-                Form {
+                DesignOSGroupedFormShell {
                     Picker("Appearance", selection: $appearance) {
                         ForEach(PreviewAppearance.allCases, id: \.self) { Text($0.rawValue.capitalized).tag($0) }
                     }.pickerStyle(.segmented).accessibilityIdentifier("previewAppearance")
@@ -73,6 +72,8 @@ struct PreviewNavigation: View {
                     Toggle("No media", isOn: $hideMedia).accessibilityIdentifier("previewNoMedia")
                     Text("State controls are deterministic fixtures. They do not run network, payment or camera operations.")
                         .font(.footnote)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .navigationTitle("Preview options")
                 .toolbar { ToolbarItem(placement: .confirmationAction) {
@@ -80,8 +81,16 @@ struct PreviewNavigation: View {
                 } }
             }
             #if os(macOS)
-            .frame(minWidth: 420, minHeight: 400)
+            .frame(minWidth: 560, idealWidth: 600, minHeight: 440, idealHeight: 520)
             #endif
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var previewToolbar: some ToolbarContent {
+        ToolbarItem(placement: .primaryAction) {
+            Button("Preview options", systemImage: "slider.horizontal.3") { options = true }
+                .accessibilityIdentifier("previewOptions")
         }
     }
 

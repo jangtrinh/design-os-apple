@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Portable source/provenance gate. This is not a Swift compiler or visual certification.
 
-Schema v1 deliberately keeps atlas research, source presence, native execution and
+Index schema v2 deliberately keeps atlas research, source presence, native execution and
 visual review independent. Receipts bind to a digest of the complete runtime module;
 a source edit invalidates previous pass receipts. --root supports isolated red controls.
 """
@@ -85,12 +85,92 @@ def receipt(root, evidence, tier, digest, state_id=None):
         capture = safe(root, evidence.get('capture'))
         require(sha(capture) == evidence.get('capture_sha256'), 'visual_reviewed: capture hash mismatch')
 
+# These four atlas contracts intentionally reuse native/existing content instead of
+# manufacturing public wrapper types. Recipe bindings are consumer references, not
+# runtime dependency edges (a confirmation recipe may consume a screen).
+RECIPE_CONTRACTS = {
+    'composite/form-section': ('native_delegation', [('SwiftUI', 'Form'), ('SwiftUI', 'Section')]),
+    'composite/sectioned-media-collection': ('native_delegation', [('SwiftUI', 'Section'), ('SwiftUI', 'ForEach'), ('DesignOSApple', 'shell/flat-list'), ('DesignOSApple', 'semantic/media-row')]),
+    'composite/status-content': ('existing_composition', [('DesignOSApple', 'semantic/status-message'), ('SwiftUI', 'Button')]),
+    'composite/confirmation-content': ('existing_composition', [('SwiftUI', 'Text'), ('SwiftUI', 'Button'), ('DesignOSApple', 'screen/confirmation')]),
+}
+
+def function_body(text, name):
+    """Locate a named compile-fixture function; comments/literals cannot satisfy calls."""
+    cleaned = code(text)
+    match = re.search(r'\bfunc\s+' + re.escape(name) + r'\s*\([^)]*\)[^{]*\{', cleaned)
+    require(match is not None, f'recipe fixture function missing: {name}')
+    start = match.end()
+    depth = 1
+    for offset in range(start, len(cleaned)):
+        depth += (cleaned[offset] == '{') - (cleaned[offset] == '}')
+        if depth == 0:
+            return cleaned[start:offset]
+    raise Invalid(f'unclosed recipe fixture function: {name}')
+
+def validate_recipe(root, rid, item, records):
+    require(rid in RECIPE_CONTRACTS, f'{rid}: unknown recipe contract')
+    require(item.get('source') is None and item.get('symbol') is None and item.get('visibility') is None
+            and not item.get('public_declarations') and not item.get('source_sha256'),
+            f'{rid}: recipe is not a source API binding')
+    require(item.get('ownership') == 'host-app', f'{rid}: recipe consumer boundary required')
+    kind, required_bindings = RECIPE_CONTRACTS[rid]
+    recipe = item.get('recipe')
+    require(isinstance(recipe, dict) and recipe.get('kind') == kind, f'{rid}: invalid recipe disposition')
+    bindings = recipe.get('bindings')
+    require(isinstance(bindings, list) and bindings == [dict(module=m, reference=r) for m, r in required_bindings],
+            f'{rid}: recipe native/existing bindings mismatch')
+    fixture = safe(root, item.get('compile_fixture'))
+    require(fixture.suffix == '.swift' and fixture.is_relative_to(root / 'Tests/DesignOSAppleTests'), f'{rid}: recipe fixture must be package test source')
+    require(sha(fixture) == item.get('compile_fixture_sha256'), f'{rid}: stale recipe fixture source')
+    name = recipe.get('fixture_function')
+    require(isinstance(name, str) and re.fullmatch(r'[A-Za-z_]\w*', name), f'{rid}: recipe fixture function required')
+    source = fixture.read_text()
+    body = function_body(source, name)
+    require(re.search(r'\bimport\s+SwiftUI\b', code(source)), f'{rid}: recipe must import native SwiftUI')
+    doc = safe(root, item.get('documentation'))
+    require(rid in doc.read_text() and name in doc.read_text(), f'{rid}: recipe documentation must name contract and fixture')
+    for module, reference in required_bindings:
+        if module == 'DesignOSApple':
+            require(reference in records and records[reference]['source_status'] == 'source_present', f'{rid}: recipe references unavailable API')
+            symbol = records[reference].get('symbol')
+            require(isinstance(symbol, str) and symbol, f'{rid}: recipe API symbol missing')
+            require(re.search(r'\bimport\s+DesignOSApple\b', code(source)), f'{rid}: recipe must import package')
+        else:
+            symbol = reference
+        require(re.search(r'\b' + re.escape(symbol) + r'\s*(?:\(|\{)', body), f'{rid}: recipe fixture does not call {symbol}')
+
+def validate_tiers(root, rid, item, digest):
+    require(item.get('native_status') in ('not_run', 'passed'), f'{rid}: invalid native status')
+    require(item.get('visual_status') in ('not_run', 'reviewed'), f'{rid}: invalid visual status')
+    evidence = item.get('evidence', {})
+    require(isinstance(evidence, dict), f'{rid}: evidence must be an object')
+    if item['native_status'] == 'passed':
+        native = evidence.get('native_tested')
+        require(isinstance(native, dict), 'native_tested: receipt required')
+        if item.get('compile_fixture'):
+            require(native.get('compile_fixture') == item['compile_fixture'], f'{rid}: native receipt fixture mismatch')
+            require(native.get('compile_fixture_sha256') == sha(safe(root, item['compile_fixture'])), f'{rid}: stale native compile fixture')
+        receipt(root, native, 'native_tested', digest)
+    else:
+        require(not evidence.get('native_tested'), f'{rid}: contradictory native receipt')
+    if item['visual_status'] == 'reviewed':
+        require(item['native_status'] == 'passed', f'{rid}: visual pass without native test')
+        visual = evidence.get('visual_reviewed')
+        require(isinstance(visual, dict), 'visual_reviewed: receipt required')
+        if item.get('compile_fixture'):
+            require(visual.get('compile_fixture') == item['compile_fixture'], f'{rid}: visual receipt fixture mismatch')
+            require(visual.get('compile_fixture_sha256') == sha(safe(root, item['compile_fixture'])), f'{rid}: stale visual compile fixture')
+        receipt(root, visual, 'visual_reviewed', digest)
+    else:
+        require(not evidence.get('visual_reviewed'), f'{rid}: contradictory visual receipt')
+
 def verify(root):
     index = json.loads((root / 'docs/layered-kit-index.json').read_text())
     coverage = json.loads((root / 'docs/luma-kit-coverage.json').read_text())
     inventory_path = root / 'docs/luma-layout-atlas.inventory.json'
     inventory = json.loads(inventory_path.read_text())
-    require(index.get('schema_version') == 1 and coverage.get('schema_version') == 1, 'unsupported schema version')
+    require(index.get('schema_version') == 2 and coverage.get('schema_version') == 1, 'unsupported schema version')
     require(index.get('module') == 'DesignOSApple', 'wrong module ownership')
     require(index.get('discovery_roots') == ROOTS, 'discovery roots must be exhaustive and pinned')
     require(index.get('frozen_sha256') == PINNED_FROZEN_SHA256, 'frozen authority pins changed')
@@ -113,7 +193,11 @@ def verify(root):
         if rid == 'screen/provider-host':
             require(item['ownership'] == 'provider', f'{rid}: provider boundary misrepresented')
         require(isinstance(item.get('boundary'), str) and item['boundary'].strip(), f'{rid}: explicit boundary required')
-        require(item.get('source_status') in ('planned', 'source_present'), f'{rid}: invalid source status')
+        require(item.get('source_status') in ('planned', 'source_present', 'recipe_present'), f'{rid}: invalid source status')
+        if rid in RECIPE_CONTRACTS:
+            require(item['source_status'] in ('planned', 'recipe_present'), f'{rid}: recipe cannot be counted as a source API')
+        elif item['source_status'] != 'recipe_present':
+            require(not item.get('recipe'), f'{rid}: source API cannot carry recipe claims')
         deps = item.get('dependencies')
         require(isinstance(deps, list) and len(set(deps)) == len(deps), f'{rid}: invalid dependencies')
         for dep in deps:
@@ -123,6 +207,10 @@ def verify(root):
             require(item.get('source') is None and item.get('symbol') is None, f'{rid}: planned API has fabricated source binding')
             require(item.get('native_status') == 'not_run' and item.get('visual_status') == 'not_run', f'{rid}: planned API cannot claim passes')
             require(not item.get('evidence'), f'{rid}: planned API cannot claim evidence')
+            continue
+        if item['source_status'] == 'recipe_present':
+            validate_recipe(root, rid, item, records)
+            validate_tiers(root, rid, item, digest)
             continue
         source = safe(root, item.get('source'))
         require(source.suffix == '.swift' and source.is_relative_to(root / 'Sources/DesignOSApple'), f'{rid}: invalid source module')
@@ -136,6 +224,7 @@ def verify(root):
         require(item.get('public_declarations') == declarations(text), f'{rid}: unregistered public symbol')
         require(item['source'] not in bindings, f'{rid}: duplicate source binding')
         bindings[item['source']] = rid
+        require(symbol not in type_owners, f'{rid}: duplicate source symbol {symbol}')
         type_owners[symbol] = rid
         if is_public and source.is_relative_to(root / ROOTS[item['layer']]):
             require(re.search(r'\bpublic\s+struct\s+' + re.escape(symbol) + r'\b', code(text)) and re.search(r'\bpublic\s+var\s+body\s*:\s*some\s+View\s*\{', code(text)), f'{rid}: marker-only API is not a concrete view')
@@ -144,23 +233,7 @@ def verify(root):
             fixture = safe(root, item.get('compile_fixture'))
             require(symbol in doc.read_text(), f'{rid}: documentation does not name API')
             require(fixture.suffix == '.swift' and re.search(r'\b' + symbol + r'\s*(?:\(|\{)', code(fixture.read_text())), f'{rid}: compile fixture does not exercise API')
-        require(item.get('native_status') in ('not_run', 'passed'), f'{rid}: invalid native status')
-        require(item.get('visual_status') in ('not_run', 'reviewed'), f'{rid}: invalid visual status')
-        evidence = item.get('evidence', {})
-        if item['native_status'] == 'passed':
-            native = evidence.get('native_tested')
-            require(isinstance(native, dict), 'native_tested: receipt required')
-            if item.get('compile_fixture'):
-                require(native.get('compile_fixture') == item['compile_fixture'], f'{rid}: native receipt fixture mismatch')
-                require(native.get('compile_fixture_sha256') == sha(safe(root, item['compile_fixture'])), f'{rid}: stale native compile fixture')
-            receipt(root, native, 'native_tested', digest)
-        else:
-            require(not evidence.get('native_tested'), f'{rid}: contradictory native receipt')
-        if item['visual_status'] == 'reviewed':
-            require(item['native_status'] == 'passed', f'{rid}: visual pass without native test')
-            receipt(root, evidence.get('visual_reviewed'), 'visual_reviewed', digest)
-        else:
-            require(not evidence.get('visual_reviewed'), f'{rid}: contradictory visual receipt')
+        validate_tiers(root, rid, item, digest)
     # Recursion is intentional: neither new nested folders nor public helper declarations escape.
     for layer, directory in ROOTS.items():
         for path in (root / directory).rglob('*.swift'):
@@ -237,7 +310,7 @@ def verify(root):
     require(summary.get('explicit_anatomy_overrides') == overrides, 'false anatomy override aggregate')
     require(summary.get('screen_type_counts') == dict(counts), 'false screen family totals')
     require(summary.get('shell_counts') == dict(Counter(s['proposed_reconstruction']['shell_id'] for s in screens.values())), 'false shell totals')
-    return {'research_mapped': len(screens), 'source_present_records': sum(r['source_status'] == 'source_present' for r in records.values()), 'public_source_present_apis': sum(r['source_status'] == 'source_present' and r.get('visibility') == 'public' for r in records.values()), 'internal_source_present_records': sum(r['source_status'] == 'source_present' and r.get('visibility') != 'public' for r in records.values()), 'planned_contracts': sum(r['source_status'] == 'planned' for r in records.values()), 'native_tested_apis': sum(r['native_status'] == 'passed' for r in records.values()), 'visual_reviewed_apis': sum(r['visual_status'] == 'reviewed' for r in records.values()), 'exact_screen_states_source_verified': 0, 'exact_screen_states_native_tested': 0, 'exact_screen_states_visual_reviewed': 0}
+    return {'research_mapped': len(screens), 'source_present_records': sum(r['source_status'] == 'source_present' for r in records.values()), 'public_source_present_apis': sum(r['source_status'] == 'source_present' and r.get('visibility') == 'public' for r in records.values()), 'internal_source_present_records': sum(r['source_status'] == 'source_present' and r.get('visibility') != 'public' for r in records.values()), 'planned_contracts': sum(r['source_status'] == 'planned' for r in records.values()), 'source_present_recipes': sum(r['source_status'] == 'recipe_present' for r in records.values()), 'native_delegation_recipes': sum(r['source_status'] == 'recipe_present' and r['recipe']['kind'] == 'native_delegation' for r in records.values()), 'native_tested_apis': sum(r['source_status'] == 'source_present' and r['native_status'] == 'passed' for r in records.values()), 'native_tested_recipes': sum(r['source_status'] == 'recipe_present' and r['native_status'] == 'passed' for r in records.values()), 'visual_reviewed_apis': sum(r['source_status'] == 'source_present' and r['visual_status'] == 'reviewed' for r in records.values()), 'visual_reviewed_recipes': sum(r['source_status'] == 'recipe_present' and r['visual_status'] == 'reviewed' for r in records.values()), 'exact_screen_states_source_verified': 0, 'exact_screen_states_native_tested': 0, 'exact_screen_states_visual_reviewed': 0}
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)

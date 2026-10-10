@@ -13,6 +13,7 @@ struct ExtendedSpecimenContent: View {
     @State private var confirmed = false
     @State private var showAlert = false
     @State private var zoom = 1.0
+    @State private var showTips = true
 
     var body: some View {
         Group {
@@ -24,21 +25,28 @@ struct ExtendedSpecimenContent: View {
                     heading("Welcome to your neighborhood")
                     Text("Discover a friendly gathering using this local fixture.")
                 } choices: {
-                    Text("No account or permission is required in the preview.")
+                    DesignOSChoiceRow {
+                        Image(systemName: "lightbulb").accessibilityHidden(true)
+                    } description: {
+                        Text("Optional local tips")
+                        Text("No account or permission is required in the preview.")
+                    } control: {
+                        Toggle("Show tips", isOn: $showTips).accessibilityIdentifier("choiceTips")
+                    }
                 } action: { localAction }
             case .discovery:
                 DesignOSDiscoveryScreen {
                     heading("Find your next gathering")
                 } rails: {
-                    ScrollView(.horizontal) {
-                        HStack {
-                            ForEach(["Food", "Art", "Outdoors"], id: \.self) { category in
-                                Button(category) { query = category }.buttonStyle(DesignOSSecondaryButtonStyle())
-                            }
-                        }
-                    }
+                    DesignOSCategoryRail(FixtureCategory.all) {
+                        Text("Browse categories").font(.headline).accessibilityAddTraits(.isHeader)
+                    } item: { category in
+                        Button(category.title) { query = category.title }
+                            .buttonStyle(DesignOSSecondaryButtonStyle())
+                            .accessibilityIdentifier("category-\(category.id)")
+                    } empty: { Text("No fixture categories") }
                 } sections: {
-                    heading(query.isEmpty ? "Nearby fixtures" : query)
+                    heading(query.isEmpty ? "Nearby fixtures" : query).accessibilityIdentifier("selectedCategory")
                     hero
                     Text("Community lunch · Saturday")
                     stateFeedback
@@ -77,8 +85,14 @@ struct ExtendedSpecimenContent: View {
                     }
                 } status: { stateFeedback }
                 .safeAreaInset(edge: .bottom) {
-                    Text(selection.map { "Selected gathering \($0)" } ?? "Select a gathering")
-                        .padding().accessibilityIdentifier("selectionReceipt")
+                    DesignOSSelectionSummary {
+                        Text(selection.map { "Selected gathering \($0)" } ?? "Select a gathering")
+                            .accessibilityIdentifier("selectionReceipt")
+                    } actions: {
+                        Button("Clear selection") { selection = nil }
+                            .buttonStyle(DesignOSSecondaryButtonStyle()).disabled(selection == nil)
+                            .accessibilityIdentifier("clearFixtureSelection")
+                    }.padding()
                 }
             case .confirmation:
                 DesignOSConfirmationScreen {
@@ -97,17 +111,26 @@ struct ExtendedSpecimenContent: View {
                 DesignOSMessageThreadScreen { _ in
                     LazyVStack(alignment: .leading, spacing: 16) {
                         ForEach(Array(messages.enumerated()), id: \.offset) { index, message in
-                            DesignOSAppSurface { Text(message) }.id(index)
+                            DesignOSMessageBubble(isOutgoing: index > 0) {
+                                Text(message)
+                            } metadata: {
+                                Text(index > 0 ? "Added locally" : "Original local fixture").font(.caption)
+                            }.id(index)
                         }
                     }
                 } status: { Text("Local conversation fixture").font(.caption) } composer: {
-                    HStack {
+                    DesignOSConversationComposer {
+                        EmptyView()
+                    } input: {
                         TextField("Local message", text: $draft, axis: .vertical)
+                            .lineLimit(1...4)
                             .textFieldStyle(.roundedBorder).accessibilityIdentifier("messageDraft")
+                    } actions: {
                         Button("Add locally") { messages.append(draft); draft = "" }
                             .buttonStyle(DesignOSSecondaryButtonStyle())
                             .disabled(draft.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty)
-                    }
+                            .accessibilityIdentifier("addLocalMessage")
+                    } feedback: { Text("No delivery service is connected.").font(.caption) }
                 }
             case .utilityCanvas:
                 DesignOSUtilityCanvasScreen {
@@ -118,7 +141,14 @@ struct ExtendedSpecimenContent: View {
                                 .accessibilityLabel("Zoomable original fixture photograph")
                         } else { ContentUnavailableView("No fixture image", systemImage: "photo") }
                     }
-                } status: { DesignOSAppSurface { Text("Local photo canvas · no camera access") } } controls: {
+                } status: {
+                    DesignOSUtilityOverlay {
+                        Text("Local photo canvas · no camera access")
+                    } actions: {
+                        Button("Reset zoom") { zoom = 1 }
+                            .buttonStyle(DesignOSSecondaryButtonStyle()).accessibilityIdentifier("resetPhotoZoom")
+                    }
+                } controls: {
                     Slider(value: $zoom, in: 1...3) { Text("Photo zoom") }
                         .accessibilityIdentifier("photoZoom")
                 }
@@ -132,11 +162,16 @@ struct ExtendedSpecimenContent: View {
                     Text("The system owns the share surface. No payment, authentication or external service is simulated.")
                 } recovery: { Text("Cancel the system sheet to return. Sharing requires your explicit choice.") }
             case .recordDetail:
-                DesignOSRecordDetailScreen { heading("Fixture receipt") } credential: {
+                DesignOSRecordDetailScreen {
+                    DesignOSRecordSummary {
+                        heading("Fixture receipt")
+                    } status: { Text("Sample only").accessibilityIdentifier("recordSampleStatus") } facts: {
+                        DesignOSLabeledValueRow("Reference", value: { Text("PREVIEW-001") })
+                    }
+                } credential: {
                     Label("SAMPLE · not a valid ticket", systemImage: "ticket")
                 } details: {
                     DesignOSLabeledValueRow("Item", value: { Text("Community lunch") })
-                    DesignOSLabeledValueRow("Reference", value: { Text("PREVIEW-001") })
                 } actions: { localAction }
             case .nativePresentation:
                 DesignOSNativePresentationScreen {
@@ -175,4 +210,12 @@ struct ExtendedSpecimenContent: View {
         case .busy: ProgressView("Loading fixture")
         }
     }
+}
+
+private struct FixtureCategory: Identifiable, Sendable {
+    let id: String
+    let title: String
+    static let all = [FixtureCategory(id: "food", title: "Food"),
+                      FixtureCategory(id: "art", title: "Art"),
+                      FixtureCategory(id: "outdoors", title: "Outdoors")]
 }

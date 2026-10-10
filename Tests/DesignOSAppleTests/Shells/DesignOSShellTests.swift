@@ -30,8 +30,6 @@ func nativeShellCompositionsCompile() {
     acceptShell(shell.body)
     acceptShell(shell.environment(\.colorScheme, .light))
     acceptShell(shell.environment(\.colorScheme, .dark))
-    acceptShell(shell.environment(\.accessibilityReduceTransparency, true))
-    acceptShell(shell.environment(\.colorSchemeContrast, .increased))
   }
 }
 

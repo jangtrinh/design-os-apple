@@ -32,7 +32,8 @@ Each family now composes its actual shared API. This source availability is dist
 compiled, rendered and visually accepted coverage.
 
 The host consumes all 18 actual shared screen types, including browsing, editing, conversation,
-selection, status and integration-boundary compositions. Composites use shared identity and field groups;
+selection, status and integration-boundary compositions. Composites use shared identity and field groups plus the nine later media headers, choice/selection,
+category rail, message/composer, record and utility compositions;
 shell selection instantiates eight actual content shells; the root uses the ninth adaptive
 navigation shell.
 The host never reimplements their scrolling/container policy.
@@ -56,4 +57,25 @@ This host is a representative native specimen route, not 393 completed reference
 per-reference mappings remain in `docs/luma-kit-coverage.json`. All state variants,
 platform/window adaptation, RTL, VoiceOver, contrast and independent visual comparison require
 separate receipts. Linux source checks cannot establish Xcode build, native screenshots or
-assistive-technology behavior. Native tests in this new project have not yet run.
+assistive-technology behavior. The initial 33-API host compiled and executed in native run `38073632154`; its UI suite
+failed on toolbar placement, inherited accessibility identifiers and platform picker queries.
+Those failures informed the current repairs. The expanded 42-API revision awaits a native rerun;
+source review is not a pass receipt.
+
+
+## Composite and native-recipe coverage
+
+The relevant screen fixtures instantiate all 11 composite APIs (the first two plus nine added
+compositions), rather than listing names in a gallery. Native tests inspect the actual content
+and controls of the added groups, exercise category selection and clearing native List selection,
+and retain incoming/outgoing local-message metadata. No message is delivered externally.
+
+Four native reuse recipes remain concrete compositions: the host supplies native `Section` inside
+the grouped Form; `DesignOSFlatCollectionScreen` owns the native List's `Section` and receives the
+host's `ForEach`/media rows (no nested Section); existing `DesignOSStatusMessage` supplies inline
+status; and native `Text`/destructive `Button` fill the existing confirmation screen. These do not
+add duplicate package wrappers. The photo canvas and ShareLink remain explicit native boundaries.
+
+Source composition now references 42 layered APIs: 18 screen types, nine shells, four semantic
+components and 11 composites. This is a source-use count, not a claim that all reference states
+have passed native execution or visual comparison. The expanded suite has eight UI test methods, including native compact Back/options reachability.

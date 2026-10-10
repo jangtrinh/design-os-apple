@@ -14,9 +14,10 @@ struct SpecimenContent: View {
     @State private var notifications = true
     @State private var completed = false
     @State private var shell = 0
+    @State private var showFixtureMedia = true
     @FocusState private var editingTitle: Bool
 
-    private var photo: Image? { hideMedia ? nil : FixtureMedia.image }
+    private var photo: Image? { (hideMedia || !showFixtureMedia) ? nil : FixtureMedia.image }
 
     var body: some View {
         Group {
@@ -30,25 +31,42 @@ struct SpecimenContent: View {
                 } rows: {
                     ForEach(0..<4) { index in
                         DesignOSMediaRow { thumbnail } content: {
-                            Text(index == 0 ? "Community lunch" : "Neighborhood gathering \(index + 1)")
-                                .font(.headline)
-                            Text("Original sample · Saturday").foregroundStyle(.secondary)
+                            VStack(alignment: .leading, spacing: 4) {
+                                Text(index == 0 ? "Community lunch" : "Neighborhood gathering \(index + 1)")
+                                    .font(.headline)
+                                Text("Original sample · Saturday").foregroundStyle(.secondary)
+                            }
                         }
                     }
                 } status: { feedback }
             case .mediaDetail:
                 DesignOSMediaDetailScreen(media: photo) {
-                    hero
-                } identity: { identity } content: {
+                    DesignOSMediaDetailHeader {
+                        hero
+                    } identity: { EmptyView() } title: {
+                        Text("Community lunch").font(.title2).accessibilityAddTraits(.isHeader)
+                    } metadata: {
+                        Text("Saturday · Original synthetic sample")
+                            .accessibilityIdentifier("detailHeaderMetadata")
+                    } actions: { EmptyView() }
+                } identity: { EmptyView() } content: {
                     Text("An original fixture for checking long-form reading, adaptive layout and native actions. No event registration or purchase is performed.")
                     feedback
                 }
             case .mediaComposer:
                 DesignOSMediaComposerScreen(media: photo) {
-                    hero
+                    DesignOSMediaComposerHeader {
+                        hero
+                    } mediaActions: {
+                        Button(showFixtureMedia ? "Hide sample photo" : "Use sample photo") { showFixtureMedia.toggle() }
+                            .buttonStyle(DesignOSSecondaryButtonStyle())
+                            .accessibilityIdentifier("composerMediaAction")
+                    } field: { titleField } feedback: { feedback }
                 } fields: {
-                    DesignOSFieldGroup { fields }
-                } feedback: { feedback }
+                    DesignOSFieldGroup {
+                        Toggle("Send reminders", isOn: $notifications).accessibilityIdentifier("fixtureToggle")
+                    }
+                } feedback: { EmptyView() }
             case .groupedForm:
                 DesignOSGroupedFormScreen {
                     Section("Details") { fields }
@@ -79,11 +97,15 @@ struct SpecimenContent: View {
 
     private var fields: some View {
         VStack(alignment: .leading, spacing: 16) {
-            TextField("Gathering name", text: $title).textFieldStyle(.roundedBorder)
-                .focused($editingTitle).onSubmit { editingTitle = false }
-                .accessibilityIdentifier("fixtureTitle")
+            titleField
             Toggle("Send reminders", isOn: $notifications).accessibilityIdentifier("fixtureToggle")
         }.frame(maxWidth: .infinity, alignment: .leading)
+    }
+
+    private var titleField: some View {
+        TextField("Gathering name", text: $title).textFieldStyle(.roundedBorder)
+            .focused($editingTitle).onSubmit { editingTitle = false }
+            .accessibilityIdentifier("fixtureTitle")
     }
 
     private var action: some View {
@@ -131,7 +153,9 @@ struct SpecimenContent: View {
                 Text("Editorial foundations").font(.title2)
                 DesignOSAppSectionHeader("Adaptive colors and type")
                 DesignOSAppSurface { Text("Semantic surface using the shared style.") }
-                DesignOSMediaRow { thumbnail } content: { Text("Media row"); Text("Native text reflow") }
+                DesignOSMediaRow { thumbnail } content: {
+                    VStack(alignment: .leading) { Text("Media row"); Text("Native text reflow") }
+                }
                 DesignOSAvatar { Image(systemName: "person.crop.circle.fill").resizable().scaledToFit() }
                     .accessibilityLabel("Fixture identity")
                 DesignOSLabeledValueRow("Reminders", value: {

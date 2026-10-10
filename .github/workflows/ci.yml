@@ -88,6 +88,18 @@ jobs:
         env:
           DESIGN_OS_APPLE_GALLERY_RESULTS_DIR: ${{ runner.temp }}/gallery-results
         run: scripts/verify-release-candidate.sh
+      - name: Preserve formatter suggestions after failed verification
+        if: failure()
+        run: |
+          swift format format --recursive --in-place Sources Tests
+          git diff -- Sources Tests > "$RUNNER_TEMP/swift-format.patch"
+      - name: Upload formatter suggestions
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: swift-format-suggestions
+          path: ${{ runner.temp }}/swift-format.patch
+          if-no-files-found: ignore
       - name: Upload Gallery test results on failure
         if: failure()
         uses: actions/upload-artifact@v4
