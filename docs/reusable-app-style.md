@@ -9,6 +9,19 @@ The [reference study](luma-style-reference.md) records the exact Luma events col
 links, inspected light/dark/composer states, and visual limitations. Reference screenshots,
 wordmarks, event posters, and custom navigation icons are not distributed as app assets.
 
+## Discover the shared kit
+
+The [machine-readable editorial index](app-styles/editorial/manifest.json) lists the Swift
+module, preset, environment modifier, component IDs and source paths, variants, required
+states, compile-specimen reference, and native verification commands. Paths are repository-
+relative. It contains requirements only, with no copied token values or verification claims.
+Use the referenced Swift declarations and the examples below when composing another app.
+
+The [organization guide](design-system-organization.md) explains design authority and
+product ownership. The index does not change the sealed DESIGN:OS registry or admit new
+release-catalog stories. Run `python3 scripts/verify-app-style-registry.py` for structural
+drift checks; native compilation and rendered acceptance remain separate.
+
 ## Adopt once at the product boundary
 
 ```swift

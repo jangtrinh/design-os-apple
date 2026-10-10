@@ -29,12 +29,16 @@ jobs:
         with:
           node-version: '22'
       - name: Verify photo-analysis server without credentials
-        run: node --test Examples/CalorieCam/Server/server.test.mjs
+        run: |
+          node --test Examples/CalorieCam/Server/server.test.mjs
+          node scripts/test-caloriecam-sample-provenance.mjs
       - name: Verify provenance guard regressions and public quickstart parity
         run: |
           python3 scripts/test-ukmc-verifier.py
           python3 scripts/test-quickstart-parity.py
           python3 scripts/verify-quickstart-parity.py
+          python3 scripts/test-app-style-registry.py
+          python3 scripts/verify-app-style-registry.py
 
   caloriecam-native:
     runs-on: macos-26

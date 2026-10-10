@@ -1,0 +1,89 @@
+{
+  "kind": "design-os-apple.app-style-index",
+  "schemaVersion": 1,
+  "id": "editorial",
+  "module": "DesignOSApple",
+  "runtime": {
+    "source": "Sources/DesignOSApple/AppStyle/DesignOSAppStyle.swift",
+    "symbol": "DesignOSAppStyle",
+    "preset": "DesignOSAppStyle.editorial",
+    "modifier": "View.designOSAppStyle(_:)",
+    "environmentKey": "EnvironmentValues.designOSAppStyle"
+  },
+  "documentation": {
+    "usage": "docs/reusable-app-style.md",
+    "organization": "docs/design-system-organization.md",
+    "reference": "docs/luma-style-reference.md"
+  },
+  "components": [
+    {
+      "id": "media-row",
+      "symbol": "DesignOSMediaRow",
+      "source": "Sources/DesignOSApple/Components/DesignOSMediaRow.swift",
+      "kind": "content-layout",
+      "variants": ["default"],
+      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "long-content"]
+    },
+    {
+      "id": "section-header",
+      "symbol": "DesignOSAppSectionHeader",
+      "source": "Sources/DesignOSApple/Components/DesignOSAppSectionHeader.swift",
+      "kind": "content-layout",
+      "variants": ["heading-only", "with-accessory"],
+      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "long-content"]
+    },
+    {
+      "id": "surface",
+      "symbol": "DesignOSAppSurface",
+      "source": "Sources/DesignOSApple/Components/DesignOSAppSurface.swift",
+      "kind": "content-surface",
+      "variants": ["standard", "subtle"],
+      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "long-content"]
+    },
+    {
+      "id": "primary-button-style",
+      "symbol": "DesignOSPrimaryButtonStyle",
+      "source": "Sources/DesignOSApple/Components/DesignOSPrimaryButtonStyle.swift",
+      "kind": "native-button-style",
+      "variants": ["primary"],
+      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "enabled", "pressed", "disabled", "keyboard-focus", "pointer-hover", "multiline-label"]
+    },
+    {
+      "id": "media-backdrop",
+      "symbol": "DesignOSMediaBackdrop",
+      "source": "Sources/DesignOSApple/Components/DesignOSMediaBackdrop.swift",
+      "kind": "decorative-background",
+      "variants": ["image-derived", "opaque-fallback"],
+      "requiredStates": ["light", "dark", "increased-contrast", "photo", "no-photo", "reduce-transparency", "opaque-only-policy", "reduce-motion"]
+    }
+  ],
+  "verification": {
+    "semantics": "requirements-only",
+    "compileSpecimen": {
+      "source": "Tests/DesignOSAppleTests/AppStyle/DesignOSAppStyleTests.swift",
+      "symbol": "appStyleCompositionsCompile"
+    },
+    "sourceTests": [
+      "Tests/DesignOSAppleTests/AppStyle/DesignOSAppStyleTests.swift",
+      "Tests/DesignOSAppleTests/AppStyle/DesignOSAdaptiveColorPlatformTests.swift"
+    ],
+    "nativeCommands": [
+      "scripts/verify-swift-package.sh",
+      "scripts/verify-caloriecam.sh"
+    ],
+    "requiredTiers": [
+      "deterministic",
+      "native-render",
+      "structural-accessibility",
+      "live-accessibility-and-hardware",
+      "independent-review",
+      "owner-acceptance"
+    ]
+  },
+  "boundaries": {
+    "runtimeAuthority": "swift-source",
+    "releaseCatalogAdmission": false,
+    "sealedRegistryMembership": false,
+    "productStateOwner": "consumer"
+  }
+}
