@@ -1,0 +1,83 @@
+name: CalorieCam
+options:
+  minimumXcodeGenVersion: 2.45.4
+  bundleIdPrefix: com.designos.examples
+  deploymentTarget:
+    iOS: '17.0'
+    macOS: '14.0'
+packages:
+  DesignOSApple:
+    path: ../..
+  CalorieCamCore:
+    path: Core
+settings:
+  base:
+    SWIFT_VERSION: '6.0'
+    GENERATE_INFOPLIST_FILE: YES
+    MARKETING_VERSION: '1.0'
+    CURRENT_PROJECT_VERSION: '1'
+targetTemplates:
+  App:
+    type: application
+    sources: [App]
+    dependencies:
+      - package: DesignOSApple
+      - package: CalorieCamCore
+    settings:
+      base:
+        PRODUCT_NAME: CalorieCam
+        INFOPLIST_KEY_CFBundleDisplayName: CalorieCam
+  UITests:
+    type: bundle.ui-testing
+    sources: [UITests]
+targets:
+  CalorieCam-iOS:
+    templates: [App]
+    platform: iOS
+    info:
+      path: Generated/iOS-Info.plist
+      properties:
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+    settings:
+      base:
+        TARGETED_DEVICE_FAMILY: '1,2'
+        INFOPLIST_KEY_NSCameraUsageDescription: Take a meal photo for review. Uploads happen only when you choose and confirm AI estimation.
+        INFOPLIST_KEY_UILaunchScreen_Generation: YES
+        INFOPLIST_KEY_UIApplicationSceneManifest_Generation: YES
+  CalorieCam-macOS:
+    templates: [App]
+    platform: macOS
+    info:
+      path: Generated/macOS-Info.plist
+      properties:
+        NSAppTransportSecurity:
+          NSAllowsLocalNetworking: true
+    settings:
+      base:
+        ENABLE_APP_SANDBOX: YES
+        ENABLE_OUTGOING_NETWORK_CONNECTIONS: YES
+        ENABLE_USER_SELECTED_FILES: readonly
+  CalorieCam-iOS-UITests:
+    templates: [UITests]
+    platform: iOS
+    dependencies:
+      - target: CalorieCam-iOS
+  CalorieCam-macOS-UITests:
+    templates: [UITests]
+    platform: macOS
+    dependencies:
+      - target: CalorieCam-macOS
+schemes:
+  CalorieCam-iOS:
+    build:
+      targets:
+        CalorieCam-iOS: all
+    test:
+      targets: [CalorieCam-iOS-UITests]
+  CalorieCam-macOS:
+    build:
+      targets:
+        CalorieCam-macOS: all
+    test:
+      targets: [CalorieCam-macOS-UITests]

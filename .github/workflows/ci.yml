@@ -14,6 +14,51 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  portable-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify photo-analysis server without credentials
+        run: node --test Examples/CalorieCam/Server/server.test.mjs
+      - name: Verify provenance guard regressions and public quickstart parity
+        run: |
+          python3 scripts/test-ukmc-verifier.py
+          python3 scripts/test-quickstart-parity.py
+          python3 scripts/verify-quickstart-parity.py
+
+  caloriecam-native:
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Verify CalorieCam core and native UI flows
+        env:
+          CALORIECAM_RESULTS_DIR: ${{ runner.temp }}/caloriecam-results
+        run: scripts/verify-caloriecam.sh
+      - name: Preserve CalorieCam test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: caloriecam-test-results
+          path: |
+            ${{ runner.temp }}/caloriecam-results/*.xcresult
+            ${{ runner.temp }}/caloriecam-results/selected-simulators.txt
+            ${{ runner.temp }}/caloriecam-results/toolchain.txt
+          if-no-files-found: ignore
+
   release-candidate:
     runs-on: macos-26
     timeout-minutes: 45
