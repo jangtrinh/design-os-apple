@@ -152,6 +152,38 @@ func ambientBackdropBoundsWorstCaseContrast() {
     brightestBackground) >= 4.5)
 }
 
+@Test("Ambient content groups fall back to opaque surfaces for accessibility preferences")
+func ambientGroupsHonorAccessibilityPreferences() {
+  for dark in [false, true] {
+    for reduced in [false, true] {
+      for increased in [false, true] {
+        for allowed in [false, true] {
+          #expect(
+            DesignOSAppSurfacePolicy.usesAmbientFill(
+              dark: dark, reduceTransparency: reduced,
+              increasedContrast: increased, allowsTranslucency: allowed
+            ) == (dark && !reduced && !increased && allowed)
+          )
+        }
+      }
+    }
+  }
+}
+
+@Test("Ambient content groups preserve metadata contrast over the brightest backdrop")
+func ambientGroupsBoundWorstCaseTextContrast() {
+  let backdropIntensity = DesignOSMediaBackdropPolicy.imageOpacity
+    * (1 - DesignOSMediaBackdropPolicy.scrimOpacity)
+  let groupOpacity = DesignOSAppSurfacePolicy.ambientFillOpacity
+  let compositeIntensity = backdropIntensity * (1 - groupOpacity) + groupOpacity
+  let channel = UInt32(ceil(compositeIntensity * 255))
+  let brightestBackground = (channel << 16) | (channel << 8) | channel
+  #expect(
+    contrastRatio(DesignOSAppStyle.editorial.palette.secondaryInk.darkRGB,
+      brightestBackground) >= 4.5
+  )
+}
+
 @Test("Primary button hover and pressed feedback never changes disabled appearance")
 func primaryButtonFeedbackHonorsDisabledState() {
   #expect(DesignOSPrimaryButtonAppearance.highlightOpacity(
@@ -188,6 +220,71 @@ func primaryButtonInteractionStatesRetainContrast() {
   }
 }
 
+@Test("Primary and secondary content buttons preserve destructive and disabled cues")
+func contentButtonStylesPreserveSemanticCues() {
+  let palette = DesignOSAppStyle.editorial.palette
+  #expect(
+    DesignOSPrimaryButtonAppearance.background(
+      palette: palette, prominence: .primary, isEnabled: true, isDestructive: true
+    ) == DesignOSPrimaryButtonAppearance.destructiveInk
+  )
+  #expect(
+    DesignOSPrimaryButtonAppearance.foreground(
+      palette: palette, prominence: .secondary, isEnabled: true, isDestructive: true
+    ) == DesignOSPrimaryButtonAppearance.destructiveInk
+  )
+  for prominence in [DesignOSActionButtonProminence.primary, .secondary] {
+    for destructive in [false, true] {
+      #expect(
+        DesignOSPrimaryButtonAppearance.foreground(
+          palette: palette, prominence: prominence, isEnabled: false,
+          isDestructive: destructive
+        ) == palette.secondaryInk
+      )
+      #expect(
+        DesignOSPrimaryButtonAppearance.background(
+          palette: palette, prominence: prominence, isEnabled: false,
+          isDestructive: destructive
+        ) == palette.subtleSurface
+      )
+    }
+  }
+}
+
+@Test("Both pill styles retain readable labels across roles, appearances, and interaction states")
+func contentButtonStylesMeetContrastAcrossStates() {
+  let palette = DesignOSAppStyle.editorial.palette
+  for prominence in [DesignOSActionButtonProminence.primary, .secondary] {
+    for destructive in [false, true] {
+      for enabled in [false, true] {
+        let foreground = DesignOSPrimaryButtonAppearance.foreground(
+          palette: palette, prominence: prominence, isEnabled: enabled,
+          isDestructive: destructive
+        )
+        let background = DesignOSPrimaryButtonAppearance.background(
+          palette: palette, prominence: prominence, isEnabled: enabled,
+          isDestructive: destructive
+        )
+        for dark in [false, true] {
+          for increased in [false, true] {
+            let ink = foreground.resolvedRGB(dark: dark, increasedContrast: increased)
+            let fill = background.resolvedRGB(dark: dark, increasedContrast: increased)
+            for opacity in enabled ? [0.0, 0.06, 0.12] : [0.0] {
+              var blended: UInt32 = 0
+              for shift in [16, 8, 0] {
+                let top = Double((ink >> shift) & 0xFF)
+                let bottom = Double((fill >> shift) & 0xFF)
+                blended |= UInt32((top * opacity + bottom * (1 - opacity)).rounded()) << shift
+              }
+              #expect(contrastRatio(ink, blended) >= 4.5)
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
 @Test("App-style components retain caller-owned views and native buttons")
 @MainActor
 func appStyleCompositionsCompile() {
@@ -200,13 +297,17 @@ func appStyleCompositionsCompile() {
     Button("See all") {}
   }
   let surface = DesignOSAppSurface { Text("Details") }
+  let ambient = DesignOSAppSurface(tone: .ambient) { Text("Media details") }
   let action = Button("Continue") {}.buttonStyle(DesignOSPrimaryButtonStyle())
+  let secondary = Button("Choose another") {}.buttonStyle(DesignOSSecondaryButtonStyle())
   let backdrop = DesignOSMediaBackdrop { Color.gray }
   let composed = VStack {
     header
     row
     surface
+    ambient
     action
+    secondary
   }
   .background { backdrop }
   .designOSAppStyle(.editorial)

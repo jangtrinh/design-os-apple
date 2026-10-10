@@ -21,7 +21,7 @@ TIERS = {
 STATES = {
     "light", "dark", "increased-contrast", "accessibility-dynamic-type", "long-content",
     "enabled", "pressed", "disabled", "keyboard-focus", "pointer-hover", "multiline-label",
-    "photo", "no-photo", "reduce-transparency", "opaque-only-policy", "reduce-motion",
+    "photo", "no-photo", "reduce-transparency", "opaque-only-policy", "reduce-motion", "destructive",
 }
 KINDS = {"content-layout", "content-surface", "native-button-style", "decorative-background"}
 KIND_STATES = {
@@ -98,6 +98,34 @@ def public_symbol(source, symbol, context):
     require(re.search(r"\bpublic\s+(?:struct|enum|class|protocol)\s+" + re.escape(symbol)
                       + r"\b", source) is not None,
             f"{context}: public Swift declaration not found")
+
+
+def app_style_inventory(root):
+    """Find direct consumers and source-backed delegates to their top-level types.
+
+    This lexical graph handles a public ButtonStyle delegating to shared internal
+    button content. It does not infer runtime behavior or follow external modules.
+    """
+    sources, declarations, public, references = {}, {}, {}, {}
+    for path in (root / "Sources/DesignOSApple/Components").glob("*.swift"):
+        path = local_file(root, path.relative_to(root).as_posix(), "component inventory",
+                          "Sources/DesignOSApple/Components/", ".swift")
+        source = swift_text(path)
+        sources[path] = source
+        declared = re.findall(r"^(?:(public|internal|private|fileprivate)\s+)?"
+                              r"(?:struct|enum|class|protocol)\s+([A-Za-z_][A-Za-z0-9_]*)",
+                              source, flags=re.M)
+        declarations[path] = {name for _, name in declared}
+        public[path] = {name for access, name in declared if access == "public"}
+        references[path] = set(re.findall(r"\b([A-Z][A-Za-z0-9_]*)\s*(?:\(|<|\.)", source))
+    linked = {path for path, source in sources.items()
+              if re.search(r"@Environment\s*\(\s*\\\.designOSAppStyle\s*\)", source)}
+    while True:
+        linked_symbols = set().union(*(declarations[path] for path in linked))
+        expanded = linked | {path for path in sources if references[path] & linked_symbols}
+        if expanded == linked:
+            return set().union(*(public[path] for path in linked))
+        linked = expanded
 
 
 def load_json(path):
@@ -181,18 +209,13 @@ def validate(root, manifest=DEFAULT_MANIFEST):
                 f"{component_id}: appearance requirements missing")
         require(KIND_STATES[component["kind"]] <= set(states),
                 f"{component_id}: component-kind state requirements missing")
+        if "destructive" in component["variants"]:
+            require("destructive" in states, f"{component_id}: destructive variant state requirement missing")
 
     # Keep the full app-style inventory addressable without a hardcoded component
     # count or edits to the frozen release catalog. Existing non-app-style rows
     # are outside this projection. This is a lexical coverage check, not reflection.
-    discovered = set()
-    for path in (root / "Sources/DesignOSApple/Components").glob("*.swift"):
-        path = local_file(root, path.relative_to(root).as_posix(), "component inventory",
-                          "Sources/DesignOSApple/Components/", ".swift")
-        source_text = swift_text(path)
-        if re.search(r"@Environment\s*\(\s*\\\.designOSAppStyle\s*\)", source_text):
-            discovered.update(re.findall(r"^public\s+(?:struct|enum|class|protocol)\s+"
-                                         r"([A-Za-z_][A-Za-z0-9_]*)", source_text, flags=re.M))
+    discovered = app_style_inventory(root)
     require(symbols == discovered, "components: incomplete or extra app-style inventory")
 
     verification = data["verification"]

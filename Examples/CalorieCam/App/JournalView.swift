@@ -43,6 +43,7 @@ struct JournalView: View {
                     Section("Journal unavailable") {
                         Text(failure)
                         Button("Try opening again") { model.reload() }
+                            .buttonStyle(DesignOSSecondaryButtonStyle())
                     }
                 } else if meals.isEmpty {
                     ContentUnavailableView {
@@ -60,6 +61,7 @@ struct JournalView: View {
                             NavigationLink(value: meal.id) {
                                 MealRow(meal: meal)
                             }
+                            .accessibilityIdentifier("savedMeal-\(meal.id.uuidString)")
                             .listRowInsets(EdgeInsets(top: 0, leading: style.metrics.pageInset, bottom: 0, trailing: style.metrics.pageInset))
                             .listRowSeparatorTint(style.palette.separator.color)
                             .alignmentGuide(.listRowSeparatorLeading) { _ in
@@ -89,49 +91,7 @@ struct JournalView: View {
             }
         } detail: {
             if let meal = selected {
-                List {
-                    if meal.origin == .demo {
-                        Section {
-                            VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
-                                Image("DemoMeal").resizable().scaledToFit()
-                                    .frame(maxWidth: .infinity, maxHeight: 320)
-                                    .clipShape(RoundedRectangle(cornerRadius: style.metrics.surfaceRadius))
-                                    .accessibilityLabel("Sample meal illustration")
-                                Text("Sample illustration · original photo not stored")
-                                    .font(.caption)
-                                    .foregroundStyle(style.palette.secondaryInk.color)
-                            }
-                        }
-                        .listRowSeparator(.hidden)
-                    }
-                    Section {
-                        Text(meal.origin.label).foregroundStyle(DesignOSColorRole.labelSecondary.color)
-                        Text(meal.date, format: .dateTime.month().day().hour().minute())
-                        LabeledContent("Total", value: "\(meal.totalCalories.formatted(.number.precision(.fractionLength(0)))) kcal")
-                    }
-                    Section("Foods") {
-                        ForEach(meal.items) { food in
-                            LabeledContent {
-                                Text("\(food.calories.formatted(.number.precision(.fractionLength(0)))) kcal")
-                                    .accessibilityIdentifier("mealDetailCalories")
-                            } label: {
-                                Text(food.name)
-                                    .accessibilityIdentifier("mealDetailFoodName")
-                                Text(food.portion).foregroundStyle(.secondary)
-                                    .accessibilityIdentifier("mealDetailPortion")
-                            }
-                        }
-                    }
-                    if !meal.note.isEmpty { Section("Note") { Text(meal.note) } }
-                    Section {
-                        Button("Delete meal", role: .destructive) { deletion = meal }
-                            .frame(minHeight: 44)
-                    }
-                }
-                .listStyle(.plain)
-                .scrollContentBackground(.hidden)
-                .background(style.palette.canvas.color)
-                .navigationTitle("Meal details")
+                MealDetailView(meal: meal) { deletion = meal }
             } else {
                 ContentUnavailableView("Your meal journal", systemImage: "book.closed", description: Text("Select a meal to see its foods and portions."))
             }
@@ -159,8 +119,12 @@ private struct MealRow: View {
     var body: some View {
         DesignOSMediaRow {
             if meal.origin == .demo {
-                Image("DemoMeal").resizable().scaledToFill()
-                    .accessibilityLabel("Sample meal illustration")
+                if let image = DemoMealAsset.image {
+                    image.resizable().scaledToFill()
+                        .accessibilityLabel("Sample meal illustration")
+                } else {
+                    Text("Sample image unavailable").font(.caption)
+                }
             } else {
                 // Real photos are not persisted. Text-only records get an honest symbol.
                 ZStack {
@@ -188,6 +152,7 @@ private struct MealRow: View {
             }
         }
         .padding(.vertical, style.metrics.itemSpacing)
-        .accessibilityElement(children: .combine)
+        .accessibilityElement(children: .ignore)
+        .accessibilityLabel("\(meal.items.map(\.name).joined(separator: ", ")), \(meal.date.formatted(date: .abbreviated, time: .shortened)), \(meal.totalCalories.formatted(.number.precision(.fractionLength(0)))) kcal, \(meal.origin.label)")
     }
 }

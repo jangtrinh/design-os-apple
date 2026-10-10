@@ -10,6 +10,7 @@ public struct DesignOSAppMetrics: Hashable, Sendable {
   public let actionMinHeight: CGFloat
   public let mediaSize: CGFloat
   public let mediaRadius: CGFloat
+  /// Legacy reference geometry retained for source compatibility; pill button styles ignore it.
   public let actionRadius: CGFloat
 
   /// Creates finite nonnegative metrics. Opt-in primary actions retain a 44-point minimum.

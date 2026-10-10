@@ -88,21 +88,70 @@ caller-owned accessory. Media rows and headings switch to vertical composition a
 Dynamic Type sizes. Labels are not constrained to a fixed line count.
 
 `DesignOSAppSurface(tone: .standard)` and `.subtle` are opaque content groupings, with profile
-padding and a continuous rounded background. Use them sparingly for meaningful groups. The
+padding and a continuous rounded background. `.ambient` gives dark media forms a restrained
+10% white lift, with an opaque fallback in light appearance or when Reduce Transparency,
+Increase Contrast, or the profile's opaque-only policy applies. Host real native fields inside
+these groups when a native scrolling content layout is appropriate. Use them sparingly for
+meaningful groups. The
 reference diary is a flat feed; wrapping each row in a card loses its visual structure. Do not
-nest surfaces or use them as replacements for native `List`, `Form`, sheets, or toolbar materials.
+nest surfaces. These groups add appearance only; they do not implement scrolling, selection,
+focus, validation, or input behavior. Compose them with a native `ScrollView` and real fields
+when appropriate, or keep native `List`/`Form` composition where its behavior is needed. Sheets
+and toolbar materials remain native.
 
-`DesignOSPrimaryButtonStyle()` changes the appearance of an actual `Button`. It retains native
-activation, accessibility, keyboard interaction, and caller-owned disabled state. It provides a
-54-point minimum height, 12-point rounded corners, multiline Dynamic Type labels, visible
-keyboard-focus outline, and distinct pressed/hover/disabled appearances. It adds no animation.
-Keep native styles for toolbar, menu, and destructive actions.
+`DesignOSPrimaryButtonStyle()` and `DesignOSSecondaryButtonStyle()` style actual `Button`s as
+full continuous capsules. This follows the user's later full-pill direction, overriding the
+reference's inferred 12-point rectangular action corners. Capsule geometry follows the actual
+height, including multiline Dynamic Type labels; there is no fixed radius that can stop being
+a pill. The legacy `metrics.actionRadius` remains source-compatible but has no effect on these
+styles.
+
+Both styles retain native activation, accessibility, keyboard interaction, and caller-owned
+disabled state. They share a 54-point minimum height, visible keyboard-focus outline, and
+distinct pressed/hover/disabled appearances, with no added animation. Secondary actions use a
+quiet adaptive fill. A destructive `Button` keeps its native role and a readable red cue: a red
+primary fill or red secondary label. The accessible danger pair (`#B42318` / `#FFB4AB`, with
+stronger increased-contrast variants) is a semantic safety choice, not a measured Luma token.
+System alerts and menus keep their native presentation and behavior.
 
 ```swift
 Button("Continue", action: continueAction)
   .buttonStyle(DesignOSPrimaryButtonStyle())
   .disabled(!canContinue)
+
+Button("Choose another", action: chooseAnother)
+  .buttonStyle(DesignOSSecondaryButtonStyle())
 ```
+
+## Continuous and nested image corners
+
+Caller-owned images and surfaces use `RoundedRectangle(..., style: .continuous)` for a smooth
+corner transition. This is our design rule; Apple does not mandate a universal radius value.
+Standalone covers and sibling thumbnails keep the appropriate semantic radius for their size.
+
+For a genuinely concentric image inside a rounded parent, derive the inner radius from the
+parent's actual edge inset, including padding and any intervening border:
+
+```swift
+let innerRadius = DesignOSCornerGeometry.innerRadius(
+  outerRadius: outerRadius,
+  inset: actualInset
+)
+
+image.resizable().scaledToFill()
+  .clipShape(RoundedRectangle(cornerRadius: innerRadius, style: .continuous))
+  .padding(actualInset)
+  .background(
+    style.palette.surface.color,
+    in: RoundedRectangle(cornerRadius: outerRadius, style: .continuous)
+  )
+```
+
+The helper applies `max(0, outerRadius - inset)`. It returns zero for negative or non-finite
+input to keep invalid geometry out of drawing. Use the same actual inset in the layout and
+the calculation. Do not subtract a screen margin from a standalone photo radius, apply this
+rule between siblings, or add an unnecessary card merely to create nesting. If per-corner
+insets differ, derive each corresponding corner separately.
 
 ## Media atmosphere
 
@@ -125,10 +174,11 @@ the inspected reference. Without a photo, use a neutral opaque surface rather th
 image recognition or unrelated ambient artwork. Native form groups can use native material over
 the backdrop with an opaque fallback for the same accessibility settings.
 
-The blur radius of 64 points, image opacity of 0.6, and canvas scrim opacity of 0.5 are
+The blur radius of 64 points, image opacity of 0.5, and canvas scrim opacity of 0.5 are
 reconstruction choices, not extracted source parameters. Together they cap a white image pixel
-at approximately `#4D4D4D` over the editorial black canvas. The preset's `#CCCCCC` metadata has
-a computed contrast ratio of 5.26:1 against that bound. There is no animated blur, so Reduce
+at approximately `#404040` over the editorial black canvas. Adding a 10% white ambient group
+raises that bound to approximately `#535353`; the preset's `#CCCCCC` metadata still has a
+computed contrast ratio of 4.79:1 against the combined bound. There is no animated blur, so Reduce
 Motion does not require a different motion path. This calculation covers the backdrop and
 preset text pair, not every material or control a consuming app may add.
 
@@ -153,9 +203,10 @@ not recovered original source tokens.
 | Media radius | 8 pt | Inferred thumbnail geometry |
 | Section spacing / content inset | 24 / 16 pt | Inferred native composition values |
 | Surface radius | 24 pt | Inferred lower end of composer groups, approximately 24–28 pt |
-| Primary action | minimum 54 pt, radius 12 pt | Inferred detail action geometry |
+| Content action | minimum 54 pt, full continuous capsule | Height inferred from reference; pill shape follows later user direction |
 | Type | native semantic styles; section uses emphasized `.title3` | System sans visual equivalent, not recovered font specification |
-| Backdrop | 64 pt blur, 0.6 image opacity, 0.5 scrim | Inferred optical recipe with a contrast bound |
+| Backdrop | 64 pt blur, 0.5 image opacity, 0.5 scrim | Inferred optical recipe with a contrast bound |
+| Ambient content group | 10% white in dark media presentation | Inferred midpoint of the observed 8–12% lift, opaque accessibility fallback |
 
 The light tertiary `#999999` source label is not offered as a default body-text role because
 it would fail 4.5:1 against white. Supporting text uses the stronger observed secondary role.
@@ -194,11 +245,14 @@ Calculated palette minima are 5.04:1 in light appearance and 9.67:1 in dark appe
 primary action pair is 18.10:1. These are color calculations, not rendered UI or VoiceOver
 acceptance results. Rendered app screenshots, device accessibility, native keyboard focus,
 and source comparisons must be checked separately by the consuming app's native test lane.
-Platform tests assert all four appearance/contrast variants against the native color provider
-used by the public SwiftUI color. They do not change system accessibility preferences. A
-SwiftUI-to-AppKit round trip cannot substitute for a rendered high-contrast check, because
-SwiftUI's contrast environment is system-owned and read-only. Public SwiftUI rendering with
-Increase Contrast remains a separate native accessibility verification requirement.
+Deterministic tests always assert all four appearance/contrast RGB variants. Native AppKit
+provider tests additionally check that the system actually supplies the requested appearance.
+On the observed macOS 26.6 CI runner, requesting high-contrast appearance names returned ordinary
+light/dark appearance objects instead. The high-contrast native test is therefore explicitly
+skipped as NOT VERIFIED when genuine fixtures are unavailable, rather than treating the name
+requested as evidence of the appearance supplied. Tests initialize `NSApplication` but never
+change system accessibility preferences. Public SwiftUI high-contrast rendering remains a
+separate native accessibility check with the real Increase Contrast system setting enabled.
 
 Web HTML gates are not applicable to this SwiftUI runtime. On an Apple toolchain, run the
 repository's `scripts/verify-swift-package.sh`, then the consuming app's native UI suite.

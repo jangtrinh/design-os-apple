@@ -70,14 +70,22 @@ The shared reusable inventory is:
 
 - `DesignOSMediaRow`: flat media-plus-label composition, with accessibility-size reflow
 - `DesignOSAppSectionHeader`: semantic heading with a caller-owned accessory
-- `DesignOSAppSurface`: opaque standard/subtle content grouping
-- `DesignOSPrimaryButtonStyle`: appearance for a real native `Button`
+- `DesignOSAppSurface`: standard/subtle opaque groups and an ambient media grouping with opaque fallbacks
+- `DesignOSPrimaryButtonStyle`: full-pill primary appearance for a real native `Button`
+- `DesignOSSecondaryButtonStyle`: quiet full-pill appearance sharing the native action implementation
 - `DesignOSMediaBackdrop`: decorative, image-derived background with opaque fallbacks
 
 The [adoption guide](reusable-app-style.md) contains complete call sites and constraints.
 CalorieCam supplies meal-specific labels, actions, photos, analysis, and persistence.
 Neither the shared kit nor its metadata should import the CalorieCam module. A new
 product should be able to use these components without copying any CalorieCam source.
+
+The shared `DesignOSCornerGeometry.innerRadius(outerRadius:inset:)` helper in `AppStyle/`
+derives a nested image's radius from its real outer radius and inset, clamped to zero.
+Use continuous corners for app-owned media; do not apply the nested-radius rule between
+unrelated siblings. Full-pill action shapes are the product's explicit direction and
+supersede the reference's rectangular action corners. These choices do not restyle
+system-owned alerts or menus.
 
 ## Native work loop
 
@@ -127,7 +135,10 @@ Describe requirements independently from their verification status:
 
 - Every style: light/dark, increased contrast, normal/accessibility Dynamic Type
 - Media rows and headings: long labels and structural reflow without lost content
-- Primary action: enabled, pressed, disabled, keyboard focus, pointer hover, multiline label
+- Primary and secondary actions: enabled, pressed, disabled, keyboard focus, pointer hover,
+  multiline label, destructive role, and a continuous full-pill shape
+- Ambient surface: photo/no photo, dark/light, Reduce Transparency, increased contrast,
+  profile `opaqueOnly`, and combined text contrast over the underlying backdrop
 - Backdrop: photo/no photo, dark/light, Reduce Transparency, increased contrast,
   profile `opaqueOnly`, and no motion-dependent information
 - Product: loading, empty, error, recovery, editing/keyboard, cancel/back, saved data,
@@ -156,11 +167,12 @@ scoped to the style ID, so `editorial/media-row` is an unambiguous discovery key
 
 The v1 contract is enforced by
 [`verify-app-style-registry.py`](../scripts/verify-app-style-registry.py). It requires the
-runtime entry points, all five currently app-style-consuming components, their usage
+runtime entry points, all six currently app-style-consuming components, their usage
 guidance and compiling specimen references, native command paths, six evidence tiers,
 and explicit non-membership in the sealed registry and release catalog. The inventory
 check discovers top-level public component declarations in source files using the style
-environment. This is a lexical drift guard, not a Swift parser or build result.
+environment, including delegates that reference their shared implementation types. This
+is a lexical drift guard, not a Swift parser or build result.
 
 ```bash
 python3 scripts/verify-app-style-registry.py

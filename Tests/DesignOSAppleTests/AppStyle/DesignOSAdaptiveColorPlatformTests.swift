@@ -41,39 +41,79 @@ import Testing
 #elseif os(macOS)
   import AppKit
 
-  @Test("App color providers preserve all supplied AppKit appearance and contrast variants")
+  @Test("App color providers and public bridge preserve native standard appearances")
   @MainActor
   func applicationColorsResolveAppKitAppearance() throws {
+    try expectAppKitVariant(.aqua, dark: false, increased: false)
+    try expectAppKitVariant(.darkAqua, dark: true, increased: false)
+  }
+
+  @Test(
+    "App color providers preserve genuine native high-contrast appearances",
+    .enabled(
+      "NOT VERIFIED: high-contrast appearance fixtures require the system accessibility setting"
+    ) {
+      await MainActor.run {
+        appKitCanConstructAppearances([
+          .accessibilityHighContrastAqua, .accessibilityHighContrastDarkAqua,
+        ])
+      }
+    }
+  )
+  @MainActor
+  func applicationColorsResolveAppKitHighContrastAppearance() throws {
+    try expectAppKitVariant(.accessibilityHighContrastAqua, dark: false, increased: true)
+    try expectAppKitVariant(.accessibilityHighContrastDarkAqua, dark: true, increased: true)
+  }
+
+  @MainActor
+  private func appKitCanConstructAppearances(_ names: [NSAppearance.Name]) -> Bool {
+    // Construct a real app context, but never change the user's accessibility preferences.
+    _ = NSApplication.shared
+    return names.allSatisfy { name in
+      guard let appearance = NSAppearance(named: name) else { return false }
+      let match = appearance.bestMatch(from: appKitAppearanceNames)
+      let available = appearance.name == name && match == name
+      if !available {
+        print(
+          "AppKit appearance fixture unavailable: requested=\(name.rawValue), "
+            + "actual=\(appearance.name.rawValue), bestMatch=\(match?.rawValue ?? "nil")"
+        )
+      }
+      return available
+    }
+  }
+
+  private let appKitAppearanceNames: [NSAppearance.Name] = [
+    .accessibilityHighContrastDarkAqua, .accessibilityHighContrastAqua,
+    .darkAqua, .aqua,
+  ]
+
+  @MainActor
+  private func expectAppKitVariant(
+    _ name: NSAppearance.Name,
+    dark: Bool,
+    increased: Bool
+  ) throws {
     let adaptive = try DesignOSAdaptiveColor(
       lightRGB: 0x16_1616, darkRGB: 0xCC_CCCC,
       increasedContrastLightRGB: 0x00_0000, increasedContrastDarkRGB: 0xFF_FFFF
     )
-    let appearances: [(NSAppearance.Name, Bool, Bool)] = [
-      (.aqua, false, false), (.darkAqua, true, false),
-      (.accessibilityHighContrastAqua, false, true),
-      (.accessibilityHighContrastDarkAqua, true, true),
-    ]
-    for (name, dark, increased) in appearances {
-      let appearance = try #require(NSAppearance(named: name))
-      let match = appearance.bestMatch(from: [
-        .accessibilityHighContrastDarkAqua, .accessibilityHighContrastAqua,
-        .darkAqua, .aqua,
-      ])
-      let context = "name=\(name.rawValue), dark=\(dark), increased=\(increased), "
-        + "bestMatch=\(match?.rawValue ?? "nil")"
-      #expect(match == name, "\(context)")
-      appearance.performAsCurrentDrawingAppearance {
-        let expected = adaptive.resolvedRGB(dark: dark, increasedContrast: increased)
-        expectAppKitColor(adaptive.nativeColor, rgb: expected, context: "provider: \(context)")
-        if !increased {
-          // A Color -> NSColor round trip resolves SwiftUI's system-owned contrast value;
-          // an AppKit drawing scope cannot override that read-only SwiftUI environment.
-          // Test all four exact variants at the production provider seam above, and retain
-          // public bridge coverage where drawing and SwiftUI environments agree.
-          expectAppKitColor(
-            NSColor(adaptive.color), rgb: expected, context: "public bridge: \(context)"
-          )
-        }
+    let appearance = try #require(NSAppearance(named: name))
+    let match = appearance.bestMatch(from: appKitAppearanceNames)
+    let context = "requested=\(name.rawValue), actual=\(appearance.name.rawValue), "
+      + "dark=\(dark), increased=\(increased), bestMatch=\(match?.rawValue ?? "nil")"
+    #expect(appearance.name == name, "\(context)")
+    #expect(match == name, "\(context)")
+    appearance.performAsCurrentDrawingAppearance {
+      let expected = adaptive.resolvedRGB(dark: dark, increasedContrast: increased)
+      expectAppKitColor(adaptive.nativeColor, rgb: expected, context: "provider: \(context)")
+      if !increased {
+        // Standard public bridge coverage. High-contrast SwiftUI rendering additionally
+        // requires the real system accessibility setting and a native rendering check.
+        expectAppKitColor(
+          NSColor(adaptive.color), rgb: expected, context: "public bridge: \(context)"
+        )
       }
     }
   }

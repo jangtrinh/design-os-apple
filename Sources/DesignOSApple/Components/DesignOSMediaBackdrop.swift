@@ -45,9 +45,10 @@ public struct DesignOSMediaBackdrop<Media: View>: View {
 
 internal enum DesignOSMediaBackdropPolicy {
   // Optical reconstruction values, not claimed source tokens. The two opacity stages limit
-  // a white source pixel to 30% sRGB channel intensity over the editorial black canvas.
+  // a white source pixel to 25% sRGB channel intensity over the editorial black canvas.
+  // This also preserves metadata contrast when a 10% white ambient group is overlaid.
   static let blurRadius: CGFloat = 64
-  static let imageOpacity = 0.6
+  static let imageOpacity = 0.5
   static let scrimOpacity = 0.5
 
   static func showsMedia(

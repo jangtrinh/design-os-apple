@@ -20,15 +20,30 @@ final class CalorieCamUITests: XCTestCase {
         add(attachment)
     }
 
-    /// A native NavigationLink is exposed as a Button in the macOS outline, while
-    /// the iOS combined row exposes its text. Assert the actual platform semantics.
+    /// The row owns a concise VoiceOver summary and stable identity, while its
+    /// concrete native accessibility element type may differ between destinations.
     private func savedMeal(named name: String, in app: XCUIApplication) -> XCUIElement {
-        let matchingName = NSPredicate(format: "label CONTAINS %@", name)
-        #if os(macOS)
-        return app.windows.buttons.containing(matchingName).firstMatch
-        #else
-        return app.staticTexts.containing(matchingName).firstMatch
+        app.descendants(matching: .any).matching(
+            NSPredicate(format: "identifier BEGINSWITH %@ AND label CONTAINS %@", "savedMeal-", name)
+        ).firstMatch
+    }
+
+    private func finishKeyboardEditing(in app: XCUIApplication) -> Bool {
+        #if os(iOS)
+        guard app.keyboards.firstMatch.exists else { return true }
+        let done = app.buttons["finishFoodEditing"]
+        guard done.waitForExistence(timeout: 5) else {
+            XCTFail("Expected the native keyboard Done action.")
+            return false
+        }
+        done.tap()
+        let closed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: app.keyboards.firstMatch)
+        guard XCTWaiter.wait(for: [closed], timeout: 5) == .completed else {
+            XCTFail("Done did not dismiss the editing keyboard.")
+            return false
+        }
         #endif
+        return true
     }
 
     /// The photo-led capture screen scrolls on smaller windows; let the native
@@ -76,17 +91,25 @@ final class CalorieCamUITests: XCTestCase {
         XCTAssertTrue(name.waitForExistence(timeout: 5))
         name.tap()
         name.typeText("Test apple")
+        guard finishKeyboardEditing(in: app) else { return }
         let portion = app.textFields["foodPortion"]
         portion.tap()
         portion.typeText("1 medium")
+        guard finishKeyboardEditing(in: app) else { return }
         let calories = app.textFields["foodCalories"]
         #if os(macOS)
         calories.tap()
         app.typeKey("a", modifierFlags: .command)
         #else
-        // The initial value is one numeric token. Double-tap selects it instead of
-        // assuming where a single tap placed the insertion cursor.
-        calories.doubleTap()
+        // Use the visible native keyboard action instead of assuming a caret or
+        // selection position; double-tap selection varies on iPad.
+        calories.tap()
+        let clear = app.buttons["clearCalories"]
+        guard clear.waitForExistence(timeout: 5) else {
+            XCTFail("The calorie field did not acquire focus and show its Clear action.")
+            return
+        }
+        clear.tap()
         #endif
         calories.typeText("95")
         guard calories.value as? String == "95" else {
@@ -95,17 +118,7 @@ final class CalorieCamUITests: XCTestCase {
         }
         let save = app.buttons["saveMeal"]
         #if os(iOS)
-        let done = app.buttons["finishFoodEditing"]
-        guard done.waitForExistence(timeout: 5) else {
-            XCTFail("Expected the native keyboard Done action.")
-            return
-        }
-        done.tap()
-        let keyboardClosed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: app.keyboards.firstMatch)
-        guard XCTWaiter.wait(for: [keyboardClosed], timeout: 5) == .completed else {
-            XCTFail("Done did not dismiss the editing keyboard.")
-            return
-        }
+        guard finishKeyboardEditing(in: app) else { return }
         let form = app.descendants(matching: .any).matching(identifier: "mealReviewForm").firstMatch
         for _ in 0..<3 {
             if app.staticTexts["Manually entered"].isHittable { break }
@@ -168,10 +181,15 @@ final class CalorieCamUITests: XCTestCase {
         let app = launch()
         app.buttons["addMeal"].tap()
         guard tapCaptureAction("enterManually", in: app) else { return }
+        guard app.buttons["saveMeal"].waitForExistence(timeout: 5) else {
+            XCTFail("Expected review Save before checking blank-meal validation.")
+            return
+        }
         XCTAssertFalse(app.buttons["saveMeal"].isEnabled)
         let portion = app.textFields["foodPortion"]
         portion.tap()
         portion.typeText("Unsaved portion")
+        guard finishKeyboardEditing(in: app) else { return }
         let cancel = app.buttons["cancelMeal"]
         cancel.tap()
         #if os(macOS)
@@ -247,9 +265,11 @@ final class CalorieCamUITests: XCTestCase {
         }
         name.tap()
         name.typeText("Test food")
+        guard finishKeyboardEditing(in: app) else { return }
         let portion = app.textFields["foodPortion"]
         portion.tap()
         portion.typeText("1 serving")
+        guard finishKeyboardEditing(in: app) else { return }
         let save = app.buttons["saveMeal"]
         let valid = XCTNSPredicateExpectation(predicate: NSPredicate(format: "enabled == true"), object: save)
         guard XCTWaiter.wait(for: [valid], timeout: 5) == .completed else {
@@ -307,6 +327,13 @@ final class CalorieCamUITests: XCTestCase {
             return
         }
         attachScreenshot("10-sample-diary", of: app)
+        sampleRow.tap()
+        guard app.images["sampleDetailImage"].waitForExistence(timeout: 5),
+              app.staticTexts["Sample illustration · original photo not stored"].exists else {
+            XCTFail("Sample detail must show the actual decoded illustration and its privacy caption.")
+            return
+        }
+        attachScreenshot("11-sample-detail", of: app)
     }
 
 }

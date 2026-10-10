@@ -37,16 +37,24 @@
       "symbol": "DesignOSAppSurface",
       "source": "Sources/DesignOSApple/Components/DesignOSAppSurface.swift",
       "kind": "content-surface",
-      "variants": ["standard", "subtle"],
-      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "long-content"]
+      "variants": ["standard", "subtle", "ambient"],
+      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "long-content", "photo", "no-photo", "reduce-transparency", "opaque-only-policy", "reduce-motion"]
     },
     {
       "id": "primary-button-style",
       "symbol": "DesignOSPrimaryButtonStyle",
       "source": "Sources/DesignOSApple/Components/DesignOSPrimaryButtonStyle.swift",
       "kind": "native-button-style",
-      "variants": ["primary"],
-      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "enabled", "pressed", "disabled", "keyboard-focus", "pointer-hover", "multiline-label"]
+      "variants": ["primary", "destructive"],
+      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "enabled", "pressed", "disabled", "keyboard-focus", "pointer-hover", "multiline-label", "destructive"]
+    },
+    {
+      "id": "secondary-button-style",
+      "symbol": "DesignOSSecondaryButtonStyle",
+      "source": "Sources/DesignOSApple/Components/DesignOSSecondaryButtonStyle.swift",
+      "kind": "native-button-style",
+      "variants": ["secondary", "destructive"],
+      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "enabled", "pressed", "disabled", "keyboard-focus", "pointer-hover", "multiline-label", "destructive"]
     },
     {
       "id": "media-backdrop",
@@ -65,7 +73,8 @@
     },
     "sourceTests": [
       "Tests/DesignOSAppleTests/AppStyle/DesignOSAppStyleTests.swift",
-      "Tests/DesignOSAppleTests/AppStyle/DesignOSAdaptiveColorPlatformTests.swift"
+      "Tests/DesignOSAppleTests/AppStyle/DesignOSAdaptiveColorPlatformTests.swift",
+      "Tests/DesignOSAppleTests/AppStyle/DesignOSCornerGeometryTests.swift"
     ],
     "nativeCommands": [
       "scripts/verify-swift-package.sh",

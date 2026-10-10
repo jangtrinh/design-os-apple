@@ -123,10 +123,7 @@ struct CaptureMealView: View {
                     .foregroundStyle(style.palette.secondaryInk.color)
 
                 if let preview {
-                    preview.resizable().scaledToFit()
-                        .frame(maxWidth: .infinity, maxHeight: 280)
-                        .clipShape(RoundedRectangle(cornerRadius: style.metrics.surfaceRadius))
-                        .accessibilityLabel("Selected meal photo, for your reference only")
+                    MealPhotoCover(image: preview, label: "Selected meal photo, for your reference only")
                 } else {
                     DesignOSAppSurface(tone: .subtle) {
                         VStack(spacing: style.metrics.itemSpacing) {
@@ -156,16 +153,18 @@ struct CaptureMealView: View {
                         Label(imageData == nil ? "Choose photo" : "Replace photo", systemImage: "photo")
                             .frame(maxWidth: .infinity, minHeight: 44)
                     }
-                    .buttonStyle(.bordered)
+                    .buttonStyle(DesignOSSecondaryButtonStyle())
                     .disabled(busy)
                     Button { importing = true } label: {
                         Label("Import image file", systemImage: "folder")
                             .frame(maxWidth: .infinity, minHeight: 44)
                     }
+                    .buttonStyle(DesignOSSecondaryButtonStyle())
                     .disabled(busy)
                     if imageData != nil {
                         Button("Remove photo", role: .destructive) { imageData = nil; preview = nil }
-                            .frame(minHeight: 44).disabled(busy)
+                            .buttonStyle(DesignOSSecondaryButtonStyle())
+                            .disabled(busy)
                     }
                 }
 
@@ -191,16 +190,19 @@ struct CaptureMealView: View {
                     }
                     .frame(maxWidth: .infinity, minHeight: 44)
                     .disabled(busy)
+                    .buttonStyle(DesignOSSecondaryButtonStyle())
                     .accessibilityIdentifier("enterManually")
                     if imageData != nil {
                         Button("Try demo estimate") { prepareDemo() }
                             .frame(maxWidth: .infinity, minHeight: 44)
                             .disabled(busy)
+                            .buttonStyle(DesignOSSecondaryButtonStyle())
                             .accessibilityIdentifier("demoEstimate")
                     } else {
                         Button("Try sample meal") { prepareSample() }
                             .frame(maxWidth: .infinity, minHeight: 44)
                             .disabled(busy)
+                            .buttonStyle(DesignOSSecondaryButtonStyle())
                             .accessibilityIdentifier("trySampleMeal")
                     }
                 }
@@ -228,10 +230,8 @@ struct CaptureMealView: View {
 
     private func prepareSample() {
         do {
-            guard let url = Bundle.main.url(forResource: "DemoMeal", withExtension: "png") else {
-                throw PhotoError.sampleUnavailable
-            }
-            try accept(Data(contentsOf: url))
+            guard let data = DemoMealAsset.data else { throw PhotoError.sampleUnavailable }
+            try accept(data)
             prepareDemo()
         } catch { self.error = error.localizedDescription }
     }

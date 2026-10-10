@@ -7,6 +7,15 @@ import SwiftUI
 private struct AppStyleColorDiagnostic {
   @MainActor
   static func main() throws {
+    print("Before NSApplication.shared initialization")
+    try diagnose()
+    _ = NSApplication.shared
+    print("\nAfter NSApplication.shared initialization")
+    try diagnose()
+  }
+
+  @MainActor
+  private static func diagnose() throws {
     let adaptive = try DesignOSAdaptiveColor(
       lightRGB: 0x16_1616,
       darkRGB: 0xCC_CCCC,

@@ -55,7 +55,7 @@ class AppStyleIndexTests(unittest.TestCase):
     def test_valid_index(self):
         result = REGISTRY.validate(self.root)
         self.assertEqual(result["id"], "editorial")
-        self.assertEqual(len(result["components"]), 5)
+        self.assertEqual(len(result["components"]), 6)
         self.assertEqual(result["verification"]["semantics"], "requirements-only")
 
     def test_unknown_claim_field_is_rejected_at_each_level(self):
@@ -179,6 +179,25 @@ class AppStyleIndexTests(unittest.TestCase):
         (self.root / "Sources/DesignOSApple/Components/Foreign.swift").symlink_to(outside)
         self.reject("path escapes repository")
 
+    def test_new_shared_implementation_delegate_requires_index_entry(self):
+        path = self.root / "Sources/DesignOSApple/Components/DesignOSUnindexedAction.swift"
+        path.write_text("public struct DesignOSUnindexedAction: ButtonStyle {\n"
+                        "  func makeBody(configuration: Configuration) -> some View {\n"
+                        "    DesignOSActionButtonContent(configuration: configuration, prominence: .secondary)\n"
+                        "  }\n}\n", encoding="utf-8")
+        self.reject("incomplete or extra app-style inventory")
+
+    def test_registered_delegate_must_reference_real_style_implementation(self):
+        self.alter_source("Sources/DesignOSApple/Components/DesignOSSecondaryButtonStyle.swift",
+                          "DesignOSActionButtonContent(", "UnrelatedButtonContent(")
+        self.reject("incomplete or extra app-style inventory")
+
+    def test_unrelated_native_component_stays_outside_style_inventory(self):
+        path = self.root / "Sources/DesignOSApple/Components/UnrelatedRow.swift"
+        path.write_text('public struct UnrelatedRow: View {\n  var body: some View { Text("Native") }\n}\n',
+                        encoding="utf-8")
+        self.assertEqual(REGISTRY.validate(self.root)["id"], "editorial")
+
     def test_missing_public_component_declaration(self):
         component = self.data["components"][0]
         self.alter_source(component["source"], "public struct " + component["symbol"],
@@ -214,6 +233,10 @@ class AppStyleIndexTests(unittest.TestCase):
     def test_missing_interaction_requirement(self):
         self.data["components"][3]["requiredStates"].remove("keyboard-focus")
         self.reject("component-kind state requirements missing")
+
+    def test_declared_destructive_variant_requires_state(self):
+        self.data["components"][3]["requiredStates"].remove("destructive")
+        self.reject("destructive variant state requirement missing")
 
     def test_cannot_claim_verification(self):
         self.data["verification"]["semantics"] = "PASS"
