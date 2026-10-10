@@ -71,6 +71,9 @@ struct AISettingsView: View {
                             .submitLabel(.next)
                             .onSubmit { focusedField = .key }
                             .textInputAutocapitalization(.never)
+                            .keyboardType(.asciiCapable)
+                            // Explicitly unclassified: neither a login credential nor a one-time code.
+                            .textContentType(.init(rawValue: ""))
                             #endif
                             .autocorrectionDisabled()
                             .accessibilityIdentifier("providerModel")
@@ -85,6 +88,9 @@ struct AISettingsView: View {
                             .submitLabel(.done)
                             .onSubmit { focusedField = nil }
                             .textInputAutocapitalization(.never)
+                            .keyboardType(.asciiCapable)
+                            // Explicitly unclassified: neither a login credential nor a one-time code.
+                            .textContentType(.init(rawValue: ""))
                             #endif
                             .autocorrectionDisabled()
                             .privacySensitive()
@@ -133,7 +139,12 @@ struct AISettingsView: View {
                 }
                 #endif
                 ToolbarItem(placement: .cancellationAction) {
-                    Button("Cancel") { cancelTest(); dismiss() }
+                    Button("Cancel") {
+                        cancelTest()
+                        keyDrafts.removeAll()
+                        focusedField = nil
+                        dismiss()
+                    }
                         .accessibilityIdentifier("cancelAISettings")
                         .disabled(saving)
                         #if os(macOS)

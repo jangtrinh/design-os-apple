@@ -12,7 +12,6 @@ struct CalorieCamApp: App {
                 .environment(aiSettings)
                 .preferredColorScheme(aiSettings.appearance.colorScheme)
                 .designOSAppStyle(.editorial)
-                .tint(DesignOSAppStyle.editorial.palette.action.color)
         }
         #if os(macOS)
         .defaultSize(width: 960, height: 720)
@@ -23,7 +22,6 @@ struct CalorieCamApp: App {
                 .environment(aiSettings)
                 .preferredColorScheme(aiSettings.appearance.colorScheme)
                 .designOSAppStyle(.editorial)
-                .tint(DesignOSAppStyle.editorial.palette.action.color)
         }
         #endif
     }

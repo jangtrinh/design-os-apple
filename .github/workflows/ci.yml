@@ -39,6 +39,8 @@ jobs:
           python3 scripts/verify-quickstart-parity.py
           python3 scripts/test-app-style-registry.py
           python3 scripts/verify-app-style-registry.py
+          python3 scripts/test-layered-kit-verifier.py
+          python3 scripts/verify-layered-kit.py
 
   caloriecam-native:
     strategy:
@@ -92,4 +94,33 @@ jobs:
         with:
           name: gallery-test-results
           path: ${{ runner.temp }}/gallery-results
+          if-no-files-found: ignore
+
+  layered-kit-native:
+    strategy:
+      fail-fast: false
+      matrix:
+        destination: [iphone, ipad, macos]
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Verify reusable native UI-kit specimens
+        env:
+          LAYERED_KIT_DESTINATION: ${{ matrix.destination }}
+          LAYERED_KIT_RESULTS_DIR: ${{ runner.temp }}/layered-kit-results
+        run: scripts/verify-layered-kit-preview.sh
+      - name: Preserve layered-kit native evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: layered-kit-${{ matrix.destination }}-test-results
+          path: |
+            ${{ runner.temp }}/layered-kit-results/*.xcresult
+            ${{ runner.temp }}/layered-kit-results/selected-simulators.txt
+            ${{ runner.temp }}/layered-kit-results/toolchain.txt
+            ${{ runner.temp }}/layered-kit-results/screenshots-*/
           if-no-files-found: ignore

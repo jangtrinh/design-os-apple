@@ -495,26 +495,52 @@ final class CalorieCamUITests: XCTestCase {
         app.descendants(matching: .any).matching(identifier: identifier).firstMatch
     }
 
+    private func exposedSettingsViewport(form: XCUIElement, app: XCUIApplication) -> CGRect {
+        var viewport = form.frame.intersection(app.windows.firstMatch.frame)
+        guard !viewport.isNull, !viewport.isEmpty else { return .zero }
+        // The native Form AX frame extends underneath the sheet's navigation bar.
+        // Exclude actual overlapping chrome, not a device-specific top inset.
+        let bars = app.navigationBars.allElementsBoundByIndex + app.toolbars.allElementsBoundByIndex
+        for bar in bars where bar.exists {
+            let overlap = viewport.intersection(bar.frame)
+            guard !overlap.isNull, overlap.width > viewport.width / 2 else { continue }
+            if bar.frame.midY < viewport.midY {
+                let top = max(viewport.minY, bar.frame.maxY)
+                viewport = CGRect(x: viewport.minX, y: top, width: viewport.width, height: max(0, viewport.maxY - top))
+            } else {
+                viewport.size.height = max(0, min(viewport.maxY, bar.frame.minY) - viewport.minY)
+            }
+        }
+        return viewport.insetBy(dx: 8, dy: 8)
+    }
+
     private func revealSettingsElement(_ element: XCUIElement, in app: XCUIApplication, towardTop: Bool = false, requiresHittable: Bool = true) -> Bool {
         // Form's AX frame can extend behind the keyboard. Dismiss through the actual
         // user-facing Done action before asking native scrolling to reveal a field.
         guard finishKeyboardEditing(in: app, doneIdentifier: "finishSettingsEditing") else { return false }
         let form = settingsElement("aiSettingsForm", in: app)
         for attempt in 0..<8 {
-            if element.exists && (!requiresHittable || element.isHittable) && form.frame.intersection(app.windows.firstMatch.frame).contains(CGPoint(x: element.frame.midX, y: element.frame.midY)) { return true }
+            let viewport = exposedSettingsViewport(form: form, app: app)
+            guard !viewport.isEmpty, !viewport.isNull else { break }
+            if element.exists && (!requiresHittable || element.isHittable) && viewport.contains(element.frame) { return true }
             // Lazy Form rows can leave the AX tree entirely. Search their known
             // section direction, then reverse within the same eight-gesture bound.
             let above = element.exists
-                ? element.frame.maxY < form.frame.minY
+                ? element.frame.minY < viewport.minY
                 : (attempt < 4 ? towardTop : !towardTop)
             #if os(macOS)
             form.scroll(byDeltaX: 0, deltaY: above ? 220 : -220)
             #else
-            if above { form.swipeDown() } else { form.swipeUp() }
+            let origin = form.coordinate(withNormalizedOffset: .zero)
+            let startY = viewport.minY + viewport.height * (above ? 0.25 : 0.75)
+            let endY = viewport.minY + viewport.height * (above ? 0.75 : 0.25)
+            let start = origin.withOffset(CGVector(dx: viewport.midX - form.frame.minX, dy: startY - form.frame.minY))
+            let end = origin.withOffset(CGVector(dx: viewport.midX - form.frame.minX, dy: endY - form.frame.minY))
+            start.press(forDuration: 0.05, thenDragTo: end)
             #endif
         }
         attachScreenshot("failure-settings-control-reachability", of: app)
-        let details = "target=\(element.identifier) exists=\(element.exists) frame=\(element.exists ? element.frame : .zero) form=\(form.frame) window=\(app.windows.firstMatch.frame)\n\n" + app.debugDescription
+        let details = "target=\(element.identifier) exists=\(element.exists) frame=\(element.exists ? element.frame : .zero) form=\(form.frame) exposedViewport=\(exposedSettingsViewport(form: form, app: app)) window=\(app.windows.firstMatch.frame)\n\n" + app.debugDescription
         let attachment = XCTAttachment(string: details)
         attachment.name = "failure-settings-control-accessibility"
         attachment.lifetime = .keepAlways
