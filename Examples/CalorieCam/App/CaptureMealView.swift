@@ -79,6 +79,9 @@ struct CaptureMealView: View {
             // Boolean UI transition only: never log images, credentials or meal data.
             print("CalorieCam capture replacement transition: \(oldValue) -> \(newValue)")
         }
+        .onChange(of: estimate != nil) { oldValue, newValue in
+            print("CalorieCam review-present transition: \(oldValue) -> \(newValue)")
+        }
         #endif
         .onChange(of: aiSettings.revision) { _, _ in
             work?.cancel(); requestID = UUID(); busy = false
@@ -282,6 +285,9 @@ struct CaptureMealView: View {
     }
 
     private func enterManually() {
+        #if DEBUG
+        print("CalorieCam enter-manually native action received")
+        #endif
         estimate = MealEntry(date: journalDay, items: [FoodItem(name: "", portion: "", calories: 0)], origin: .manual)
     }
 

@@ -184,9 +184,20 @@ final class CalorieCamUITests: XCTestCase {
         let id = UUID().uuidString
         let app = launch(journalID: id)
         app.buttons["addMeal"].tap()
+        guard app.buttons["enterManually"].waitForExistence(timeout: 5) else {
+            attachCaptureStage("failure-manual-source-stage", in: app)
+            XCTFail("Manual entry must be available from the capture source stage.")
+            return
+        }
+        attachCaptureStage("24-before-manual-entry", in: app)
         guard tapCaptureAction("enterManually", in: app) else { return }
         let name = app.textFields["foodName"]
-        XCTAssertTrue(name.waitForExistence(timeout: 5))
+        let reviewAppeared = name.waitForExistence(timeout: 5)
+        attachCaptureStage("25-after-manual-entry", in: app)
+        guard reviewAppeared else {
+            XCTFail("One native manual-entry tap must open the editable review.")
+            return
+        }
         name.tap()
         name.typeText("Test apple")
         guard finishKeyboardEditing(in: app) else { return }
@@ -388,6 +399,28 @@ final class CalorieCamUITests: XCTestCase {
         }
         let calories = app.textFields["foodCalories"]
         calories.tap()
+        // Type only after the existing focus-only Clear action is visibly active.
+        // This observes native focus after one tap; it never requests focus or retries.
+        let clear = app.buttons["clearCalories"].firstMatch
+        let review = app.descendants(matching: .any).matching(identifier: "mealReviewForm").firstMatch
+        let focusDeadline = Date().addingTimeInterval(5)
+        var focused = false
+        repeat {
+            if clear.exists && clear.isHittable && review.exists {
+                let frame = clear.frame
+                let viewport = review.frame.intersection(app.windows.firstMatch.frame)
+                if !frame.isEmpty && !frame.isNull && !frame.isInfinite && viewport.contains(frame) {
+                    focused = true
+                    break
+                }
+            }
+            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
+        } while Date() < focusDeadline
+        attachCaptureStage(focused ? "26-out-of-range-calorie-focused" : "failure-out-of-range-calorie-focus", in: app)
+        guard focused else {
+            XCTFail("One calorie-field tap must expose its visible native focus-only Clear action before typing.")
+            return
+        }
         // Digits work with both the iOS decimal keyboard and the Mac keyboard. Whether
         // inserted before or after the initial zero, this exceeds the 10,000 kcal limit.
         calories.typeText("100001")
@@ -473,22 +506,20 @@ final class CalorieCamUITests: XCTestCase {
             if towardTop { scroll.swipeDown() } else { scroll.swipeUp() }
             #endif
         }
-        // Native AX reads took ~6 seconds for one sample on the iPad runner.
-        // Allow three actual observations plus margin; the post-tap stage deadline
-        // remains five seconds. This budget covers instrumentation, not app work.
+        // Native AX reads took ~6 seconds for one sample. Bound observations rather
+        // than query duration; the post-tap stage deadline remains five seconds.
         let started = Date()
-        let deadline = started.addingTimeInterval(30)
         var previousFrame: CGRect?
         var stableSamples = 0
         var samples: [String] = []
-        var outcome = "Readiness budget exhausted before three stable samples"
+        var outcome = "Six observations did not establish three consecutive stable frames"
         defer {
             let attachment = XCTAttachment(string: samples.joined(separator: "\n") + "\nOutcome: " + outcome)
             attachment.name = "change-photo-readiness-samples"
             attachment.lifetime = .keepAlways
             add(attachment)
         }
-        repeat {
+        for observation in 1...6 {
             let sampleStarted = Date().timeIntervalSince(started)
             do {
                 // Reuse one immutable native snapshot per element instead of issuing
@@ -502,7 +533,7 @@ final class CalorieCamUITests: XCTestCase {
                 let hittable = action.isHittable
                 let contained = !frame.isEmpty && !frame.isNull && !frame.isInfinite && viewport.contains(frame)
                 let unchanged = previousFrame == frame
-                samples.append("start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s exists=true enabled=\(enabled) hittable=\(hittable) contained=\(contained) unchanged=\(unchanged) frame=\(frame) viewport=\(viewport)")
+                samples.append("sample=\(observation) start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s exists=true enabled=\(enabled) hittable=\(hittable) contained=\(contained) unchanged=\(unchanged) frame=\(frame) viewport=\(viewport)")
                 if enabled && hittable && contained {
                     stableSamples = unchanged ? stableSamples + 1 : 1
                     previousFrame = frame
@@ -510,7 +541,7 @@ final class CalorieCamUITests: XCTestCase {
                         outcome = "Ready: three stable enabled, hittable, fully contained native samples"
                         return true
                     }
-                    outcome = "Only \(stableSamples) stable samples completed within instrumentation budget"
+                    outcome = "Only \(stableSamples) stable samples completed within six observations"
                 } else {
                     stableSamples = 0
                     previousFrame = nil
@@ -520,10 +551,10 @@ final class CalorieCamUITests: XCTestCase {
                 stableSamples = 0
                 previousFrame = nil
                 outcome = "Native snapshot unavailable: \(error.localizedDescription)"
-                samples.append("start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s \(outcome)")
+                samples.append("sample=\(observation) start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s \(outcome)")
+                return false
             }
-            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
-        } while Date() < deadline
+        }
         return false
     }
 

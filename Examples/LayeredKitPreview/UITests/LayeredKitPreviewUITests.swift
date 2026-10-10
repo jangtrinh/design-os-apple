@@ -40,28 +40,50 @@ final class LayeredKitPreviewUITests: XCTestCase {
 
     private func openOptions(in app: XCUIApplication) -> Bool {
         let options = app.buttons["previewOptions"].firstMatch
-        let deadline = Date().addingTimeInterval(5)
+        // Bound native observations rather than assuming AX queries finish in milliseconds.
+        let started = Date()
         var previousFrame: CGRect?
         var stableSamples = 0
         var ready = false
-        repeat {
-            if options.exists && options.isHittable && options.isEnabled {
-                let frame = options.frame
-                let window = app.windows.firstMatch.frame
-                if !frame.isEmpty && !frame.isNull && !frame.isInfinite && window.contains(frame) {
-                    stableSamples = previousFrame == frame ? stableSamples + 1 : 1
+        var samples: [String] = []
+        var outcome = "Six observations did not establish three consecutive stable frames"
+        defer {
+            let attachment = XCTAttachment(string: samples.joined(separator: "\n") + "\nOutcome: " + outcome)
+            attachment.name = "preview-options-readiness-samples"
+            attachment.lifetime = .keepAlways
+            add(attachment)
+        }
+        for observation in 1...6 {
+            let sampleStarted = Date().timeIntervalSince(started)
+            do {
+                let target = try options.snapshot()
+                let window = try app.windows.firstMatch.snapshot()
+                let frame = target.frame
+                let enabled = target.isEnabled
+                let hittable = options.isHittable
+                let contained = !frame.isEmpty && !frame.isNull && !frame.isInfinite && window.frame.contains(frame)
+                let unchanged = previousFrame == frame
+                samples.append("sample=\(observation) start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s exists=true enabled=\(enabled) hittable=\(hittable) contained=\(contained) unchanged=\(unchanged) frame=\(frame) window=\(window.frame)")
+                if enabled && hittable && contained {
+                    stableSamples = unchanged ? stableSamples + 1 : 1
                     previousFrame = frame
-                    if stableSamples >= 3 { ready = true; break }
+                    if stableSamples >= 3 {
+                        ready = true
+                        outcome = "Ready: three consecutive stable enabled, hittable, contained observations"
+                        break
+                    }
                 } else {
                     stableSamples = 0
                     previousFrame = nil
                 }
-            } else {
-                stableSamples = 0
-                previousFrame = nil
+            } catch {
+                outcome = "Native snapshot failed: \(error.localizedDescription)"
+                samples.append("sample=\(observation) start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s \(outcome)")
+                diagnose("failure-preview-options-snapshot", app: app)
+                XCTFail(outcome)
+                return false
             }
-            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
-        } while Date() < deadline
+        }
         guard ready else {
             diagnose("failure-preview-options-readiness", app: app)
             XCTFail("Preview options must be enabled, hittable and settled inside the actual window"); return false
@@ -153,25 +175,62 @@ final class LayeredKitPreviewUITests: XCTestCase {
         #if os(iOS)
         let bar = app.navigationBars[title]
         let label = bar.staticTexts.matching(NSPredicate(format: "label == %@ OR value == %@", title, title)).firstMatch
-        let deadline = Date().addingTimeInterval(5)
+        // One AX observation took ~11 seconds; another attempt completed only two
+        // across ~6 seconds. Count observations instead of budgeting synchronous AX cost.
+        let started = Date()
         var previousFrame: CGRect?
         var stableSamples = 0
-        repeat {
-            if bar.exists && label.exists {
-                let frame = label.frame
-                let viewport = bar.frame.intersection(app.windows.firstMatch.frame)
-                let overlapsControl = bar.buttons.allElementsBoundByIndex.contains { button in
-                    button.exists && button.isHittable && button.frame.intersects(frame)
+        var samples: [String] = []
+        var outcome = "Six observations did not establish three consecutive stable frames"
+        defer {
+            let attachment = XCTAttachment(string: samples.joined(separator: "\n") + "\nOutcome: " + outcome)
+            attachment.name = "navigation-title-readiness-" + title
+            attachment.lifetime = .keepAlways
+            add(attachment)
+        }
+        for observation in 1...6 {
+            let sampleStarted = Date().timeIntervalSince(started)
+            do {
+                let barSnapshot = try bar.snapshot()
+                let labelSnapshot = try label.snapshot()
+                let windowSnapshot = try app.windows.firstMatch.snapshot()
+                let frame = labelSnapshot.frame
+                let viewport = barSnapshot.frame.intersection(windowSnapshot.frame)
+                var overlapsControl = false
+                var controlFrames: [CGRect] = []
+                for button in bar.buttons.allElementsBoundByIndex {
+                    let buttonSnapshot = try button.snapshot()
+                    controlFrames.append(buttonSnapshot.frame)
+                    // Only an intersecting control needs the separate native hit query.
+                    if buttonSnapshot.frame.intersects(frame) && button.isHittable {
+                        overlapsControl = true
+                    }
                 }
-                if !frame.isEmpty && !frame.isNull && !frame.isInfinite && viewport.contains(frame)
-                    && label.isHittable && !overlapsControl {
-                    stableSamples = previousFrame == frame ? stableSamples + 1 : 1
+                let hittable = label.isHittable
+                let contained = !frame.isEmpty && !frame.isNull && !frame.isInfinite && viewport.contains(frame)
+                let unchanged = previousFrame == frame
+                samples.append("sample=\(observation) start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s exists=true hittable=\(hittable) contained=\(contained) overlapsControl=\(overlapsControl) unchanged=\(unchanged) titleFrame=\(frame) viewport=\(viewport) controlFrames=\(controlFrames)")
+                if contained && hittable && !overlapsControl {
+                    stableSamples = unchanged ? stableSamples + 1 : 1
                     previousFrame = frame
-                    if stableSamples >= 3 { return true }
-                } else { stableSamples = 0; previousFrame = nil }
-            } else { stableSamples = 0; previousFrame = nil }
-            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
-        } while Date() < deadline
+                    if stableSamples >= 3 {
+                        outcome = "Ready: three stable visible native title observations, clear of hittable controls"
+                        return true
+                    }
+                    outcome = "Only \(stableSamples) stable observations completed within six observations"
+                } else {
+                    stableSamples = 0
+                    previousFrame = nil
+                    outcome = "Not ready: hittable=\(hittable), contained=\(contained), overlapsControl=\(overlapsControl)"
+                }
+            } catch {
+                stableSamples = 0
+                previousFrame = nil
+                outcome = "Native snapshot unavailable: \(error.localizedDescription)"
+                samples.append("sample=\(observation) start=\(sampleStarted)s end=\(Date().timeIntervalSince(started))s \(outcome)")
+                return false
+            }
+        }
         return false
         #else
         return app.windows[title].exists
