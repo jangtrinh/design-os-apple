@@ -5,7 +5,9 @@ import SwiftUI
 /// Media actions sit below the hero so they do not occlude it or depend on an unlabeled overlay
 /// gesture. The app supplies PhotosPicker/Menu/Button, accessible media, bindings and validation.
 /// Fields are native controls; this composition owns neither a rounded outer card nor scrolling.
-public struct DesignOSMediaComposerHeader<Media: View, MediaActions: View, Field: View, Feedback: View>:
+public struct DesignOSMediaComposerHeader<
+  Media: View, MediaActions: View, Field: View, Feedback: View
+>:
   View
 {
   @Environment(\.designOSAppStyle) private var style

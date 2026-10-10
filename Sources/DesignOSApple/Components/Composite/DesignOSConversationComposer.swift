@@ -5,7 +5,9 @@ import SwiftUI
 /// Supply a real TextField(axis: .vertical) or another native input with an app-chosen line limit.
 /// The same control instances reflow at narrow widths/accessibility sizes. The app owns draft,
 /// attachments, focus, submit guards and send completion; failed sends must preserve the draft.
-public struct DesignOSConversationComposer<Attachments: View, Input: View, Actions: View, Feedback: View>:
+public struct DesignOSConversationComposer<
+  Attachments: View, Input: View, Actions: View, Feedback: View
+>:
   View
 {
   @Environment(\.designOSAppStyle) private var style

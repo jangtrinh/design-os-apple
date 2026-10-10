@@ -52,54 +52,84 @@ final class LayeredKitPreviewUITests: XCTestCase {
     }
 
     func testEighteenScreenTypesInLightAndDark() {
+        continueAfterFailure = true
         for specimen in implementedScreens {
-            let app = launch(specimen)
-            defer { app.terminate() }
             for appearance in ["Light", "Dark"] {
-                guard setAppearance(appearance, in: app) else { return }
-                let title = specimen.replacingOccurrences(of: "-", with: " ").capitalized
-                #if os(iOS)
-                let route = app.navigationBars[title]
-                #else
-                let route = app.windows[title]
-                #endif
-                guard route.waitForExistence(timeout: 5) else {
-                    diagnose("failure-\(specimen)-navigation", app: app)
-                    XCTFail("Native navigation must show the requested specimen"); return
+                XCTContext.runActivity(named: "\(specimen) / \(appearance)") { _ in
+                    verifyScreenScenario(specimen, appearance: appearance)
                 }
-                XCTAssertFalse(app.descendants(matching: .any)["pendingSpecimen"].exists)
-                if ["media-detail", "media-composer"].contains(specimen) {
-                    guard app.images["fixtureMedia"].waitForExistence(timeout: 5) else {
-                        XCTFail("Media specimen must load original bundled imagery"); return
-                    }
-                }
-                let expected = contentWitness(for: specimen, in: app)
-                guard expected.waitForExistence(timeout: 5) else {
-                    capture("failure-\(specimen)-missing-content", app: app)
-                    XCTFail("Real content missing for \(specimen)"); return
-                }
-                capture("screen-\(specimen)-\(appearance.lowercased())", app: app)
             }
         }
     }
 
+    private func verifyScreenScenario(_ specimen: String, appearance: String) {
+        // A fresh process isolates each scenario, including a failed options presentation.
+        // Returning from this helper records that failure without hiding later scenarios.
+        let failuresBeforeScenario = testRun?.totalFailureCount ?? 0
+        let app = launch(specimen)
+        defer { app.terminate() }
+        let evidenceName = "\(specimen)-\(appearance.lowercased())"
+        guard setAppearance(appearance, in: app) else {
+            diagnose("failure-\(evidenceName)-appearance", app: app)
+            return
+        }
+        let title = specimen.replacingOccurrences(of: "-", with: " ").capitalized
+        #if os(iOS)
+        let route = app.navigationBars[title]
+        #else
+        let route = app.windows[title]
+        #endif
+        guard route.waitForExistence(timeout: 5) else {
+            diagnose("failure-\(evidenceName)-navigation", app: app)
+            XCTFail("Native navigation must show the requested specimen"); return
+        }
+        guard !app.descendants(matching: .any)["pendingSpecimen"].exists else {
+            diagnose("failure-\(evidenceName)-pending", app: app)
+            XCTFail("A planned placeholder cannot count as a rendered specimen"); return
+        }
+        if ["media-detail", "media-composer"].contains(specimen) {
+            guard app.images["fixtureMedia"].waitForExistence(timeout: 5) else {
+                diagnose("failure-\(evidenceName)-media", app: app)
+                XCTFail("Media specimen must load original bundled imagery"); return
+            }
+        }
+        let expected = contentWitness(for: specimen, in: app)
+        guard expected.waitForExistence(timeout: 5) else {
+            diagnose("failure-\(evidenceName)-missing-content", app: app)
+            XCTFail("Real content missing for \(specimen)"); return
+        }
+        guard (testRun?.totalFailureCount ?? 0) == failuresBeforeScenario else {
+            diagnose("failure-\(evidenceName)-recorded-issue", app: app)
+            return
+        }
+        capture("screen-\(evidenceName)", app: app)
+    }
+
+    private func renderedText(_ expected: String, in app: XCUIApplication) -> XCUIElement {
+        // Native AppKit text can expose its exact string through value or label.
+        // Identifier subscripting does not consistently match heading labels.
+        app.descendants(matching: .any).matching(
+            NSPredicate(format: "label == %@ OR value == %@", expected, expected)
+        ).firstMatch
+    }
+
     private func contentWitness(for specimen: String, in app: XCUIApplication) -> XCUIElement {
         switch specimen {
-        case "flat-collection": app.staticTexts["Community lunch"].firstMatch
-        case "media-detail": app.staticTexts["Community lunch"].firstMatch
+        case "flat-collection": renderedText("Community lunch", in: app)
+        case "media-detail": renderedText("Community lunch", in: app)
         case "media-composer", "grouped-form", "focused-task": app.textFields["fixtureTitle"].firstMatch
-        case "onboarding": app.staticTexts["Welcome to your neighborhood"].firstMatch
-        case "discovery": app.staticTexts["Find your next gathering"].firstMatch
-        case "profile-detail": app.staticTexts["Neighborhood studio"].firstMatch
-        case "hero-collection": app.staticTexts["Good food, good company"].firstMatch
+        case "onboarding": renderedText("Welcome to your neighborhood", in: app)
+        case "discovery": renderedText("Find your next gathering", in: app)
+        case "profile-detail": renderedText("Neighborhood studio", in: app)
+        case "hero-collection": renderedText("Good food, good company", in: app)
         case "freeform-editor": app.textViews["Gathering description"].firstMatch
-        case "search-selection": app.staticTexts["Gathering 1"].firstMatch
-        case "confirmation": app.staticTexts["Clear the local draft?"].firstMatch
-        case "status": app.staticTexts["Preview status"].firstMatch
+        case "search-selection": renderedText("Gathering 1", in: app)
+        case "confirmation": renderedText("Clear the local draft?", in: app)
+        case "status": renderedText("Preview status", in: app)
         case "message-thread": app.descendants(matching: .any)["messageDraft"].firstMatch
         case "utility-canvas": app.sliders["photoZoom"].firstMatch
         case "provider-host": app.buttons["Open native share options"].firstMatch
-        case "record-detail": app.staticTexts["Fixture receipt"].firstMatch
+        case "record-detail": renderedText("Fixture receipt", in: app)
         default: app.buttons["showNativeAlert"].firstMatch
         }
     }
@@ -234,8 +264,9 @@ final class LayeredKitPreviewUITests: XCTestCase {
             guard choice.waitForExistence(timeout: 5) else { XCTFail("Missing state choice"); return }
             choice.tap()
             app.buttons["closePreviewOptions"].firstMatch.tap()
-            guard app.descendants(matching: .any).matching(NSPredicate(format: "label == %@", expected)).firstMatch.waitForExistence(timeout: 5) else {
-                XCTFail("Expected actual rendered \(state) content"); return
+            guard renderedText(expected, in: app).waitForExistence(timeout: 5) else {
+                diagnose("failure-collection-\(state.lowercased())", app: app)
+                XCTFail("Expected exact rendered \(state) content: \(expected)"); return
             }
             capture("flat-collection-\(state.lowercased())", app: app)
         }

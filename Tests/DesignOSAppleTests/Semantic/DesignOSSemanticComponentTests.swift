@@ -1,7 +1,6 @@
+import DesignOSApple
 import SwiftUI
 import Testing
-
-import DesignOSApple
 
 @Test("Semantic media accepts original media and explicit no-media content")
 @MainActor

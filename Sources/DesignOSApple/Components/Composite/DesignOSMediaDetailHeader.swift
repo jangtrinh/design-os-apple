@@ -4,7 +4,9 @@ import SwiftUI
 ///
 /// Use DesignOSMediaFrame in the hero slot for actual owned media. The identity may be an avatar
 /// or EmptyView. This header is non-scrolling and does not choose a backdrop or force appearance.
-public struct DesignOSMediaDetailHeader<Hero: View, Identity: View, Title: View, Metadata: View, Actions: View>:
+public struct DesignOSMediaDetailHeader<
+  Hero: View, Identity: View, Title: View, Metadata: View, Actions: View
+>:
   View
 {
   @Environment(\.designOSAppStyle) private var style

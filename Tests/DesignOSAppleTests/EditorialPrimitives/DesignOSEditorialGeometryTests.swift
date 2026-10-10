@@ -5,8 +5,13 @@ import Testing
 
 @Test("Editorial media ratios retain valid caller geometry")
 func editorialMediaRatiosKeepValidValues() {
-  for ratio in [CGFloat(0.5), 1, 4.0 / 3.0, 16.0 / 9.0, 2] {
-    #expect(DesignOSEditorialGeometry.aspectRatio(ratio) == ratio)
+  // Keep both operands CGFloat. Mixed numeric inference can select AnyHashable equality
+  // inside #expect despite identical values: https://github.com/swiftlang/swift/issues/91221.
+  let ratios: [CGFloat] = [0.5, 1, 4.0 / 3.0, 16.0 / 9.0, 2]
+  for ratio in ratios {
+    let actual: CGFloat = DesignOSEditorialGeometry.aspectRatio(ratio)
+    #expect(actual == ratio)
+    #expect(Double(actual).bitPattern == Double(ratio).bitPattern)
   }
 }
 

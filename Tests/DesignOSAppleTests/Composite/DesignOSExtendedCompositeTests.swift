@@ -124,8 +124,10 @@ func messageBubbleCompositionsCompile() {
     acceptsExtendedComposite(bubble.environment(\.layoutDirection, .rightToLeft))
   }
   acceptsExtendedComposite(
-    DesignOSMessageBubble(isOutgoing: false, content: { Text("Hello") }, metadata: { Text("Today") })
-      .body
+    DesignOSMessageBubble(
+      isOutgoing: false, content: { Text("Hello") }, metadata: { Text("Today") }
+    )
+    .body
   )
 }
 

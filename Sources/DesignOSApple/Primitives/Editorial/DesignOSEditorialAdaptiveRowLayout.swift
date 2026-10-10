@@ -10,7 +10,8 @@ internal enum DesignOSEditorialRowPolicy {
     guard idealWidths.allSatisfy({ $0.isFinite && $0 >= 0 }) else { return true }
     guard let availableWidth else { return false }
     guard availableWidth.isFinite, availableWidth >= 0 else { return true }
-    let gaps = CGFloat(max(0, idealWidths.count - 1))
+    let gaps =
+      CGFloat(max(0, idealWidths.count - 1))
       * DesignOSEditorialGeometry.length(spacing)
     let total = idealWidths.reduce(0, +) + gaps
     return !total.isFinite || total > availableWidth
@@ -24,7 +25,8 @@ internal enum DesignOSEditorialRowPolicy {
     guard !idealWidths.isEmpty else { return [] }
     let flexibleIndex = min(1, idealWidths.count - 1)
     let safeWidths = idealWidths.map { DesignOSEditorialGeometry.length($0) }
-    let gaps = CGFloat(max(0, idealWidths.count - 1))
+    let gaps =
+      CGFloat(max(0, idealWidths.count - 1))
       * DesignOSEditorialGeometry.length(spacing)
     let fixedWidth = safeWidths.enumerated().reduce(CGFloat.zero) { total, item in
       item.offset == flexibleIndex ? total : total + item.element
@@ -52,7 +54,8 @@ internal struct DesignOSEditorialAdaptiveRowLayout: Layout {
   func placeSubviews(
     in bounds: CGRect, proposal: ProposedViewSize, subviews: Subviews, cache: inout ()
   ) {
-    let measured = measure(proposal: ProposedViewSize(width: bounds.width, height: nil), subviews: subviews)
+    let measured = measure(
+      proposal: ProposedViewSize(width: bounds.width, height: nil), subviews: subviews)
     var offset: CGFloat = 0
     for (index, subview) in subviews.enumerated() {
       let size = measured.children[index]
@@ -63,7 +66,8 @@ internal struct DesignOSEditorialAdaptiveRowLayout: Layout {
         y = bounds.minY + offset
         offset += size.height + safeSpacing
       } else {
-        x = layoutDirection == .rightToLeft
+        x =
+          layoutDirection == .rightToLeft
           ? bounds.maxX - offset - size.width : bounds.minX + offset
         y = bounds.minY + (measured.size.height - size.height) / 2
         offset += size.width + safeSpacing
@@ -86,7 +90,8 @@ internal struct DesignOSEditorialAdaptiveRowLayout: Layout {
       accessibilitySize: accessibilitySize
     )
     let gaps = CGFloat(max(0, subviews.count - 1)) * safeSpacing
-    let naturalWidth = vertical
+    let naturalWidth =
+      vertical
       ? ideals.map { DesignOSEditorialGeometry.length($0.width) }.max() ?? 0
       : ideals.reduce(0) { $0 + DesignOSEditorialGeometry.length($1.width) } + gaps
     let resolvedWidth = width ?? DesignOSEditorialGeometry.length(naturalWidth)
@@ -102,9 +107,11 @@ internal struct DesignOSEditorialAdaptiveRowLayout: Layout {
         childWidth = horizontalWidths[index]
       }
       let size = subview.sizeThatFits(ProposedViewSize(width: childWidth, height: nil))
-      children.append(CGSize(width: childWidth, height: DesignOSEditorialGeometry.length(size.height)))
+      children.append(
+        CGSize(width: childWidth, height: DesignOSEditorialGeometry.length(size.height)))
     }
-    let height = vertical
+    let height =
+      vertical
       ? children.reduce(0) { $0 + $1.height } + gaps
       : children.map(\.height).max() ?? 0
     return Measurement(

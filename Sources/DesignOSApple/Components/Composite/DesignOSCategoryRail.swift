@@ -5,7 +5,9 @@ import SwiftUI
 /// This is the sole horizontal scroll owner for its items and is safe inside a vertical shell.
 /// Stable caller IDs preserve item identity; selection and filtering remain app-owned. Supply
 /// native Buttons or NavigationLinks as items, and localized header/empty content.
-public struct DesignOSCategoryRail<Data: RandomAccessCollection, Header: View, Item: View, Empty: View>:
+public struct DesignOSCategoryRail<
+  Data: RandomAccessCollection, Header: View, Item: View, Empty: View
+>:
   View
 where Data.Element: Identifiable {
   @Environment(\.designOSAppStyle) private var style

@@ -17,7 +17,8 @@ public struct DesignOSAvatar<Content: View>: View {
   }
 
   public var body: some View {
-    let diameter = DesignOSEditorialGeometry.diameter(requestedSize, fallback: style.metrics.mediaSize)
+    let diameter = DesignOSEditorialGeometry.diameter(
+      requestedSize, fallback: style.metrics.mediaSize)
     DesignOSEditorialClippedContent(
       size: CGSize(width: diameter, height: diameter),
       shape: Circle(),

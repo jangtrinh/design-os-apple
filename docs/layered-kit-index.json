@@ -151,7 +151,7 @@
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "a660f0beca382407628fe00d915f9c09499fa39f77f0bbc85dd74c0f86161297",
+      "source_sha256": "b2337630e08bd8093dfd4dbf4355dccdd2071e3483ca078c391dd0b01f3f3a0b",
       "public_declarations": [
         "init",
         "struct DesignOSAvatar",
@@ -411,7 +411,7 @@
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "446de1e7663bda86b8de5ea235d5958994d6e205c77cb7c68322331717ff8ec1",
+      "source_sha256": "1d099a0a90c27e7062d850b9f93248dc98cdc0a14afb142b8be26e33779b58e8",
       "visibility": "public",
       "public_declarations": [
         "init",
@@ -434,7 +434,7 @@
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "e0f2ac0276e382f41765c0495b5939070a32389b95bc0f21686e5adba06ee564",
+      "source_sha256": "69531b17a67f35c88ef009cbc54c70232d4d62ebd91412fc057e9eee944b73f4",
       "visibility": "public",
       "public_declarations": [
         "init",
@@ -544,7 +544,7 @@
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "4d7b1e31e1c8c151e0ec8ce38bd01059c7598181e28d7c27ae137358321dba88",
+      "source_sha256": "072e7626301f12c227a4d9f965a2bea2b95d3bffadd75d782c0495e9ffada714",
       "visibility": "public",
       "public_declarations": [
         "init",
@@ -691,7 +691,7 @@
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "65dd1d97686fc903f67dd77c2c4b7f78f63d7f484cd369dbd0c5846a9801d45e",
+      "source_sha256": "c0f053e90e4231aa74f96be3bd7ffb1487522067a0b5c6c4dd1a41e0ca2bf725",
       "visibility": "public",
       "public_declarations": [
         "init",
@@ -1425,7 +1425,7 @@
       "visual_status": "not_run",
       "evidence": {},
       "source_status": "source_present",
-      "source_sha256": "81cc99e108584784547620d72a2476d7e0aa4e4a13791711d60a48b0d69a40f2",
+      "source_sha256": "e3f72a36404b666fe74518b61a71b1329c515b67a13735c16382dbb38a17946e",
       "public_declarations": [],
       "visibility": "internal"
     },
