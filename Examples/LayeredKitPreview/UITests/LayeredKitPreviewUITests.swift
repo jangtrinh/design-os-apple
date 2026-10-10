@@ -385,6 +385,48 @@ final class LayeredKitPreviewUITests: XCTestCase {
         return nil
     }
 
+    private func exactToggleState(_ raw: Any?) -> Bool? {
+        if let text = raw as? String {
+            switch text {
+            case "0": return false
+            case "1": return true
+            default: return nil
+            }
+        }
+        if let number = raw as? NSNumber, number.doubleValue.isFinite {
+            if number.compare(NSNumber(value: 0)) == .orderedSame { return false }
+            if number.compare(NSNumber(value: 1)) == .orderedSame { return true }
+        }
+        return nil
+    }
+
+    private func recordToggleState(_ stage: String, control: XCUIElement, raw: Any?,
+                                   exists: Bool, enabled: Bool, hittable: Bool) {
+        let rawType = raw.map { String(reflecting: type(of: $0)) } ?? "nil"
+        let numberType = (raw as? NSNumber).map { String(cString: $0.objCType) } ?? "not NSNumber"
+        let attachment = XCTAttachment(string:
+            "exists=\(exists), enabled=\(enabled), hittable=\(hittable), frame=\(exists ? String(describing: control.frame) : "unavailable")\n"
+            + "rawType=\(rawType), rawValue=\(String(reflecting: raw)), numberType=\(numberType), exactState=\(String(describing: exactToggleState(raw)))")
+        attachment.name = "accessibility-toggle-" + stage
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
+    func testExactToggleScalarContract() {
+        for raw in ["0", NSNumber(value: 0), NSNumber(value: false)] as [Any] {
+            XCTAssertEqual(exactToggleState(raw), false)
+        }
+        for raw in ["1", NSNumber(value: 1), NSNumber(value: true)] as [Any] {
+            XCTAssertEqual(exactToggleState(raw), true)
+        }
+        for raw in ["", "false", "true", "01", "0.0", " 1", NSNumber(value: 2),
+                         NSNumber(value: -1), NSNumber(value: 0.5), NSNumber(value: Double.nan),
+                         NSNumber(value: Double.infinity), [0]] as [Any] {
+            XCTAssertNil(exactToggleState(raw))
+        }
+        XCTAssertNil(exactToggleState(nil))
+    }
+
     func testAccessibleLayoutAndStateControls() {
         let app = launch("foundations")
         guard let before = visibleMediaGeometry(in: app), before.title.minX >= before.media.maxX else {
@@ -407,16 +449,41 @@ final class LayeredKitPreviewUITests: XCTestCase {
         }
         let thumb = nativeControl.switches.firstMatch
         let largeType = thumb.exists ? thumb : nativeControl
-        guard largeType.waitForExistence(timeout: 5), largeType.isHittable,
-              largeType.value as? String == "0" else {
+        let existsBefore = largeType.waitForExistence(timeout: 5)
+        let enabledBefore = existsBefore && largeType.isEnabled
+        let hittableBefore = existsBefore && largeType.isHittable
+        let rawBefore = existsBefore ? largeType.value : nil
+        recordToggleState("before", control: largeType, raw: rawBefore,
+                          exists: existsBefore, enabled: enabledBefore, hittable: hittableBefore)
+        guard existsBefore else { XCTFail("Native accessibility control disappeared"); return }
+        guard enabledBefore && hittableBefore else {
+            diagnose("failure-accessibility-switch-reachability", app: app)
+            XCTFail("Native accessibility control must be enabled and hittable"); return
+        }
+        guard exactToggleState(rawBefore) == false else {
             diagnose("failure-accessibility-switch-off", app: app)
-            XCTFail("Native accessibility control must start off and be reachable"); return
+            XCTFail("Native accessibility control must expose exact off state 0"); return
         }
         largeType.tap()
-        let enabled = XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", "1"), object: largeType)
-        guard XCTWaiter.wait(for: [enabled], timeout: 5) == .completed else {
+        let deadline = Date().addingTimeInterval(5)
+        var rawAfter: Any?
+        repeat {
+            rawAfter = largeType.exists ? largeType.value : nil
+            if exactToggleState(rawAfter) == true { break }
+            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
+        } while Date() < deadline
+        let existsAfter = largeType.exists
+        let enabledAfter = existsAfter && largeType.isEnabled
+        let hittableAfter = existsAfter && largeType.isHittable
+        recordToggleState("after", control: largeType, raw: rawAfter,
+                          exists: existsAfter, enabled: enabledAfter, hittable: hittableAfter)
+        guard existsAfter && enabledAfter && hittableAfter else {
+            diagnose("failure-accessibility-switch-after-reachability", app: app)
+            XCTFail("Enabled native accessibility control must remain reachable after the tap"); return
+        }
+        guard exactToggleState(rawAfter) == true else {
             diagnose("failure-accessibility-switch-on", app: app)
-            XCTFail("Native accessibility control did not change to on"); return
+            XCTFail("Native accessibility control did not change to exact on state 1"); return
         }
         capture("accessibility-option-enabled", app: app)
         app.buttons["closePreviewOptions"].firstMatch.tap()

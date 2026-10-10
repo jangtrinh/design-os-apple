@@ -74,6 +74,12 @@ struct CaptureMealView: View {
             Text("This sends your selected photo to \(pendingRoute?.recipient ?? "the selected recipient") to estimate foods and calories. Provider charges may apply. Avoid photos containing people or private information. Review the result before saving. Your journal and notes are not sent.")
         }
         .onDisappear { work?.cancel() }
+        #if DEBUG
+        .onChange(of: choosingReplacement) { oldValue, newValue in
+            // Boolean UI transition only: never log images, credentials or meal data.
+            print("CalorieCam capture replacement transition: \(oldValue) -> \(newValue)")
+        }
+        #endif
         .onChange(of: aiSettings.revision) { _, _ in
             work?.cancel(); requestID = UUID(); busy = false
             confirmUpload = false; pendingRoute = nil
@@ -245,7 +251,12 @@ struct CaptureMealView: View {
                     .buttonStyle(DesignOSPrimaryButtonStyle())
                     .accessibilityIdentifier("enterManually")
             }
-            Button("Change photo") { choosingReplacement = true }
+            Button("Change photo") {
+                #if DEBUG
+                print("CalorieCam change-photo native action received")
+                #endif
+                choosingReplacement = true
+            }
                 .buttonStyle(DesignOSSecondaryButtonStyle())
                 .accessibilityIdentifier("changePhoto")
             Menu {

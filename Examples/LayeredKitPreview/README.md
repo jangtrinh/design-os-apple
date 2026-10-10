@@ -59,8 +59,14 @@ platform/window adaptation, RTL, VoiceOver, contrast and independent visual comp
 separate receipts. Linux source checks cannot establish Xcode build, native screenshots or
 assistive-technology behavior. The initial 33-API host compiled and executed in native run `38073632154`; its UI suite
 failed on toolbar placement, inherited accessibility identifiers and platform picker queries.
-Those failures informed the current repairs. The expanded 42-API revision awaits a native rerun;
-source review is not a pass receipt.
+Those failures informed subsequent repairs. The expanded 42-API host at commit
+`1e1a02f72952428c968a9bd6bf243bb647955470` executed all 36 family/appearance scenarios on
+iPhone, iPad and Mac in [native run 38077123945](https://github.com/jangtrinh/design-os-apple/actions/runs/38077123945).
+All 36 scenario checks passed on each platform; the complete suite passed 8/8 on iPad,
+including measured accessibility-size reflow. The complete iPhone and Mac suites were 6/8 and
+7/8 respectively. Their strict options/control interaction evidence remains pending the
+subsequent test repairs and native rerun. These historical results do not qualify unexecuted
+revisions or all 393 reference states; source review is not a pass receipt.
 
 
 ## Composite and native-recipe coverage
@@ -78,4 +84,7 @@ add duplicate package wrappers. The photo canvas and ShareLink remain explicit n
 
 Source composition now references 42 layered APIs: 18 screen types, nine shells, four semantic
 components and 11 composites. This is a source-use count, not a claim that all reference states
-have passed native execution or visual comparison. The expanded suite has eight UI test methods, including native compact Back/options reachability.
+have passed native execution or visual comparison. The current suite has nine test methods: eight native UI flows, including compact Back/options
+reachability, and one exact toggle-scalar decoder contract test. The latter accepts only native
+String or numeric 0/1 representations and does not substitute for actual toggle activation or
+measured accessibility layout reflow.

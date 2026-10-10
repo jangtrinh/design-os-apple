@@ -450,13 +450,68 @@ final class CalorieCamUITests: XCTestCase {
         attachScreenshot("11-sample-detail", of: app)
     }
 
+    private func attachCaptureStage(_ name: String, in app: XCUIApplication) {
+        attachScreenshot(name, of: app)
+        let attachment = XCTAttachment(string: app.debugDescription)
+        attachment.name = name + "-accessibility"
+        attachment.lifetime = .keepAlways
+        add(attachment)
+    }
+
+    private func waitForStableCaptureAction(_ action: XCUIElement, in app: XCUIApplication) -> Bool {
+        let scroll = app.descendants(matching: .any).matching(identifier: "mealCaptureScroll").firstMatch
+        guard action.waitForExistence(timeout: 5), scroll.exists else { return false }
+        // Retain bounded native scrolling for compact Mac/phone sheets, without tapping.
+        for _ in 0..<5 {
+            let viewport = scroll.frame.intersection(app.windows.firstMatch.frame)
+            if viewport.contains(action.frame) { break }
+            let towardTop = action.frame.minY < viewport.minY
+            #if os(macOS)
+            scroll.scroll(byDeltaX: 0, deltaY: towardTop ? 180 : -180)
+            #else
+            if towardTop { scroll.swipeDown() } else { scroll.swipeUp() }
+            #endif
+        }
+        let deadline = Date().addingTimeInterval(5)
+        var previousFrame: CGRect?
+        var stableSamples = 0
+        repeat {
+            if action.exists && action.isEnabled && action.isHittable && scroll.exists {
+                let frame = action.frame
+                let viewport = scroll.frame.intersection(app.windows.firstMatch.frame)
+                if !frame.isEmpty && !frame.isNull && !frame.isInfinite && viewport.contains(frame) {
+                    stableSamples = previousFrame == frame ? stableSamples + 1 : 1
+                    previousFrame = frame
+                    if stableSamples >= 3 { return true }
+                } else {
+                    stableSamples = 0
+                    previousFrame = nil
+                }
+            } else {
+                stableSamples = 0
+                previousFrame = nil
+            }
+            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
+        } while Date() < deadline
+        return false
+    }
+
     func testChangingPhotoCanReturnWithoutLosingSelection() {
         let app = launch()
         app.buttons["addMeal"].tap()
         guard chooseSamplePhoto(in: app) else { return }
         XCTAssertFalse(app.buttons["saveMeal"].exists)
-        guard tapCaptureAction("changePhoto", in: app) else { return }
-        guard app.descendants(matching: .any).matching(identifier: "sourceOptions").firstMatch.waitForExistence(timeout: 5) else {
+        let changePhoto = app.buttons["changePhoto"].firstMatch
+        guard waitForStableCaptureAction(changePhoto, in: app) else {
+            attachCaptureStage("failure-change-photo-readiness", in: app)
+            XCTFail("Change photo must be enabled, hittable and settled in the visible capture viewport.")
+            return
+        }
+        attachCaptureStage("22-before-change-photo", in: app)
+        changePhoto.tap() // Exactly one native action, never retried.
+        let sourceAppeared = app.descendants(matching: .any).matching(identifier: "sourceOptions").firstMatch.waitForExistence(timeout: 5)
+        attachCaptureStage("23-after-change-photo", in: app)
+        guard sourceAppeared else {
             XCTFail("Changing a photo must reopen source choices.")
             return
         }
