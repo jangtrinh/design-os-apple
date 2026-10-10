@@ -3,6 +3,8 @@ import DesignOSApple
 import CalorieCamCore
 
 struct JournalView: View {
+    @Environment(\.designOSAppStyle) private var style
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Bindable var model: JournalModel
     @State private var day = Date()
     @State private var selection: UUID?
@@ -13,18 +15,29 @@ struct JournalView: View {
     private var selected: MealEntry? { meals.first { $0.id == selection } }
 
     var body: some View {
+        let separatorInset: CGFloat = dynamicTypeSize.isAccessibilitySize ? 0 : style.metrics.mediaSize + style.metrics.itemSpacing
         NavigationSplitView {
             List(selection: $selection) {
                 Section {
-                    DatePicker("Journal date", selection: $day, displayedComponents: .date)
-                        .accessibilityIdentifier("journalDate")
-                    LabeledContent("Logged total") {
-                        Text("\(meals.reduce(0) { $0 + $1.totalCalories }, format: .number.precision(.fractionLength(0))) kcal")
+                    VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                        DesignOSAppSectionHeader("Your meals") {
+                            DatePicker("Journal date", selection: $day, displayedComponents: .date)
+                                .labelsHidden()
+                                .accessibilityLabel("Journal date")
+                                .accessibilityIdentifier("journalDate")
+                        }
+                        Text("\(meals.reduce(0) { $0 + $1.totalCalories }, format: .number.precision(.fractionLength(0))) kcal logged")
+                            .font(.subheadline)
                             .monospacedDigit()
+                            .foregroundStyle(style.palette.secondaryInk.color)
+                        if meals.contains(where: { $0.origin == .demo }) {
+                            Text("Includes sample demo values")
+                                .font(.caption)
+                                .foregroundStyle(style.palette.secondaryInk.color)
+                        }
                     }
-                    Text("Includes any saved demo entries. Calories are approximate, not a daily target.")
-                        .font(.footnote)
-                        .foregroundStyle(DesignOSColorRole.labelSecondary.color)
+                    .padding(.vertical, style.metrics.itemSpacing)
+                    .listRowSeparator(.hidden)
                 }
                 if let failure = model.loadFailure {
                     Section("Journal unavailable") {
@@ -38,14 +51,19 @@ struct JournalView: View {
                         Text("Add a photo or enter a meal to start this day’s journal.")
                     } actions: {
                         Button("Add meal") { isAdding = true }
-                            .frame(minHeight: 44)
+                            .buttonStyle(DesignOSPrimaryButtonStyle())
                             .accessibilityIdentifier("emptyAddMeal")
                     }
                 } else {
-                    Section("Meals") {
+                    Section {
                         ForEach(meals) { meal in
                             NavigationLink(value: meal.id) {
                                 MealRow(meal: meal)
+                            }
+                            .listRowInsets(EdgeInsets(top: 0, leading: style.metrics.pageInset, bottom: 0, trailing: style.metrics.pageInset))
+                            .listRowSeparatorTint(style.palette.separator.color)
+                            .alignmentGuide(.listRowSeparatorLeading) { _ in
+                                separatorInset
                             }
                             .contextMenu {
                                 Button("Delete meal", role: .destructive) { deletion = meal }
@@ -54,7 +72,13 @@ struct JournalView: View {
                     }
                 }
             }
+            .listStyle(.plain)
+            .scrollContentBackground(.hidden)
+            .background(style.palette.canvas.color)
             .navigationTitle("CalorieCam")
+            #if os(iOS)
+            .navigationBarTitleDisplayMode(.inline)
+            #endif
             .navigationSplitViewColumnWidth(min: 280, ideal: 360)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
@@ -66,6 +90,20 @@ struct JournalView: View {
         } detail: {
             if let meal = selected {
                 List {
+                    if meal.origin == .demo {
+                        Section {
+                            VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                                Image("DemoMeal").resizable().scaledToFit()
+                                    .frame(maxWidth: .infinity, maxHeight: 320)
+                                    .clipShape(RoundedRectangle(cornerRadius: style.metrics.surfaceRadius))
+                                    .accessibilityLabel("Sample meal illustration")
+                                Text("Sample illustration · original photo not stored")
+                                    .font(.caption)
+                                    .foregroundStyle(style.palette.secondaryInk.color)
+                            }
+                        }
+                        .listRowSeparator(.hidden)
+                    }
                     Section {
                         Text(meal.origin.label).foregroundStyle(DesignOSColorRole.labelSecondary.color)
                         Text(meal.date, format: .dateTime.month().day().hour().minute())
@@ -75,9 +113,12 @@ struct JournalView: View {
                         ForEach(meal.items) { food in
                             LabeledContent {
                                 Text("\(food.calories.formatted(.number.precision(.fractionLength(0)))) kcal")
+                                    .accessibilityIdentifier("mealDetailCalories")
                             } label: {
                                 Text(food.name)
+                                    .accessibilityIdentifier("mealDetailFoodName")
                                 Text(food.portion).foregroundStyle(.secondary)
+                                    .accessibilityIdentifier("mealDetailPortion")
                             }
                         }
                     }
@@ -87,6 +128,9 @@ struct JournalView: View {
                             .frame(minHeight: 44)
                     }
                 }
+                .listStyle(.plain)
+                .scrollContentBackground(.hidden)
+                .background(style.palette.canvas.color)
                 .navigationTitle("Meal details")
             } else {
                 ContentUnavailableView("Your meal journal", systemImage: "book.closed", description: Text("Select a meal to see its foods and portions."))
@@ -110,19 +154,40 @@ struct JournalView: View {
 }
 
 private struct MealRow: View {
+    @Environment(\.designOSAppStyle) private var style
     let meal: MealEntry
     var body: some View {
-        DesignOSListRow {
-            Image(systemName: "fork.knife").accessibilityHidden(true)
-        } title: {
-            Text(meal.items.map(\.name).joined(separator: ", "))
-        } subtitle: {
-            Text(meal.origin.label)
-        } trailing: {
-            Text("\(meal.totalCalories.formatted(.number.precision(.fractionLength(0)))) kcal")
-                .monospacedDigit()
+        DesignOSMediaRow {
+            if meal.origin == .demo {
+                Image("DemoMeal").resizable().scaledToFill()
+                    .accessibilityLabel("Sample meal illustration")
+            } else {
+                // Real photos are not persisted. Text-only records get an honest symbol.
+                ZStack {
+                    style.palette.subtleSurface.color
+                    Image(systemName: "fork.knife")
+                        .font(.title2)
+                        .foregroundStyle(style.palette.secondaryInk.color)
+                }
+                .accessibilityHidden(true)
+            }
+        } content: {
+            VStack(alignment: .leading, spacing: style.profile.spacing.titleSubtitle) {
+                Text(meal.items.map(\.name).joined(separator: ", "))
+                    .font(.body.weight(.medium))
+                    .foregroundStyle(style.palette.ink.color)
+                Text(meal.date, format: .dateTime.hour().minute())
+                    .font(.subheadline)
+                    .foregroundStyle(style.palette.secondaryInk.color)
+                Text("\(meal.totalCalories.formatted(.number.precision(.fractionLength(0)))) kcal")
+                    .font(.subheadline)
+                    .monospacedDigit()
+                Text(meal.origin.label)
+                    .font(.caption)
+                    .foregroundStyle(style.palette.secondaryInk.color)
+            }
         }
-        .frame(minHeight: 44)
+        .padding(.vertical, style.metrics.itemSpacing)
         .accessibilityElement(children: .combine)
     }
 }

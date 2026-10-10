@@ -8,7 +8,8 @@ struct CalorieCamApp: App {
     var body: some Scene {
         WindowGroup {
             JournalView(model: model)
-                .designOSProfile(.default)
+                .designOSAppStyle(.editorial)
+                .tint(DesignOSAppStyle.editorial.palette.action.color)
         }
         #if os(macOS)
         .defaultSize(width: 960, height: 720)

@@ -19,7 +19,11 @@ settings:
 targetTemplates:
   App:
     type: application
-    sources: [App]
+    sources:
+      - App
+      - path: Resources
+        includes: [DemoMeal.png]
+        buildPhase: resources
     dependencies:
       - package: DesignOSApple
       - package: CalorieCamCore

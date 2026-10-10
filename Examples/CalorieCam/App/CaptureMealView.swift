@@ -13,6 +13,7 @@ import AppKit
 
 struct CaptureMealView: View {
     @Environment(\.dismiss) private var dismiss
+    @Environment(\.designOSAppStyle) private var style
     @Bindable var model: JournalModel
     let journalDay: Date
     @State private var photoItem: PhotosPickerItem?
@@ -50,6 +51,7 @@ struct CaptureMealView: View {
                 }
             }
         }
+        .preferredColorScheme(.dark)
         #if os(macOS)
         .frame(minWidth: 480, idealWidth: 560, minHeight: 560)
         #endif
@@ -114,68 +116,124 @@ struct CaptureMealView: View {
     }
 
     private var captureForm: some View {
-        Form {
-            Section {
+        ScrollView {
+            VStack(alignment: .leading, spacing: style.metrics.sectionSpacing) {
                 Label(analysisEndpoint == nil ? "On-device demo" : "Photo meal entry", systemImage: "info.circle")
-                    .font(.headline)
-                Text("Use a photo as a reference, then review your meal.")
-                DisclosureGroup(analysisEndpoint == nil ? "About this demo" : "About photo estimates") {
-                    Text(analysisEndpoint == nil ? "This demo does not recognize food. Sample estimates are fixed, not calculated from your photo. Enter your own values for a real meal." : "AI estimates may miss ingredients or portions. Review every value. The separate demo action always returns fixed sample data.")
-                    Text(analysisEndpoint == nil ? "Photos stay on this device and are not saved in the journal." : "Photos are uploaded only after you choose and confirm AI estimation. They are not saved in the journal.")
-                        .foregroundStyle(DesignOSColorRole.labelSecondary.color)
-                }
-            }
-            Section("Meal photo") {
+                    .font(.caption)
+                    .foregroundStyle(style.palette.secondaryInk.color)
+
                 if let preview {
-                    preview.resizable().scaledToFit().frame(maxHeight: 220)
+                    preview.resizable().scaledToFit()
+                        .frame(maxWidth: .infinity, maxHeight: 280)
+                        .clipShape(RoundedRectangle(cornerRadius: style.metrics.surfaceRadius))
                         .accessibilityLabel("Selected meal photo, for your reference only")
+                } else {
+                    DesignOSAppSurface(tone: .subtle) {
+                        VStack(spacing: style.metrics.itemSpacing) {
+                            Image(systemName: "camera")
+                                .font(.largeTitle)
+                                .accessibilityHidden(true)
+                            Text("Start with a photo")
+                                .font(.title2.weight(.semibold))
+                            Text("Capture your meal. Review every estimate.")
+                                .font(.subheadline)
+                                .foregroundStyle(style.palette.secondaryInk.color)
+                        }
+                        .frame(maxWidth: .infinity, minHeight: 180)
+                    }
                 }
-                #if os(iOS)
-                Button { requestCamera() } label: { Label("Take photo", systemImage: "camera") }
-                    .frame(minHeight: 44)
+
+                VStack(spacing: style.metrics.itemSpacing) {
+                    #if os(iOS)
+                    Button { requestCamera() } label: {
+                        Label(imageData == nil ? "Take photo" : "Retake photo", systemImage: "camera")
+                            .frame(maxWidth: .infinity)
+                    }
+                    .buttonStyle(DesignOSPrimaryButtonStyle())
                     .disabled(busy)
-                #endif
-                PhotosPicker(selection: $photoItem, matching: .images) {
-                    Label(imageData == nil ? "Choose photo" : "Replace photo", systemImage: "photo")
-                        .frame(minHeight: 44)
-                }
-                .disabled(busy)
-                Button { importing = true } label: { Label("Import image file", systemImage: "folder") }
-                    .frame(minHeight: 44)
+                    #endif
+                    PhotosPicker(selection: $photoItem, matching: .images) {
+                        Label(imageData == nil ? "Choose photo" : "Replace photo", systemImage: "photo")
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                    }
+                    .buttonStyle(.bordered)
                     .disabled(busy)
-                if imageData != nil {
-                    Button("Remove photo", role: .destructive) { imageData = nil; preview = nil }
-                        .frame(minHeight: 44).disabled(busy)
+                    Button { importing = true } label: {
+                        Label("Import image file", systemImage: "folder")
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                    }
+                    .disabled(busy)
+                    if imageData != nil {
+                        Button("Remove photo", role: .destructive) { imageData = nil; preview = nil }
+                            .frame(minHeight: 44).disabled(busy)
+                    }
                 }
+
+                if busy { ProgressView(progressLabel).accessibilityIdentifier("preparingMeal") }
+                if let error {
+                    VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                        Text("Couldn’t prepare meal").font(.headline)
+                        Text(error)
+                        Text("Try another photo or enter your meal manually.")
+                    }
+                    .foregroundStyle(style.palette.ink.color)
+                }
+
+                VStack(spacing: style.metrics.itemSpacing) {
+                    if analysisEndpoint != nil {
+                        Button("Estimate with AI") { confirmUpload = true }
+                            .buttonStyle(DesignOSPrimaryButtonStyle())
+                            .disabled(imageData == nil || busy)
+                            .accessibilityIdentifier("remoteEstimate")
+                    }
+                    Button("Enter meal manually") {
+                        estimate = MealEntry(date: journalDay, items: [FoodItem(name: "", portion: "", calories: 0)], origin: .manual)
+                    }
+                    .frame(maxWidth: .infinity, minHeight: 44)
+                    .disabled(busy)
+                    .accessibilityIdentifier("enterManually")
+                    if imageData != nil {
+                        Button("Try demo estimate") { prepareDemo() }
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .disabled(busy)
+                            .accessibilityIdentifier("demoEstimate")
+                    } else {
+                        Button("Try sample meal") { prepareSample() }
+                            .frame(maxWidth: .infinity, minHeight: 44)
+                            .disabled(busy)
+                            .accessibilityIdentifier("trySampleMeal")
+                    }
+                }
+
+                DisclosureGroup("How estimates work") {
+                    VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                        Text("Demo estimates use fixed sample foods, not your photo. Edit all values before saving.")
+                        Text(analysisEndpoint == nil ? "Photos stay on this device and are not saved in the journal." : "AI estimation sends a photo only after your confirmation. Photos are not saved in the journal.")
+                    }
+                    .padding(.top, style.metrics.itemSpacing)
+                }
+                .font(.footnote)
+                .foregroundStyle(style.palette.secondaryInk.color)
             }
-            if busy { Section { ProgressView(progressLabel).accessibilityIdentifier("preparingMeal") } }
-            if let error {
-                Section("Couldn’t prepare meal") {
-                    Text(error)
-                    Text("Try a different photo, or enter the meal manually.")
-                }
-            }
-            Section {
-                if analysisEndpoint != nil {
-                    Button("Estimate with AI") { confirmUpload = true }
-                        .frame(minHeight: 44)
-                        .disabled(imageData == nil || busy)
-                        .accessibilityIdentifier("remoteEstimate")
-                }
-                Button("Enter meal manually") {
-                    estimate = MealEntry(date: journalDay, items: [FoodItem(name: "", portion: "", calories: 0)], origin: .manual)
-                }
-                .frame(minHeight: 44).disabled(busy)
-                .accessibilityIdentifier("enterManually")
-                Button("Try demo estimate") { prepareDemo() }
-                    .frame(minHeight: 44)
-                    .disabled(imageData == nil || busy)
-                    .accessibilityIdentifier("demoEstimate")
-            } footer: {
-                Text("Demo estimates contain the same sample foods for every photo. Review all names, portions and calories before saving.")
-            }
+            .padding(style.metrics.pageInset)
+            .frame(maxWidth: 640)
+            .frame(maxWidth: .infinity)
         }
-        .formStyle(.grouped)
+        .background { MealPhotoBackdrop(preview: preview) }
+        .accessibilityIdentifier("mealCaptureScroll")
+        #if os(iOS)
+        .navigationBarTitleDisplayMode(.inline)
+        #endif
+    }
+
+    private func prepareSample() {
+        do {
+            guard let url = Bundle.main.url(forResource: "DemoMeal", withExtension: "png") else {
+                throw PhotoError.sampleUnavailable
+            }
+            try accept(Data(contentsOf: url))
+            prepareDemo()
+        } catch { self.error = error.localizedDescription }
     }
 
     private func prepareDemo() {
@@ -263,9 +321,10 @@ struct CaptureMealView: View {
 }
 
 enum PhotoError: LocalizedError {
-    case unreadable, tooLarge, uploadTooLarge
+    case unreadable, tooLarge, uploadTooLarge, sampleUnavailable
     var errorDescription: String? {
         switch self {
+        case .sampleUnavailable: "The sample image is unavailable. Choose your own photo or enter a meal manually."
         case .unreadable: "This file couldn’t be opened as a photo. Choose a JPEG, PNG or HEIC image."
         case .tooLarge: "Choose a photo smaller than 15 MB."
         case .uploadTooLarge: "This photo is still too large after resizing. Choose a smaller image."

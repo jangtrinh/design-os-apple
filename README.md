@@ -139,6 +139,10 @@ verification must be reported separately; source availability is not runtime acc
 - [Latest Apple UI roadmap](docs/apple-ui-roadmap-2026-10.md): stable versus prerelease
   capabilities, including documented Duo additions pending SDK verification.
 - [Mobbin research and interaction decisions](docs/caloriecam-mobbin-research.md).
+- [Reusable editorial app style](docs/reusable-app-style.md): opt-in shared palette,
+  media rows, content surfaces, native button appearance and accessible media backdrops.
+- [Luma visual reference evidence](docs/luma-style-reference.md): observed pixels, inferred
+  geometry, native interaction mapping and explicit fidelity limits.
 
 On a Mac with Xcode and XcodeGen, run `scripts/verify-caloriecam.sh` for core tests and
 iPhone/iPad/macOS UI tests. This is a separate dogfood check and does not replace the

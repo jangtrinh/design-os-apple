@@ -32,7 +32,7 @@ xcodebuild test -project CalorieCam.xcodeproj -scheme CalorieCam-macOS \
 4. Save to the selected day. The journal total is computed from that day’s saved items, including labeled demo meals. It is not a prescribed calorie goal.
 5. Select a meal for details. Delete requires confirmation; leaving an unfinished review asks before discarding.
 
-The native split view adapts to compact iPhone navigation, iPad windows and Mac. Shared entry/review state survives ordinary layout changes. Native List/Form/toolbar/sheets own interaction and system appearance. DesignOSListRow, semantic color roles and the default immutable profile provide the shared design contract. No hard-coded material, replacement navigation, nonstandard font, custom animation or undocumented device-posture API is used.
+The native split view adapts to compact iPhone navigation, iPad windows and Mac. Shared entry/review state survives ordinary layout changes. Native List/Form/toolbar/sheets own interaction and system appearance. The opt-in `DesignOSAppStyle.editorial` supplies the shared palette/metrics/profile. `DesignOSMediaRow`, `DesignOSAppSectionHeader`, `DesignOSAppSurface`, `DesignOSPrimaryButtonStyle` and `DesignOSMediaBackdrop` compose the content without replacing native controls. The flat journal and photo-led dark composer follow the inspected Luma reference; they do not copy Luma branding, artwork or unrelated tabs. A selected photo supplies the backdrop. Reduce Transparency or Increase Contrast uses an opaque fallback. No custom animation or undocumented device-posture API is used.
 
 ## Storage and privacy
 
@@ -54,7 +54,7 @@ The backend URL is public configuration, not a credential. Keep OpenAI keys serv
 
 ## Verification status
 
-NOT VERIFIED on Apple tooling: this source was authored on a Linux host without Swift, Xcode, XcodeGen or Simulator. It has not been compiled, signed, run or screenshot-verified. UI tests are authored smoke tests, not passing evidence. No latest-SDK or iPhone Duo-specific compile claim is made; that device’s extra capabilities require a supported SDK/device evidence pass.
+This latest editorial styling revision is NOT VERIFIED on Apple tooling yet. An earlier baseline compiled and produced genuine XCTest screenshots, with all five iPhone/iPad tests passing and two Mac selector failures subsequently addressed in source. Those older screenshots do not validate this visual revision. Use the latest native CI run and its xcresult artifacts for current build/test evidence. Local authoring remains on Linux without Swift, Xcode, XcodeGen or Simulator. No iPhone Duo-specific compile claim is made; that device’s extra capabilities require a supported SDK/device evidence pass.
 
 Source review: explicit provenance, save validation, durable single-writer storage, no default photo upload, explicit optional upload confirmation, native controls, semantic colors, SF Symbols and Dynamic Type row adaptation. There are no custom animations, so no motion is introduced when Reduce Motion is on. HTML `ui gate` / slop-detect / browser screenshots do not validate native SwiftUI and were not used as substitutes.
 
@@ -64,9 +64,9 @@ Before release, run both build/test schemes plus VoiceOver, keyboard-only, large
 
 | Interaction | Native owner / API | DESIGN:OS role |
 | --- | --- | --- |
-| Journal and meal detail navigation | `NavigationSplitView`, `List(selection:)`, `NavigationLink` | Default profile injected at app root; no replacement navigation |
-| Saved meal row | Native List row + `DesignOSListRow` composition | Semantic secondary content and accessibility-size vertical reflow |
-| Add/review workflow | `sheet`, `NavigationStack`, `Form`, `Section` | Semantic colors; native presentation and focus ownership |
+| Journal and meal detail navigation | `NavigationSplitView`, plain `List(selection:)`, `NavigationLink` | Editorial app style injected at root; no replacement navigation |
+| Saved meal row | Native List row + `DesignOSMediaRow` composition | Editorial media spacing, semantic metadata and accessibility-size vertical reflow |
+| Add/review workflow | `sheet`, `NavigationStack`, capture `ScrollView`, review `Form`/`Section` | Editorial surfaces and selected-photo backdrop; native presentation/focus |
 | Food/portion/calorie editing | Labeled `TextField`; decimal keyboard on iOS | Platform typography; explicit 44pt editor minimums |
 | Save/cancel | Native toolbar confirmation/cancellation placements | SF Symbol labels for icon actions; standard keyboard default action |
 | Date/time and daily scope | Native `DatePicker` | Platform-adaptive date control, no custom wheel |
@@ -103,3 +103,10 @@ The cross-platform XCUI suite attaches actual `XCUIApplication.screenshot()` cap
 - `05-invalid-calorie-review`
 
 The empty, capture, review and saved-state screenshots are attached only after the expected state is found. They are generated during an actual Apple test run, not at source-authoring time. Preserve the run’s `.xcresult` bundle in CI and inspect its Attachments in Xcode; this source change alone is not screenshot evidence or a visual-quality pass. A new portable regression types an out-of-range numeric value and verifies that Save is disabled. Empty/nonnumeric text, locale digit systems, camera, modal focus, full accessibility and the broader visual matrix still need their own runtime checks.
+
+
+## Luma-reference adaptation and sample photo
+
+The app now consumes the reusable editorial native kit described in [the source-backed reference analysis](../../docs/luma-style-reference.md): flat light/dark journal, compact navigation, media-led rows, monochrome actions and photo-derived dark capture/review atmosphere. Geometry is reconstructed from screenshots; 100% visual parity is not verified. Photo atmosphere belongs only to the selected image and is disabled when Reduce Transparency or Increase Contrast requires an opaque surface.
+
+“Try sample meal” loads the bundled synthetic `Resources/DemoMeal.png`, then the existing offline fixed 430-kcal demo fixture. It never uploads or auto-saves. The image is a clearly labeled sample illustration, not evidence for the fixture’s nutritional accuracy. Native UI coverage includes `09-sample-photo-review`, generated only in an actual test run. Saved demo-origin rows may reuse that same labeled sample illustration; real user photos still are not persisted, and manual/remote records use an honest food symbol instead. No user-photo retention behavior or journal schema was added.
