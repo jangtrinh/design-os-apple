@@ -57,42 +57,50 @@ public struct DesignOSAdaptiveColor: Hashable, Sendable {
   /// A platform dynamic color that follows the supplied rendering traits.
   public var color: Color {
     #if os(iOS)
-      Color(
-        uiColor: UIColor { traits in
-          let rgb = self.resolvedRGB(
-            dark: traits.userInterfaceStyle == .dark,
-            increasedContrast: traits.accessibilityContrast == .high
-          )
-          return UIColor(
-            red: CGFloat((rgb >> 16) & 0xFF) / 255,
-            green: CGFloat((rgb >> 8) & 0xFF) / 255,
-            blue: CGFloat(rgb & 0xFF) / 255,
-            alpha: 1
-          )
-        }
-      )
+      Color(uiColor: nativeColor)
     #elseif os(macOS)
-      Color(
-        nsColor: NSColor(name: nil) { appearance in
-          let match = appearance.bestMatch(from: [
-            .accessibilityHighContrastDarkAqua, .accessibilityHighContrastAqua,
-            .darkAqua, .aqua,
-          ])
-          let rgb = self.resolvedRGB(
-            dark: match == .darkAqua || match == .accessibilityHighContrastDarkAqua,
-            increasedContrast: match == .accessibilityHighContrastAqua
-              || match == .accessibilityHighContrastDarkAqua
-          )
-          return NSColor(
-            srgbRed: CGFloat((rgb >> 16) & 0xFF) / 255,
-            green: CGFloat((rgb >> 8) & 0xFF) / 255,
-            blue: CGFloat(rgb & 0xFF) / 255,
-            alpha: 1
-          )
-        }
-      )
+      Color(nsColor: nativeColor)
     #endif
   }
+
+  #if os(iOS)
+    /// The production native provider, exposed internally for platform-resolution tests.
+    internal var nativeColor: UIColor {
+      UIColor { traits in
+        let rgb = self.resolvedRGB(
+          dark: traits.userInterfaceStyle == .dark,
+          increasedContrast: traits.accessibilityContrast == .high
+        )
+        return UIColor(
+          red: CGFloat((rgb >> 16) & 0xFF) / 255,
+          green: CGFloat((rgb >> 8) & 0xFF) / 255,
+          blue: CGFloat(rgb & 0xFF) / 255,
+          alpha: 1
+        )
+      }
+    }
+  #elseif os(macOS)
+    /// The production native provider, exposed internally for platform-resolution tests.
+    internal var nativeColor: NSColor {
+      NSColor(name: nil) { appearance in
+        let match = appearance.bestMatch(from: [
+          .accessibilityHighContrastDarkAqua, .accessibilityHighContrastAqua,
+          .darkAqua, .aqua,
+        ])
+        let rgb = self.resolvedRGB(
+          dark: match == .darkAqua || match == .accessibilityHighContrastDarkAqua,
+          increasedContrast: match == .accessibilityHighContrastAqua
+            || match == .accessibilityHighContrastDarkAqua
+        )
+        return NSColor(
+          srgbRed: CGFloat((rgb >> 16) & 0xFF) / 255,
+          green: CGFloat((rgb >> 8) & 0xFF) / 255,
+          blue: CGFloat(rgb & 0xFF) / 255,
+          alpha: 1
+        )
+      }
+    }
+  #endif
 
   internal func resolvedRGB(dark: Bool, increasedContrast: Bool) -> UInt32 {
     switch (dark, increasedContrast) {

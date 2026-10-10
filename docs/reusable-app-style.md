@@ -194,6 +194,11 @@ Calculated palette minima are 5.04:1 in light appearance and 9.67:1 in dark appe
 primary action pair is 18.10:1. These are color calculations, not rendered UI or VoiceOver
 acceptance results. Rendered app screenshots, device accessibility, native keyboard focus,
 and source comparisons must be checked separately by the consuming app's native test lane.
+Platform tests assert all four appearance/contrast variants against the native color provider
+used by the public SwiftUI color. They do not change system accessibility preferences. A
+SwiftUI-to-AppKit round trip cannot substitute for a rendered high-contrast check, because
+SwiftUI's contrast environment is system-owned and read-only. Public SwiftUI rendering with
+Increase Contrast remains a separate native accessibility verification requirement.
 
 Web HTML gates are not applicable to this SwiftUI runtime. On an Apple toolchain, run the
 repository's `scripts/verify-swift-package.sh`, then the consuming app's native UI suite.

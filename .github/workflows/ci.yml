@@ -41,6 +41,10 @@ jobs:
           python3 scripts/verify-app-style-registry.py
 
   caloriecam-native:
+    strategy:
+      fail-fast: false
+      matrix:
+        destination: [iphone, ipad, macos]
     runs-on: macos-26
     timeout-minutes: 45
     steps:
@@ -50,13 +54,14 @@ jobs:
         run: brew install xcodegen
       - name: Verify CalorieCam core and native UI flows
         env:
+          CALORIECAM_DESTINATION: ${{ matrix.destination }}
           CALORIECAM_RESULTS_DIR: ${{ runner.temp }}/caloriecam-results
         run: scripts/verify-caloriecam.sh
       - name: Preserve CalorieCam test evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: caloriecam-test-results
+          name: caloriecam-${{ matrix.destination }}-test-results
           path: |
             ${{ runner.temp }}/caloriecam-results/*.xcresult
             ${{ runner.temp }}/caloriecam-results/selected-simulators.txt
@@ -72,6 +77,11 @@ jobs:
         uses: actions/checkout@v6
       - name: Install XcodeGen and ripgrep
         run: brew install xcodegen ripgrep
+      - name: Diagnose native color resolution
+        continue-on-error: true
+        run: |
+          swiftc -swift-version 6 Sources/DesignOSApple/AppStyle/DesignOSAdaptiveColor.swift scripts/diagnose-app-style-color.swift -o "$RUNNER_TEMP/diagnose-app-style-color"
+          "$RUNNER_TEMP/diagnose-app-style-color"
       - name: Verify the same release-candidate gates used locally
         env:
           DESIGN_OS_APPLE_GALLERY_RESULTS_DIR: ${{ runner.temp }}/gallery-results

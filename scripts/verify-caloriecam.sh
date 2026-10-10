@@ -4,6 +4,11 @@ set -euo pipefail
 
 root=$(cd "$(dirname "$0")/.." && pwd)
 app="$root/Examples/CalorieCam"
+destination=${CALORIECAM_DESTINATION:-all}
+case "$destination" in
+  all|iphone|ipad|macos) ;;
+  *) echo "E_CALORIECAM_DESTINATION: expected all, iphone, ipad or macos" >&2; exit 1 ;;
+esac
 for tool in swift xcodegen xcodebuild xcrun python3; do
   command -v "$tool" >/dev/null || { echo "E_CALORIECAM_TOOL: missing $tool" >&2; exit 1; }
 done
@@ -23,11 +28,12 @@ xcodegen generate --spec "$app/project.yml" --project "$app"
 
 # Use actual installed simulator identifiers. Missing devices are errors, not skips.
 xcrun simctl list devices available --json > "$results/simulators.json"
-python3 - "$results/simulators.json" > "$results/selected-simulators.txt" <<'PY'
+python3 - "$results/simulators.json" "$destination" > "$results/selected-simulators.txt" <<'PY'
 import json, re, sys
 data = json.load(open(sys.argv[1]))["devices"]
 runtimes = sorted(data, key=lambda value: tuple(map(int, re.findall(r"\d+", value))), reverse=True)
-for family in ("iPhone", "iPad"):
+families = {"all": ("iPhone", "iPad"), "iphone": ("iPhone",), "ipad": ("iPad",), "macos": ()}[sys.argv[2]]
+for family in families:
     chosen = next((device for runtime in runtimes if "iOS" in runtime
                    for device in data[runtime]
                    if device.get("isAvailable") and device["name"].startswith(family)), None)
@@ -51,16 +57,19 @@ while read -r family identifier; do
   fi
 done < "$results/selected-simulators.txt"
 
-if xcodebuild test \
-  -project "$app/CalorieCam.xcodeproj" \
-  -scheme CalorieCam-macOS \
-  -destination 'platform=macOS' \
-  -derivedDataPath "$results/DerivedData-macOS" \
-  -resultBundlePath "$results/macOS.xcresult" \
-  CODE_SIGNING_ALLOWED=NO; then
-  echo "macOS UI tests passed."
-else
-  status=1
+if [[ "$destination" == all || "$destination" == macos ]]; then
+  if xcodebuild test \
+    -project "$app/CalorieCam.xcodeproj" \
+    -scheme CalorieCam-macOS \
+    -destination 'platform=macOS' \
+    -derivedDataPath "$results/DerivedData-macOS" \
+    -resultBundlePath "$results/macOS.xcresult" \
+    CODE_SIGNING_ALLOWED=NO; then
+    echo "macOS UI tests passed."
+  else
+    status=1
+  fi
+
 fi
 
 # Export actual XCTest attachments for review without requiring Xcode on the viewer.
@@ -77,5 +86,5 @@ if [[ $status -ne 0 ]]; then
   exit "$status"
 fi
 
-echo "CalorieCam native core and iPhone/iPad/macOS UI tests passed."
+echo "CalorieCam core and requested native destination ($destination) passed."
 echo "Camera hardware, photo recognition, visual acceptance and Duo posture remain separate checks."
