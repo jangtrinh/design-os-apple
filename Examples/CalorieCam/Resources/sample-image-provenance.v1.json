@@ -1,0 +1,25 @@
+{
+  "schemaVersion": 1,
+  "artifactClass": "caloriecam-synthetic-sample",
+  "assets": [
+    {
+      "name": "DemoMeal",
+      "path": "Examples/CalorieCam/Resources/DemoMeal.png",
+      "byteSize": 2616037,
+      "sha256": "46b0bd52d774aae7490e8efe3ac85a630b0fb17efe013dceae63f81cb75f9c22",
+      "mimeType": "image/png",
+      "dimensions": { "width": 1254, "height": 1254 },
+      "generator": "built-in OpenAI image generation tool, original generation",
+      "created": "2026-10-10",
+      "intendedUse": "CalorieCam-only labeled offline sample meal and native UI tests",
+      "synthetic": true,
+      "originalBytesUnchanged": true,
+      "nutritionalGroundTruth": false,
+      "modelAccuracyEvidence": false,
+      "provenance": {
+        "path": "Examples/CalorieCam/Resources/provenance.md",
+        "sha256": "8ce4494a43a19e31a9af6a5a64db4642868841a9bc017c3d795665a09cd3ba0f"
+      }
+    }
+  ]
+}

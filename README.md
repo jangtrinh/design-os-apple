@@ -16,7 +16,7 @@ reference pages that both people and AI agents can read.
 
 Minimum platforms: iOS and iPadOS 17, macOS 14. Swift 6.2 toolchain, Swift Package Manager.
 DESIGN:OS maintainer tooling is not required by package consumers.
-Web documentation site (planned / unpublished URL): [https://jangtrinh.github.io/design-os-apple/](https://jangtrinh.github.io/design-os-apple/)
+Web documentation site: [https://jangtrinh.github.io/design-os-apple/](https://jangtrinh.github.io/design-os-apple/)
 
 ## Add the package
 
@@ -126,6 +126,30 @@ generated artwork and the
 [reference reconstruction workflow](docs/reference-reconstruction-workflow.md) for new
 research-driven mini apps.
 
+## CalorieCam: native app dogfood
+
+[CalorieCam](Examples/CalorieCam/README.md) is a separate iPhone/iPad/macOS example that
+uses this design system for a photo-reference meal journal: choose or capture a photo,
+review editable food estimates, and explicitly save a meal. Its initial offline mode uses
+labeled sample data, not image recognition. Native build, simulator, camera and live-AI
+verification must be reported separately; source availability is not runtime acceptance.
+
+- [Native API lookup and coverage](docs/component-coverage.md): find a native API's
+  existing story and evidence level without inventing a wrapper.
+- [Latest Apple UI roadmap](docs/apple-ui-roadmap-2026-10.md): stable versus prerelease
+  capabilities, including documented Duo additions pending SDK verification.
+- [Mobbin research and interaction decisions](docs/caloriecam-mobbin-research.md).
+- [Design-system organization](docs/design-system-organization.md): Design OS authority layers
+  and a [machine-readable app-style index](docs/app-styles/editorial/manifest.json).
+- [Reusable editorial app style](docs/reusable-app-style.md): opt-in shared palette,
+  media rows, content surfaces, native button appearance and accessible media backdrops.
+- [Luma visual reference evidence](docs/luma-style-reference.md): observed pixels, inferred
+  geometry, native interaction mapping and explicit fidelity limits.
+
+On a Mac with Xcode and XcodeGen, run `scripts/verify-caloriecam.sh` for core tests and
+iPhone/iPad/macOS UI tests. This is a separate dogfood check and does not replace the
+package release-candidate gate.
+
 ## Verify the checkout
 
 ```bash
@@ -140,6 +164,25 @@ behavior, visual taste, independent review, or owner acceptance. See
 [Quality Evidence](docs/quality-evidence.md).
 
 ## Maintainer-only design management
+
+### Portable documentation and provenance checks
+
+The documentation and provenance regression checks also run on Linux with Python 3:
+
+```bash
+python3 scripts/test-ukmc-verifier.py
+python3 scripts/test-quickstart-parity.py
+python3 scripts/verify-quickstart-parity.py
+```
+
+These checks reject malformed provenance and drift between the landing-page Swift example
+and the Getting Started example. They do not compile SwiftUI or replace the macOS release
+gate. The UKMC regression suite distinguishes local structural validation from canonical
+knowledge-builder integration; a passing portable suite is not canonical-contract proof.
+
+See [portable verification](docs/portable-verification.md) for dependency setup and scope.
+
+### Managed design intent
 
 `design/` is the DESIGN:OS management source of truth. `Sources/DesignOSApple/` is the
 native runtime implementation. Maintainers changing managed design intent use `ui ds`;
@@ -168,7 +211,7 @@ Native navigation behavior verified on Apple platform simulators:
 
 ## Project routes
 
-- [Web Documentation Site (planned / unpublished URL)](https://jangtrinh.github.io/design-os-apple/)
+- [Web Documentation Site](https://jangtrinh.github.io/design-os-apple/)
 - [Contributing](CONTRIBUTING.md)
 - [Support](SUPPORT.md)
 - [Security](SECURITY.md)

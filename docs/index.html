@@ -334,6 +334,7 @@ targets: [
       <p>The first compiling view composes <code>DesignOSListRow</code> inside a native SwiftUI <code>List</code> and injects the default design-system profile at the view hierarchy root. This exact code block is verified against the built package by <code>scripts/verify-consumer-quickstart.sh</code>:</p>
       
       <div class="ds-code-block">
+<!-- verify-swift-start -->
         <pre><code>import DesignOSApple
 import SwiftUI
 
@@ -354,6 +355,7 @@ struct AccountList: View {
     .designOSProfile(.default)
   }
 }</code></pre>
+<!-- verify-swift-end -->
       </div>
     </section>
 
