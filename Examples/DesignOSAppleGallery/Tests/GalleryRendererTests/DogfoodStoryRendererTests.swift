@@ -43,11 +43,9 @@ final class DogfoodStoryRendererTests: XCTestCase {
     XCTAssertFalse(NativeMaterialAndGlassSurfaceRecipeGallery.supportsGlass)
     #endif
 
+    // Reduce Transparency is a read-only system environment value. The test
+    // above exercises both settings through the specimen's production resolver.
     acceptsView(NativeMaterialAndGlassSurfaceRecipeGallery())
-    acceptsView(
-      NativeMaterialAndGlassSurfaceRecipeGallery()
-        .environment(\.accessibilityReduceTransparency, true)
-    )
   }
 
   @MainActor
