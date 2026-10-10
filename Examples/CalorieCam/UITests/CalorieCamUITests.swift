@@ -28,6 +28,13 @@ final class CalorieCamUITests: XCTestCase {
         ).firstMatch
     }
 
+    /// AppKit exposes Text through value; UIKit can provide an empty value with
+    /// the actual text in label. Preserve exact comparisons after extracting it.
+    private func displayedText(of element: XCUIElement) -> String {
+        if let value = element.value as? String, !value.isEmpty { return value }
+        return element.label
+    }
+
     private func finishKeyboardEditing(in app: XCUIApplication) -> Bool {
         #if os(iOS)
         guard app.keyboards.firstMatch.exists else { return true }
@@ -178,10 +185,9 @@ final class CalorieCamUITests: XCTestCase {
         }
         let detailPortion = reopened.staticTexts["mealDetailPortion"]
         let detailCalories = reopened.staticTexts["mealDetailCalories"]
-        // AppKit exposes ordinary Text through value, while UIKit uses label.
-        guard (detailName.value as? String ?? detailName.label) == "Test apple",
-              (detailPortion.value as? String ?? detailPortion.label) == "1 medium",
-              (detailCalories.value as? String ?? detailCalories.label) == "95 kcal" else {
+        guard displayedText(of: detailName) == "Test apple",
+              displayedText(of: detailPortion) == "1 medium",
+              displayedText(of: detailCalories) == "95 kcal" else {
             attachScreenshot("failure-persisted-detail-values", of: reopened)
             let hierarchy = XCTAttachment(string: reopened.debugDescription)
             hierarchy.name = "failure-persisted-detail-accessibility"

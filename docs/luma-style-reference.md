@@ -2,6 +2,8 @@
 
 Research date: 2026-10-10. This document describes the specific Luma **events** app reference supplied for CalorieCam. It is not Luma AI and does not use another app as a substitute.
 
+**Expanded coverage:** [The complete layout atlas](luma-layout-atlas.md) now records visual review of all 393 distinct images across 120 corroborated pinned-version flows, with [per-screen observations](luma-layout-atlas.inventory.json). Use that atlas for whole-app layout families and state coverage; this document retains the initial visual measurements. The user’s latest continuous-corner, actual nested-radius and full-pill requirements are explicit implementation overrides, detailed in the atlas.
+
 ## Source identity and evidence
 
 - [Requested Mobbin collection](https://mobbin.com/apps/luma-ios-bead4230-994f-47c2-9311-5049bf7bcace/0ae0e7e9-c7b7-4ef6-bc80-ddd7d4dfc040/screens)
