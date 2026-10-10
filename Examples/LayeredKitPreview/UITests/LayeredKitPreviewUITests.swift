@@ -38,10 +38,50 @@ final class LayeredKitPreviewUITests: XCTestCase {
         add(attachment)
     }
 
-    private func setAppearance(_ appearance: String, in app: XCUIApplication) -> Bool {
+    private func openOptions(in app: XCUIApplication) -> Bool {
         let options = app.buttons["previewOptions"].firstMatch
-        guard options.waitForExistence(timeout: 5) else { diagnose("failure-preview-options", app: app); XCTFail("Missing native preview options"); return false }
+        let deadline = Date().addingTimeInterval(5)
+        var previousFrame: CGRect?
+        var stableSamples = 0
+        var ready = false
+        repeat {
+            if options.exists && options.isHittable && options.isEnabled {
+                let frame = options.frame
+                let window = app.windows.firstMatch.frame
+                if !frame.isEmpty && !frame.isNull && !frame.isInfinite && window.contains(frame) {
+                    stableSamples = previousFrame == frame ? stableSamples + 1 : 1
+                    previousFrame = frame
+                    if stableSamples >= 3 { ready = true; break }
+                } else {
+                    stableSamples = 0
+                    previousFrame = nil
+                }
+            } else {
+                stableSamples = 0
+                previousFrame = nil
+            }
+            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
+        } while Date() < deadline
+        guard ready else {
+            diagnose("failure-preview-options-readiness", app: app)
+            XCTFail("Preview options must be enabled, hittable and settled inside the actual window"); return false
+        }
+        // One native tap only. A failed presentation remains a failure, never a retry.
         options.tap()
+        let done = app.buttons["closePreviewOptions"].firstMatch
+        let presentationDeadline = Date().addingTimeInterval(5)
+        while !(done.exists && done.isHittable) && Date() < presentationDeadline {
+            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
+        }
+        guard done.exists && done.isHittable else {
+            diagnose("failure-preview-options-presentation", app: app)
+            XCTFail("One native options tap must present the options sheet before querying its controls"); return false
+        }
+        return true
+    }
+
+    private func setAppearance(_ appearance: String, in app: XCUIApplication) -> Bool {
+        guard openOptions(in: app) else { return false }
         let option = nativeChoice(appearance, picker: "previewAppearance", in: app)
         guard option.waitForExistence(timeout: 5) else { diagnose("failure-appearance-choice", app: app); XCTFail("Missing appearance choice \(appearance)"); return false }
         option.tap()
@@ -290,9 +330,7 @@ final class LayeredKitPreviewUITests: XCTestCase {
     func testCollectionEmptyErrorAndBusyStates() {
         let app = launch("flat-collection")
         for (state, expected) in [("Empty", "Nothing here yet"), ("Error", "Fixture error: check the gathering name."), ("Busy", "Fixture loading state")] {
-            let options = app.buttons["previewOptions"].firstMatch
-            guard options.waitForExistence(timeout: 5) else { XCTFail("Missing options"); return }
-            options.tap()
+            guard openOptions(in: app) else { return }
             let choice = nativeChoice(state, picker: "previewState", in: app)
             guard choice.waitForExistence(timeout: 5) else { XCTFail("Missing state choice"); return }
             choice.tap()
@@ -354,17 +392,21 @@ final class LayeredKitPreviewUITests: XCTestCase {
             XCTFail("Normal-size media and title must be visibly arranged horizontally"); return
         }
         capture("foundations-normal-text", app: app)
-        let options = app.buttons["previewOptions"].firstMatch
-        guard options.waitForExistence(timeout: 5) else { XCTFail("Missing options"); return }
-        options.tap()
-        #if os(iOS)
+        guard openOptions(in: app) else { return }
+        // Current AppKit and UIKit both expose this Toggle as a Switch. Accept
+        // AppKit's alternate native CheckBox role without falling back to any row.
         let row = app.switches["previewLargeText"].firstMatch
-        guard row.waitForExistence(timeout: 5) else { XCTFail("Missing native accessibility switch"); return }
-        let thumb = row.switches.firstMatch
-        let largeType = thumb.exists ? thumb : row
+        #if os(macOS)
+        let nativeControl = row.exists ? row : app.checkBoxes["previewLargeText"].firstMatch
         #else
-        let largeType = app.checkBoxes["previewLargeText"].firstMatch
+        let nativeControl = row
         #endif
+        guard nativeControl.waitForExistence(timeout: 5) else {
+            diagnose("failure-accessibility-native-control", app: app)
+            XCTFail("Missing native accessibility switch or checkbox"); return
+        }
+        let thumb = nativeControl.switches.firstMatch
+        let largeType = thumb.exists ? thumb : nativeControl
         guard largeType.waitForExistence(timeout: 5), largeType.isHittable,
               largeType.value as? String == "0" else {
             diagnose("failure-accessibility-switch-off", app: app)
