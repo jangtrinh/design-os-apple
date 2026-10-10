@@ -127,6 +127,7 @@ struct MealReviewView: View {
 
 /// Keep incomplete numeric text in the editor instead of silently saving the previous value.
 private struct FoodFields: View {
+    @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Binding var food: FoodItem
     @State private var caloriesText: String
     @State private var editedName = false
@@ -140,6 +141,9 @@ private struct FoodFields: View {
     }
 
     var body: some View {
+        let calorieLayout = dynamicTypeSize.isAccessibilitySize
+            ? AnyLayout(VStackLayout(alignment: .trailing, spacing: 8))
+            : AnyLayout(HStackLayout(spacing: 8))
         VStack(spacing: 0) {
             LabeledContent("Food name") {
                 TextField("Food name", text: $food.name)
@@ -175,25 +179,33 @@ private struct FoodFields: View {
             .onTapGesture { focusedField = .portion }
             Divider()
             LabeledContent("Calories (kcal)") {
-                TextField("Calories (kcal)", text: $caloriesText)
-                    .focused($focusedField, equals: .calories)
-                    .labelsHidden()
-                    .accessibilityLabel("Calories (kcal)")
-                    .textFieldStyle(.plain)
-                    .multilineTextAlignment(.trailing)
-                    #if os(iOS)
-                    .keyboardType(.decimalPad)
-                    #endif
-                    .frame(minHeight: 44)
-                    .accessibilityIdentifier("foodCalories")
-                    .onChange(of: caloriesText) { _, value in
-                        editedCalories = true
-                        let normalized = value.replacingOccurrences(of: Locale.current.decimalSeparator ?? ".", with: ".")
-                        food.calories = Double(normalized) ?? .nan
+                calorieLayout {
+                    TextField("Calories (kcal)", text: $caloriesText)
+                        .focused($focusedField, equals: .calories)
+                        .labelsHidden()
+                        .accessibilityLabel("Calories (kcal)")
+                        .textFieldStyle(.plain)
+                        .multilineTextAlignment(.trailing)
+                        #if os(iOS)
+                        .keyboardType(.decimalPad)
+                        #endif
+                        .frame(minWidth: 64, minHeight: 44)
+                        .contentShape(Rectangle())
+                        .onTapGesture { focusedField = .calories }
+                        .accessibilityIdentifier("foodCalories")
+                        .onChange(of: caloriesText) { _, value in
+                            editedCalories = true
+                            let normalized = value.replacingOccurrences(of: Locale.current.decimalSeparator ?? ".", with: ".")
+                            food.calories = Double(normalized) ?? .nan
+                        }
+                    if focusedField == .calories {
+                        Button("Clear") { caloriesText = "" }
+                            .buttonStyle(DesignOSSecondaryButtonStyle())
+                            .accessibilityLabel("Clear calories")
+                            .accessibilityIdentifier("clearCalories")
                     }
+                }
             }
-            .contentShape(Rectangle())
-            .onTapGesture { focusedField = .calories }
             if editedCalories && (!food.calories.isFinite || !(0...10_000).contains(food.calories)) {
                 Text("Enter calories from 0 to 10,000.")
                     .font(.caption)
@@ -205,10 +217,6 @@ private struct FoodFields: View {
         .toolbar {
             if focusedField != nil {
                 ToolbarItemGroup(placement: .keyboard) {
-                    if focusedField == .calories {
-                        Button("Clear calories") { caloriesText = "" }
-                            .accessibilityIdentifier("clearCalories")
-                    }
                     Spacer()
                     Button("Done") { focusedField = nil }
                         .accessibilityIdentifier("finishFoodEditing")

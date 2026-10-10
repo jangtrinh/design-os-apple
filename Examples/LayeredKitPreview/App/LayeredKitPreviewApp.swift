@@ -48,6 +48,11 @@ struct PreviewNavigation: View {
                     if let selected {
                         SpecimenContent(specimen: selected, variant: $variant, hideMedia: hideMedia)
                             .navigationTitle(selected.title)
+                            #if os(iOS)
+                            .navigationBarTitleDisplayMode(
+                                [Specimen.flatCollection, .groupedForm, .searchSelection].contains(selected) ? .inline : .automatic
+                            )
+                            #endif
                     } else {
                         ContentUnavailableView("Choose a specimen", systemImage: "square.grid.2x2",
                             description: Text("Native compositions with original fixture content."))

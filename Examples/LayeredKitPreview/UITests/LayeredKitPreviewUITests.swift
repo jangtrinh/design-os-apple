@@ -98,11 +98,44 @@ final class LayeredKitPreviewUITests: XCTestCase {
             diagnose("failure-\(evidenceName)-missing-content", app: app)
             XCTFail("Real content missing for \(specimen)"); return
         }
+        guard waitForVisibleNavigationTitle(title, in: app) else {
+            diagnose("failure-\(evidenceName)-title-visibility", app: app)
+            XCTFail("Native title must be visible, settled and clear of toolbar controls before capture"); return
+        }
         guard (testRun?.totalFailureCount ?? 0) == failuresBeforeScenario else {
             diagnose("failure-\(evidenceName)-recorded-issue", app: app)
             return
         }
         capture("screen-\(evidenceName)", app: app)
+    }
+
+    private func waitForVisibleNavigationTitle(_ title: String, in app: XCUIApplication) -> Bool {
+        #if os(iOS)
+        let bar = app.navigationBars[title]
+        let label = bar.staticTexts.matching(NSPredicate(format: "label == %@ OR value == %@", title, title)).firstMatch
+        let deadline = Date().addingTimeInterval(5)
+        var previousFrame: CGRect?
+        var stableSamples = 0
+        repeat {
+            if bar.exists && label.exists {
+                let frame = label.frame
+                let viewport = bar.frame.intersection(app.windows.firstMatch.frame)
+                let overlapsControl = bar.buttons.allElementsBoundByIndex.contains { button in
+                    button.exists && button.isHittable && button.frame.intersects(frame)
+                }
+                if !frame.isEmpty && !frame.isNull && !frame.isInfinite && viewport.contains(frame)
+                    && label.isHittable && !overlapsControl {
+                    stableSamples = previousFrame == frame ? stableSamples + 1 : 1
+                    previousFrame = frame
+                    if stableSamples >= 3 { return true }
+                } else { stableSamples = 0; previousFrame = nil }
+            } else { stableSamples = 0; previousFrame = nil }
+            RunLoop.current.run(until: Date().addingTimeInterval(0.1))
+        } while Date() < deadline
+        return false
+        #else
+        return app.windows[title].exists
+        #endif
     }
 
     private func renderedText(_ expected: String, in app: XCUIApplication) -> XCUIElement {
@@ -272,16 +305,88 @@ final class LayeredKitPreviewUITests: XCTestCase {
         }
     }
 
+    private func visibleMediaGeometry(in app: XCUIApplication) -> (media: CGRect, title: CGRect)? {
+        let media = app.images["foundationMedia"].firstMatch
+        let title = app.staticTexts["foundationMediaTitle"].firstMatch
+        guard media.waitForExistence(timeout: 5), title.waitForExistence(timeout: 5) else { return nil }
+        let scroll = app.scrollViews.containing(.image, identifier: "foundationMedia").firstMatch
+        guard scroll.exists else { return nil }
+        for _ in 0..<6 {
+            var viewport = scroll.frame.intersection(app.windows.firstMatch.frame)
+            #if os(iOS)
+            let navigation = app.navigationBars["Foundations"]
+            if navigation.exists {
+                let top = max(viewport.minY, navigation.frame.maxY)
+                viewport = CGRect(x: viewport.minX, y: top, width: viewport.width, height: max(0, viewport.maxY - top))
+            }
+            #endif
+            let action = app.buttons["fixtureSave"].firstMatch
+            if action.exists && action.frame.minY > viewport.minY {
+                viewport.size.height = max(0, min(viewport.maxY, action.frame.minY) - viewport.minY)
+            }
+            let imageFrame = media.frame
+            let titleFrame = title.frame
+            if !imageFrame.isEmpty && !titleFrame.isEmpty && viewport.contains(imageFrame) && viewport.contains(titleFrame) {
+                return (imageFrame, titleFrame)
+            }
+            #if os(macOS)
+            scroll.scroll(byDeltaX: 0, deltaY: imageFrame.minY < viewport.minY ? 180 : -180)
+            #else
+            guard !viewport.isEmpty && !viewport.isNull else { return nil }
+            let towardTop = imageFrame.minY < viewport.minY
+            let needed = towardTop ? viewport.minY - imageFrame.minY : max(imageFrame.maxY, titleFrame.maxY) - viewport.maxY
+            let distance = min(max(needed + 16, 40), viewport.height * 0.45)
+            let startY = viewport.minY + viewport.height * (towardTop ? 0.25 : 0.75)
+            let endY = startY + (towardTop ? distance : -distance)
+            let origin = scroll.coordinate(withNormalizedOffset: .zero)
+            let start = origin.withOffset(CGVector(dx: viewport.midX - scroll.frame.minX, dy: startY - scroll.frame.minY))
+            let end = origin.withOffset(CGVector(dx: viewport.midX - scroll.frame.minX, dy: endY - scroll.frame.minY))
+            start.press(forDuration: 0.05, thenDragTo: end)
+            #endif
+        }
+        return nil
+    }
+
     func testAccessibleLayoutAndStateControls() {
-        let app = launch("media-composer")
+        let app = launch("foundations")
+        guard let before = visibleMediaGeometry(in: app), before.title.minX >= before.media.maxX else {
+            diagnose("failure-accessibility-baseline", app: app)
+            XCTFail("Normal-size media and title must be visibly arranged horizontally"); return
+        }
+        capture("foundations-normal-text", app: app)
         let options = app.buttons["previewOptions"].firstMatch
         guard options.waitForExistence(timeout: 5) else { XCTFail("Missing options"); return }
         options.tap()
-        let largeType = app.descendants(matching: .any)["previewLargeText"].firstMatch
-        guard largeType.waitForExistence(timeout: 5) else { XCTFail("Missing real layout control"); return }
+        #if os(iOS)
+        let row = app.switches["previewLargeText"].firstMatch
+        guard row.waitForExistence(timeout: 5) else { XCTFail("Missing native accessibility switch"); return }
+        let thumb = row.switches.firstMatch
+        let largeType = thumb.exists ? thumb : row
+        #else
+        let largeType = app.checkBoxes["previewLargeText"].firstMatch
+        #endif
+        guard largeType.waitForExistence(timeout: 5), largeType.isHittable,
+              largeType.value as? String == "0" else {
+            diagnose("failure-accessibility-switch-off", app: app)
+            XCTFail("Native accessibility control must start off and be reachable"); return
+        }
         largeType.tap()
+        let enabled = XCTNSPredicateExpectation(predicate: NSPredicate(format: "value == %@", "1"), object: largeType)
+        guard XCTWaiter.wait(for: [enabled], timeout: 5) == .completed else {
+            diagnose("failure-accessibility-switch-on", app: app)
+            XCTFail("Native accessibility control did not change to on"); return
+        }
+        capture("accessibility-option-enabled", app: app)
         app.buttons["closePreviewOptions"].firstMatch.tap()
-        guard app.textFields["fixtureTitle"].waitForExistence(timeout: 5) else { XCTFail("Fields must survive text reflow"); return }
-        capture("media-composer-accessibility-text", app: app)
+        guard let after = visibleMediaGeometry(in: app), after.title.minY >= after.media.maxY,
+              after.title.minX < after.media.maxX else {
+            diagnose("failure-accessibility-reflow", app: app)
+            XCTFail("Accessibility size must visibly reflow the same media/title into a vertical layout"); return
+        }
+        let measurements = XCTAttachment(string: "Normal media=\(before.media), title=\(before.title)\nAccessibility media=\(after.media), title=\(after.title)")
+        measurements.name = "accessibility-layout-measurements"
+        measurements.lifetime = .keepAlways
+        add(measurements)
+        capture("foundations-accessibility-text", app: app)
     }
 }

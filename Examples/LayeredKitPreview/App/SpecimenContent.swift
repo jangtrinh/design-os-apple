@@ -153,8 +153,13 @@ struct SpecimenContent: View {
                 Text("Editorial foundations").font(.title2)
                 DesignOSAppSectionHeader("Adaptive colors and type")
                 DesignOSAppSurface { Text("Semantic surface using the shared style.") }
-                DesignOSMediaRow { thumbnail } content: {
-                    VStack(alignment: .leading) { Text("Media row"); Text("Native text reflow") }
+                DesignOSMediaRow {
+                    thumbnail.accessibilityIdentifier("foundationMedia")
+                } content: {
+                    VStack(alignment: .leading) {
+                        Text("Media row").accessibilityIdentifier("foundationMediaTitle")
+                        Text("Native text reflow")
+                    }
                 }
                 DesignOSAvatar { Image(systemName: "person.crop.circle.fill").resizable().scaledToFit() }
                     .accessibilityLabel("Fixture identity")
