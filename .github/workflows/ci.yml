@@ -57,6 +57,7 @@ jobs:
             ${{ runner.temp }}/caloriecam-results/*.xcresult
             ${{ runner.temp }}/caloriecam-results/selected-simulators.txt
             ${{ runner.temp }}/caloriecam-results/toolchain.txt
+            ${{ runner.temp }}/caloriecam-results/screenshots-*/
           if-no-files-found: ignore
 
   release-candidate:

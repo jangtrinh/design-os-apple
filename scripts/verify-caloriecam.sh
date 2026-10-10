@@ -36,23 +36,46 @@ for family in ("iPhone", "iPad"):
     print(f"{family} {chosen['udid']}")
 PY
 
+status=0
 while read -r family identifier; do
-  xcodebuild test \
+  if xcodebuild test \
     -project "$app/CalorieCam.xcodeproj" \
     -scheme CalorieCam-iOS \
     -destination "id=$identifier" \
     -derivedDataPath "$results/DerivedData-$family" \
     -resultBundlePath "$results/$family.xcresult" \
-    CODE_SIGNING_ALLOWED=NO
+    CODE_SIGNING_ALLOWED=NO; then
+    echo "$family UI tests passed."
+  else
+    status=1
+  fi
 done < "$results/selected-simulators.txt"
 
-xcodebuild test \
+if xcodebuild test \
   -project "$app/CalorieCam.xcodeproj" \
   -scheme CalorieCam-macOS \
   -destination 'platform=macOS' \
   -derivedDataPath "$results/DerivedData-macOS" \
   -resultBundlePath "$results/macOS.xcresult" \
-  CODE_SIGNING_ALLOWED=NO
+  CODE_SIGNING_ALLOWED=NO; then
+  echo "macOS UI tests passed."
+else
+  status=1
+fi
+
+# Export actual XCTest attachments for review without requiring Xcode on the viewer.
+for bundle in "$results"/*.xcresult; do
+  [[ -d "$bundle" ]] || continue
+  name=$(basename "$bundle" .xcresult)
+  mkdir -p "$results/screenshots-$name"
+  if ! xcrun xcresulttool export attachments --path "$bundle" --output-path "$results/screenshots-$name"; then
+    echo "Attachment export unavailable for $name; retain the original xcresult." >&2
+  fi
+done
+if [[ $status -ne 0 ]]; then
+  echo "E_CALORIECAM_TEST: one or more native destinations failed; inspect results." >&2
+  exit "$status"
+fi
 
 echo "CalorieCam native core and iPhone/iPad/macOS UI tests passed."
 echo "Camera hardware, photo recognition, visual acceptance and Duo posture remain separate checks."

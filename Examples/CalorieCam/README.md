@@ -90,3 +90,16 @@ These native owners can adopt system chrome when built with a compatible current
 - [ ] Window adaptation: compact iPhone, iPad narrow/wide multitasking and resizable Mac; selection and unsaved review state remain coherent
 
 All checklist items are NOT VERIFIED until run on Apple tooling. The Linux evidence is limited to YAML/source checks and the separately documented backend/core checks.
+
+
+### UI-test screenshot evidence
+
+The cross-platform XCUI suite attaches actual `XCUIApplication.screenshot()` captures with `XCTAttachment.lifetime = .keepAlways` at these states:
+
+- `01-empty-diary`
+- `02-capture-photo-choices`
+- `03-editable-meal-review`
+- `04-saved-diary`
+- `05-invalid-calorie-review`
+
+The empty, capture, review and saved-state screenshots are attached only after the expected state is found. They are generated during an actual Apple test run, not at source-authoring time. Preserve the run’s `.xcresult` bundle in CI and inspect its Attachments in Xcode; this source change alone is not screenshot evidence or a visual-quality pass. A new portable regression types an out-of-range numeric value and verifies that Save is disabled. Empty/nonnumeric text, locale digit systems, camera, modal focus, full accessibility and the broader visual matrix still need their own runtime checks.
