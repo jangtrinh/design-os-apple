@@ -36,8 +36,9 @@ demonstrates sheet presentation. The guide does not prescribe a tab architecture
 - Use `DesignOSAppSurface` only for meaningful custom content groups. Native `Form` owns
   its own groups. Do not nest rounded group surfaces or introduce cards to every screen.
 - Use `DesignOSMediaBackdrop` only with actual owned/licensed media. It remains decorative
-  and retains the existing light/contrast/Reduce Transparency opaque fallbacks. A dark media
-  presentation is an explicit product choice; no-media pages should remain adaptive.
+  and retains the existing light/contrast/Reduce Transparency opaque fallbacks. CalorieCam
+  adopts one root-owned System/Light/Dark choice across sidebar, content and presentations;
+  no individual media or no-media page forces a different theme.
 - Use primary/secondary button styles for app-owned content actions. They already produce
   continuous full pills at actual height. Leave system toolbar actions, menus, alerts,
   sheets and pickers under native control; do not replace safety UI to force a pill shape.

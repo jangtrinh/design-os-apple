@@ -51,3 +51,41 @@ and cancellation without live requests or paid AI calls.
 Build and execution status must be recorded separately from source review. The
 initial authoring environment had no Swift toolchain, so these tests were **NOT
 VERIFIED** there. CI or a local macOS run must establish passing executable evidence.
+
+## Direct personal API keys (BYOK)
+
+`AIProvider` supports `.openAI` and `.claude`. `ProviderConfiguration(provider:modelID:)`
+validates and persists only the provider and model ID. No model is selected implicitly.
+The app obtains a key from its own Keychain and supplies it only in memory to
+`ProviderMealAnalyzer(configuration:apiKey:)`. The analyzer must be short-lived and
+must never be logged. Its ordinary description/reflection redacts stored state.
+Developer/service keys must never ship inside the app.
+
+- `verifyConnection()` performs a metadata-only GET on the official provider model
+  endpoint. It returns `ProviderModelInfo`, verifies key/model access, and sends no
+  photograph or generation request. It does not prove image support, structured
+  output compatibility, generation quota, or estimate accuracy.
+- `analyze(imageData:)` requires explicit provider-named upload consent and a
+  normalized JPEG (complete SOI/EOI signature, up to 5 MiB). It sends one structured
+  vision request; the provider may bill the user's API account.
+- Each request uses a fresh ephemeral 45-second URLSession, no URL cache, shared
+  credentials or cookies. Redirects are blocked. Responses are capped at 256 KiB
+  while receiving. There are no automatic retries, fallback providers or models.
+- Caller cancellation cancels the network task. App settings changes should cancel
+  an in-flight operation and disregard stale results.
+- Remote error bodies are never displayed or logged. Estimates require a finished
+  provider response, exactly one JSON text result, expected keys, valid status,
+  nonempty bounded text, up to 20 foods, integer calories 0–10,000 per item, and a
+  maximum 50,000 total. No-food, uncertainty, refusal, truncation and malformed data
+  are errors, never fabricated demo results. Successful estimates retain `.remote`
+  origin and must be reviewed before saving.
+- No photo bytes, keys or provider response envelopes are written to disk. Provider
+  retention is separate from app storage; OpenAI uses `store: false`, which is not
+  a blanket promise of zero provider retention.
+
+The existing backend-only `RemoteMealAnalyzer` remains available unchanged. Direct
+BYOK's connection and analysis contracts have credential-free injected-transport
+and URLProtocol fixtures. Native Swift execution is still required to establish
+passing evidence; no real-key/live-provider test was performed in authoring.
+
+API assumptions and dated official references: [provider API reference](../../../docs/provider-api-reference.md).

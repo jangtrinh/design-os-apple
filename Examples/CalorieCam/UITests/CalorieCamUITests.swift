@@ -481,4 +481,161 @@ final class CalorieCamUITests: XCTestCase {
         XCTAssertTrue(app.staticTexts["No meals logged"].waitForExistence(timeout: 5))
     }
 
+    private func openSettings(in app: XCUIApplication) -> Bool {
+        app.buttons["openAISettings"].tap()
+        guard app.buttons["saveAISettings"].waitForExistence(timeout: 5) else {
+            attachScreenshot("failure-settings-open", of: app)
+            XCTFail("Settings did not open; remaining settings assertions cannot run.")
+            return false
+        }
+        return true
+    }
+
+    private func settingsElement(_ identifier: String, in app: XCUIApplication) -> XCUIElement {
+        app.descendants(matching: .any).matching(identifier: identifier).firstMatch
+    }
+
+    private func revealSettingsElement(_ element: XCUIElement, in app: XCUIApplication) -> Bool {
+        let form = settingsElement("aiSettingsForm", in: app)
+        for _ in 0..<8 {
+            if element.exists && element.isHittable && form.frame.intersection(app.windows.firstMatch.frame).contains(CGPoint(x: element.frame.midX, y: element.frame.midY)) { return true }
+            let above = element.exists && element.frame.maxY < form.frame.minY
+            #if os(macOS)
+            form.scroll(byDeltaX: 0, deltaY: above ? 220 : -220)
+            #else
+            if above { form.swipeDown() } else { form.swipeUp() }
+            #endif
+        }
+        XCTFail("Settings control did not become reachable: \(element.identifier)")
+        return false
+    }
+
+    private func selectAnalysisMode(_ label: String, in app: XCUIApplication) {
+        let mode = settingsElement("analysisMode", in: app)
+        guard revealSettingsElement(mode, in: app) else { return }
+        mode.tap()
+        #if os(macOS)
+        app.menuItems[label].firstMatch.tap()
+        #else
+        app.buttons[label].firstMatch.tap()
+        #endif
+    }
+
+    private func selectSettingsSegment(_ label: String, picker: String, in app: XCUIApplication) {
+        let control = settingsElement(picker, in: app)
+        guard revealSettingsElement(control, in: app) else { return }
+        control.descendants(matching: .any).matching(NSPredicate(format: "label == %@", label)).firstMatch.tap()
+    }
+
+    private func saveSettings(in app: XCUIApplication) -> Bool {
+        app.buttons["saveAISettings"].tap()
+        let closed = XCTNSPredicateExpectation(predicate: NSPredicate(format: "exists == false"), object: app.buttons["saveAISettings"])
+        guard XCTWaiter.wait(for: [closed], timeout: 5) == .completed else {
+            attachScreenshot("failure-settings-save", of: app)
+            XCTFail("Settings Save did not finish successfully.")
+            return false
+        }
+        return true
+    }
+
+    func testProviderSettingsCancelSaveIsolationAndRemoval() {
+        let app = XCUIApplication()
+        app.launchEnvironment["CALORIECAM_TEST_JOURNAL"] = UUID().uuidString
+        app.launchEnvironment["CALORIECAM_ANALYSIS_URL"] = ""
+        app.launchEnvironment["CALORIECAM_TEST_CONNECTION"] = "mock"
+        app.launch()
+        guard openSettings(in: app) else { return XCTFail("Settings did not open.") }
+        attachScreenshot("14-settings-empty", of: app)
+        selectAnalysisMode("My provider API key", in: app)
+        let model = app.textFields["providerModel"]
+        model.tap(); model.typeText("fixture-openai")
+        let key = app.secureTextFields["providerKey"]
+        guard revealSettingsElement(key, in: app) else { return }
+        key.tap(); key.typeText("local-ui-fixture-openai")
+        app.buttons["cancelAISettings"].tap()
+        guard openSettings(in: app) else { return XCTFail("Settings did not reopen.") }
+        selectAnalysisMode("My provider API key", in: app)
+        XCTAssertTrue(app.staticTexts["No key saved for this provider"].waitForExistence(timeout: 5), "Cancel must not write the drafted key.")
+        XCTAssertNotEqual(app.textFields["providerModel"].value as? String, "fixture-openai")
+        guard revealSettingsElement(key, in: app) else { return }
+        key.tap(); key.typeText("local-ui-hidden-draft")
+        selectAnalysisMode("Manual and demo only", in: app)
+        guard saveSettings(in: app), openSettings(in: app) else { return }
+        selectAnalysisMode("My provider API key", in: app)
+        XCTAssertTrue(app.staticTexts["No key saved for this provider"].waitForExistence(timeout: 5), "Saving offline mode must not persist a hidden key draft.")
+        model.tap(); model.typeText("fixture-openai")
+        guard revealSettingsElement(key, in: app) else { return }
+        key.tap(); key.typeText("local-ui-fixture-openai-initial")
+        guard saveSettings(in: app), openSettings(in: app) else { return }
+        XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.staticTexts["local-ui-fixture-openai-initial"].exists)
+        guard revealSettingsElement(key, in: app) else { return }
+        key.tap(); key.typeText("local-ui-fixture-openai")
+        guard saveSettings(in: app), openSettings(in: app) else { return }
+        XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+        attachScreenshot("15-settings-saved-key-redacted", of: app)
+        selectSettingsSegment("Claude (Anthropic)", picker: "providerPicker", in: app)
+        XCTAssertTrue(app.staticTexts["No key saved for this provider"].waitForExistence(timeout: 5))
+        model.tap(); model.typeText("fixture-claude")
+        guard revealSettingsElement(key, in: app) else { return }
+        key.tap(); key.typeText("local-ui-fixture-claude")
+        let test = app.buttons["testProviderConnection"]
+        guard revealSettingsElement(test, in: app) else { return }
+        test.tap()
+        XCTAssertTrue(app.staticTexts["Local test fixture: model metadata available. No network request."].waitForExistence(timeout: 5))
+        guard saveSettings(in: app) else { return }
+        app.terminate()
+        app.launch()
+        guard openSettings(in: app) else { return }
+        XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.textFields["providerModel"].value as? String, "fixture-claude")
+        selectSettingsSegment("OpenAI", picker: "providerPicker", in: app)
+        XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+        XCTAssertEqual(app.textFields["providerModel"].value as? String, "fixture-openai")
+        guard revealSettingsElement(test, in: app) else { return }
+        test.tap()
+        XCTAssertTrue(app.staticTexts["Local test fixture: model metadata available. No network request."].waitForExistence(timeout: 5), "The matching stored replacement key must reach the selected provider fixture.")
+        for provider in ["OpenAI", "Claude (Anthropic)"] {
+            if provider != "OpenAI" { selectSettingsSegment(provider, picker: "providerPicker", in: app) }
+            XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+            let remove = app.buttons["removeProviderKey"]
+            guard revealSettingsElement(remove, in: app) else { return }
+            remove.tap()
+            #if os(macOS)
+            app.windows.buttons["Remove key"].firstMatch.tap()
+            #else
+            app.buttons["Remove key"].firstMatch.tap()
+            #endif
+            XCTAssertTrue(app.staticTexts["No key saved for this provider"].waitForExistence(timeout: 5))
+        }
+        app.buttons["cancelAISettings"].tap()
+    }
+
+    func testUnifiedLightAndDarkAppearanceAcrossDetailAndCapture() {
+        let app = launch()
+        app.buttons["addMeal"].tap()
+        guard chooseSamplePhoto(in: app), tapCaptureAction("demoEstimate", in: app) else { return }
+        guard app.buttons["saveMeal"].waitForExistence(timeout: 5) else { return XCTFail("Sample review missing.") }
+        app.buttons["saveMeal"].tap()
+        let row = savedMeal(named: "Example rice", in: app)
+        guard row.waitForExistence(timeout: 5) else { return XCTFail("Sample diary entry missing.") }
+        for (appearance, detailName, captureName) in [("Light", "16-unified-light-detail", "17-unified-light-capture"), ("Dark", "18-unified-dark-detail", "19-unified-dark-capture")] {
+            guard openSettings(in: app) else { return XCTFail("Appearance settings missing.") }
+            selectSettingsSegment(appearance, picker: "appearancePicker", in: app)
+            guard saveSettings(in: app), openSettings(in: app) else { return }
+            attachScreenshot(appearance == "Light" ? "20-unified-light-settings" : "21-unified-dark-settings", of: app)
+            app.buttons["cancelAISettings"].tap()
+            row.tap()
+            XCTAssertTrue(app.images["sampleDetailImage"].waitForExistence(timeout: 5))
+            attachScreenshot(detailName, of: app)
+            #if os(iOS)
+            if !app.buttons["addMeal"].isHittable { app.navigationBars.buttons.element(boundBy: 0).tap() }
+            #endif
+            app.buttons["addMeal"].tap()
+            XCTAssertTrue(app.staticTexts["On-device demo"].waitForExistence(timeout: 5))
+            attachScreenshot(captureName, of: app)
+            app.buttons["cancelMeal"].tap()
+        }
+    }
+
 }

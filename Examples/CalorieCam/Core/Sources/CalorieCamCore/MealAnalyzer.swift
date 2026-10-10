@@ -1,7 +1,8 @@
 import Foundation
 
 /// Implementations must return estimates for explicit human review, not automatically save.
-/// A remote implementation belongs behind a backend; never embed service credentials.
+/// Never embed developer service credentials. Direct personal BYOK requires explicit consent
+/// and a user-entered credential supplied in memory by the app Keychain layer.
 public protocol MealAnalyzing: Sendable {
   func analyze(imageData: Data) async throws -> MealEstimate
 }

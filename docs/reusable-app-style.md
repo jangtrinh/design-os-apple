@@ -173,8 +173,10 @@ content.background {
 
 The decorative blur appears only in dark presentation. Light presentation, Reduce Transparency,
 Increase Contrast, or the profile's `opaqueOnly` policy uses an opaque canvas. The component
-does not force appearance; a product may opt a media composer into dark presentation to follow
-the inspected reference. Without a photo, use a neutral opaque surface rather than inventing
+does not force appearance. CalorieCam uses a root-owned System/Light/Dark preference across
+all split columns, sheets and details; individual composers do not override that selection.
+The reference’s observed dark composer is source evidence, not a mandate to mix app themes.
+Without a photo, use a neutral opaque surface rather than inventing
 image recognition or unrelated ambient artwork. Native form groups can use native material over
 the backdrop with an opaque fallback for the same accessibility settings.
 

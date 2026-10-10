@@ -3,12 +3,14 @@ import DesignOSApple
 import CalorieCamCore
 
 struct JournalView: View {
+    @Environment(AISettingsStore.self) private var aiSettings
     @Environment(\.designOSAppStyle) private var style
     @Environment(\.dynamicTypeSize) private var dynamicTypeSize
     @Bindable var model: JournalModel
     @State private var day = Date()
     @State private var selection: UUID?
     @State private var isAdding = false
+    @State private var isShowingSettings = false
     @State private var deletion: MealEntry?
 
     private var meals: [MealEntry] { model.meals(on: day) }
@@ -84,6 +86,10 @@ struct JournalView: View {
             .navigationSplitViewColumnWidth(min: 280, ideal: 360)
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
+                    Button { isShowingSettings = true } label: { Label("AI and appearance settings", systemImage: "gearshape") }
+                        .accessibilityIdentifier("openAISettings")
+                }
+                ToolbarItem(placement: .primaryAction) {
                     Button { isAdding = true } label: { Label("Add meal", systemImage: "plus") }
                         .disabled(model.loadFailure != nil)
                         .accessibilityIdentifier("addMeal")
@@ -100,6 +106,7 @@ struct JournalView: View {
         .sheet(isPresented: $isAdding) {
             CaptureMealView(model: model, journalDay: day)
         }
+        .sheet(isPresented: $isShowingSettings) { AISettingsView(settings: aiSettings) }
         .confirmationDialog("Delete this meal?", isPresented: Binding(get: { deletion != nil }, set: { if !$0 { deletion = nil } }), titleVisibility: .visible) {
             Button("Delete meal", role: .destructive) {
                 if let deletion { model.delete(deletion) }

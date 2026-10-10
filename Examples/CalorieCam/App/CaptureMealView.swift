@@ -12,6 +12,7 @@ import AppKit
 #endif
 
 struct CaptureMealView: View {
+    @Environment(AISettingsStore.self) private var aiSettings
     @Environment(\.dismiss) private var dismiss
     @Environment(\.designOSAppStyle) private var style
     @Bindable var model: JournalModel
@@ -29,7 +30,8 @@ struct CaptureMealView: View {
     @State private var camera = false
     @State private var discard = false
     @State private var confirmUpload = false
-    private let analysisEndpoint = AnalysisConfiguration.endpoint
+    @State private var pendingRoute: AnalysisRoute?
+    private var hasAnalysisRoute: Bool { aiSettings.mode != .offline }
     @State private var work: Task<Void, Never>?
     @State private var requestID = UUID()
 
@@ -57,7 +59,6 @@ struct CaptureMealView: View {
                 }
             }
         }
-        .preferredColorScheme(.dark)
         #if os(macOS)
         .frame(minWidth: 480, idealWidth: 560, minHeight: 560)
         #endif
@@ -70,9 +71,13 @@ struct CaptureMealView: View {
             Button("Send photo and estimate") { prepareRemoteEstimate() }
             Button("Keep photo on device", role: .cancel) {}
         } message: {
-            Text("This sends your selected photo to \(analysisEndpoint?.host ?? "your configured service") and OpenAI to estimate foods and calories. Avoid photos containing people or private information. Review the result before saving. Your journal and notes are not sent.")
+            Text("This sends your selected photo to \(pendingRoute?.recipient ?? "the selected recipient") to estimate foods and calories. Provider charges may apply. Avoid photos containing people or private information. Review the result before saving. Your journal and notes are not sent.")
         }
         .onDisappear { work?.cancel() }
+        .onChange(of: aiSettings.revision) { _, _ in
+            work?.cancel(); requestID = UUID(); busy = false
+            confirmUpload = false; pendingRoute = nil
+        }
         .onChange(of: photoItem) { _, item in
             guard let item else { return }
             work?.cancel()
@@ -124,7 +129,7 @@ struct CaptureMealView: View {
     private var captureForm: some View {
         ScrollView {
             VStack(alignment: .leading, spacing: style.metrics.sectionSpacing) {
-                Label(analysisEndpoint == nil ? "On-device demo" : "Photo meal entry", systemImage: "info.circle")
+                Label(!hasAnalysisRoute ? "On-device demo" : "Photo meal entry", systemImage: "info.circle")
                     .font(.caption)
                     .foregroundStyle(style.palette.secondaryInk.color)
 
@@ -167,7 +172,7 @@ struct CaptureMealView: View {
                 DisclosureGroup("How estimates work") {
                     VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
                         Text("Demo estimates use fixed sample foods, not your photo. Edit all values before saving.")
-                        Text(analysisEndpoint == nil ? "Photos stay on this device and are not saved in the journal." : "AI estimation sends a photo only after your confirmation. Photos are not saved in the journal.")
+                        Text(!hasAnalysisRoute ? "Photos stay on this device and are not saved in the journal." : "AI estimation sends a photo only after your confirmation. Photos are not saved in the journal.")
                     }
                     .padding(.top, style.metrics.itemSpacing)
                 }
@@ -231,8 +236,8 @@ struct CaptureMealView: View {
                 Button("Review sample values") { prepareDemo() }
                     .buttonStyle(DesignOSPrimaryButtonStyle())
                     .accessibilityIdentifier("demoEstimate")
-            } else if analysisEndpoint != nil {
-                Button("Estimate with AI") { confirmUpload = true }
+            } else if hasAnalysisRoute {
+                Button("Estimate with AI") { prepareConsent() }
                     .buttonStyle(DesignOSPrimaryButtonStyle())
                     .accessibilityIdentifier("remoteEstimate")
             } else {
@@ -244,7 +249,7 @@ struct CaptureMealView: View {
                 .buttonStyle(DesignOSSecondaryButtonStyle())
                 .accessibilityIdentifier("changePhoto")
             Menu {
-                if isSamplePhoto || analysisEndpoint != nil {
+                if isSamplePhoto || hasAnalysisRoute {
                     Button("Enter meal manually", action: enterManually)
                         .accessibilityIdentifier("enterManually")
                 }
@@ -292,8 +297,32 @@ struct CaptureMealView: View {
         }
     }
 
+    private func prepareConsent() {
+        do {
+            let route = try aiSettings.route()
+            work?.cancel()
+            let request = UUID()
+            requestID = request
+            busy = true
+            progressLabel = "Checking configuration…"
+            work = Task {
+                defer { if requestID == request { busy = false } }
+                do {
+                    if case .provider(let config) = route { _ = try await aiSettings.key(for: config.provider) }
+                    try Task.checkCancellation()
+                    guard requestID == request else { return }
+                    pendingRoute = route
+                    confirmUpload = true
+                } catch is CancellationError {} catch {
+                    if requestID == request { self.error = error.localizedDescription }
+                }
+            }
+        } catch { self.error = error.localizedDescription }
+    }
+
     private func prepareRemoteEstimate() {
-        guard let imageData, let analysisEndpoint else { return }
+        guard let imageData, let route = pendingRoute else { return }
+        pendingRoute = nil
         work?.cancel()
         error = nil
         busy = true
@@ -303,8 +332,16 @@ struct CaptureMealView: View {
         work = Task {
             defer { if requestID == request { busy = false } }
             do {
-                let analyzer = try RemoteMealAnalyzer(endpoint: analysisEndpoint, allowLocalhostHTTP: AnalysisConfiguration.allowsLocalHTTP)
-                let result = try await analyzer.analyze(imageData: imageData)
+                if aiSettings.isUITest { throw AISettingsError.testNetworkDisabled }
+                let result: MealEstimate
+                switch route {
+                case .backend(let endpoint):
+                    let analyzer = try RemoteMealAnalyzer(endpoint: endpoint, allowLocalhostHTTP: AnalysisConfiguration.allowsLocalHTTP)
+                    result = try await analyzer.analyze(imageData: imageData)
+                case .provider(let config):
+                    let analyzer = try ProviderMealAnalyzer(configuration: config, apiKey: try await aiSettings.key(for: config.provider))
+                    result = try await analyzer.analyze(imageData: imageData)
+                }
                 try Task.checkCancellation()
                 guard requestID == request else { return }
                 estimate = MealEntry(date: journalDay, items: result.items, note: result.note, origin: result.origin)
