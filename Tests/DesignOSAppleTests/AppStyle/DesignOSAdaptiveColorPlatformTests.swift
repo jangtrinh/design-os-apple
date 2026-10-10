@@ -101,7 +101,8 @@ import Testing
     )
     let appearance = try #require(NSAppearance(named: name))
     let match = appearance.bestMatch(from: appKitAppearanceNames)
-    let context = "requested=\(name.rawValue), actual=\(appearance.name.rawValue), "
+    let context =
+      "requested=\(name.rawValue), actual=\(appearance.name.rawValue), "
       + "dark=\(dark), increased=\(increased), bestMatch=\(match?.rawValue ?? "nil")"
     #expect(appearance.name == name, "\(context)")
     #expect(match == name, "\(context)")

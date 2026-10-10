@@ -56,7 +56,7 @@ final class CalorieCamUITests: XCTestCase {
     /// The photo-led capture screen scrolls on smaller windows; let the native
     /// ScrollView reveal the action instead of assuming every button is above the fold.
     private func tapCaptureAction(_ identifier: String, in app: XCUIApplication) -> Bool {
-        let action = app.buttons[identifier]
+        let action = app.descendants(matching: .any).matching(identifier: identifier).firstMatch
         guard action.waitForExistence(timeout: 5) else {
             XCTFail("Missing capture action: \(identifier)")
             return false
@@ -81,6 +81,22 @@ final class CalorieCamUITests: XCTestCase {
         return false
     }
 
+    private func chooseSamplePhoto(in app: XCUIApplication) -> Bool {
+        guard tapCaptureAction("sourceOptions", in: app) else { return false }
+        let sample = app.descendants(matching: .any).matching(identifier: "trySampleMeal").firstMatch
+        guard sample.waitForExistence(timeout: 5) else {
+            XCTFail("The source menu must offer the explicit sample option.")
+            return false
+        }
+        sample.tap()
+        guard app.images["selectedMealPhoto"].waitForExistence(timeout: 5),
+              app.staticTexts["Sample illustration · fixed demo values"].exists else {
+            XCTFail("Selecting the sample must show the photo stage with sample provenance.")
+            return false
+        }
+        return true
+    }
+
     func testEmptyJournalAndCancelCapture() {
         let app = launch()
         guard app.staticTexts["No meals logged"].waitForExistence(timeout: 5) else {
@@ -94,7 +110,7 @@ final class CalorieCamUITests: XCTestCase {
             return
         }
         XCTAssertFalse(app.buttons["demoEstimate"].exists)
-        XCTAssertTrue(app.buttons["trySampleMeal"].exists)
+        XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "sourceOptions").firstMatch.exists)
         attachScreenshot("02-capture-photo-choices", of: app)
         app.buttons["cancelMeal"].tap()
         XCTAssertTrue(app.staticTexts["No meals logged"].waitForExistence(timeout: 5))
@@ -128,6 +144,11 @@ final class CalorieCamUITests: XCTestCase {
             return
         }
         clear.tap()
+        guard app.staticTexts["foodCaloriesError"].waitForExistence(timeout: 5),
+              !app.buttons["saveMeal"].isEnabled else {
+            XCTFail("An incomplete calorie value must remain visible and block Save.")
+            return
+        }
         #endif
         calories.typeText("95")
         guard calories.value as? String == "95" else {
@@ -271,8 +292,11 @@ final class CalorieCamUITests: XCTestCase {
         app.launch()
         app.buttons["addMeal"].tap()
         XCTAssertTrue(app.staticTexts["Photo meal entry"].waitForExistence(timeout: 5))
-        XCTAssertTrue(app.buttons["remoteEstimate"].exists)
-        XCTAssertFalse(app.buttons["remoteEstimate"].isEnabled)
+        XCTAssertFalse(app.buttons["remoteEstimate"].exists, "AI estimation is unavailable until a photo is selected.")
+        XCTAssertFalse(app.buttons["Send photo and estimate"].exists)
+        XCTAssertFalse(app.buttons["saveMeal"].exists)
+        XCTAssertTrue(app.buttons["enterManually"].exists)
+        XCTAssertTrue(app.descendants(matching: .any).matching(identifier: "choosePhoto").firstMatch.exists)
         app.buttons["cancelMeal"].tap()
     }
 
@@ -308,6 +332,7 @@ final class CalorieCamUITests: XCTestCase {
             XCTFail("Save remained enabled after entering out-of-range calories.")
             return
         }
+        XCTAssertTrue(app.staticTexts["foodCaloriesError"].exists)
         attachScreenshot("05-invalid-calorie-review", of: app)
         XCTAssertFalse(save.isEnabled, "Invalid calories must not save a previous valid value.")
     }
@@ -315,7 +340,10 @@ final class CalorieCamUITests: XCTestCase {
     func testSamplePhotoReviewKeepsDemoProvenance() {
         let app = launch()
         app.buttons["addMeal"].tap()
-        guard tapCaptureAction("trySampleMeal", in: app) else { return }
+        guard chooseSamplePhoto(in: app) else { return }
+        XCTAssertFalse(app.buttons["saveMeal"].exists, "Selecting a sample alone must not start review or save.")
+        attachScreenshot("12-selected-sample-stage", of: app)
+        guard tapCaptureAction("demoEstimate", in: app) else { return }
         guard app.staticTexts["Demo · sample numbers"].waitForExistence(timeout: 5),
               app.images["Meal photo, for your reference only"].exists else {
             XCTFail("Sample review must show its photo and explicit demo provenance.")
@@ -356,6 +384,37 @@ final class CalorieCamUITests: XCTestCase {
             return
         }
         attachScreenshot("11-sample-detail", of: app)
+    }
+
+    func testChangingPhotoCanReturnWithoutLosingSelection() {
+        let app = launch()
+        app.buttons["addMeal"].tap()
+        guard chooseSamplePhoto(in: app) else { return }
+        XCTAssertFalse(app.buttons["saveMeal"].exists)
+        guard tapCaptureAction("changePhoto", in: app) else { return }
+        guard app.descendants(matching: .any).matching(identifier: "sourceOptions").firstMatch.waitForExistence(timeout: 5) else {
+            XCTFail("Changing a photo must reopen source choices.")
+            return
+        }
+        XCTAssertTrue(app.images["selectedMealPhoto"].exists, "The current photo remains until a replacement succeeds.")
+        attachScreenshot("13-replace-photo-stage", of: app)
+        guard tapCaptureAction("keepCurrentPhoto", in: app) else { return }
+        XCTAssertTrue(app.images["selectedMealPhoto"].exists)
+        XCTAssertTrue(app.buttons["demoEstimate"].exists)
+        XCTAssertFalse(app.buttons["saveMeal"].exists)
+        guard tapCaptureAction("selectedPhotoOptions", in: app) else { return }
+        let remove = app.descendants(matching: .any).matching(identifier: "removePhoto").firstMatch
+        guard remove.waitForExistence(timeout: 5) else {
+            XCTFail("Photo actions must expose explicit local removal.")
+            return
+        }
+        remove.tap()
+        XCTAssertTrue(app.staticTexts["Start with a photo"].waitForExistence(timeout: 5))
+        XCTAssertFalse(app.images["selectedMealPhoto"].exists)
+        XCTAssertFalse(app.buttons["demoEstimate"].exists)
+        XCTAssertFalse(app.buttons["saveMeal"].exists)
+        app.buttons["cancelMeal"].tap()
+        XCTAssertTrue(app.staticTexts["No meals logged"].waitForExistence(timeout: 5))
     }
 
 }

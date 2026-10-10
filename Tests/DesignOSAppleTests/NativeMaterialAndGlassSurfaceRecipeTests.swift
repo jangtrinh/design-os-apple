@@ -19,13 +19,13 @@ private struct MaterialAndGlassFixture: View {
       Text("Surface").background(.background)
     } else {
       #if compiler(>=6.2)
-      if #available(iOS 26, macOS 26, *) {
-        Text("Surface").glassEffect()
-      } else {
-        Text("Surface").background(.regularMaterial)
-      }
+        if #available(iOS 26, macOS 26, *) {
+          Text("Surface").glassEffect()
+        } else {
+          Text("Surface").background(.regularMaterial)
+        }
       #else
-      Text("Surface").background(.regularMaterial)
+        Text("Surface").background(.regularMaterial)
       #endif
     }
   }

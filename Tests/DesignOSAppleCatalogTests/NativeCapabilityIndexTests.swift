@@ -70,9 +70,10 @@ func nativeCapabilitySourceRelationships() throws {
   var normalizedTerms: Set<String> = []
   for capability in capabilities {
     #expect(
-      capability.deliverable == DesignOSRuntimeCatalog.deliverables.first {
-        $0.id == capability.deliverable.id
-      })
+      capability.deliverable
+        == DesignOSRuntimeCatalog.deliverables.first {
+          $0.id == capability.deliverable.id
+        })
     #expect(
       capability.story == DesignOSReleaseCatalog.stories.first { $0.id == capability.story.id })
     #expect(capability.story.runtimeDeliverableID == capability.deliverable.id)

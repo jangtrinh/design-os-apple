@@ -13,7 +13,8 @@ public struct DesignOSAppSectionHeader<Accessory: View>: View {
   }
 
   public var body: some View {
-    let layout = DesignOSAppContentLayout.axis(for: dynamicTypeSize) == .vertical
+    let layout =
+      DesignOSAppContentLayout.axis(for: dynamicTypeSize) == .vertical
       ? AnyLayout(VStackLayout(alignment: .leading, spacing: style.metrics.itemSpacing))
       : AnyLayout(HStackLayout(alignment: .firstTextBaseline, spacing: style.metrics.itemSpacing))
     layout {

@@ -6,6 +6,7 @@ import CalorieCamCore
 /// manual/remote records remain honest text records because personal photos aren't kept.
 struct MealDetailView: View {
     @Environment(\.designOSAppStyle) private var style
+    @Environment(\.colorScheme) private var inheritedColorScheme
     let meal: MealEntry
     let delete: () -> Void
     private var preview: Image? { meal.origin == .demo ? DemoMealAsset.image : nil }
@@ -68,11 +69,11 @@ struct MealDetailView: View {
         .foregroundStyle(style.palette.ink.color)
         .background { MealPhotoBackdrop(preview: preview) }
         .navigationTitle("Meal details")
-        .environment(\.colorScheme, .dark)
+        .environment(\.colorScheme, preview == nil ? inheritedColorScheme : .dark)
         #if os(iOS)
         .navigationBarTitleDisplayMode(.inline)
         .toolbarBackground(.visible, for: .navigationBar)
-        .toolbarColorScheme(.dark, for: .navigationBar)
+        .toolbarColorScheme(preview == nil ? nil : .dark, for: .navigationBar)
         #endif
     }
 }

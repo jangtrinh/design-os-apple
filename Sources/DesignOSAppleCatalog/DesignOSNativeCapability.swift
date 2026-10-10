@@ -57,9 +57,10 @@ public struct DesignOSNativeCapability: Equatable, Sendable {
     evidencePath: String? = nil,
     minimumAvailability: [DesignOSMinimumAvailability]? = nil
   ) {
-    guard let deliverable = DesignOSRuntimeCatalog.deliverables.first(where: {
-      $0.id == deliverableID
-    }), let storyID = deliverable.storyDisposition.storyID,
+    guard
+      let deliverable = DesignOSRuntimeCatalog.deliverables.first(where: {
+        $0.id == deliverableID
+      }), let storyID = deliverable.storyDisposition.storyID,
       let story = DesignOSReleaseCatalog.stories.first(where: { $0.id == storyID })
     else {
       preconditionFailure("Native API coverage must reference an existing canonical story.")

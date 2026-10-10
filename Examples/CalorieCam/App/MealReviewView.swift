@@ -36,15 +36,30 @@ struct MealReviewView: View {
                     }
                     .frame(maxWidth: .infinity, alignment: .leading)
                 }
-                ForEach($entry.items) { $food in
-                    VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
-                        Text("Food").font(.headline).accessibilityAddTraits(.isHeader)
+                VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                    Text("Foods").font(.headline).accessibilityAddTraits(.isHeader)
+                    ForEach($entry.items) { $food in
                         DesignOSAppSurface(tone: .ambient) {
                             VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                                HStack {
+                                    Text("Item \((entry.items.firstIndex(where: { $0.id == food.id }) ?? 0) + 1)")
+                                        .font(.caption.weight(.medium))
+                                        .foregroundStyle(style.palette.secondaryInk.color)
+                                    Spacer()
+                                    Menu {
+                                        Button("Remove food", role: .destructive) { removal = food.id }
+                                    } label: {
+                                        Label("Food actions", systemImage: "ellipsis")
+                                            .labelStyle(.iconOnly)
+                                            .frame(minWidth: 44, minHeight: 44)
+                                    }
+                                    .buttonStyle(.bordered)
+                                    .buttonBorderShape(.capsule)
+                                    .accessibilityLabel("Actions for \(food.name.isEmpty ? "unnamed food" : food.name)")
+                                }
                                 FoodFields(food: $food)
-                                Button("Remove food", role: .destructive) { removal = food.id }
-                                    .buttonStyle(DesignOSSecondaryButtonStyle())
                             }
+                            .frame(maxWidth: .infinity, alignment: .leading)
                         }
                     }
                 }
@@ -58,10 +73,10 @@ struct MealReviewView: View {
                     }
                 }
                 if let validationError {
-                    VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
-                        Text("Check before saving").font(.headline).accessibilityAddTraits(.isHeader)
-                        Text(validationError)
-                    }
+                    Text(validationError)
+                        .font(.footnote)
+                        .foregroundStyle(style.palette.secondaryInk.color)
+                        .accessibilityIdentifier("mealValidationSummary")
                 }
                 if let error = model.operationError {
                     VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
@@ -114,6 +129,8 @@ struct MealReviewView: View {
 private struct FoodFields: View {
     @Binding var food: FoodItem
     @State private var caloriesText: String
+    @State private var editedName = false
+    @State private var editedCalories = false
     @FocusState private var focusedField: Field?
     private enum Field: Hashable { case name, portion, calories }
 
@@ -133,9 +150,16 @@ private struct FoodFields: View {
                     .multilineTextAlignment(.trailing)
                     .frame(minHeight: 44)
                     .accessibilityIdentifier("foodName")
+                    .onChange(of: food.name) { _, _ in editedName = true }
             }
             .contentShape(Rectangle())
             .onTapGesture { focusedField = .name }
+            if editedName && food.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty {
+                Text("Enter a food name.")
+                    .font(.caption)
+                    .accessibilityIdentifier("foodNameError")
+                    .padding(.bottom, 8)
+            }
             Divider()
             LabeledContent("Portion") {
                 TextField("Portion", text: $food.portion)
@@ -163,12 +187,19 @@ private struct FoodFields: View {
                     .frame(minHeight: 44)
                     .accessibilityIdentifier("foodCalories")
                     .onChange(of: caloriesText) { _, value in
+                        editedCalories = true
                         let normalized = value.replacingOccurrences(of: Locale.current.decimalSeparator ?? ".", with: ".")
                         food.calories = Double(normalized) ?? .nan
                     }
             }
             .contentShape(Rectangle())
             .onTapGesture { focusedField = .calories }
+            if editedCalories && (!food.calories.isFinite || !(0...10_000).contains(food.calories)) {
+                Text("Enter calories from 0 to 10,000.")
+                    .font(.caption)
+                    .accessibilityIdentifier("foodCaloriesError")
+                    .padding(.bottom, 8)
+            }
         }
         #if os(iOS)
         .toolbar {

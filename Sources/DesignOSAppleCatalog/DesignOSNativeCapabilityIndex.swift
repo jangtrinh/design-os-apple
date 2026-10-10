@@ -6,7 +6,8 @@
 public enum DesignOSNativeCapabilityIndex {
   /// API coverage in stable registration order, derived from existing deliverables.
   public static let capabilities: [DesignOSNativeCapability] = {
-    let values = NativeControlCapabilityRegistrations.values
+    let values =
+      NativeControlCapabilityRegistrations.values
       + NativePresentationCapabilityRegistrations.values
     let terms = values.flatMap(\.lookupTerms)
     precondition(Set(values.map(\.id)).count == values.count)

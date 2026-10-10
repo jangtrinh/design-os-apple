@@ -17,6 +17,10 @@ states, compile-specimen reference, and native verification commands. Paths are 
 relative. It contains requirements only, with no copied token values or verification claims.
 Use the referenced Swift declarations and the examples below when composing another app.
 
+The [native layout recipes](native-layout-recipes.md) map the complete reference atlas to
+copyable, compile-specimen-backed list, detail, composer, form, sheet, search and confirmation
+compositions. Use that guide to select a page structure before choosing its visual components.
+
 The [organization guide](design-system-organization.md) explains design authority and
 product ownership. The index does not change the sealed DESIGN:OS registry or admit new
 release-catalog stories. Run `python3 scripts/verify-app-style-registry.py` for structural

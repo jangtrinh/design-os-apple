@@ -117,17 +117,19 @@ func applicationContentUsesAccessibleLayoutAxis() {
   for size in [DynamicTypeSize.xSmall, .large, .xxxLarge] {
     #expect(DesignOSAppContentLayout.axis(for: size) == .horizontal)
   }
-  for size in [DynamicTypeSize.accessibility1, .accessibility2, .accessibility3,
-    .accessibility4, .accessibility5]
-  {
+  for size in [
+    DynamicTypeSize.accessibility1, .accessibility2, .accessibility3,
+    .accessibility4, .accessibility5,
+  ] {
     #expect(DesignOSAppContentLayout.axis(for: size) == .vertical)
   }
 }
 
 @Test("Media backdrops fail closed for light appearance and accessibility preferences")
 func mediaBackdropsHonorAppearanceAndAccessibility() {
-  #expect(!DesignOSMediaBackdropPolicy.showsMedia(
-    dark: true, reduceTransparency: false, increasedContrast: false, allowsTranslucency: false))
+  #expect(
+    !DesignOSMediaBackdropPolicy.showsMedia(
+      dark: true, reduceTransparency: false, increasedContrast: false, allowsTranslucency: false))
   for dark in [false, true] {
     for reduceTransparency in [false, true] {
       for increasedContrast in [false, true] {
@@ -144,12 +146,15 @@ func mediaBackdropsHonorAppearanceAndAccessibility() {
 
 @Test("Editorial ambient media maintains text contrast even over a white source image")
 func ambientBackdropBoundsWorstCaseContrast() {
-  let intensity = DesignOSMediaBackdropPolicy.imageOpacity
+  let intensity =
+    DesignOSMediaBackdropPolicy.imageOpacity
     * (1 - DesignOSMediaBackdropPolicy.scrimOpacity)
   let channel = UInt32(ceil(intensity * 255))
   let brightestBackground = (channel << 16) | (channel << 8) | channel
-  #expect(contrastRatio(DesignOSAppStyle.editorial.palette.secondaryInk.darkRGB,
-    brightestBackground) >= 4.5)
+  #expect(
+    contrastRatio(
+      DesignOSAppStyle.editorial.palette.secondaryInk.darkRGB,
+      brightestBackground) >= 4.5)
 }
 
 @Test("Ambient content groups fall back to opaque surfaces for accessibility preferences")
@@ -172,30 +177,36 @@ func ambientGroupsHonorAccessibilityPreferences() {
 
 @Test("Ambient content groups preserve metadata contrast over the brightest backdrop")
 func ambientGroupsBoundWorstCaseTextContrast() {
-  let backdropIntensity = DesignOSMediaBackdropPolicy.imageOpacity
+  let backdropIntensity =
+    DesignOSMediaBackdropPolicy.imageOpacity
     * (1 - DesignOSMediaBackdropPolicy.scrimOpacity)
   let groupOpacity = DesignOSAppSurfacePolicy.ambientFillOpacity
   let compositeIntensity = backdropIntensity * (1 - groupOpacity) + groupOpacity
   let channel = UInt32(ceil(compositeIntensity * 255))
   let brightestBackground = (channel << 16) | (channel << 8) | channel
   #expect(
-    contrastRatio(DesignOSAppStyle.editorial.palette.secondaryInk.darkRGB,
+    contrastRatio(
+      DesignOSAppStyle.editorial.palette.secondaryInk.darkRGB,
       brightestBackground) >= 4.5
   )
 }
 
 @Test("Primary button hover and pressed feedback never changes disabled appearance")
 func primaryButtonFeedbackHonorsDisabledState() {
-  #expect(DesignOSPrimaryButtonAppearance.highlightOpacity(
-    isEnabled: true, isPressed: false, isHovered: false) == 0)
-  #expect(DesignOSPrimaryButtonAppearance.highlightOpacity(
-    isEnabled: true, isPressed: true, isHovered: false) == 0.12)
-  #expect(DesignOSPrimaryButtonAppearance.highlightOpacity(
-    isEnabled: true, isPressed: false, isHovered: true) == 0.06)
+  #expect(
+    DesignOSPrimaryButtonAppearance.highlightOpacity(
+      isEnabled: true, isPressed: false, isHovered: false) == 0)
+  #expect(
+    DesignOSPrimaryButtonAppearance.highlightOpacity(
+      isEnabled: true, isPressed: true, isHovered: false) == 0.12)
+  #expect(
+    DesignOSPrimaryButtonAppearance.highlightOpacity(
+      isEnabled: true, isPressed: false, isHovered: true) == 0.06)
   for pressed in [false, true] {
     for hovered in [false, true] {
-      #expect(DesignOSPrimaryButtonAppearance.highlightOpacity(
-        isEnabled: false, isPressed: pressed, isHovered: hovered) == 0)
+      #expect(
+        DesignOSPrimaryButtonAppearance.highlightOpacity(
+          isEnabled: false, isPressed: pressed, isHovered: hovered) == 0)
     }
   }
 }
@@ -312,8 +323,9 @@ func appStyleCompositionsCompile() {
   .background { backdrop }
   .designOSAppStyle(.editorial)
   #expect(String(reflecting: type(of: composed)).contains("ModifiedContent"))
-  #expect(String(reflecting: type(of: DesignOSAppSectionHeader("Items")))
-    .contains("DesignOSAppSectionHeader"))
+  #expect(
+    String(reflecting: type(of: DesignOSAppSectionHeader("Items")))
+      .contains("DesignOSAppSectionHeader"))
 }
 
 private func makeAppMetrics(_ values: [CGFloat]) throws -> DesignOSAppMetrics {
@@ -334,7 +346,8 @@ private func contrastRatio(_ first: UInt32, _ second: UInt32) -> Double {
 private func relativeLuminance(_ rgb: UInt32) -> Double {
   func linear(_ value: UInt32) -> Double {
     let normalized = Double(value) / 255
-    return normalized <= 0.04045 ? normalized / 12.92
+    return normalized <= 0.04045
+      ? normalized / 12.92
       : pow((normalized + 0.055) / 1.055, 2.4)
   }
   return 0.2126 * linear((rgb >> 16) & 0xFF)
