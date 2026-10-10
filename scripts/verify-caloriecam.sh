@@ -43,14 +43,21 @@ for family in families:
 PY
 
 status=0
+# Simulator uses ad-hoc (Sign to Run Locally) signing without a developer identity:
+# https://developer.apple.com/forums/thread/826882
+# Keep Xcode's signing/entitlement step enabled so the real iOS Keychain can identify
+# the app. Do not synthesize a Team ID, access group, profile or entitlements file.
 while read -r family identifier; do
   if xcodebuild test \
     -project "$app/CalorieCam.xcodeproj" \
     -scheme CalorieCam-iOS \
+    -sdk iphonesimulator \
     -destination "id=$identifier" \
     -derivedDataPath "$results/DerivedData-$family" \
     -resultBundlePath "$results/$family.xcresult" \
-    CODE_SIGNING_ALLOWED=NO; then
+    CODE_SIGNING_ALLOWED=YES \
+    CODE_SIGN_STYLE=Manual \
+    CODE_SIGN_IDENTITY=-; then
     echo "$family UI tests passed."
   else
     status=1

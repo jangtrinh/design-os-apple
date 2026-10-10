@@ -12,6 +12,7 @@ struct AISettingsView: View {
     @State private var keyDrafts: [AIProvider: String] = [:]
     @State private var hasStoredKey = false
     @State private var checkingKey = true
+    @State private var keyStorageUnavailable = false
     @State private var error: String?
     @State private var connectionStatus: String?
     @State private var testing = false
@@ -19,6 +20,8 @@ struct AISettingsView: View {
     @State private var task: Task<Void, Never>?
     @State private var requestID = UUID()
     @State private var confirmingRemoval = false
+    @FocusState private var focusedField: SettingsField?
+    private enum SettingsField: Hashable { case model, key }
 
     init(settings: AISettingsStore) {
         self.settings = settings
@@ -63,7 +66,10 @@ struct AISettingsView: View {
                         .pickerStyle(.segmented)
                         .accessibilityIdentifier("providerPicker")
                         TextField("Model ID", text: model)
+                            .focused($focusedField, equals: .model)
                             #if os(iOS)
+                            .submitLabel(.next)
+                            .onSubmit { focusedField = .key }
                             .textInputAutocapitalization(.never)
                             #endif
                             .autocorrectionDisabled()
@@ -71,10 +77,13 @@ struct AISettingsView: View {
                         Text("Enter an exact model ID from your provider account. Photo estimation requires image input and structured output support.").font(.footnote)
                     }
                     Section("API key") {
-                        Text(checkingKey ? "Checking secure storage…" : (hasStoredKey ? "Key saved securely on this device" : "No key saved for this provider"))
+                        Text(checkingKey ? "Checking secure storage…" : (keyStorageUnavailable ? "Secure storage unavailable" : (hasStoredKey ? "Key saved securely on this device" : "No key saved for this provider")))
                             .accessibilityIdentifier("storedKeyStatus")
                         SecureField(hasStoredKey ? "Replacement API key (optional)" : "API key", text: key)
+                            .focused($focusedField, equals: .key)
                             #if os(iOS)
+                            .submitLabel(.done)
+                            .onSubmit { focusedField = nil }
                             .textInputAutocapitalization(.never)
                             #endif
                             .autocorrectionDisabled()
@@ -114,6 +123,15 @@ struct AISettingsView: View {
             .disabled(saving)
             .navigationTitle("AI and appearance")
             .toolbar {
+                #if os(iOS)
+                if focusedField != nil {
+                    ToolbarItemGroup(placement: .keyboard) {
+                        Spacer()
+                        Button("Done") { focusedField = nil }
+                            .accessibilityIdentifier("finishSettingsEditing")
+                    }
+                }
+                #endif
                 ToolbarItem(placement: .cancellationAction) {
                     Button("Cancel") { cancelTest(); dismiss() }
                         .accessibilityIdentifier("cancelAISettings")
@@ -140,8 +158,8 @@ struct AISettingsView: View {
         #endif
         .interactiveDismissDisabled(saving)
         .onAppear(perform: refreshKeyStatus)
-        .onChange(of: provider) { _, _ in cancelTest(); error = nil; refreshKeyStatus() }
-        .onChange(of: mode) { _, _ in cancelTest(); refreshKeyStatus() }
+        .onChange(of: provider) { _, _ in focusedField = nil; cancelTest(); error = nil; refreshKeyStatus() }
+        .onChange(of: mode) { _, _ in focusedField = nil; cancelTest(); refreshKeyStatus() }
         .onDisappear { cancelTest(); keyDrafts.removeAll() }
         .confirmationDialog("Remove the saved \(provider.displayName) key?", isPresented: $confirmingRemoval, titleVisibility: .visible) {
             Button("Remove key", role: .destructive) {
@@ -160,6 +178,7 @@ struct AISettingsView: View {
         guard mode == .provider else { checkingKey = false; return }
         let selected = provider
         checkingKey = true
+        keyStorageUnavailable = false
         hasStoredKey = false
         Task {
             do {
@@ -169,7 +188,7 @@ struct AISettingsView: View {
                 checkingKey = false
             } catch {
                 guard provider == selected else { return }
-                hasStoredKey = false; checkingKey = false; self.error = error.localizedDescription
+                hasStoredKey = false; checkingKey = false; keyStorageUnavailable = true; self.error = error.localizedDescription
             }
         }
     }

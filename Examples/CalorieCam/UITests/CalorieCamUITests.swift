@@ -42,9 +42,9 @@ final class CalorieCamUITests: XCTestCase {
         return !overlap.isNull && overlap.width > 0 && overlap.height > 0
     }
 
-    private func hasVisibleKeyboardOrAccessory(in app: XCUIApplication) -> Bool {
+    private func hasVisibleKeyboardOrAccessory(in app: XCUIApplication, doneIdentifier: String = "finishFoodEditing") -> Bool {
         let window = app.windows.firstMatch.frame
-        let done = app.buttons["finishFoodEditing"]
+        let done = app.buttons[doneIdentifier]
         if done.exists && overlapsVisibleWindow(done.frame, window: window) && done.isHittable { return true }
         for keyboard in app.keyboards.allElementsBoundByIndex {
             guard keyboard.exists else { continue }
@@ -57,11 +57,11 @@ final class CalorieCamUITests: XCTestCase {
         return false
     }
 
-    private func attachKeyboardDiagnostics(in app: XCUIApplication) {
+    private func attachKeyboardDiagnostics(in app: XCUIApplication, doneIdentifier: String = "finishFoodEditing") {
         attachScreenshot("failure-keyboard-dismissal", of: app)
         let window = app.windows.firstMatch.frame
         var facts = ["window=\(window)"]
-        let done = app.buttons["finishFoodEditing"]
+        let done = app.buttons[doneIdentifier]
         if done.exists {
             facts.append("Done exists=true frame=\(done.frame) hittable=\(done.isHittable) intersects=\(overlapsVisibleWindow(done.frame, window: window))")
         } else {
@@ -79,12 +79,12 @@ final class CalorieCamUITests: XCTestCase {
         add(attachment)
     }
 
-    private func finishKeyboardEditing(in app: XCUIApplication) -> Bool {
+    private func finishKeyboardEditing(in app: XCUIApplication, doneIdentifier: String = "finishFoodEditing") -> Bool {
         #if os(iOS)
-        guard hasVisibleKeyboardOrAccessory(in: app) else { return true }
-        let done = app.buttons["finishFoodEditing"]
+        guard hasVisibleKeyboardOrAccessory(in: app, doneIdentifier: doneIdentifier) else { return true }
+        let done = app.buttons[doneIdentifier]
         guard done.waitForExistence(timeout: 5) else {
-            attachKeyboardDiagnostics(in: app)
+            attachKeyboardDiagnostics(in: app, doneIdentifier: doneIdentifier)
             XCTFail("Expected the native keyboard Done action.")
             return false
         }
@@ -94,10 +94,10 @@ final class CalorieCamUITests: XCTestCase {
         // rather than requiring deletion of that accessibility node.
         let deadline = Date().addingTimeInterval(5)
         repeat {
-            if !hasVisibleKeyboardOrAccessory(in: app) { return true }
+            if !hasVisibleKeyboardOrAccessory(in: app, doneIdentifier: doneIdentifier) { return true }
             RunLoop.current.run(until: Date().addingTimeInterval(0.1))
         } while Date() < deadline
-        attachKeyboardDiagnostics(in: app)
+        attachKeyboardDiagnostics(in: app, doneIdentifier: doneIdentifier)
         XCTFail("Done left a visible active keyboard or editing accessory.")
         return false
         #else
@@ -495,24 +495,54 @@ final class CalorieCamUITests: XCTestCase {
         app.descendants(matching: .any).matching(identifier: identifier).firstMatch
     }
 
-    private func revealSettingsElement(_ element: XCUIElement, in app: XCUIApplication) -> Bool {
+    private func revealSettingsElement(_ element: XCUIElement, in app: XCUIApplication, towardTop: Bool = false, requiresHittable: Bool = true) -> Bool {
+        // Form's AX frame can extend behind the keyboard. Dismiss through the actual
+        // user-facing Done action before asking native scrolling to reveal a field.
+        guard finishKeyboardEditing(in: app, doneIdentifier: "finishSettingsEditing") else { return false }
         let form = settingsElement("aiSettingsForm", in: app)
-        for _ in 0..<8 {
-            if element.exists && element.isHittable && form.frame.intersection(app.windows.firstMatch.frame).contains(CGPoint(x: element.frame.midX, y: element.frame.midY)) { return true }
-            let above = element.exists && element.frame.maxY < form.frame.minY
+        for attempt in 0..<8 {
+            if element.exists && (!requiresHittable || element.isHittable) && form.frame.intersection(app.windows.firstMatch.frame).contains(CGPoint(x: element.frame.midX, y: element.frame.midY)) { return true }
+            // Lazy Form rows can leave the AX tree entirely. Search their known
+            // section direction, then reverse within the same eight-gesture bound.
+            let above = element.exists
+                ? element.frame.maxY < form.frame.minY
+                : (attempt < 4 ? towardTop : !towardTop)
             #if os(macOS)
             form.scroll(byDeltaX: 0, deltaY: above ? 220 : -220)
             #else
             if above { form.swipeDown() } else { form.swipeUp() }
             #endif
         }
+        attachScreenshot("failure-settings-control-reachability", of: app)
+        let details = "target=\(element.identifier) exists=\(element.exists) frame=\(element.exists ? element.frame : .zero) form=\(form.frame) window=\(app.windows.firstMatch.frame)\n\n" + app.debugDescription
+        let attachment = XCTAttachment(string: details)
+        attachment.name = "failure-settings-control-accessibility"
+        attachment.lifetime = .keepAlways
+        add(attachment)
         XCTFail("Settings control did not become reachable: \(element.identifier)")
         return false
     }
 
+    private func verifyStoredKeyStatus(_ hasKey: Bool, in app: XCUIApplication) -> Bool {
+        let status = app.staticTexts["storedKeyStatus"]
+        guard revealSettingsElement(status, in: app, requiresHittable: false) else { return false }
+        let expected = hasKey ? "Key saved securely on this device" : "No key saved for this provider"
+        let matches = XCTNSPredicateExpectation(predicate: NSPredicate(format: "label == %@ OR value == %@", expected, expected), object: status)
+        guard XCTWaiter.wait(for: [matches], timeout: 5) == .completed else {
+            attachScreenshot("failure-provider-key-status", of: app)
+            let attachment = XCTAttachment(string: app.debugDescription)
+            attachment.name = "failure-provider-key-status-accessibility"
+            attachment.lifetime = .keepAlways
+            add(attachment)
+            XCTFail("Expected exact provider key status: \(expected); actual: \(displayedText(of: status)). Storage errors must not be treated as missing keys or success.")
+            return false
+        }
+        return true
+    }
+
     private func selectAnalysisMode(_ label: String, in app: XCUIApplication) {
         let mode = settingsElement("analysisMode", in: app)
-        guard revealSettingsElement(mode, in: app) else { return }
+        guard revealSettingsElement(mode, in: app, towardTop: true) else { return }
         mode.tap()
         #if os(macOS)
         app.menuItems[label].firstMatch.tap()
@@ -523,7 +553,7 @@ final class CalorieCamUITests: XCTestCase {
 
     private func selectSettingsSegment(_ label: String, picker: String, in app: XCUIApplication) {
         let control = settingsElement(picker, in: app)
-        guard revealSettingsElement(control, in: app) else { return }
+        guard revealSettingsElement(control, in: app, towardTop: true) else { return }
         control.descendants(matching: .any).matching(NSPredicate(format: "label == %@", label)).firstMatch.tap()
     }
 
@@ -548,6 +578,7 @@ final class CalorieCamUITests: XCTestCase {
         attachScreenshot("14-settings-empty", of: app)
         selectAnalysisMode("My provider API key", in: app)
         let model = app.textFields["providerModel"]
+        guard revealSettingsElement(model, in: app, towardTop: true) else { return }
         model.tap(); model.typeText("fixture-openai")
         let key = app.secureTextFields["providerKey"]
         guard revealSettingsElement(key, in: app) else { return }
@@ -555,27 +586,30 @@ final class CalorieCamUITests: XCTestCase {
         app.buttons["cancelAISettings"].tap()
         guard openSettings(in: app) else { return XCTFail("Settings did not reopen.") }
         selectAnalysisMode("My provider API key", in: app)
-        XCTAssertTrue(app.staticTexts["No key saved for this provider"].waitForExistence(timeout: 5), "Cancel must not write the drafted key.")
+        guard verifyStoredKeyStatus(false, in: app) else { return }
+        guard revealSettingsElement(model, in: app, towardTop: true) else { return }
         XCTAssertNotEqual(app.textFields["providerModel"].value as? String, "fixture-openai")
         guard revealSettingsElement(key, in: app) else { return }
         key.tap(); key.typeText("local-ui-hidden-draft")
         selectAnalysisMode("Manual and demo only", in: app)
         guard saveSettings(in: app), openSettings(in: app) else { return }
         selectAnalysisMode("My provider API key", in: app)
-        XCTAssertTrue(app.staticTexts["No key saved for this provider"].waitForExistence(timeout: 5), "Saving offline mode must not persist a hidden key draft.")
+        guard verifyStoredKeyStatus(false, in: app) else { return }
+        guard revealSettingsElement(model, in: app, towardTop: true) else { return }
         model.tap(); model.typeText("fixture-openai")
         guard revealSettingsElement(key, in: app) else { return }
         key.tap(); key.typeText("local-ui-fixture-openai-initial")
         guard saveSettings(in: app), openSettings(in: app) else { return }
-        XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+        guard verifyStoredKeyStatus(true, in: app) else { return }
         XCTAssertFalse(app.staticTexts["local-ui-fixture-openai-initial"].exists)
         guard revealSettingsElement(key, in: app) else { return }
         key.tap(); key.typeText("local-ui-fixture-openai")
         guard saveSettings(in: app), openSettings(in: app) else { return }
-        XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+        guard verifyStoredKeyStatus(true, in: app) else { return }
         attachScreenshot("15-settings-saved-key-redacted", of: app)
         selectSettingsSegment("Claude (Anthropic)", picker: "providerPicker", in: app)
-        XCTAssertTrue(app.staticTexts["No key saved for this provider"].waitForExistence(timeout: 5))
+        guard verifyStoredKeyStatus(false, in: app) else { return }
+        guard revealSettingsElement(model, in: app, towardTop: true) else { return }
         model.tap(); model.typeText("fixture-claude")
         guard revealSettingsElement(key, in: app) else { return }
         key.tap(); key.typeText("local-ui-fixture-claude")
@@ -587,17 +621,19 @@ final class CalorieCamUITests: XCTestCase {
         app.terminate()
         app.launch()
         guard openSettings(in: app) else { return }
-        XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+        guard verifyStoredKeyStatus(true, in: app) else { return }
+        guard revealSettingsElement(model, in: app, towardTop: true) else { return }
         XCTAssertEqual(app.textFields["providerModel"].value as? String, "fixture-claude")
         selectSettingsSegment("OpenAI", picker: "providerPicker", in: app)
-        XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+        guard verifyStoredKeyStatus(true, in: app) else { return }
+        guard revealSettingsElement(model, in: app, towardTop: true) else { return }
         XCTAssertEqual(app.textFields["providerModel"].value as? String, "fixture-openai")
         guard revealSettingsElement(test, in: app) else { return }
         test.tap()
         XCTAssertTrue(app.staticTexts["Local test fixture: model metadata available. No network request."].waitForExistence(timeout: 5), "The matching stored replacement key must reach the selected provider fixture.")
         for provider in ["OpenAI", "Claude (Anthropic)"] {
             if provider != "OpenAI" { selectSettingsSegment(provider, picker: "providerPicker", in: app) }
-            XCTAssertTrue(app.staticTexts["Key saved securely on this device"].waitForExistence(timeout: 5))
+            guard verifyStoredKeyStatus(true, in: app) else { return }
             let remove = app.buttons["removeProviderKey"]
             guard revealSettingsElement(remove, in: app) else { return }
             remove.tap()
@@ -606,7 +642,7 @@ final class CalorieCamUITests: XCTestCase {
             #else
             app.buttons["Remove key"].firstMatch.tap()
             #endif
-            XCTAssertTrue(app.staticTexts["No key saved for this provider"].waitForExistence(timeout: 5))
+            guard verifyStoredKeyStatus(false, in: app) else { return }
         }
         app.buttons["cancelAISettings"].tap()
     }

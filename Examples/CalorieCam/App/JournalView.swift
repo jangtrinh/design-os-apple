@@ -77,6 +77,11 @@ struct JournalView: View {
                 }
             }
             .listStyle(.plain)
+            #if os(iOS)
+            // Keep UIKit's selected/inactive foreground and platter as a native pair.
+            // App-owned pill styles remain editorial; black/white tint is not a selection color.
+            .tint(Color.accentColor)
+            #endif
             .scrollContentBackground(.hidden)
             .background(style.palette.canvas.color)
             .navigationTitle("CalorieCam")
