@@ -124,6 +124,19 @@ is_marketing_image() {
   esac
   return 1
 }
+# Exact native catalog image names; content is separately bound to the pinned manifest.
+is_component_image() {
+  local candidate=$1 route theme
+  for route in confirmation discovery flat-collection focused-task freeform-editor \
+    grouped-form hero-collection media-composer media-detail message-thread \
+    native-presentation onboarding profile-detail provider-host record-detail \
+    search-selection status utility-canvas; do
+    for theme in light dark; do
+      [[ "$candidate" == "docs/assets/components/iphone-$route-$theme.webp" ]] && return 0
+    done
+  done
+  return 1
+}
 is_curated_specimen_asset() {
   local candidate=$1
   case "$candidate" in
@@ -175,6 +188,15 @@ if grep -q '^docs/assets/marketing/' "$temporary_list"; then
   fi
 fi
 
+component_images_admitted=0
+if grep -q '^docs/assets/components/' "$temporary_list"; then
+  if python3 "$scan_root/scripts/verify-component-image-provenance.py" --root "$scan_root"; then
+    component_images_admitted=1
+  else
+    report "component-image provenance admission failed"
+  fi
+fi
+
 while IFS= read -r relative_path; do
   [[ -z "$relative_path" ]] && continue
   checked=$((checked + 1))
@@ -222,10 +244,11 @@ while IFS= read -r relative_path; do
   fi
 
   case "$relative_path" in
-    *.png|*.jpg|*.jpeg|*.gif|*.pdf|*.fig|*.sketch|*.zip|*.dmg|*.pkg|*.bin)
+    *.png|*.jpg|*.jpeg|*.gif|*.webp|*.pdf|*.fig|*.sketch|*.zip|*.dmg|*.pkg|*.bin)
       is_approved_catalog_thumbnail "$relative_path" \
         || { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
         || { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; } \
+        || { (( component_images_admitted )) && is_component_image "$relative_path"; } \
         || is_curated_specimen_asset "$relative_path" \
         || report "unapproved binary or design asset '$relative_path'"
       ;;
@@ -239,6 +262,10 @@ while IFS= read -r relative_path; do
         || { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
         || { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; } \
         || is_curated_specimen_asset "$relative_path" \
+        || report "unclassified non-text content '$relative_path' ($mime_type)"
+      ;;
+    image/webp)
+      { (( component_images_admitted )) && is_component_image "$relative_path"; } \
         || report "unclassified non-text content '$relative_path' ($mime_type)"
       ;;
     *) report "unclassified non-text content '$relative_path' ($mime_type)" ;;

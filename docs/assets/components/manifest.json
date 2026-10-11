@@ -1,0 +1,1346 @@
+{
+  "version": 1,
+  "source": {
+    "repository": "jangtrinh/design-os-apple",
+    "head_sha": "adcf88a468a43ed1727c9c902ae5243423e4176e",
+    "run_id": 38087127370,
+    "run_url": "https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370"
+  },
+  "capture_note": "Source-bound native XCTest simulator captures of original local kit fixtures, including synthetic original meal media. No third-party product screenshot bytes. These are screen-family examples, not isolated specimens of every contained component.",
+  "transformations": "Complete 1206\u00d72622 simulator viewport downsampled uniformly to 603\u00d71311 using Lanczos, then encoded as lossless WebP. No crop, removal, masking, invented UI, or UI retouching.",
+  "review_note": "Attachment identities and test names checked against exported XCTest manifest; all 36 full-screen images visually inspected for title/mapping and unexpected overlays. This publication-hygiene review does not confer independent visual acceptance. Native Presentation and Provider Host are launcher states, not active system alert/share-sheet captures.",
+  "assets": [
+    {
+      "file": "iphone-confirmation-light.webp",
+      "component_id": "screen/confirmation",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "7896ba5a3ec65ecfc5fff544bfe3e9bc07b32601b9d1807b4d52e5331f43af92",
+      "byte_size": 27314,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/0C161FE2-AF82-4AA6-9B47-93FD1F66ACED.png",
+        "sha256": "c2626c54edfbee6cb0f12633c627e31882a1b000a6883dfadba3af75c982117e",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-confirmation-light_0_ADF6294F-F18D-49D0-8441-F9A9891C6EE7.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667989.443,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-confirmation-dark.webp",
+      "component_id": "screen/confirmation",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "ba07c625a60eb61a3633990c282593990ba3031b419c05d236912c4406d89e61",
+      "byte_size": 26600,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/E1F39E11-4204-4AA4-9BC9-289BF1D10201.png",
+        "sha256": "bb7e64ca383632ee72b5828fb51953feb6c033ee87e1203d2faeb39464e42fc5",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-confirmation-dark_0_504B237D-45AF-47D9-B29F-F4BF4585D34C.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668003.931,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-discovery-light.webp",
+      "component_id": "screen/discovery",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "da560aef082d2e477743d5d73abc7628383df7ceff571a0f07e7252bf5984572",
+      "byte_size": 345692,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/663FFC81-3967-4281-86F9-128306534371.png",
+        "sha256": "cfd47c05ccb57421bc93c8bc33321cc1a57020b583252e9fbacbe37796d8bdf0",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-discovery-light_0_D809E0EA-12FE-45C6-A935-8D4E68D41ECD.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667829.872,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-discovery-dark.webp",
+      "component_id": "screen/discovery",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "bf09317063ed18708f64b6a0f0d20ac9acb84d789ca76d2da75fdfa43687d50c",
+      "byte_size": 344836,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/1DE482CA-1456-4E19-9357-87339416FE54.png",
+        "sha256": "cb24b64c334ca193e72647d79b4ca6b10e8eefb299e22bb4c7be3707b71aa805",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-discovery-dark_0_003BA4BF-EE5C-4F88-BA05-470E86EDDC5B.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667846.205,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-flat-collection-light.webp",
+      "component_id": "screen/flat-collection",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "754b63f3525f66ad3e892bf0976c286eb07046f44aab21389703bfb63d06e069",
+      "byte_size": 124438,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/C4BEEAB7-592B-4EFB-BA16-C810C9D23B9A.png",
+        "sha256": "ee396a2988f22e77b433c78b8664fc2b99cfa42685a4d033c7c80a150990adef",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-flat-collection-light_0_602DA022-0355-4EB4-9D1F-35E3EBBAF590.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667608.037,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-flat-collection-dark.webp",
+      "component_id": "screen/flat-collection",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "1aa9243bdca81ac190eed2db3fcb8d8ce92a2863898cd62c7a0afe9b1f85eb07",
+      "byte_size": 122798,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/E9A15DC8-2619-44F1-BC9A-C9B265E21009.png",
+        "sha256": "a39d7c5e5d2fe54c68168158925606ea4f39c24a0b69eaefdcdc4099255df4a5",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-flat-collection-dark_0_F798E32E-9D0D-4FBA-A79F-572F4106B6E4.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667634.046,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-focused-task-light.webp",
+      "component_id": "screen/focused-task",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "0cce3958feeb0ac840dc67a267abf807909251c2e05d0cd064663d6aa678665d",
+      "byte_size": 26090,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/7B3F0B55-6441-49F4-82CF-B9DC4E67C92E.png",
+        "sha256": "07fd07c43dbd9b2a8c5bd08e2efc428f514d0c2bfecaeeaf6cbefe8efac9c296",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-focused-task-light_0_9E133D6D-FAAA-487B-BE0D-FDF9DB88D79B.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667766.616,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-focused-task-dark.webp",
+      "component_id": "screen/focused-task",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "f41de7b67cf6d730693252d6c2b902eb39a36975400dda03ff568f442d12be03",
+      "byte_size": 25208,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/658D10DA-DFCD-477E-B796-A82AD0055D2E.png",
+        "sha256": "c5ba0d0ae27ddf988fe9986aea5bb12f2d19d99890757a22674146300393a66d",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-focused-task-dark_0_9F5068BD-F04A-4454-AECB-3362A74B6284.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667782.334,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-freeform-editor-light.webp",
+      "component_id": "screen/freeform-editor",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "2baf46d05260504ca0a77ad1270a6c0c112c2bf98b05d3f2d4b68bef4febd0e0",
+      "byte_size": 17478,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/D1F8518E-8528-4EE1-AA22-391A7E91DAD3.png",
+        "sha256": "13374627c7ab6dce3fdb16f4c9fff8d963f40e17a99277cda3e4e2e19a0dd75d",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-freeform-editor-light_0_DEB44575-9491-49CF-B0DA-E8794C679A87.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667927.944,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-freeform-editor-dark.webp",
+      "component_id": "screen/freeform-editor",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "95bff6f2b622f22d37cdf2e62d7d275a2007eade14d02afa36f86eef9dd86490",
+      "byte_size": 16746,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/E6CCB390-DA3C-4E7A-A1C1-DFBCE38A3F39.png",
+        "sha256": "2922de44c28dac85936259f8687640ce72c5f554117acbc48ac21e68856fc0f1",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-freeform-editor-dark_0_F1074BBF-F8A5-40E1-BD7C-6D5D53F3A086.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667942.906,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-grouped-form-light.webp",
+      "component_id": "screen/grouped-form",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "a8a23b0ecff096d7bd8d88e95a91a6391c2a80e8d6357cab5952fea0761cd488",
+      "byte_size": 22840,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/1FDDC901-F381-4A40-8E20-95348F07FA24.png",
+        "sha256": "750a0154fa12ac297b57ca69cc8a65edc3a368c1cfcac4a23ff6d8057d396dd4",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-grouped-form-light_0_5B42006A-6E66-44B3-ACA7-8D64707D065E.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667728.983,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-grouped-form-dark.webp",
+      "component_id": "screen/grouped-form",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "4b1fafe37bddb44dd61c8776f85cdacb01f66886be5b46e07f49ac79c84e019b",
+      "byte_size": 21760,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/07F15F1C-CB5D-4274-A5CA-31B25C553666.png",
+        "sha256": "5349c3f669286d94e8054229f0e3b7f6155a06b161424175dd007307ca11c5d3",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-grouped-form-dark_0_DF934EC9-73BD-4B39-ADBC-75A000E67A83.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667747.24,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-hero-collection-light.webp",
+      "component_id": "screen/hero-collection",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "5c579a08037ff8c83a055fd93a632638120bae3f34d0df276d583756194e93b9",
+      "byte_size": 394302,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/25DFE2A0-A7FB-42C2-B0E4-54899876A9E7.png",
+        "sha256": "20dcb48966123567bafea4e921a326a3477695a257d6be6a190c88c4e550e6de",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-hero-collection-light_0_B07855CE-0FEA-4DB2-B023-F508569A25C6.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667894.456,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-hero-collection-dark.webp",
+      "component_id": "screen/hero-collection",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "1376290a068389b535031e5677b26699fb2fb65621595355fa0358e40f083507",
+      "byte_size": 393372,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/F9AE91DD-E831-4D43-80E6-6F52D1489A5E.png",
+        "sha256": "a1a2f468031a4d09ee832cd742601a991cf5ebd657825e53ae7fd6f635ea91e1",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-hero-collection-dark_0_A1B50F51-508C-49E7-A991-041E975D49BA.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667912.258,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-media-composer-light.webp",
+      "component_id": "screen/media-composer",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "32b680060b806af6c3d1447a06df420ab8d244a55856da187a3d4a283c5c3d97",
+      "byte_size": 330398,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/2514B1B7-3046-449F-A8A0-149BD6F4DAD5.png",
+        "sha256": "3c47585964d4cba93233aafbd5e4b3bb030dfa35eaa5824233d0f2a131e2115e",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-media-composer-light_0_873CD2DC-76D6-4D3A-A925-6BC168B33B73.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667683.722,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-media-composer-dark.webp",
+      "component_id": "screen/media-composer",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "8cbd50bdde226bc851a80022194a6168526a81945251b19c84ba56186b371e3c",
+      "byte_size": 373428,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/BFE5AF3D-EB04-48E0-8D3F-EA8CE4836AA0.png",
+        "sha256": "57fe1827ceec43e94e7c40033e77d29f30ef0c2ab2aa51ad63f1ab812c2ca91e",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-media-composer-dark_0_16AFDC30-825B-4B6A-B267-45235F97F868.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667712.307,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-media-detail-light.webp",
+      "component_id": "screen/media-detail",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "0e52396286be183902d3be23845671532d9e9800136dda4debd77ca156b1ba18",
+      "byte_size": 346296,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/3BC5AB4A-6580-413B-879F-BBFDBB9A8228.png",
+        "sha256": "e5fcf7e86d317e8fc341d5ddcc5e9120724c61b3483eaad61f696c713dbd4acb",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-media-detail-light_0_D42A5629-CF9C-4035-9E46-BF94FE7E0B48.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667650.79,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-media-detail-dark.webp",
+      "component_id": "screen/media-detail",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "8f601ef9cf3faed782549e36a749ffd2b0bbe805bc27d7077f6170cb51aed132",
+      "byte_size": 409476,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/7C4A10A6-B094-4E31-BE1A-2E69F47B7C4E.png",
+        "sha256": "071499a1fe6352c1bf3c2e23c357a972acc2e8af0b76caad35228df9c312c2a9",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-media-detail-dark_0_FA373F76-8269-4AE8-84DE-B35A54763772.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667666.59,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-message-thread-light.webp",
+      "component_id": "screen/message-thread",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "4a64a883ac2e18a37733d5e44a4f7e490c20ce6aea2ad5942666902d18bf3e72",
+      "byte_size": 29360,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/F621CA3C-7227-4188-8FCA-138737C5FD9E.png",
+        "sha256": "dd70888655a340a478ee9f33679fed93fb161c5593cdd5dae87b7482503021a6",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-message-thread-light_0_2CC8F30E-476C-4CE1-A751-C7323BC0F54B.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668048.57,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-message-thread-dark.webp",
+      "component_id": "screen/message-thread",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "c8f6f05fa326a31462128cce6579a0a768047c666a897fec3f93d20ffdb16163",
+      "byte_size": 29910,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/1078E52F-31B4-4C0E-B1C5-BB4BE43FEBD0.png",
+        "sha256": "fb6c744c26a148cd22058f66b00212916aaabc48f13c927b47aecb0917e0ba95",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-message-thread-dark_0_9A8EB558-7B11-42E4-A93F-78270536E3A2.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668063.493,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-native-presentation-light.webp",
+      "component_id": "screen/native-presentation",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "43723410e4d7d984f7c35c921fd7f1539d61b430ef1ef1a196d02da4c6bdfa79",
+      "byte_size": 21640,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/46F81623-D842-4918-80D3-E4BC7BF0D714.png",
+        "sha256": "04cbde6a6594d109c9cde398bfb0351ca0b508f048132f8dcf328fcf27c0d4fa",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-native-presentation-light_0_53049261-4B43-442A-BC07-CFA28A345133.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668167.421,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-native-presentation-dark.webp",
+      "component_id": "screen/native-presentation",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "6467b24c37c882c29216300a44e1395e9c74a0f77a9a13c869e1fe65980502e5",
+      "byte_size": 20430,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/C3877215-3E85-47D6-9A07-5044D9B78D5E.png",
+        "sha256": "b738cef2a3cd1a9b62196812fad3f3ec70af0d6f18adee077a1b1a720a42d2f2",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-native-presentation-dark_0_E0EB6D23-386D-47DA-BB25-D0E9B53A7AC3.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668181.746,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-onboarding-light.webp",
+      "component_id": "screen/onboarding",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "28337ef465d2ba142fe80912f32ec344753566becf87f08c0ea61fcdbc60fa24",
+      "byte_size": 352206,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/869B845C-2585-4365-92B4-6FE2EC9E83AC.png",
+        "sha256": "13b35c4058e3c4807326228c6041abd1bd421d171304250786dcc0a582ec45a1",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-onboarding-light_0_DDF88253-47DA-4D08-BDC0-4B1AFC327E2A.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667797.858,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-onboarding-dark.webp",
+      "component_id": "screen/onboarding",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "7fb3c999eaec283d1ac3357cd48b13b11c17d8146424c4e9c50b0b5ea91d8915",
+      "byte_size": 349760,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/438B3AB2-E3BA-4B04-BEB7-F7C401118FDE.png",
+        "sha256": "92849ace1ad94e4ca36cc16879738a8749091f78d2b64846842b4384e0a8cd3e",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-onboarding-dark_0_93B5819F-AE4A-4531-BD3A-0FDB5A3146C3.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667814.309,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-profile-detail-light.webp",
+      "component_id": "screen/profile-detail",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "77cc682a95489be272ad304a01fe2c24a48cf37ce235c6f3a53fd22091c02cbe",
+      "byte_size": 351400,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/831291B9-FCA3-44AF-AFC4-7964DC5A4986.png",
+        "sha256": "345ca3d8750ccbad214c1fb7f2cfa733d42f4e526d8f2947cfa797e33570c34b",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-profile-detail-light_0_D313C763-6D51-4E86-AE04-88DCCECF98A0.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667862.572,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-profile-detail-dark.webp",
+      "component_id": "screen/profile-detail",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "e912297daf0677d2d4365c7f24db3679ecd2f41145db024ab44eccc63a418aed",
+      "byte_size": 407282,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/A7EE54CA-A984-4560-B690-DF4AF15474F6.png",
+        "sha256": "a9b2018d6d5d282e823b7aef8c47b23063a21de8bc5d6336c683215323c526ea",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-profile-detail-dark_0_4E0BF5DD-5A98-4989-8ADF-382249E47338.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667878.314,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-provider-host-light.webp",
+      "component_id": "screen/provider-host",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "0653b04de0ba81645f34f0ee172f07ff18d6a603e302110affa64c54ad796286",
+      "byte_size": 30048,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/A4BB514E-27DC-44B9-BFB6-7F18A52E31C4.png",
+        "sha256": "18c77464d3dfc4f22e72be3af7ded4930d878b883b8eb69953b6feaf729eb1b4",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-provider-host-light_0_EEE8FA70-CA98-4BE5-868E-B9EA9C6E3DD4.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668107.85,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-provider-host-dark.webp",
+      "component_id": "screen/provider-host",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "9deb92c1dea422c5396e8cddd5e5a1792d1c61f9351ffe0928b7b90af3be2766",
+      "byte_size": 29190,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/AEBF998D-682F-478C-9F71-EE889DB52A87.png",
+        "sha256": "1234b704cd9627a0a23cd2605d45487b6a857deef544b278a3f8b194b0b1d233",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-provider-host-dark_0_F041DC95-B7D5-405D-838A-AE617F76C3EF.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668122.316,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-record-detail-light.webp",
+      "component_id": "screen/record-detail",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "096924d16bb51b2e039ab851c807d359edba461b266efb2d0f6a14277d27dc19",
+      "byte_size": 27698,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/EEDD9B0F-443B-4C71-A9B1-4E43293A41BB.png",
+        "sha256": "c08ae0697bcad9063621772f4384520b2946b755ac0dac8a3be36f0f72e8f6fd",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-record-detail-light_0_932762A1-3EB9-4B83-A11F-F88D9044AC1E.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668137.426,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-record-detail-dark.webp",
+      "component_id": "screen/record-detail",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "2986aeb6c9619682f829b16cd28c3424c8b2e292de0ac030cd34bba1fba4083b",
+      "byte_size": 27390,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/5702EDD6-8967-408D-ACAB-5B2AAEF0234B.png",
+        "sha256": "00bb891e9d7a6152f620347e28a3dcac847c291816178da797dbf160f5af0a6a",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-record-detail-dark_0_B288B35D-DA64-4629-917E-C2A393083E19.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668152.348,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-search-selection-light.webp",
+      "component_id": "screen/search-selection",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "64df881f9adb894e470c5b46ffa99710e05caa78dcbfae45f9f06e3c0d05bd8b",
+      "byte_size": 18648,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/21BE7DD0-231F-4267-AEF4-5D742CD4FB11.png",
+        "sha256": "dc216760543fb8d3e4cdb9bd722c117715d60d6020410f041e692a5ca88c8926",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-search-selection-light_0_AFA40BC4-08B4-4B99-BBA5-A37F4AB4E5A5.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667958.431,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-search-selection-dark.webp",
+      "component_id": "screen/search-selection",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "27b7cadfec54b2119e256d8e59273701f7fa17340b1dee656c968f9a4177348c",
+      "byte_size": 17772,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/60851948-CA6E-4C9C-A6A3-4B787036D0BE.png",
+        "sha256": "a48ec49c6b7db29c946a1c6a07b996f2e39b82697b7ed0791af7a6ca6dc02068",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-search-selection-dark_0_6707FD64-9E16-4D40-B1E0-2C4898D37389.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667974.575,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-status-light.webp",
+      "component_id": "screen/status",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "06de7760382ea738871dee5e439b5bb5cf20861fffaee8d56c9b657a1072fef8",
+      "byte_size": 18244,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/F4DE515C-B924-44C6-AA39-9A91D423A709.png",
+        "sha256": "c4948521bc82aaa06c71a846930654524ba8f78e3919b34a83739366257dd317",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-status-light_0_216F187E-FAAF-471A-A611-931C68FDB9BF.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668018.903,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-status-dark.webp",
+      "component_id": "screen/status",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "ae3e9641192bcdc2a7fd0f6717c437355e4f1c16a14b7deec75ed25e1dbe1b95",
+      "byte_size": 17088,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/3A5FFE34-FC5C-4AB9-A520-8F1977AF11CA.png",
+        "sha256": "275d6e39aaa3c9f5d5d5db21a7762ac0c57eeabea625a12f5fdb0090d85dea7c",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-status-dark_0_112A4B26-7AEC-4EB1-B3C7-4B5446F75141.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668033.991,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-utility-canvas-light.webp",
+      "component_id": "screen/utility-canvas",
+      "appearance": "light",
+      "kind": "native-ci-screenshot",
+      "sha256": "791ac4fd6547bbe42aecf5caed843219675ec52bf61f0a4a743e8be8bce2f103",
+      "byte_size": 518600,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/C67D567C-EEA0-401B-81FC-62AF82454BF0.png",
+        "sha256": "82e8adce6e9a78382176bdfbd467c34ef514b75a300dc50427925c68d549f477",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-utility-canvas-light_0_D065D212-31CD-421A-8A07-4AB1F32E03B9.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668078.288,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    },
+    {
+      "file": "iphone-utility-canvas-dark.webp",
+      "component_id": "screen/utility-canvas",
+      "appearance": "dark",
+      "kind": "native-ci-screenshot",
+      "sha256": "9d7daac5e11a01b8a32f635052aa2ec6dfcc9fb9cdb3c5fb01b33de0f9ca7cd9",
+      "byte_size": 517640,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/CF59474C-AB0E-4B48-A9FD-A5EDD9B0E7CA.png",
+        "sha256": "d343756a74b219cb69cf108df532c3538e01e2332a67b8051c34dcd27bb2292b",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-utility-canvas-dark_0_E10B80E6-EA7F-4495-A428-9E1C9E530F9C.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668093.051,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "transform": {
+        "crop": null,
+        "scale": 0.5,
+        "resampling": "Lanczos",
+        "encoding": "lossless-webp",
+        "ui_retouched": false
+      },
+      "review": {
+        "mapping_checked": true,
+        "full_viewport_preserved": true,
+        "unexpected_overlay_seen": false,
+        "scope": "Capture identity and publication hygiene only; not independent component acceptance."
+      }
+    }
+  ]
+}

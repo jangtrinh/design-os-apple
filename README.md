@@ -8,7 +8,7 @@
 [![Zero dependencies](https://img.shields.io/badge/Dependencies-0-555555?style=flat-square)](Package.swift)
 [![MIT](https://img.shields.io/badge/License-MIT-555555?style=flat-square)](LICENSE)
 
-[Explore the visual guide](https://jangtrinh.github.io/design-os-apple/) · [Get started](#add-the-package) · [Inspect the candidate](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e)
+[Explore the visual guide](https://jangtrinh.github.io/design-os-apple/) · [Browse every component](https://jangtrinh.github.io/design-os-apple/components.html) · [Get started](#add-the-package) · [Inspect the candidate](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e)
 
 <p align="center"><img src="docs/assets/marketing/kit-overview.png" alt="Real native Apple Design OS candidate screenshots showing reusable discovery, composer, and form compositions" width="1000"></p>
 
