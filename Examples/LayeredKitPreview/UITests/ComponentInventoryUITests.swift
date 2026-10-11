@@ -77,8 +77,6 @@ final class ComponentInventoryUITests: XCTestCase {
         for appearance in ["light", "dark"] {
             try capture("composite/category-rail", state: "empty", appearance: appearance)
             try capture("semantic/status-message", state: "error", appearance: appearance)
-            try capture("semantic/text-field-modifier", state: "increased-contrast", appearance: appearance)
-            try capture("semantic/media-backdrop", state: "increased-contrast", appearance: appearance)
         }
     }
     func testAccessibleReflowSamples() throws {

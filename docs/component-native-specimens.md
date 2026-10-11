@@ -49,8 +49,12 @@ real one-tap sheet-open capture.
   explicitly recorded as `unrecorded`, never guessed
 
 `docs/component-native-specimen-manifest.json` is the exact route/capture plan. Baseline is 106
-captures per target (53 × light/dark). Eight explicit error/empty/increased-contrast captures,
-eight reflow/RTL samples and two native-sheet captures bring the planned total to 124 per target.
+captures per target (53 × light/dark). Four explicit error/empty captures,
+eight reflow/RTL samples and two native-sheet captures bring the planned total to 120 per target.
+Increased-contrast coverage is excluded from this capture plan: SwiftUI exposes
+`colorSchemeContrast` as read-only. It requires the actual platform Increase Contrast setting
+and separately verified native evidence. No fixture launch state fabricates this environment.
+
 Enabled/disabled actions, field modes, surface tones and incoming/outgoing message variants are
 shown together and are not counted as separate API records. Accessibility and RTL captures only
 certify the exact named samples, never all components or all reference states.
@@ -67,7 +71,7 @@ included automatically by the App/UITests folder source globs. The root launch i
 the existing design-style and appearance environment modifiers around either route.
 
 Run `ComponentInventoryUITests` separately from the screen-family suite. Do not silently append
-124 new launches to a time-bounded 45-minute screen-family job. The test class has seventeen bounded
+120 new launches to a time-bounded 45-minute screen-family job. The test class has seventeen bounded
 methods; shard by method for platforms/runners that need it. Each launch waits at most ten seconds
 for the exact route, terminates after its capture, and each method has a 600-second allowance.
 The native sheet case performs one real button tap and a five-second presentation wait. No

@@ -512,8 +512,7 @@
       "documentation": "docs/luma-kit-architecture.md",
       "compile_fixture": "Tests/DesignOSAppleTests/AppStyle/NativeLayoutRecipeCompositionTests.swift",
       "states": [
-        "default",
-        "increased-contrast"
+        "default"
       ],
       "appearances": [
         "light",
@@ -532,14 +531,6 @@
         },
         {
           "state": "default",
-          "appearance": "dark"
-        },
-        {
-          "state": "increased-contrast",
-          "appearance": "light"
-        },
-        {
-          "state": "increased-contrast",
           "appearance": "dark"
         }
       ]
@@ -1542,8 +1533,7 @@
       "documentation": "docs/reusable-app-style.md",
       "compile_fixture": "Tests/DesignOSAppleTests/AppStyle/DesignOSAppTextFieldModifierTests.swift",
       "states": [
-        "default",
-        "increased-contrast"
+        "default"
       ],
       "appearances": [
         "light",
@@ -1562,14 +1552,6 @@
         },
         {
           "state": "default",
-          "appearance": "dark"
-        },
-        {
-          "state": "increased-contrast",
-          "appearance": "light"
-        },
-        {
-          "state": "increased-contrast",
           "appearance": "dark"
         }
       ]
@@ -2273,8 +2255,21 @@
     "native/extension-control-widget",
     "native/extension-widget"
   ],
-  "planned_capture_count_per_target": 124,
+  "planned_capture_count_per_target": 120,
   "fixture_source": "Examples/LayeredKitPreview/App/ComponentInventorySpecimens.swift",
   "capture_test_source": "Examples/LayeredKitPreview/UITests/ComponentInventoryUITests.swift",
-  "compile_fixture": "Examples/LayeredKitPreview/App/ComponentInventorySpecimens.swift"
+  "compile_fixture": "Examples/LayeredKitPreview/App/ComponentInventorySpecimens.swift",
+  "host_system_setting_required": [
+    {
+      "state": "increased-contrast",
+      "component_ids": [
+        "semantic/text-field-modifier",
+        "semantic/media-backdrop"
+      ],
+      "status": "not_captured",
+      "reason": "SwiftUI colorSchemeContrast is read-only. Requires the real platform Increase Contrast accessibility setting and independently verified native evidence; no launch-state override is provided."
+    }
+  ],
+  "fixture_source_sha256": "a8f7d03711d5b51585ba7b05b736932f1bbb32fd7a2a85e4e064068e0afc8d68",
+  "capture_test_source_sha256": "91fdd33f70963de4c52fb8e140a8d46f73a8ac2cc169f717b91e629991f87577"
 }

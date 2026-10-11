@@ -107,7 +107,6 @@ struct ComponentInventorySpecimen: View {
             }
         }
         .background(style.palette.canvas.color)
-        .environment(\.colorSchemeContrast, state == "increased-contrast" ? .increased : .standard)
         .dynamicTypeSize(state == "accessibility" ? .accessibility3 : .large)
         .environment(\.layoutDirection, state == "rtl" ? .rightToLeft : .leftToRight)
         #if os(macOS)
