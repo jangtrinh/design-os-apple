@@ -22,9 +22,6 @@ jobs:
   browser-preview:
     runs-on: ubuntu-24.04
     timeout-minutes: 15
-    env:
-      MARKETING_BROWSER_OUTPUT: ${{ runner.temp }}/marketing-browser-results
-      PLAYWRIGHT_BROWSERS_PATH: ${{ runner.temp }}/marketing-browsers
     steps:
       - uses: actions/checkout@v6
         with:
@@ -34,6 +31,10 @@ jobs:
           node-version: '22'
       - name: Prepare failure evidence
         run: |
+          export MARKETING_BROWSER_OUTPUT="$RUNNER_TEMP/marketing-browser-results"
+          export PLAYWRIGHT_BROWSERS_PATH="$RUNNER_TEMP/marketing-browsers"
+          printf 'MARKETING_BROWSER_OUTPUT=%s\n' "$MARKETING_BROWSER_OUTPUT" >> "$GITHUB_ENV"
+          printf 'PLAYWRIGHT_BROWSERS_PATH=%s\n' "$PLAYWRIGHT_BROWSERS_PATH" >> "$GITHUB_ENV"
           mkdir -p "$MARKETING_BROWSER_OUTPUT"
           printf '%s\n' '{"status":"setup-incomplete","note":"Browser checks have not run."}' > "$MARKETING_BROWSER_OUTPUT/results.json"
       - name: Install pinned preview-only tooling
