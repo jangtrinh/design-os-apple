@@ -1,6 +1,6 @@
 # GitHub Pages site configuration for design-os-apple.
 title: Apple Design OS
-description: Native SwiftUI design-system library for iOS 17+, iPadOS 17+, and macOS 14+ with semantic roles, typed profiles, and verified recipes.
+description: Native SwiftUI design system for iPhone, iPad, and Mac. Explore the layered kit candidate, unified themes, and source-bound native screenshots.
 url: https://jangtrinh.github.io
 baseurl: /design-os-apple
 lang: en
@@ -9,7 +9,7 @@ repository_url: https://github.com/jangtrinh/design-os-apple
 wordmark: JANG
 wordmark_url: https://github.com/jangtrinh
 eyebrow: SwiftUI Design System · Apple Platforms
-logo: /specimens/specimen-ipadpro-wide.png
+logo: /assets/marketing/kit-overview.png
 
 exclude:
   - corpus/
@@ -19,6 +19,7 @@ exclude:
   - Gemfile.lock
 
 nav:
+  - { title: Layered Kit Candidate, url: "https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-kit-architecture.md" }
   - { title: Getting Started, url: "https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md" }
   - { title: OS 27 Intake, url: "https://github.com/jangtrinh/design-os-apple/blob/main/docs/os27-intake-report.md" }
   - { title: Quality Evidence, url: "https://github.com/jangtrinh/design-os-apple/blob/main/docs/quality-evidence.md" }

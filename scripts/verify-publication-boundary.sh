@@ -109,6 +109,21 @@ is_gallery_generated_art() {
   esac
   return 1
 }
+# Documentation-only images are admitted as one hash-bound, reviewed CI export set.
+is_marketing_image() {
+  case "$1" in
+    docs/assets/marketing/iphone-discovery-light.png|\
+      docs/assets/marketing/iphone-discovery-dark.png|\
+      docs/assets/marketing/iphone-media-composer-dark.png|\
+      docs/assets/marketing/iphone-grouped-form-light.png|\
+      docs/assets/marketing/iphone-message-thread-dark.png|\
+      docs/assets/marketing/iphone-onboarding-light.png|\
+      docs/assets/marketing/ipad-discovery-light.png|\
+      docs/assets/marketing/macos-discovery-dark.png|\
+      docs/assets/marketing/kit-overview.png) return 0 ;;
+  esac
+  return 1
+}
 is_curated_specimen_asset() {
   local candidate=$1
   case "$candidate" in
@@ -148,6 +163,15 @@ if grep -Eq '^Examples/DesignOSAppleGallery/(Generated/local-demo-image-provenan
     gallery_generated_art_admitted=1
   else
     report "gallery-generated-art provenance admission failed"
+  fi
+fi
+
+marketing_images_admitted=0
+if grep -q '^docs/assets/marketing/' "$temporary_list"; then
+  if python3 "$scan_root/scripts/verify-marketing-image-provenance.py" --root "$scan_root"; then
+    marketing_images_admitted=1
+  else
+    report "marketing-image provenance admission failed"
   fi
 fi
 
@@ -191,7 +215,8 @@ while IFS= read -r relative_path; do
 
   size=$(stat -f %z "$absolute_path")
   if (( size > 1048576 )); then
-    if ! (( gallery_generated_art_admitted )) || ! is_gallery_generated_art "$relative_path"; then
+    if ! { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
+      && ! { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; }; then
       report "file exceeds 1 MiB '$relative_path'"
     fi
   fi
@@ -200,6 +225,7 @@ while IFS= read -r relative_path; do
     *.png|*.jpg|*.jpeg|*.gif|*.pdf|*.fig|*.sketch|*.zip|*.dmg|*.pkg|*.bin)
       is_approved_catalog_thumbnail "$relative_path" \
         || { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
+        || { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; } \
         || is_curated_specimen_asset "$relative_path" \
         || report "unapproved binary or design asset '$relative_path'"
       ;;
@@ -211,6 +237,7 @@ while IFS= read -r relative_path; do
     image/png)
       is_approved_catalog_thumbnail "$relative_path" \
         || { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
+        || { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; } \
         || is_curated_specimen_asset "$relative_path" \
         || report "unclassified non-text content '$relative_path' ($mime_type)"
       ;;

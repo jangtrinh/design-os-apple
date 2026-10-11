@@ -1,0 +1,295 @@
+{
+  "version": 1,
+  "source": {
+    "repository": "jangtrinh/design-os-apple",
+    "head_sha": "adcf88a468a43ed1727c9c902ae5243423e4176e",
+    "run_id": 38087127370,
+    "run_url": "https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370"
+  },
+  "capture_note": "iPhone and iPad are native simulator captures from XCTest on GitHub Actions. Mac is a native application screenshot on the CI macOS runner, not a simulator. Demo meal media is an original synthetic local fixture; screenshots themselves are genuine native renders.",
+  "transformations": "Publication PNGs are losslessly encoded. iPhone and iPad are uniformly downsampled by 50% with Lanczos; Mac is cropped to the app window. Original exported PNGs and artifact archives are preserved in the working evidence package.",
+  "assets": [
+    {
+      "file": "iphone-discovery-light.png",
+      "kind": "native-ci-screenshot",
+      "sha256": "4affdc4a00a7cdb0f6f0d9b970d142e11b1146dec2c230ed6345bbf37d87a165",
+      "byte_size": 464740,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/663FFC81-3967-4281-86F9-128306534371.png",
+        "sha256": "cfd47c05ccb57421bc93c8bc33321cc1a57020b583252e9fbacbe37796d8bdf0",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-discovery-light_0_D809E0EA-12FE-45C6-A935-8D4E68D41ECD.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667829.872,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "crop": null,
+      "resize": {
+        "scale": 0.5,
+        "resampling": "Lanczos"
+      },
+      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+    },
+    {
+      "file": "iphone-discovery-dark.png",
+      "kind": "native-ci-screenshot",
+      "sha256": "0d3c25c3f2716a895cf0a6329f141ce1b7e7e1ac8fbcad54f4d4525dd38a9b1b",
+      "byte_size": 462209,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/1DE482CA-1456-4E19-9357-87339416FE54.png",
+        "sha256": "cb24b64c334ca193e72647d79b4ca6b10e8eefb299e22bb4c7be3707b71aa805",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-discovery-dark_0_003BA4BF-EE5C-4F88-BA05-470E86EDDC5B.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667846.205,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "crop": null,
+      "resize": {
+        "scale": 0.5,
+        "resampling": "Lanczos"
+      },
+      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+    },
+    {
+      "file": "iphone-media-composer-dark.png",
+      "kind": "native-ci-screenshot",
+      "sha256": "b7afab1e590f4346419dc50db67b691c31a34794e59eb73f9c860c262bfc1c62",
+      "byte_size": 508128,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/BFE5AF3D-EB04-48E0-8D3F-EA8CE4836AA0.png",
+        "sha256": "57fe1827ceec43e94e7c40033e77d29f30ef0c2ab2aa51ad63f1ab812c2ca91e",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-media-composer-dark_0_16AFDC30-825B-4B6A-B267-45235F97F868.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667712.307,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "crop": null,
+      "resize": {
+        "scale": 0.5,
+        "resampling": "Lanczos"
+      },
+      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+    },
+    {
+      "file": "iphone-grouped-form-light.png",
+      "kind": "native-ci-screenshot",
+      "sha256": "a5de1dd7fa05ca870b54ca33b0f3e2c783064590c603b5b052c097573f9d9633",
+      "byte_size": 56744,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/1FDDC901-F381-4A40-8E20-95348F07FA24.png",
+        "sha256": "750a0154fa12ac297b57ca69cc8a65edc3a368c1cfcac4a23ff6d8057d396dd4",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-grouped-form-light_0_5B42006A-6E66-44B3-ACA7-8D64707D065E.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667728.983,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "crop": null,
+      "resize": {
+        "scale": 0.5,
+        "resampling": "Lanczos"
+      },
+      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+    },
+    {
+      "file": "iphone-message-thread-dark.png",
+      "kind": "native-ci-screenshot",
+      "sha256": "f2db4d82f1f9bc9858e661ebce9bfc81529566c317ac16219f758318c0c2ee52",
+      "byte_size": 71319,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/1078E52F-31B4-4C0E-B1C5-BB4BE43FEBD0.png",
+        "sha256": "fb6c744c26a148cd22058f66b00212916aaabc48f13c927b47aecb0917e0ba95",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-message-thread-dark_0_9A8EB558-7B11-42E4-A93F-78270536E3A2.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791668063.493,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "crop": null,
+      "resize": {
+        "scale": 0.5,
+        "resampling": "Lanczos"
+      },
+      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+    },
+    {
+      "file": "iphone-onboarding-light.png",
+      "kind": "native-ci-screenshot",
+      "sha256": "228094641be69092120a1f1daeca8a4fa6a7a144d9b35841fa0f6a8fbf874456",
+      "byte_size": 477352,
+      "width": 603,
+      "height": 1311,
+      "source": {
+        "artifact_id": 11683400972,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
+        "exported_file": "screenshots-iPhone/869B845C-2585-4365-92B4-6FE2EC9E83AC.png",
+        "sha256": "13b35c4058e3c4807326228c6041abd1bd421d171304250786dcc0a582ec45a1",
+        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-onboarding-light_0_DDF88253-47DA-4D08-BDC0-4B1AFC327E2A.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791667797.858,
+        "original_width": 1206,
+        "original_height": 2622
+      },
+      "crop": null,
+      "resize": {
+        "scale": 0.5,
+        "resampling": "Lanczos"
+      },
+      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+    },
+    {
+      "file": "ipad-discovery-light.png",
+      "kind": "native-ci-screenshot",
+      "sha256": "c7c6b2360b9e5134436c6f62ee9697832e153603bbe0e9ecb115f745df2ad4a9",
+      "byte_size": 406939,
+      "width": 1032,
+      "height": 1376,
+      "source": {
+        "artifact_id": 11683226773,
+        "artifact_name": "layered-kit-ipad-test-results",
+        "artifact_sha256": "9162bef302d8c8a25c15dd9c87ddb8d42f86fef5e876fc23de171a593bdf65c3",
+        "exported_file": "screenshots-iPad/8E9ACD82-1346-42B7-A66A-C29ADD866DEC.png",
+        "sha256": "6be6a8263fe757790ae68e509a1ca740470d5c6340afd84cecad1289140b530a",
+        "manifest_sha256": "fd266eaeb4045fca23173e4f2ad8ad12d6333e1612670728936dceb2dbcdd520",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-discovery-light_0_0F1DC037-5232-486E-A2AF-8C18E9AFB9F8.png",
+        "device_name": "iPad Pro 13-inch (M5)",
+        "capture_timestamp": 1791668008.37,
+        "original_width": 2064,
+        "original_height": 2752
+      },
+      "crop": null,
+      "resize": {
+        "scale": 0.5,
+        "resampling": "Lanczos"
+      },
+      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+    },
+    {
+      "file": "macos-discovery-dark.png",
+      "kind": "native-ci-screenshot",
+      "sha256": "ae4ee4b008efce5d4fd6b57f236b14128fde98e3ec6681f0e881143ab2615804",
+      "byte_size": 220682,
+      "width": 902,
+      "height": 453,
+      "source": {
+        "artifact_id": 11682309988,
+        "artifact_name": "layered-kit-macos-test-results",
+        "artifact_sha256": "0a9cda9ffdd253e8f58a0569036da82ef066969dcf5bfa08c5b24b242b69898a",
+        "exported_file": "screenshots-macOS/37358462-11E2-4A5B-957D-5C44D51D5750.png",
+        "sha256": "96ea87656ddcd84e6bef4170a14b497231ba978a98df528b6ba11de78869adfb",
+        "manifest_sha256": "02afbc4de54bddacd02edcafa6d477161874047d757a933a61a5710d439027d4",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "attachment_name": "screen-discovery-dark_0_E87B6FCB-BCB0-4B54-A002-3442B7A32F43.png",
+        "device_name": "My Mac",
+        "capture_timestamp": 1791667401.254,
+        "original_width": 1024,
+        "original_height": 768
+      },
+      "crop": [
+        61,
+        142,
+        963,
+        595
+      ],
+      "resize": null,
+      "description": "Full native macOS app window, cropped only to exclude desktop, menu bar and Dock. Content clipped by the original scroll viewport is preserved."
+    },
+    {
+      "file": "kit-overview.png",
+      "kind": "screenshot-composition",
+      "sha256": "f822b05aeda14243d5715b3f1d53483959bf460a93b888b79a0532d57943b5f6",
+      "byte_size": 490236,
+      "width": 2000,
+      "height": 1000,
+      "source_files": [
+        "iphone-discovery-light.png",
+        "iphone-discovery-dark.png",
+        "iphone-media-composer-dark.png",
+        "iphone-grouped-form-light.png",
+        "ipad-discovery-light.png"
+      ],
+      "composition": {
+        "background": "#eeeae4",
+        "placements": [
+          {
+            "file": "iphone-discovery-light.png",
+            "x": 60,
+            "y": 180,
+            "width": 260,
+            "height": 565
+          },
+          {
+            "file": "iphone-discovery-dark.png",
+            "x": 350,
+            "y": 180,
+            "width": 260,
+            "height": 565
+          },
+          {
+            "file": "iphone-media-composer-dark.png",
+            "x": 640,
+            "y": 180,
+            "width": 260,
+            "height": 565
+          },
+          {
+            "file": "iphone-grouped-form-light.png",
+            "x": 930,
+            "y": 180,
+            "width": 260,
+            "height": 565
+          },
+          {
+            "file": "ipad-discovery-light.png",
+            "x": 1270,
+            "y": 180,
+            "width": 525,
+            "height": 700
+          }
+        ],
+        "note": "Editorial labels outside screenshots; aspect-ratio-preserving scaling; no generated UI, masking, fabricated device frame or composited UI content."
+      }
+    }
+  ]
+}
