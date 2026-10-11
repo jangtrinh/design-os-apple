@@ -10,7 +10,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: ci-${{ github.workflow }}-${{ github.ref }}-${{ github.sha }}
+  group: ci-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
@@ -42,8 +42,11 @@ jobs:
           python3 scripts/test-layered-kit-verifier.py
           python3 scripts/verify-layered-kit.py
           python3 scripts/verify-component-specimens.py
+          python3 scripts/test-component-specimens.py
 
   caloriecam-native:
+    # Validate priority field behavior before expanding native runner work.
+    needs: layered-kit-fields
     strategy:
       fail-fast: false
       matrix:
@@ -73,6 +76,8 @@ jobs:
           if-no-files-found: ignore
 
   release-candidate:
+    # Validate priority field behavior before expanding native runner work.
+    needs: layered-kit-fields
     runs-on: macos-26
     timeout-minutes: 45
     steps:
@@ -110,6 +115,8 @@ jobs:
           if-no-files-found: ignore
 
   layered-kit-native:
+    # Validate priority field behavior before expanding native runner work.
+    needs: layered-kit-fields
     strategy:
       fail-fast: false
       matrix:
@@ -175,10 +182,9 @@ jobs:
           if-no-files-found: ignore
 
   layered-kit-components:
-    # Give the smaller, priority field matrix runner capacity first; still collect
-    # component evidence after a field failure, without making that failure pass.
+    # Capture the wider kit only after priority field behavior passes.
+    # A failed prerequisite keeps this run failed, never a full native pass.
     needs: layered-kit-fields
-    if: ${{ !cancelled() }}
     strategy:
       fail-fast: false
       matrix:

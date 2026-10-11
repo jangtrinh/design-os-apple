@@ -89,24 +89,16 @@ internal enum DesignOSActionButtonProminence {
 }
 
 internal enum DesignOSPrimaryButtonAppearance {
-  // Accessible semantic danger colors, not claimed reference-app measurements.
-  static let destructiveInk = DesignOSAdaptiveColor(
-    uncheckedLightRGB: 0xB4_2318,
-    darkRGB: 0xFF_B4AB,
-    increasedContrastLightRGB: 0x8C_0D05,
-    increasedContrastDarkRGB: 0xFF_DAD6
-  )
-
   static func foreground(
     palette: DesignOSAppPalette,
     prominence: DesignOSActionButtonProminence,
     isEnabled: Bool,
     isDestructive: Bool
   ) -> DesignOSAdaptiveColor {
-    guard isEnabled else { return palette.secondaryInk }
+    guard isEnabled else { return palette.disabledAction.foreground }
     switch prominence {
     case .primary: return palette.actionInk
-    case .secondary: return isDestructive ? destructiveInk : palette.ink
+    case .secondary: return isDestructive ? palette.dangerInk : palette.ink
     }
   }
 
@@ -116,9 +108,9 @@ internal enum DesignOSPrimaryButtonAppearance {
     isEnabled: Bool,
     isDestructive: Bool
   ) -> DesignOSAdaptiveColor {
-    guard isEnabled else { return palette.subtleSurface }
+    guard isEnabled else { return palette.disabledAction.background }
     switch prominence {
-    case .primary: return isDestructive ? destructiveInk : palette.action
+    case .primary: return isDestructive ? palette.dangerInk : palette.action
     case .secondary: return palette.subtleSurface
     }
   }

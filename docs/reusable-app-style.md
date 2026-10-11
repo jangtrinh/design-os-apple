@@ -1,7 +1,8 @@
 # Reusable application style
 
-The opt-in `DesignOSAppStyle.editorial` gives future Apple apps the same image-led, monochrome
-design language. It is an additive runtime application style, separate from the sealed
+The opt-in `DesignOSAppStyle.editorial` gives future Apple apps an image-led design language
+with quiet monochrome actions and optional directional message emphasis. It is an additive
+runtime application style, separate from the sealed
 management tokens and the existing native recipe/profile contracts. The public name is
 unbranded; no affiliation with the reference app is implied.
 
@@ -118,6 +119,17 @@ primary fill or red secondary label. The accessible danger pair (`#B42318` / `#F
 stronger increased-contrast variants) is a semantic safety choice, not a measured Luma token.
 System alerts and menus keep their native presentation and behavior.
 
+Only actually disabled native buttons use `palette.disabledAction`, an adaptive
+`DesignOSAppColorPair`. The editorial standard-contrast pair is `#CECED0` / white in light
+appearance and `#262626` / `#4E4E4E` in dark appearance. These deliberately subdued colors
+are reference-informed approximations from light onboarding and dark ambient registration,
+not active label, helper, or field colors. Regular primary/secondary and compact secondary
+actions share the role; native `.disabled(...)` remains the authority for both behavior and
+appearance. Applying it to secondary/compact actions is a shared-kit adaptation. Increase
+Contrast preserves the prior readable pairs: `#F0F0F0` / `#454545` in light and `#181818` /
+`#F0F0F0` in dark. The [source study](luma-style-reference.md#disabled-actions) records exact
+pinned screens, pixel context, and why no source alpha or universal token is claimed.
+
 ```swift
 Button("Continue", action: continueAction)
   .buttonStyle(DesignOSPrimaryButtonStyle())
@@ -126,6 +138,77 @@ Button("Continue", action: continueAction)
 Button("Choose another", action: chooseAnother)
   .buttonStyle(DesignOSSecondaryButtonStyle())
 ```
+
+## Directional messages and compact selection
+
+`DesignOSMessageBubble` preserves neutral incoming/outgoing surfaces by default. Opt into
+`outgoingAppearance: .emphasized` for the inspected chat hierarchy: a blue outgoing surface
+with a paired readable foreground, neutral incoming content, and delivery metadata outside
+the bubble. The option affects outgoing content only; app-wide actions retain their colors.
+
+```swift
+DesignOSMessageBubble(isOutgoing: true, outgoingAppearance: .emphasized) {
+  Text("I'll bring the illustrated atlas.")
+} metadata: {
+  Text("Delivered").font(.caption)
+}
+```
+
+The role is `style.palette.outgoingMessage`, a `DesignOSAppColorPair` with adaptive
+`background` and `foreground`. The pair is supplied atomically to `DesignOSAppPalette`.
+Existing custom-palette initializers remain valid: omitting the new argument derives the
+pair from that palette's own `surface` and `ink`, rather than mixing a blue default with a
+custom foreground. Custom callers must verify all appearance/contrast combinations for
+their pairs. The component sets an inherited foreground for emphasized content; any explicit
+foreground or nested surface supplied inside a slot still needs its own contrast review.
+Reply/media content keeps the same `contentInset` and continuous `surfaceRadius`; use
+`DesignOSCornerGeometry` with the actual inset for nested media. Tails, reactions and
+source-matching message width constraints are not added by this appearance option.
+
+`DesignOSSelectionSummary(sizing: .intrinsic)` supports a compact caller-owned count action.
+The default `.expanded` sizing retains the existing summary/action arrangement. Intrinsic
+sizing measures the whole content's ideal width and bounds it to the available width, including
+when a supplied native button style normally expands. It does not use horizontal `fixedSize`
+or a hard-coded count width. In intrinsic mode, explicit `EmptyView` slots add no phantom spacing;
+accessibility text sizes retain vertical summary/action reflow.
+
+```swift
+DesignOSSelectionSummary(sizing: .intrinsic) {
+  Button(action: reviewSelection) {
+    HStack {
+      Text(selectedCountLabel)
+      Image(systemName: "chevron.right").accessibilityHidden(true)
+    }
+  }
+  .buttonStyle(DesignOSSecondaryButtonStyle())
+} actions: {
+  EmptyView()
+}
+.frame(maxWidth: .infinity, alignment: .center)
+```
+
+The consuming app supplies a localized label, accessible action name, selection state and
+safe-area positioning. The summary itself adds no gesture, capsule or presentation. Do not
+nest a second button inside an outer button. The shared action style retains its native
+interaction, focus feedback and 54-point minimum height; this deliberately differs from the
+reference's smaller visual pill. Arbitrary child views must still accept bounded width
+proposals to wrap; neither sizing mode clips or scales caller content to force a fit.
+
+These changes are grounded in [Luma chat light](https://mobbin.com/screens/c3f1fbf1-0f92-4552-a55a-a1b514551bd1),
+[chat dark](https://mobbin.com/screens/e8eb6d85-bb28-4bee-a01e-b6f866be6b67) and the
+[selected-count control](https://mobbin.com/screens/3c445308-cc7d-4692-910a-374022783faf).
+The lower chat bubble's compressed raster has a blue cluster around `#2A62E8`–`#2C63E9`,
+with white text in both appearances; upper bubbles are visibly lighter. The chosen single
+blue role is a reconstruction, not a recovered exact source token. White on `#2A62E8` computes
+to 5.24:1. The increased-contrast `#1746B5` pair computes to 8.14:1 and is our accessibility
+adaptation. The count control is visibly content-width, with one count label and quiet chevron;
+its raster dimensions do not establish a source point size.
+
+Native compilation, actual intrinsic button measurement, screenshots, long-label reflow,
+RTL, focus and accessibility acceptance for these additions are **NOT VERIFIED** until
+the exact integrated revision is exercised on Apple platforms. The focused tests in
+`DesignOSCompositeAppearanceTests.swift` cover role/default contracts, numeric width policy
+and compile fixtures; those contracts alone do not establish rendered reference fidelity.
 
 ## Continuous and nested image corners
 
@@ -192,7 +275,7 @@ preset text pair, not every material or control a consuming app may add.
 
 The source images are 1179–1180 pixels wide. Geometry below assumes an approximately
 393-point-wide screenshot; scale metadata was not supplied. Therefore point values are inferred
-even where the corresponding raster distance is clear. Colors are JPEG pixel observations,
+even where the corresponding raster distance is clear. Colors are rendered-raster observations,
 not recovered original source tokens.
 
 | Runtime role | Values | Evidence status |
@@ -202,6 +285,11 @@ not recovered original source tokens.
 | Secondary ink | light `#666666`, dark `#CCCCCC` | Representative measured metadata glyph cores |
 | Separator | light `#F0F0F0`, dark `#252525` | Representative measured thin lines |
 | Action / action ink | inverse `#161616` and `#FFFFFF` | White dark-detail action observed; adaptive inverse inferred |
+| Disabled action background / foreground | light `#CECED0` / white; dark `#262626` / `#4E4E4E` | Disabled-only approximation of onboarding and ambient registration raster samples; source contexts vary |
+| Increased-contrast disabled action | light `#F0F0F0` / `#454545`; dark `#181818` / `#F0F0F0` | Preserves prior readable subtle-surface/secondary-ink pair; accessibility adaptation |
+| Semantic danger ink | light `#B42318`, dark `#FFB4AB`; increased contrast `#8C0D05` / `#FFDAD6` | Shared accessible validation/destructive role, not a measured reference color |
+| Emphasized outgoing message | `#2A62E8` / white in both appearances | Representative lower-bubble raster cluster; explicitly opt-in and separate from action colors |
+| Increased-contrast outgoing message | `#1746B5` / white | Accessibility adaptation, not a measured source color |
 | Opaque surface | light `#F7F7F7`, dark `#242424` | Accessible neutral fallback, inferred |
 | Subtle surface | light `#F0F0F0`, dark `#181818` | Inferred reuse of observed neutral composites |
 | Increased contrast | ink `#000000`; supporting ink `#454545` / `#F0F0F0`; separator `#767676` / `#808080` | Accessibility adaptation, not source measurements |
@@ -227,6 +315,18 @@ increased-contrast variants; UIKit/AppKit resolve them from the actual rendering
 outside RGB range, non-finite/negative metrics, primary-action heights below 44 points, and
 invalid thumbnail geometry are rejected.
 
+`palette.dangerInk` is the shared foreground for app-owned validation text and the existing
+destructive app-style action treatment. Omitting `dangerInk` from a custom palette retains
+`DesignOSAppPalette.defaultDangerInk`, including the previous button colors. An explicit
+override also changes destructive primary fills and secondary labels; verify its contrast
+with `actionInk` and all surfaces where the foreground appears. This opt-in app-style role
+does not change global system red or add a field border.
+
+Omitting `disabledAction` from a custom palette preserves that palette's own
+`subtleSurface` / `secondaryInk` pair. Supply both colors together to customize disabled
+actions; verify their increased-contrast variants remain readable. Never reuse the subdued
+standard-contrast pair for enabled actions, helper text, field content, or system controls.
+
 The palette initializer does not guarantee contrast for arbitrary custom pairs. New presets
 must verify every text/background pairing, native material context, focus state, disabled
 appearance, and the worst-case media backdrop. The editorial contrast bound does not apply
@@ -243,16 +343,23 @@ Focused tests live in `Tests/DesignOSAppleTests/AppStyle/` and cover:
 - Immutable design-only storage and unchanged existing default profile
 - Color and metric validation, including the 44-point action floor
 - Light/dark and increased-contrast resolution, including native platform adapters
-- Normal text contrast across every opaque preset surface and primary action pair
+- Normal text contrast, including validation danger ink, across every opaque preset surface
+  and primary action pair
 - Dynamic Type reflow, disabled action feedback, and opaque backdrop fallbacks
 - Worst-case ambient-media contrast and compile-time native composition
 
-Calculated palette minima are 5.04:1 in light appearance and 9.67:1 in dark appearance. The
-primary action pair is 18.10:1. These are color calculations, not rendered UI or VoiceOver
+Calculated active-text palette minima, including danger ink, are 5.04:1 in light appearance and 9.14:1 in
+dark appearance. The primary action pair is 18.10:1. These are color calculations, not rendered UI or VoiceOver
 acceptance results. Rendered app screenshots, device accessibility, native keyboard focus,
 and source comparisons must be checked separately by the consuming app's native test lane.
 Deterministic tests always assert all four appearance/contrast RGB variants. Native AppKit
 provider tests additionally check that the system actually supplies the requested appearance.
+Only standard-contrast disabled actions have an explicit lower-contrast exception; all active
+text and enabled action contrast gates remain unchanged. Increased-contrast disabled actions
+retain the 4.5:1 text gate. The disabled pair computes to 1.57:1 in light and 1.82:1 in dark;
+its increased-contrast fallbacks compute to 8.41:1 and 15.58:1. New disabled-state iOS/macOS
+captures, native disabled interaction,
+VoiceOver, and actual Increase Contrast rendering remain **NOT VERIFIED** for this change.
 On the observed macOS 26.6 CI runner, requesting high-contrast appearance names returned ordinary
 light/dark appearance objects instead. The high-contrast native test is therefore explicitly
 skipped as NOT VERIFIED when genuine fixtures are unavailable, rather than treating the name
@@ -304,8 +411,12 @@ The native control retains text selection, paste, keyboard, focus binding, secur
 accessibility label/value and disabled semantics. Focus uses the native insertion point.
 Do not simulate focus by drawing a permanent ring or adding a tap-blocking overlay. Validation
 and its timing remain app-owned: show a visible error message below the field and provide an
-appropriate accessibility hint. The observed reference retains neutral field fill even when
-invalid; there is no invented red outline. Increase Contrast adds a passive 1-point boundary
+appropriate accessibility hint. Use `.foregroundStyle(style.palette.dangerInk.color)` for
+that message. The default light danger foreground computes to 6.57:1 on the white canvas;
+plain system red in the native error-footnote capture was approximately 3.57:1. The shared
+role needs fresh native error-state captures in both appearances before visual acceptance.
+The observed reference retains neutral field fill even when invalid; there is no invented
+red outline. Increase Contrast adds a passive 1-point boundary
 as an explicit accessibility adaptation. Disabled text uses the shared secondary ink.
 
 ### Reference and remaining gaps
@@ -329,3 +440,7 @@ Native comparison fixture: `LAYERED_KIT_SPECIMEN=text-fields`, with
 named screenshot attachments for every state in both appearances and tests repeated native
 editing, focus dismissal and secure-entry classification. Secure captures contain no entered
 content. These are source-authored tests, not evidence of execution on a non-Apple host.
+
+### Standalone field review refinement
+
+The standalone field uses a 48-point minimum visual height; larger native text can grow it. This is a reference-informed implementation value, not a recovered Luma token. External labels in the specimen align with the field content inset and use native subheadline typography. Label ink remains the contrast-safe secondary semantic color instead of copying a low-contrast raster gray. The latest screenshot comparison exposed the previous label alignment gap; these refinements require a new native capture before visual acceptance.

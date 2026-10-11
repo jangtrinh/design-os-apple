@@ -188,9 +188,22 @@ class AppStyleIndexTests(unittest.TestCase):
         self.reject("incomplete or extra app-style inventory")
 
     def test_registered_delegate_must_reference_real_style_implementation(self):
-        self.alter_source("Sources/DesignOSApple/Components/DesignOSSecondaryButtonStyle.swift",
+        # Keep this graph test about a delegate-only component. The production secondary
+        # style also owns a direct app-style consumer for its explicit compact variants.
+        path = self.root / "Sources/DesignOSApple/Components/DesignOSSecondaryButtonStyle.swift"
+        path.write_text("public struct DesignOSSecondaryButtonStyle: ButtonStyle {\n"
+                        "  func makeBody(configuration: Configuration) -> some View {\n"
+                        "    DesignOSActionButtonContent(configuration: configuration, prominence: .secondary)\n"
+                        "  }\n}\n", encoding="utf-8")
+        self.assertEqual(REGISTRY.validate(self.root)["id"], "editorial")
+        self.alter_source(path.relative_to(self.root).as_posix(),
                           "DesignOSActionButtonContent(", "UnrelatedButtonContent(")
         self.reject("incomplete or extra app-style inventory")
+
+    def test_secondary_direct_variant_remains_discoverable_without_default_delegate(self):
+        self.alter_source("Sources/DesignOSApple/Components/DesignOSSecondaryButtonStyle.swift",
+                          "DesignOSActionButtonContent(", "UnrelatedButtonContent(")
+        self.assertEqual(REGISTRY.validate(self.root)["id"], "editorial")
 
     def test_unrelated_native_component_stays_outside_style_inventory(self):
         path = self.root / "Sources/DesignOSApple/Components/UnrelatedRow.swift"

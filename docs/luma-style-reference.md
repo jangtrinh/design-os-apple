@@ -50,6 +50,40 @@ The following values were sampled from downloaded JPEG raster images, excluding 
 
 Status chips use distinct semantic colors: green for Going/price, amber for Waitlisted/limited availability, violet for Invited, magenta for Hosting. Their light backgrounds are pale and low-area. Dark mode uses deep tinted backgrounds and brighter text. Do not promote these local states into an app-wide accent. Label each state in text as well as color.
 
+### Disabled actions
+
+These additional actual screen crops were inspected in the same pinned collection/version
+`0ae0e7e9-c7b7-4ef6-bc80-ddd7d4dfc040`. Coordinates below are original-raster pixels, not
+logical points; color samples are rendered composites, not recovered source tokens or alpha.
+
+- [Light onboarding, disabled Next](https://mobbin.com/screens/f2970c67-067b-4a43-9416-18f656d7e723):
+  fill RGB `(206, 206, 208)` at `(300, 1430)`, white glyph at `(543, 1445)`, and white page
+  at `(590, 1300)`. This establishes a muted gray fill with a white disabled label.
+- [Dark ambient registration, disabled Register](https://mobbin.com/screens/c79aae44-4f72-47b6-98ad-bb9171d6c783):
+  fill RGB `(38, 38, 38)` at `(300, 2340)` and `(37, 37, 37)` at `(900, 2340)`, glyph
+  `(78, 78, 78)` at `(510, 2346)`, with nearby ambient background `(58, 58, 58)` at
+  `(35, 2340)` and `(54, 54, 54)` at `(590, 2220)`. The disabled action is markedly dimmer
+  than the kit's previous bright supporting text.
+- [Neutral-dark report sheet, disabled](https://mobbin.com/screens/90abb4d5-e5e7-4026-afc6-d2f0c3831c20)
+  and [enabled](https://mobbin.com/screens/986857a4-d390-4cb9-9c7e-f931df992920) cross-check the
+  pattern outside the ambient registration context. Disabled fill is `(40, 39, 42)` at
+  `(300, 1510)` and glyph `(88, 88, 88)` at `(644, 1526)`; the surrounding sheet varies
+  across its dark gradient. The enabled action instead has approximately `(243, 243, 243)`
+  fill and black label. This variation rules out claiming one exact universal dark token.
+
+The editorial preset uses an opaque, reference-informed approximation: light `#CECED0` /
+white and dark `#262626` / `#4E4E4E`. The dark pair follows the registration sample; it does
+not reconstruct the source's material, gradient, border, or alpha. Applying one pair to
+regular and compact secondary actions is a shared-kit consistency choice, not a measured
+disabled category-chip specification. Full-pill geometry remains the user's explicit override.
+
+This pair is deliberately lower contrast and is used only when native `Button` reports
+disabled through its environment. It must never color active text, helpers, fields, or
+system controls. Native activation and disabled accessibility semantics stay unchanged.
+Increase Contrast preserves the previous readable subtle-surface/secondary-ink pair, and
+all enabled text/action contrast gates are unchanged. Native rendered comparisons and
+actual Increase Contrast acceptance remain **NOT VERIFIED** for this source change.
+
 ### Ambient media surface
 
 The event cover contributes a broad, very soft color field behind the content. The first composer is rich green because its image is green. Replacing the cover with black/red art yields charcoal with a red glow. The inspected detail has muted blue/green regions over charcoal.

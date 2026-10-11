@@ -12,6 +12,9 @@ struct ComponentInventoryRecord: Identifiable {
 struct ComponentInventorySpecimen: View {
     let componentID: String
     @Environment(\.designOSAppStyle) private var style
+    @Environment(\.colorScheme) private var colorScheme
+    @Environment(\.colorSchemeContrast) private var colorSchemeContrast
+    @Environment(\.accessibilityReduceTransparency) private var reduceTransparency
     @State private var name = "Courtyard reading club"
     @State private var message = "I'll bring the illustrated atlas."
     @State private var amount = 0.6
@@ -22,6 +25,9 @@ struct ComponentInventorySpecimen: View {
     @State private var query = ""
     @State private var expanded = true
     @State private var presentation = false
+    @State private var selectedReaders: Set<String> = ["alex", "sam"]
+    @State private var reviewSelection = false
+    @State private var showCategory = false
     @State private var selected = true
     @State private var saved = false
     @State private var columns = NavigationSplitViewVisibility.all
@@ -92,6 +98,11 @@ struct ComponentInventorySpecimen: View {
                 Text(record.source).font(.caption2).foregroundStyle(.secondary).lineLimit(2)
                 Text(componentID).font(.caption2).foregroundStyle(.secondary)
                     .accessibilityIdentifier("component-ready-" + componentID)
+                if let inputs = backdropPolicyInputs {
+                    Text(inputs).font(.caption2)
+                        .fixedSize(horizontal: false, vertical: true)
+                        .accessibilityIdentifier("component-backdrop-policy-inputs")
+                }
             }.padding(16)
             Divider()
             if componentID.hasPrefix("shell/") {
@@ -112,6 +123,38 @@ struct ComponentInventorySpecimen: View {
         #if os(macOS)
         .frame(minWidth: 680, minHeight: 650)
         #endif
+    }
+
+    /// Read-only inputs from the same environment as the public backdrop. A supplied
+    /// view/image is not evidence that media rendered; the private policy is not copied.
+    private var backdropPolicyInputs: String? {
+        let mediaSource: String
+        let mediaPresent: Bool
+        if componentID == "semantic/media-backdrop" {
+            mediaSource = "synthetic-view"
+            mediaPresent = true // The nonoptional artwork closure is supplied below.
+        } else if componentID == "shell/ambient-scroll" {
+            mediaSource = "fixture-image"
+            mediaPresent = FixtureMedia.image != nil
+        } else {
+            return nil
+        }
+        let scheme: String
+        switch colorScheme {
+        case .light: scheme = "light"
+        case .dark: scheme = "dark"
+        @unknown default: scheme = "unknown"
+        }
+        let contrast: String
+        switch colorSchemeContrast {
+        case .standard: contrast = "standard"
+        case .increased: contrast = "increased"
+        @unknown default: contrast = "unknown"
+        }
+        return "backdrop-inputs/v1; colorScheme=\(scheme); contrast=\(contrast); "
+            + "reduceTransparency=\(reduceTransparency); "
+            + "profileTranslucency=\(style.profile.accessibility.translucency.rawValue); "
+            + "mediaSource=\(mediaSource); mediaPresent=\(mediaPresent)"
     }
 
     @ViewBuilder private var nativeContent: some View {
@@ -187,19 +230,27 @@ struct ComponentInventorySpecimen: View {
         }
     }
 
+    private func fieldLabel(_ title: String) -> some View {
+        Text(title)
+            .font(.subheadline.weight(.semibold))
+            .foregroundStyle(style.palette.secondaryInk.color)
+            .padding(.horizontal, style.metrics.contentInset)
+            .accessibilityHidden(true)
+    }
+
     @ViewBuilder private var componentContent: some View {
         switch componentID {
         case "primitive/corner-geometry": cornerGeometry
         case "semantic/media-frame":
             DesignOSMediaFrame(aspectRatio: 1.5, cornerRadius: 24) { artwork }
-                .accessibilityLabel("Original courtyard illustration, clipped to a rounded media frame")
+                .accessibilityLabel("Original synthetic book artwork, clipped to a rounded media frame")
         case "semantic/avatar":
             HStack(spacing: 24) {
                 DesignOSAvatar(size: 64) { artwork }
                 DesignOSAvatar(size: 64) { Text("AR").font(.title2) }
                 DesignOSAvatar(size: 64) { Image(systemName: "person.fill").font(.title) }
             }
-            Text("Image, initials and symbol content in the real avatar component.").font(.caption)
+            Text("Synthetic artwork, initials and symbol content in the real avatar component.").font(.caption)
         case "semantic/labeled-value-row":
             DesignOSLabeledValueRow("Location") { Text("West courtyard, beside the old cedar") } accessory: { Image(systemName: "location") }
             DesignOSLabeledValueRow("Starts") { Text("Saturday · 10:30 AM") }
@@ -213,23 +264,50 @@ struct ComponentInventorySpecimen: View {
         case "semantic/content-surface":
             DesignOSAppSurface { sampleText("Standard surface") }
             DesignOSAppSurface(tone: .subtle) { sampleText("Subtle surface") }
-            DesignOSAppSurface(tone: .ambient) { sampleText("Ambient surface") }
+            DesignOSAppSurface(tone: .ambient) { sampleText("Ambient surface over artwork") }
+                .padding(style.metrics.contentInset)
+                .background { DesignOSMediaBackdrop { artwork } }
+                // The backdrop's outer radius includes the real inset around the surface.
+                .clipShape(RoundedRectangle(cornerRadius: style.metrics.surfaceRadius + style.metrics.contentInset, style: .continuous))
+            Text("The ambient sample uses the real media backdrop with synthetic artwork. Light and accessibility fallback states use an opaque canvas.").font(.caption)
         case "semantic/primary-action":
             Button(saved ? "Saved locally" : "Create gathering") { saved.toggle() }.buttonStyle(DesignOSPrimaryButtonStyle())
             Button("Unavailable action") {}.buttonStyle(DesignOSPrimaryButtonStyle()).disabled(true)
         case "semantic/secondary-action":
-            Button("Save draft") { saved.toggle() }.buttonStyle(DesignOSSecondaryButtonStyle())
+            Button(saved ? "Saved locally" : "View gathering") { saved.toggle() }.buttonStyle(DesignOSSecondaryButtonStyle())
+            Button("Outlined action") { saved.toggle() }.buttonStyle(DesignOSSecondaryButtonStyle(treatment: .outlined))
             Button("Unavailable action") {}.buttonStyle(DesignOSSecondaryButtonStyle()).disabled(true)
+            HStack {
+                Button("Fiction", systemImage: "book") { saved.toggle() }
+                    .buttonStyle(DesignOSSecondaryButtonStyle(size: .compact))
+                Button("Nature", systemImage: "leaf") { saved.toggle() }
+                    .buttonStyle(DesignOSSecondaryButtonStyle(size: .compact, treatment: .outlined))
+            }
+            Button("Unavailable category") {}
+                .buttonStyle(DesignOSSecondaryButtonStyle(size: .compact, treatment: .outlined)).disabled(true)
         case "semantic/media-backdrop":
             DesignOSMediaBackdrop { artwork }.frame(height: 330)
                 .overlay { Text("Courtyard reading club").font(.title2).padding() }
             Text("The backdrop uses its actual adaptive media policy. Light and high-contrast states may intentionally suppress media.").font(.caption)
         case "semantic/text-field-modifier":
-            TextField("Gathering name", text: $name).modifier(DesignOSAppTextFieldModifier())
-            TextField("Optional note", text: .constant("")).modifier(DesignOSAppTextFieldModifier())
-            TextField("Disabled field", text: .constant("Details locked")).modifier(DesignOSAppTextFieldModifier()).disabled(true)
-            TextField("Long description", text: .constant("Bring one book with a story behind it. We will read together in the courtyard."), axis: .vertical)
-                .modifier(DesignOSAppTextFieldModifier(multiline: true))
+            VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                fieldLabel("Gathering name")
+                TextField("Gathering name", text: $name).modifier(DesignOSAppTextFieldModifier())
+            }
+            VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                fieldLabel("Optional note")
+                TextField("Optional note", text: .constant("")).modifier(DesignOSAppTextFieldModifier())
+            }
+            VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                fieldLabel("Disabled field")
+                TextField("Disabled field", text: .constant("Details locked")).modifier(DesignOSAppTextFieldModifier()).disabled(true)
+            }
+            VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                fieldLabel("Long description")
+                TextField("Long description", text: .constant("Bring one book with a story behind it. We will read together in the courtyard."), axis: .vertical)
+                    .lineLimit(3...6)
+                    .modifier(DesignOSAppTextFieldModifier(multiline: true))
+            }
         case "semantic/list-row":
             DesignOSListRow { Image(systemName: "book.closed") } title: { Text("The illustrated atlas") } subtitle: { Text("Reading collection · 12 entries") } trailing: { Image(systemName: "chevron.right") }
         case "semantic/sidebar-row":
@@ -250,7 +328,11 @@ struct ComponentInventorySpecimen: View {
             ContentUnavailableView("No gatherings yet", systemImage: "books.vertical", description: Text("Create a reading session to begin."))
         case "composite/field-group":
             DesignOSFieldGroup { Text("Gathering details").font(.headline) } content: {
-                TextField("Name", text: $name).modifier(DesignOSAppTextFieldModifier())
+                // The group owns the filled well; its native row must not add a nested capsule.
+                DesignOSLabeledValueRow("Name") {
+                    TextField("Gathering name", text: $name).textFieldStyle(.plain)
+                }
+                Divider()
                 Toggle("Send a reminder", isOn: $selected)
             } footer: { Text("Only saved on this fixture screen.").font(.caption).foregroundStyle(.secondary) }
         case "composite/identity-header": identity
@@ -261,27 +343,79 @@ struct ComponentInventorySpecimen: View {
                 Text("Saturday · West courtyard").foregroundStyle(.secondary)
             } actions: { action }
         case "composite/media-composer-header":
-            DesignOSMediaComposerHeader { framedArtwork } mediaActions: {
-                Button("Choose artwork") { saved.toggle() }.buttonStyle(DesignOSSecondaryButtonStyle())
+            DesignOSMediaComposerHeader { composerArtwork } mediaActions: {
+                EmptyView()
             } field: { TextField("Gathering name", text: $name).modifier(DesignOSAppTextFieldModifier()) } feedback: {
-                Text("Original synthetic artwork; nothing is uploaded.").font(.caption)
+                Text("Edit changes the local artwork colors. No photo library or upload is used.").font(.caption)
             }
         case "composite/choice-row":
-            DesignOSChoiceRow { Image(systemName: "sun.max").font(.title) } description: {
-                Text("Morning session").font(.headline)
-                Text("Quiet reading, then conversation").foregroundStyle(.secondary)
-            } control: { Toggle("Join morning session", isOn: $selected).labelsHidden() }
+            // Caller-owned selection controls, not a settings toggle. Actual reference pixels:
+            // mobbin.com/screens/3c445308-cc7d-4692-910a-374022783faf (private research only).
+            ForEach(InventoryReader.samples) { reader in
+                DesignOSChoiceRow {
+                    DesignOSAvatar(size: 44) { Text(reader.initials).font(.headline) }
+                } description: {
+                    Text(reader.name).font(.headline)
+                    Text(reader.detail).foregroundStyle(.secondary)
+                } control: {
+                    Button {
+                        if selectedReaders.contains(reader.id) { selectedReaders.remove(reader.id) }
+                        else { selectedReaders.insert(reader.id) }
+                    } label: {
+                        Image(systemName: selectedReaders.contains(reader.id) ? "checkmark.circle.fill" : "circle")
+                            .font(.title2)
+                            .foregroundStyle(style.palette.ink.color)
+                            .frame(minWidth: 44, minHeight: 44)
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("Select " + reader.name)
+                    .accessibilityValue(selectedReaders.contains(reader.id) ? "Selected" : "Not selected")
+                    .accessibilityAddTraits(selectedReaders.contains(reader.id) ? .isSelected : [])
+                    .accessibilityIdentifier("inventorySelectReader-" + reader.id)
+                }
+            }
         case "composite/selection-summary":
-            DesignOSSelectionSummary { Text("2 books selected").font(.headline); Text("Ready for the reading list").foregroundStyle(.secondary) } actions: { action }
+            DesignOSSelectionSummary(sizing: .intrinsic) {
+                selectionCountButton
+            } actions: { EmptyView() }
+            .frame(maxWidth: .infinity, alignment: .center)
+            .sheet(isPresented: $reviewSelection) {
+                NavigationStack {
+                    List(InventoryReader.samples.filter { selectedReaders.contains($0.id) }) { reader in
+                        Label(reader.name, systemImage: "person.crop.circle")
+                    }
+                    .navigationTitle("Selected readers")
+                    .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { reviewSelection = false } } }
+                }
+                #if os(macOS)
+                .frame(minWidth: 420, minHeight: 320)
+                #endif
+            }
         case "composite/category-rail":
+            // Compact native actions rather than media cards. The public rail owns one row.
             DesignOSCategoryRail(state == "empty" ? [] : InventoryCategory.samples) {
-                DesignOSAppSectionHeader("Explore together")
+                DesignOSAppSectionHeader("Browse by category")
             } item: { category in
-                DesignOSAppSurface { VStack(alignment: .leading, spacing: 16) { Image(systemName: category.symbol).font(.largeTitle); Text(category.title).font(.headline) }.frame(width: 140, height: 110, alignment: .leading) }
+                Button { self.category = category.title; showCategory = true } label: {
+                    Label(category.title, systemImage: category.symbol)
+                }
+                .buttonStyle(DesignOSSecondaryButtonStyle(size: .compact, treatment: .outlined))
+                .fixedSize(horizontal: true, vertical: false)
+                .accessibilityIdentifier("inventoryCategory-" + category.id)
             } empty: { ContentUnavailableView("No collections yet", systemImage: "books.vertical") }
+            .sheet(isPresented: $showCategory) {
+                NavigationStack {
+                    List { Label("The illustrated atlas", systemImage: "book"); Label("Notes from the courtyard", systemImage: "book") }
+                        .navigationTitle(category)
+                        .toolbar { ToolbarItem(placement: .confirmationAction) { Button("Done") { showCategory = false } } }
+                }
+                #if os(macOS)
+                .frame(minWidth: 420, minHeight: 320)
+                #endif
+            }
         case "composite/message-bubble":
             DesignOSMessageBubble(isOutgoing: false) { Text("Shall we meet beside the cedar?") } metadata: { Text("Alex · 10:12").font(.caption) }
-            DesignOSMessageBubble(isOutgoing: true) { Text("Replying to Alex").font(.caption) } content: { Text("Yes! I'll bring the illustrated atlas.") } metadata: { Text("10:14 · Sent locally").font(.caption) }
+            DesignOSMessageBubble(isOutgoing: true, outgoingAppearance: .emphasized) { Text("Replying to Alex").font(.caption) } content: { Text("Yes! I'll bring the illustrated atlas.") } metadata: { Text("10:14 · Sent locally").font(.caption) }
         case "composite/conversation-composer": composer
         case "composite/record-summary":
             DesignOSRecordSummary { Text("Reading session #024").font(.headline) } status: { Label("Confirmed", systemImage: "checkmark.circle") } facts: {
@@ -305,18 +439,32 @@ struct ComponentInventorySpecimen: View {
         case "shell/ambient-scroll": DesignOSAmbientScrollShell(media: FixtureMedia.image) { shellReadingContent }
         case "shell/focused-task": DesignOSFocusedTaskShell { sampleText("Name your gathering"); TextField("Name", text: $name).modifier(DesignOSAppTextFieldModifier()) } action: { action }
         case "shell/conversation": DesignOSConversationShell { _ in
-            VStack(spacing: 20) { ForEach(1..<4) { n in DesignOSMessageBubble(isOutgoing: n == 2) { Text(n == 2 ? "I'll bring the atlas." : "See you in the courtyard.") } metadata: { Text("10:\(10+n)").font(.caption) } } }
+            VStack(spacing: 20) { ForEach(1..<4) { n in DesignOSMessageBubble(isOutgoing: n == 2, outgoingAppearance: .emphasized) { Text(n == 2 ? "I'll bring the atlas." : "See you in the courtyard.") } metadata: { Text("10:\(10+n)").font(.caption) } } }
         } composer: { composer }
         case "shell/utility-canvas": DesignOSUtilityCanvasShell { artwork } overlay: {
             DesignOSUtilityOverlay { Label("Courtyard plan", systemImage: "map") } actions: { Button("Center") { saved.toggle() } }
         } controls: { Button("Locate reading area") { saved.toggle() }.buttonStyle(DesignOSSecondaryButtonStyle()) }
         case "shell/adaptive-navigation":
             DesignOSAdaptiveNavigationShell(columnVisibility: $columns) {
-                List { NavigationLink("Reading collection") { shellReadingContent } }.navigationTitle("Collections")
-            } detail: { shellReadingContent.padding() }
+                List { NavigationLink("Reading collection") { adaptiveReadingDetail } }
+                    .navigationTitle("Collections")
+                    .navigationSplitViewColumnWidth(min: 220, ideal: 240, max: 300)
+            } detail: { adaptiveReadingDetail }
         case "shell/native-host": DesignOSNativeHostShell { ContentUnavailableView("Local service preview", systemImage: "square.stack.3d.up", description: Text("Provider-owned content belongs inside this native host boundary.")) }
         default: EmptyView()
         }
+    }
+
+    private var selectionCountButton: some View {
+        Button { reviewSelection = true } label: {
+            HStack(spacing: style.metrics.itemSpacing) {
+                Text("\(selectedReaders.count) Selected")
+                Image(systemName: "chevron.right").foregroundStyle(style.palette.secondaryInk.color)
+            }
+        }
+        .buttonStyle(DesignOSSecondaryButtonStyle())
+        .accessibilityLabel("Review \(selectedReaders.count) selected readers")
+        .accessibilityIdentifier("inventoryReviewSelection")
     }
 
     private var action: some View { Button(saved ? "Saved locally" : "Continue") { saved.toggle() }.buttonStyle(DesignOSPrimaryButtonStyle()) }
@@ -332,15 +480,45 @@ struct ComponentInventorySpecimen: View {
         } actions: { Button("Send") { saved.toggle() }.buttonStyle(DesignOSPrimaryButtonStyle()) } feedback: { Text("Local draft · no message is sent").font(.caption).foregroundStyle(.secondary) }
     }
     private var shellReadingContent: some View { VStack(alignment: .leading, spacing: 24) { identity; framedArtwork; ForEach(1..<4) { n in sampleText("Chapter \(n): a shared reading") } } }
+    // Each split-view detail path owns exactly one vertical scroll container.
+    private var adaptiveReadingDetail: some View {
+        DesignOSFlatScrollShell { shellReadingContent }
+            .accessibilityIdentifier("inventoryAdaptiveReadingScroll")
+    }
     private func sampleText(_ title: String) -> some View { VStack(alignment: .leading, spacing: 8) { Text(title).font(.headline); Text("Bring a favorite book and a story to share. Original fixture content for checking native layout.").foregroundStyle(.secondary) }.frame(maxWidth: .infinity, alignment: .leading) }
     // Geometric artwork is synthetic specimen content, never a replacement implementation of a DS component.
     private var artwork: some View {
-        ZStack {
-            LinearGradient(colors: [.indigo, .teal], startPoint: .topLeading, endPoint: .bottomTrailing)
-            Image(systemName: "books.vertical.fill").resizable().scaledToFit().padding(32).foregroundStyle(.white.opacity(0.85))
-        }.accessibilityLabel("Original geometric book illustration")
+        GeometryReader { geometry in
+            // Keep the symbol visible in avatar and row media while preserving the large-media inset.
+            let size = geometry.size
+            let inset = size.width.isFinite && size.height.isFinite
+                ? min(32, max(0, min(size.width, size.height)) * 0.2)
+                : 0
+            ZStack {
+                LinearGradient(colors: [.indigo, .teal], startPoint: .topLeading, endPoint: .bottomTrailing)
+                Image(systemName: "books.vertical.fill").resizable().scaledToFit().padding(inset).foregroundStyle(.white.opacity(0.85))
+            }
+        }.accessibilityLabel("Original synthetic book artwork")
     }
     private var framedArtwork: some View { DesignOSMediaFrame(aspectRatio: 1.8, cornerRadius: 24) { artwork }.frame(maxWidth: 420) }
+    private var composerArtwork: some View {
+        // The app-owned media slot supplies the square cover and an explicit native edit action.
+        DesignOSMediaFrame(aspectRatio: 1, cornerRadius: 24) {
+            artwork.hueRotation(.degrees(saved ? 45 : 0))
+        }
+        .frame(maxWidth: 360)
+        .overlay(alignment: .bottomTrailing) {
+            Button { saved.toggle() } label: {
+                Label("Edit local artwork", systemImage: "pencil").labelStyle(.iconOnly)
+            }
+            .buttonStyle(DesignOSSecondaryButtonStyle(size: .compact))
+            .accessibilityLabel("Change local artwork colors")
+            .accessibilityValue(saved ? "Alternate colors" : "Original colors")
+            .accessibilityIdentifier("inventoryEditComposerArtwork")
+            .padding(12)
+        }
+        .frame(maxWidth: .infinity, alignment: .center)
+    }
     private var cornerGeometry: some View {
         VStack(alignment: .leading, spacing: 16) {
             Text("Geometry helper demonstration").font(.headline)
@@ -401,4 +579,15 @@ private struct InventoryCategory: Identifiable {
     let title: String
     let symbol: String
     static let samples = [Self(id: "nature", title: "Nature", symbol: "leaf"), Self(id: "art", title: "Art & design", symbol: "paintpalette"), Self(id: "travel", title: "Travel", symbol: "globe")]
+}
+
+private struct InventoryReader: Identifiable {
+    let id: String
+    let name: String
+    let initials: String
+    let detail: String
+    static let samples = [
+        Self(id: "alex", name: "Alex Rivera", initials: "AR", detail: "Available for the morning session"),
+        Self(id: "sam", name: "Sam Chen", initials: "SC", detail: "Joined the reading club recently")
+    ]
 }

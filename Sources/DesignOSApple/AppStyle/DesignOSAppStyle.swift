@@ -16,7 +16,8 @@ public struct DesignOSAppStyle: Hashable, Sendable {
     self.metrics = metrics
   }
 
-  /// A monochrome, image-led application style. See `docs/reusable-app-style.md` for provenance.
+  /// An image-led style with quiet actions and opt-in directional message emphasis.
+  /// See `docs/reusable-app-style.md` for provenance.
   ///
   /// The reference's raster colors are observations; point geometry and fallback surfaces
   /// are inferred. This preset makes no pixel-fidelity or third-party affiliation claim.
@@ -44,7 +45,33 @@ public struct DesignOSAppStyle: Hashable, Sendable {
         increasedContrastDarkRGB: 0x80_8080
       ),
       action: DesignOSAdaptiveColor(uncheckedLightRGB: 0x16_1616, darkRGB: 0xFF_FFFF),
-      actionInk: DesignOSAdaptiveColor(uncheckedLightRGB: 0xFF_FFFF, darkRGB: 0x16_1616)
+      actionInk: DesignOSAdaptiveColor(uncheckedLightRGB: 0xFF_FFFF, darkRGB: 0x16_1616),
+      outgoingMessage: DesignOSAppColorPair(
+        background: DesignOSAdaptiveColor(
+          uncheckedLightRGB: 0x2A_62E8,
+          darkRGB: 0x2A_62E8,
+          increasedContrastLightRGB: 0x17_46B5,
+          increasedContrastDarkRGB: 0x17_46B5
+        ),
+        foreground: DesignOSAdaptiveColor(uncheckedLightRGB: 0xFF_FFFF, darkRGB: 0xFF_FFFF)
+      ),
+      // Disabled-only reconstruction from light onboarding and dark ambient registration.
+      // Raster samples are not recovered tokens or alpha; see the reference provenance.
+      // Increase Contrast retains the previous subtleSurface/secondaryInk pair.
+      disabledAction: DesignOSAppColorPair(
+        background: DesignOSAdaptiveColor(
+          uncheckedLightRGB: 0xCE_CED0,
+          darkRGB: 0x26_2626,
+          increasedContrastLightRGB: 0xF0_F0F0,
+          increasedContrastDarkRGB: 0x18_1818
+        ),
+        foreground: DesignOSAdaptiveColor(
+          uncheckedLightRGB: 0xFF_FFFF,
+          darkRGB: 0x4E_4E4E,
+          increasedContrastLightRGB: 0x45_4545,
+          increasedContrastDarkRGB: 0xF0_F0F0
+        )
+      )
     ),
     metrics: DesignOSAppMetrics(
       uncheckedPageInset: 20,

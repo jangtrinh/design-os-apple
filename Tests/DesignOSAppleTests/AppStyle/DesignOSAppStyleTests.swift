@@ -93,7 +93,7 @@ func editorialPaletteMeetsTextContrast() {
   for dark in [false, true] {
     for increased in [false, true] {
       for background in [palette.canvas, palette.surface, palette.subtleSurface] {
-        for foreground in [palette.ink, palette.secondaryInk] {
+        for foreground in [palette.ink, palette.secondaryInk, palette.dangerInk] {
           #expect(
             contrastRatio(
               foreground.resolvedRGB(dark: dark, increasedContrast: increased),
@@ -107,6 +107,199 @@ func editorialPaletteMeetsTextContrast() {
           palette.actionInk.resolvedRGB(dark: dark, increasedContrast: increased),
           palette.action.resolvedRGB(dark: dark, increasedContrast: increased)
         ) >= 4.5
+      )
+    }
+  }
+}
+
+@Test("Semantic danger preserves the existing destructive colors in all four variants")
+func defaultDangerInkPreservesExistingColors() {
+  let danger = DesignOSAppPalette.defaultDangerInk
+  #expect(DesignOSAppStyle.editorial.palette.dangerInk == danger)
+  #expect(danger.resolvedRGB(dark: false, increasedContrast: false) == 0xB4_2318)
+  #expect(danger.resolvedRGB(dark: true, increasedContrast: false) == 0xFF_B4AB)
+  #expect(danger.resolvedRGB(dark: false, increasedContrast: true) == 0x8C_0D05)
+  #expect(danger.resolvedRGB(dark: true, increasedContrast: true) == 0xFF_DAD6)
+}
+
+@Test("Existing custom palette initializers preserve destructive, message, and disabled defaults")
+func customPalettePreservesDefaultDangerInk() throws {
+  let base = DesignOSAppStyle.editorial.palette
+  let surface = try DesignOSAdaptiveColor(lightRGB: 0xFF_F8E1, darkRGB: 0x10_2233)
+  let ink = try DesignOSAdaptiveColor(lightRGB: 0x22_1100, darkRGB: 0xEE_FFFF)
+  let subtleSurface = try DesignOSAdaptiveColor(lightRGB: 0xEE_E0CD, darkRGB: 0x20_3040)
+  let secondaryInk = try DesignOSAdaptiveColor(lightRGB: 0x44_3322, darkRGB: 0xCC_DDEE)
+  // This original initializer call must continue to compile without the optional roles.
+  let palette = DesignOSAppPalette(
+    canvas: base.canvas, surface: surface, subtleSurface: subtleSurface,
+    ink: ink, secondaryInk: secondaryInk, separator: base.separator,
+    action: base.action, actionInk: base.actionInk
+  )
+  #expect(palette.dangerInk == DesignOSAppPalette.defaultDangerInk)
+  #expect(palette.outgoingMessage == DesignOSAppColorPair(background: surface, foreground: ink))
+  #expect(
+    palette.disabledAction == DesignOSAppColorPair(
+      background: subtleSurface, foreground: secondaryInk
+    )
+  )
+  for prominence in [DesignOSActionButtonProminence.primary, .secondary] {
+    for destructive in [false, true] {
+      #expect(
+        DesignOSPrimaryButtonAppearance.foreground(
+          palette: palette, prominence: prominence, isEnabled: false, isDestructive: destructive
+        ) == secondaryInk
+      )
+      #expect(
+        DesignOSPrimaryButtonAppearance.background(
+          palette: palette, prominence: prominence, isEnabled: false, isDestructive: destructive
+        ) == subtleSurface
+      )
+    }
+  }
+  for treatment in [DesignOSSecondaryButtonStyle.Treatment.filled, .outlined] {
+    #expect(
+      DesignOSSecondaryButtonAppearance.background(
+        palette: palette, treatment: treatment, isEnabled: false
+      ) == subtleSurface
+    )
+  }
+  #expect(
+    DesignOSPrimaryButtonAppearance.background(
+      palette: palette, prominence: .primary, isEnabled: true, isDestructive: true
+    ) == base.dangerInk
+  )
+  #expect(
+    DesignOSPrimaryButtonAppearance.foreground(
+      palette: palette, prominence: .secondary, isEnabled: true, isDestructive: true
+    ) == base.dangerInk
+  )
+}
+
+@Test("Editorial disabled actions use subdued reference colors and readable contrast fallbacks")
+func editorialDisabledActionResolvesOnlyItsOwnPair() {
+  let palette = DesignOSAppStyle.editorial.palette
+  let disabled = palette.disabledAction
+  #expect(disabled.background.lightRGB == 0xCE_CED0)
+  #expect(disabled.foreground.lightRGB == 0xFF_FFFF)
+  #expect(disabled.background.darkRGB == 0x26_2626)
+  #expect(disabled.foreground.darkRGB == 0x4E_4E4E)
+  for dark in [false, true] {
+    // This deliberate exception applies only to actually disabled native actions.
+    // Active content remains covered by editorialPaletteMeetsTextContrast.
+    #expect(
+      contrastRatio(
+        disabled.foreground.resolvedRGB(dark: dark, increasedContrast: false),
+        disabled.background.resolvedRGB(dark: dark, increasedContrast: false)
+      ) < 4.5
+    )
+    #expect(
+      disabled.background.resolvedRGB(dark: dark, increasedContrast: true)
+        == palette.subtleSurface.resolvedRGB(dark: dark, increasedContrast: true)
+    )
+    #expect(
+      disabled.foreground.resolvedRGB(dark: dark, increasedContrast: true)
+        == palette.secondaryInk.resolvedRGB(dark: dark, increasedContrast: true)
+    )
+    #expect(
+      contrastRatio(
+        disabled.foreground.resolvedRGB(dark: dark, increasedContrast: true),
+        disabled.background.resolvedRGB(dark: dark, increasedContrast: true)
+      ) >= 4.5
+    )
+  }
+}
+
+@Test("A custom disabled pair never changes enabled action colors or active content roles")
+func customDisabledActionDoesNotLeakIntoEnabledContent() throws {
+  let base = DesignOSAppStyle.editorial.palette
+  let disabled = DesignOSAppColorPair(
+    background: try DesignOSAdaptiveColor(lightRGB: 0xAB_CDEF, darkRGB: 0x12_3456),
+    foreground: try DesignOSAdaptiveColor(lightRGB: 0xFE_DCBA, darkRGB: 0x65_4321)
+  )
+  let palette = DesignOSAppPalette(
+    canvas: base.canvas, surface: base.surface, subtleSurface: base.subtleSurface,
+    ink: base.ink, secondaryInk: base.secondaryInk, separator: base.separator,
+    action: base.action, actionInk: base.actionInk,
+    outgoingMessage: base.outgoingMessage, dangerInk: base.dangerInk, disabledAction: disabled
+  )
+  #expect(palette.disabledAction == disabled)
+  #expect(palette.ink == base.ink)
+  #expect(palette.secondaryInk == base.secondaryInk)
+  #expect(palette.dangerInk == base.dangerInk)
+  #expect(palette.subtleSurface == base.subtleSurface)
+  #expect(palette.outgoingMessage == base.outgoingMessage)
+  for prominence in [DesignOSActionButtonProminence.primary, .secondary] {
+    for destructive in [false, true] {
+      let enabledForeground =
+        prominence == .primary ? base.actionInk : (destructive ? base.dangerInk : base.ink)
+      let enabledBackground =
+        prominence == .primary ? (destructive ? base.dangerInk : base.action) : base.subtleSurface
+      for enabled in [false, true] {
+        #expect(
+          DesignOSPrimaryButtonAppearance.foreground(
+            palette: palette, prominence: prominence, isEnabled: enabled,
+            isDestructive: destructive
+          ) == (enabled ? enabledForeground : disabled.foreground)
+        )
+        #expect(
+          DesignOSPrimaryButtonAppearance.background(
+            palette: palette, prominence: prominence, isEnabled: enabled,
+            isDestructive: destructive
+          ) == (enabled ? enabledBackground : disabled.background)
+        )
+      }
+    }
+  }
+  for treatment in [DesignOSSecondaryButtonStyle.Treatment.filled, .outlined] {
+    #expect(
+      DesignOSSecondaryButtonAppearance.background(
+        palette: palette, treatment: treatment, isEnabled: true
+      ) == (treatment == .filled ? base.subtleSurface : base.canvas)
+    )
+    #expect(
+      DesignOSSecondaryButtonAppearance.background(
+        palette: palette, treatment: treatment, isEnabled: false
+      ) == disabled.background
+    )
+  }
+}
+
+@Test("Custom semantic danger is shared by destructive actions without changing other roles")
+func customDangerInkFlowsToDestructiveActions() throws {
+  let base = DesignOSAppStyle.editorial.palette
+  let danger = try DesignOSAdaptiveColor(
+    lightRGB: 0x80_0000, darkRGB: 0xFF_CCCC,
+    increasedContrastLightRGB: 0x60_0000, increasedContrastDarkRGB: 0xFF_EEEE
+  )
+  let palette = DesignOSAppPalette(
+    canvas: base.canvas, surface: base.surface, subtleSurface: base.subtleSurface,
+    ink: base.ink, secondaryInk: base.secondaryInk, separator: base.separator,
+    action: base.action, actionInk: base.actionInk,
+    outgoingMessage: base.outgoingMessage, dangerInk: danger
+  )
+  #expect(palette.dangerInk == danger)
+  #expect(palette.outgoingMessage == base.outgoingMessage)
+  for enabled in [false, true] {
+    for destructive in [false, true] {
+      #expect(
+        DesignOSPrimaryButtonAppearance.background(
+          palette: palette, prominence: .primary, isEnabled: enabled, isDestructive: destructive
+        ) == (enabled ? (destructive ? danger : base.action) : base.subtleSurface)
+      )
+      #expect(
+        DesignOSPrimaryButtonAppearance.foreground(
+          palette: palette, prominence: .secondary, isEnabled: enabled, isDestructive: destructive
+        ) == (enabled ? (destructive ? danger : base.ink) : base.secondaryInk)
+      )
+      #expect(
+        DesignOSPrimaryButtonAppearance.foreground(
+          palette: palette, prominence: .primary, isEnabled: enabled, isDestructive: destructive
+        ) == (enabled ? base.actionInk : base.secondaryInk)
+      )
+      #expect(
+        DesignOSPrimaryButtonAppearance.background(
+          palette: palette, prominence: .secondary, isEnabled: enabled, isDestructive: destructive
+        ) == base.subtleSurface
       )
     }
   }
@@ -237,12 +430,12 @@ func contentButtonStylesPreserveSemanticCues() {
   #expect(
     DesignOSPrimaryButtonAppearance.background(
       palette: palette, prominence: .primary, isEnabled: true, isDestructive: true
-    ) == DesignOSPrimaryButtonAppearance.destructiveInk
+    ) == palette.dangerInk
   )
   #expect(
     DesignOSPrimaryButtonAppearance.foreground(
       palette: palette, prominence: .secondary, isEnabled: true, isDestructive: true
-    ) == DesignOSPrimaryButtonAppearance.destructiveInk
+    ) == palette.dangerInk
   )
   for prominence in [DesignOSActionButtonProminence.primary, .secondary] {
     for destructive in [false, true] {
@@ -250,19 +443,19 @@ func contentButtonStylesPreserveSemanticCues() {
         DesignOSPrimaryButtonAppearance.foreground(
           palette: palette, prominence: prominence, isEnabled: false,
           isDestructive: destructive
-        ) == palette.secondaryInk
+        ) == palette.disabledAction.foreground
       )
       #expect(
         DesignOSPrimaryButtonAppearance.background(
           palette: palette, prominence: prominence, isEnabled: false,
           isDestructive: destructive
-        ) == palette.subtleSurface
+        ) == palette.disabledAction.background
       )
     }
   }
 }
 
-@Test("Both pill styles retain readable labels across roles, appearances, and interaction states")
+@Test("Both enabled pill styles and increased-contrast disabled actions retain readable labels")
 func contentButtonStylesMeetContrastAcrossStates() {
   let palette = DesignOSAppStyle.editorial.palette
   for prominence in [DesignOSActionButtonProminence.primary, .secondary] {
@@ -277,7 +470,9 @@ func contentButtonStylesMeetContrastAcrossStates() {
           isDestructive: destructive
         )
         for dark in [false, true] {
-          for increased in [false, true] {
+          // Active contrast gates are unchanged. Only standard-contrast disabled actions
+          // use the separate subdued role tested by editorialDisabledActionResolvesOnlyItsOwnPair.
+          for increased in enabled ? [false, true] : [true] {
             let ink = foreground.resolvedRGB(dark: dark, increasedContrast: increased)
             let fill = background.resolvedRGB(dark: dark, increasedContrast: increased)
             for opacity in enabled ? [0.0, 0.06, 0.12] : [0.0] {

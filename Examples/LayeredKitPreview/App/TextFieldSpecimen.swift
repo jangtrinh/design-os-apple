@@ -16,8 +16,9 @@ struct TextFieldSpecimen: View {
         ScrollView {
             VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
                 Text(state == "secure" ? "Private local input" : "Gathering name")
-                    .font(.headline)
+                    .font(.subheadline.weight(.semibold))
                     .foregroundStyle(style.palette.secondaryInk.color)
+                    .padding(.horizontal, style.metrics.contentInset)
                 if state == "secure" {
                     SecureField("Local sample password", text: $password)
                         .focused($focusedField, equals: .password)
@@ -52,7 +53,7 @@ struct TextFieldSpecimen: View {
                 }
                 if isInvalid {
                     Text("This gathering name is unavailable. Choose another name.")
-                        .foregroundStyle(.red)
+                        .foregroundStyle(style.palette.dangerInk.color)
                         .font(.footnote)
                         .accessibilityIdentifier("fieldValidation")
                 }

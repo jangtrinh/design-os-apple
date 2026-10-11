@@ -44,6 +44,8 @@ internal enum DesignOSEditorialRowPolicy {
 internal struct DesignOSEditorialAdaptiveRowLayout: Layout {
   let spacing: CGFloat
   let accessibilitySize: Bool
+  // Retained at the existing caller seam. SwiftUI owns directional placement;
+  // this value must not cause a second horizontal mirror inside the Layout.
   let layoutDirection: LayoutDirection
 
   func sizeThatFits(proposal: ProposedViewSize, subviews: Subviews, cache: inout ()) -> CGSize {
@@ -56,40 +58,59 @@ internal struct DesignOSEditorialAdaptiveRowLayout: Layout {
   ) {
     let measured = measure(
       proposal: ProposedViewSize(width: bounds.width, height: nil), subviews: subviews)
-    var offset: CGFloat = 0
+    let origins = placementOrigins(in: bounds, measurement: measured)
     for (index, subview) in subviews.enumerated() {
       let size = measured.children[index]
+      subview.place(
+        at: origins[index], anchor: .topLeading,
+        proposal: ProposedViewSize(width: size.width, height: size.height)
+      )
+    }
+  }
+
+  /// Logical top-left coordinates in source order, before SwiftUI's RTL transform.
+  /// Apple documents that Layout placement uses these coordinates in both directions:
+  /// https://developer.apple.com/videos/play/wwdc2022/10056/
+  /// Never reverse children or mirror x here; that cancels the framework's RTL placement.
+  func placementOrigins(in bounds: CGRect, measurement: Measurement) -> [CGPoint] {
+    var offset: CGFloat = 0
+    return measurement.children.map { size in
       let x: CGFloat
       let y: CGFloat
-      if measured.vertical {
+      if measurement.vertical {
         x = bounds.minX
         y = bounds.minY + offset
         offset += size.height + safeSpacing
       } else {
-        x =
-          layoutDirection == .rightToLeft
-          ? bounds.maxX - offset - size.width : bounds.minX + offset
-        y = bounds.minY + (measured.size.height - size.height) / 2
+        x = bounds.minX + offset
+        y = bounds.minY + (measurement.size.height - size.height) / 2
         offset += size.width + safeSpacing
       }
-      subview.place(
-        at: CGPoint(x: x, y: y), anchor: .topLeading,
-        proposal: ProposedViewSize(width: size.width, height: size.height)
-      )
+      return CGPoint(x: x, y: y)
     }
   }
 
   private var safeSpacing: CGFloat { DesignOSEditorialGeometry.length(spacing) }
 
   private func measure(proposal: ProposedViewSize, subviews: Subviews) -> Measurement {
-    guard !subviews.isEmpty else { return Measurement(size: .zero, children: [], vertical: true) }
-    let ideals = subviews.map { $0.sizeThatFits(.unspecified) }
+    measure(proposal: proposal, ideals: subviews.map { $0.sizeThatFits(.unspecified) }) {
+      index, childProposal in
+      subviews[index].sizeThatFits(childProposal)
+    }
+  }
+
+  /// The production measurement path with deterministic child responses for unit tests.
+  func measure(
+    proposal: ProposedViewSize, ideals: [CGSize],
+    sizeThatFits: (Int, ProposedViewSize) -> CGSize
+  ) -> Measurement {
+    guard !ideals.isEmpty else { return Measurement(size: .zero, children: [], vertical: true) }
     let width = proposal.width.flatMap { $0.isFinite && $0 >= 0 ? $0 : nil }
     let vertical = DesignOSEditorialRowPolicy.usesVerticalLayout(
       availableWidth: width, idealWidths: ideals.map(\.width), spacing: safeSpacing,
       accessibilitySize: accessibilitySize
     )
-    let gaps = CGFloat(max(0, subviews.count - 1)) * safeSpacing
+    let gaps = CGFloat(max(0, ideals.count - 1)) * safeSpacing
     let naturalWidth =
       vertical
       ? ideals.map { DesignOSEditorialGeometry.length($0.width) }.max() ?? 0
@@ -99,14 +120,14 @@ internal struct DesignOSEditorialAdaptiveRowLayout: Layout {
     let horizontalWidths = DesignOSEditorialRowPolicy.horizontalWidths(
       availableWidth: resolvedWidth, idealWidths: ideals.map(\.width), spacing: safeSpacing
     )
-    for (index, subview) in subviews.enumerated() {
+    for index in ideals.indices {
       let childWidth: CGFloat
       if vertical {
         childWidth = resolvedWidth
       } else {
         childWidth = horizontalWidths[index]
       }
-      let size = subview.sizeThatFits(ProposedViewSize(width: childWidth, height: nil))
+      let size = sizeThatFits(index, ProposedViewSize(width: childWidth, height: nil))
       children.append(
         CGSize(width: childWidth, height: DesignOSEditorialGeometry.length(size.height)))
     }
@@ -119,7 +140,7 @@ internal struct DesignOSEditorialAdaptiveRowLayout: Layout {
     )
   }
 
-  private struct Measurement {
+  struct Measurement {
     let size: CGSize
     let children: [CGSize]
     let vertical: Bool

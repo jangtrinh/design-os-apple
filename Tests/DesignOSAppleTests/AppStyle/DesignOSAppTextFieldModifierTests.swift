@@ -5,6 +5,7 @@ import Testing
 
 @Test("Text field rounded surfaces reuse editorial radius and actual nested inset")
 func textFieldCornerGeometry() {
+  #expect(DesignOSAppTextFieldAppearance.minimumHeight == 48)
   let metrics = DesignOSAppStyle.editorial.metrics
   #expect(
     DesignOSAppTextFieldAppearance.radius(override: nil, surfaceRadius: metrics.surfaceRadius) == 24)
@@ -26,6 +27,7 @@ func appTextFieldCompositionsCompile() {
 }
 
 private struct EditorialFieldCompileFixture: View {
+  @Environment(\.designOSAppStyle) private var style
   @State private var text = "Local sample"
   @FocusState private var focused: Bool
   var body: some View {
@@ -45,7 +47,7 @@ private struct EditorialFieldCompileFixture: View {
       TextField("Invalid", text: $text)
         .modifier(DesignOSAppTextFieldModifier())
         .accessibilityHint("Choose another name.")
-      Text("Choose another name.").foregroundStyle(.red)
+      Text("Choose another name.").foregroundStyle(style.palette.dangerInk.color)
     }
   }
 }

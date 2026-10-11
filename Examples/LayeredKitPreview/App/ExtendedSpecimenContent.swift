@@ -5,6 +5,7 @@ struct ExtendedSpecimenContent: View {
     let specimen: Specimen
     let variant: PreviewState
     let photo: Image?
+    @Environment(\.designOSAppStyle) private var style
     @State private var query = ""
     @State private var selection: Int?
     @State private var note = "Bring something you enjoy sharing. This is original fixture text."
@@ -111,7 +112,7 @@ struct ExtendedSpecimenContent: View {
                 DesignOSMessageThreadScreen { _ in
                     LazyVStack(alignment: .leading, spacing: 16) {
                         ForEach(Array(messages.enumerated()), id: \.offset) { index, message in
-                            DesignOSMessageBubble(isOutgoing: index > 0) {
+                            DesignOSMessageBubble(isOutgoing: index > 0, outgoingAppearance: .emphasized) {
                                 Text(message)
                             } metadata: {
                                 Text(index > 0 ? "Added locally" : "Original local fixture").font(.caption)
@@ -158,10 +159,16 @@ struct ExtendedSpecimenContent: View {
                     ShareLink(item: "Original Layered Kit Preview fixture") {
                         Label("Open native share options", systemImage: "square.and.arrow.up")
                     }.buttonStyle(DesignOSSecondaryButtonStyle())
+                        .padding(.horizontal, style.metrics.pageInset)
                 } disclosure: {
-                    heading("Native sharing boundary")
-                    Text("The system owns the share surface. No payment, authentication or external service is simulated.")
-                } recovery: { Text("Cancel the system sheet to return. Sharing requires your explicit choice.") }
+                    VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                        heading("Native sharing boundary")
+                        Text("The system owns the share surface. No payment, authentication or external service is simulated.")
+                    }.padding([.top, .horizontal], style.metrics.pageInset)
+                } recovery: {
+                    Text("Cancel the system sheet to return. Sharing requires your explicit choice.")
+                        .padding([.horizontal, .bottom], style.metrics.pageInset)
+                }
             case .recordDetail:
                 DesignOSRecordDetailScreen {
                     DesignOSRecordSummary {
@@ -181,7 +188,13 @@ struct ExtendedSpecimenContent: View {
                         .alert("Local preview", isPresented: $showAlert) {
                             Button("Close", role: .cancel) { }
                         } message: { Text("This is a real system alert, presented by the host.") }
-                } context: { heading("Native presentation"); Text("The platform owns this alert's layout and focus.") }
+                        .padding(.horizontal, style.metrics.pageInset)
+                } context: {
+                    VStack(alignment: .leading, spacing: style.metrics.itemSpacing) {
+                        heading("Native presentation")
+                        Text("The platform owns this alert's layout and focus.")
+                    }.padding([.top, .horizontal], style.metrics.pageInset)
+                }
             default: EmptyView()
             }
         }

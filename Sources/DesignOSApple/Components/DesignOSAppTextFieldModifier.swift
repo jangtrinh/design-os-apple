@@ -29,7 +29,7 @@ public struct DesignOSAppTextFieldModifier: ViewModifier {
       .foregroundStyle((isEnabled ? style.palette.ink : style.palette.secondaryInk).color)
       .padding(.horizontal, style.metrics.contentInset)
       .padding(.vertical, style.metrics.itemSpacing)
-      .frame(minHeight: 44, alignment: multiline ? .topLeading : .leading)
+      .frame(minHeight: DesignOSAppTextFieldAppearance.minimumHeight, alignment: multiline ? .topLeading : .leading)
       .background {
         shape.fill((cornerRadius == nil ? style.palette.surface : style.palette.subtleSurface).color)
           .allowsHitTesting(false)
@@ -61,6 +61,9 @@ public struct DesignOSAppTextFieldModifier: ViewModifier {
 }
 
 internal enum DesignOSAppTextFieldAppearance {
+  // Reference-informed visual minimum; native Dynamic Type may require more height.
+  static let minimumHeight: CGFloat = 48
+
   static func radius(override: CGFloat?, surfaceRadius: CGFloat) -> CGFloat {
     guard let override else { return surfaceRadius }
     return override.isFinite && override >= 0 ? override : 0

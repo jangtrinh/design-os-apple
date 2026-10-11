@@ -161,6 +161,55 @@ final class CalorieCamUITests: XCTestCase {
         return true
     }
 
+    /// Scoped to the fresh manual-entry journal, before any credential or meal entry.
+    /// This observes readiness; it does not retry Add meal or change simulator settings.
+    private func waitForManualCaptureReadiness(in app: XCUIApplication) -> Bool {
+        guard app.wait(for: .runningForeground, timeout: 5) else {
+            attachCaptureStage("failure-manual-journal-foreground", in: app)
+            XCTFail("The journal must be foreground before its one Add meal tap.")
+            return false
+        }
+        #if os(iOS)
+        // This exact nonsecret banner overlapped Add meal in native run 38106625077.
+        // Wait for its normal dismissal before the app action, rather than letting
+        // XCTest handle the interruption in the middle of that action. Other
+        // notifications and system UI are deliberately not matched or dismissed.
+        let springboard = XCUIApplication(bundleIdentifier: "com.apple.springboard")
+        let knownBanner = springboard.descendants(matching: .any).matching(NSPredicate(
+            format: "identifier == %@ AND label == %@",
+            "NotificationShortLookView",
+            "SETTINGS, now, Ready for Apple Intelligence, Time to experience the new personal intelligence system."
+        )).firstMatch
+        let bannerObserved = knownBanner.exists
+        let bannerFacts = XCTAttachment(string: "knownSettingsBannerObserved=\(bannerObserved)\n"
+            + (bannerObserved ? knownBanner.debugDescription : ""))
+        bannerFacts.name = "manual-journal-known-banner"
+        bannerFacts.lifetime = .keepAlways
+        add(bannerFacts)
+        if bannerObserved {
+            let dismissed = XCTNSPredicateExpectation(
+                predicate: NSPredicate(format: "exists == false"), object: knownBanner)
+            guard XCTWaiter.wait(for: [dismissed], timeout: 15) == .completed else {
+                attachCaptureStage("failure-manual-journal-known-banner", in: app)
+                XCTFail("The known Settings banner did not dismiss before Add meal; no app tap was attempted.")
+                return false
+            }
+        }
+        #endif
+        let addMeal = app.buttons["addMeal"]
+        let ready = XCTNSPredicateExpectation(
+            predicate: NSPredicate(format: "exists == true AND enabled == true AND hittable == true"),
+            object: addMeal)
+        guard XCTWaiter.wait(for: [ready], timeout: 5) == .completed,
+              app.state == .runningForeground else {
+            attachCaptureStage("failure-manual-add-meal-readiness", in: app)
+            XCTFail("Add meal must be enabled and hittable in the foreground journal.")
+            return false
+        }
+        attachCaptureStage("before-manual-add-meal", in: app)
+        return true
+    }
+
     func testEmptyJournalAndCancelCapture() {
         let app = launch()
         guard app.staticTexts["No meals logged"].waitForExistence(timeout: 5) else {
@@ -183,7 +232,8 @@ final class CalorieCamUITests: XCTestCase {
     func testManualMealSaveAndPersistence() {
         let id = UUID().uuidString
         let app = launch(journalID: id)
-        app.buttons["addMeal"].tap()
+        guard waitForManualCaptureReadiness(in: app) else { return }
+        app.buttons["addMeal"].tap() // Exactly one app action, never retried.
         guard app.buttons["enterManually"].waitForExistence(timeout: 5) else {
             attachCaptureStage("failure-manual-source-stage", in: app)
             XCTFail("Manual entry must be available from the capture source stage.")

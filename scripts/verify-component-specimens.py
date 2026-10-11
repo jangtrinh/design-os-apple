@@ -29,11 +29,17 @@ for record in records:
     assert record['native_status'] == 'not_run' and record['visual_status'] == 'not_reviewed', 'Planned fixture manifest must not masquerade as executed evidence'
 count = sum(len(record['capture_cases']) for record in records)
 assert count == manifest['planned_capture_count_per_target']
-assert 'colorSchemeContrast' not in source, 'Contrast requires the actual platform setting, not a read-only environment setter'
+# Reading the actual contrast environment is useful diagnostic evidence. Mutating
+# that read-only input still requires the real platform accessibility setting.
+contrast_setter = r'\.\s*(?:environment|transformEnvironment)\s*\(\s*\\\s*\.\s*colorSchemeContrast\s*[,)]'
+assert not re.search(contrast_setter, source), 'Contrast requires the actual platform setting, not a read-only environment setter'
 assert 'state: "increased-contrast"' not in tests, 'Unsupported contrast capture must not be claimed'
-assert all(case['state'] != 'increased-contrast' for record in records for case in record['capture_cases'])
+assert all(case['state'] != 'increased-contrast' for record in records for case in record['capture_cases']), 'Unsupported contrast capture case must not be claimed'
 assert hashlib.sha256(source.encode()).hexdigest() == manifest['fixture_source_sha256'], 'Stale fixture source hash'
 assert hashlib.sha256(tests.encode()).hexdigest() == manifest['capture_test_source_sha256'], 'Stale capture test hash'
 assert '.focused(' not in source, 'Fixtures must not force native focus'
 assert 'component-ready-' in source and 'component-ready-' in tests
+# The native evidence importer reserves component-- for screenshots and --binding.
+# Keep input-only JSON diagnostics from being mistaken for extra planned captures.
+assert re.search(r'diagnostic\.name\s*=\s*"diagnostics--backdrop-policy-inputs--"\s*\+', tests), 'Backdrop diagnostics must stay outside the reserved component capture namespace'
 print(f'PASS: {len(ids)} source fixtures, {count} planned captures per target. Native compilation/execution and visual review remain separate.')

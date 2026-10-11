@@ -292,7 +292,7 @@
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "aaee2c4898d2722765daeae410205b00b649c30f4e839d92f3df41c14bcc2e68",
+      "source_sha256": "2b1d589f035d1e342aa39d815a1d05eb8c3e43b3149970d361effa7ed437e46c",
       "public_declarations": [
         "func makeBody",
         "init",
@@ -315,8 +315,10 @@
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "2c67793d6d87b97b43cd7ff5818b81d8220da9d47370c5dd229c2509bdbd8073",
+      "source_sha256": "73547aa813ce6cd4beb14127ab627713e53041ded08bb8c3dc715bfb1329cdfa",
       "public_declarations": [
+        "enum Size",
+        "enum Treatment",
         "func makeBody",
         "init",
         "struct DesignOSSecondaryButtonStyle"
@@ -478,13 +480,16 @@
       "source_status": "source_present",
       "source": "Sources/DesignOSApple/Components/Composite/DesignOSSelectionSummary.swift",
       "symbol": "DesignOSSelectionSummary",
-      "dependencies": [],
+      "dependencies": [
+        "primitive/editorial-geometry"
+      ],
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "cf06e9116b6672fc8b99ef59c993d0ea2143d4ebadcec66063e9dbe9fa4a6a27",
+      "source_sha256": "f30c40fa1eff6bde5f8b8b9228c36a9faf995a607ed0014287e7a76ea62fadc4",
       "visibility": "public",
       "public_declarations": [
+        "enum Sizing",
         "init",
         "struct DesignOSSelectionSummary",
         "var body"
@@ -666,9 +671,10 @@
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "a25269db65475866a5fad9a01b71cb7fa58cedb8a105715023a7ca6c0f2ef6fb",
+      "source_sha256": "9719d2e68bf4ac8d13610e10efb87f9ba5f7a5ca41e28a6f6d64c00bcabee3a7",
       "visibility": "public",
       "public_declarations": [
+        "enum OutgoingAppearance",
         "init",
         "struct DesignOSMessageBubble",
         "var body"
@@ -1425,7 +1431,7 @@
       "visual_status": "not_run",
       "evidence": {},
       "source_status": "source_present",
-      "source_sha256": "e3f72a36404b666fe74518b61a71b1329c515b67a13735c16382dbb38a17946e",
+      "source_sha256": "240dd94bcfc064f907ee4e10884e5cc6a4d40739ed6ccd32e42991c227a8a52a",
       "public_declarations": [],
       "visibility": "internal"
     },
@@ -1478,7 +1484,7 @@
       "native_status": "not_run",
       "visual_status": "not_run",
       "evidence": {},
-      "source_sha256": "e324fe7767be06b057763859d58640ef4b21d28d6ca92ee46c1200da43fc356c",
+      "source_sha256": "d11a85d088a93b053c6c4e781a19bf50802dfaa01007938556b9f91a6c9c3659",
       "public_declarations": [
         "func body",
         "init",
