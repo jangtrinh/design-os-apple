@@ -142,6 +142,7 @@ jobs:
           path: |
             ${{ runner.temp }}/layered-kit-results/*.xcresult
             ${{ runner.temp }}/layered-kit-results/selected-simulators.txt
+            ${{ runner.temp }}/layered-kit-results/simulator-readiness-*.txt
             ${{ runner.temp }}/layered-kit-results/toolchain.txt
             ${{ runner.temp }}/layered-kit-results/source-revision.txt
             ${{ runner.temp }}/layered-kit-results/test-selection.txt
@@ -175,6 +176,7 @@ jobs:
           path: |
             ${{ runner.temp }}/layered-kit-fields-results/*.xcresult
             ${{ runner.temp }}/layered-kit-fields-results/selected-simulators.txt
+            ${{ runner.temp }}/layered-kit-fields-results/simulator-readiness-*.txt
             ${{ runner.temp }}/layered-kit-fields-results/toolchain.txt
             ${{ runner.temp }}/layered-kit-fields-results/source-revision.txt
             ${{ runner.temp }}/layered-kit-fields-results/test-selection.txt
@@ -212,6 +214,7 @@ jobs:
           path: |
             ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/*.xcresult
             ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/selected-simulators.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/simulator-readiness-*.txt
             ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/toolchain.txt
             ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/source-revision.txt
             ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/test-selection.txt

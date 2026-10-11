@@ -65,17 +65,35 @@ for family in {'all':('iPhone','iPad'),'iphone':('iPhone',),'ipad':('iPad',),'ma
 PY
 status=0
 while read -r family identifier; do
+  # One selected simulator per job. Complete boot before Xcode starts launch/AX work,
+  # and retain the actual state/resource observations without altering accessibility.
+  {
+    date -u '+%Y-%m-%dT%H:%M:%SZ'
+    uptime
+    vm_stat
+    xcrun simctl list devices booted --json
+    python3 - "$identifier" <<'BOOTPY'
+import subprocess, sys, time
+started = time.monotonic()
+try:
+    subprocess.run(['xcrun', 'simctl', 'bootstatus', sys.argv[1], '-b'], check=True, timeout=180)
+finally:
+    print(f'simulator_boot_observation_elapsed={time.monotonic() - started:.3f}', flush=True)
+BOOTPY
+    xcrun simctl list devices booted --json
+  } 2>&1 | tee "$results/simulator-readiness-$family.txt"
   select_tests LayeredKitPreview-iOS-UITests
   printf '%s\n' "${test_args[@]}" >> "$results/test-selection.txt"
   if ! xcodebuild test -project "$app/LayeredKitPreview.xcodeproj" -scheme LayeredKitPreview-iOS \
-    -sdk iphonesimulator -destination "id=$identifier" -derivedDataPath "$results/DerivedData-$family" \
+    -sdk iphonesimulator -destination "id=$identifier" -parallel-testing-enabled NO \
+    -maximum-concurrent-test-simulator-destinations 1 -derivedDataPath "$results/DerivedData-$family" \
     -resultBundlePath "$results/$family-$suite_label.xcresult" "${test_args[@]}" CODE_SIGNING_ALLOWED=YES CODE_SIGN_STYLE=Manual CODE_SIGN_IDENTITY=-; then status=1; fi
 done < "$results/selected-simulators.txt"
 if [[ "$destination" == all || "$destination" == macos ]]; then
   select_tests LayeredKitPreview-macOS-UITests
   printf '%s\n' "${test_args[@]}" >> "$results/test-selection.txt"
   if ! xcodebuild test -project "$app/LayeredKitPreview.xcodeproj" -scheme LayeredKitPreview-macOS \
-    -destination 'platform=macOS' -derivedDataPath "$results/DerivedData-macOS" \
+    -destination 'platform=macOS' -parallel-testing-enabled NO -derivedDataPath "$results/DerivedData-macOS" \
     -resultBundlePath "$results/macOS-$suite_label.xcresult" "${test_args[@]}" CODE_SIGNING_ALLOWED=NO; then status=1; fi
 fi
 for bundle in "$results"/*.xcresult; do

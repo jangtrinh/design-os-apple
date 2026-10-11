@@ -114,3 +114,25 @@ Its native results remain NOT VERIFIED until executed on the exact candidate. Ca
 original fixture content; the secure screenshot is empty and never captures entered content.
 Reference screenshots stay outside the app and repository. See the shared
 [modifier contract and reference gaps](../../docs/reusable-app-style.md#native-editorial-text-input).
+
+### Native synchronization diagnostics
+
+Component capture readiness uses at most six completed native observations and requires
+three consecutive visible, foreground, finite geometry samples within a 1-point settling
+tolerance. Every accepted sample remains hittable and intersects its actual window.
+A 120-second elapsed synchronization cap replaces the previous 10-second XCTWaiter:
+retained CI evidence showed the earlier waiter interrupting individual AX requests before
+window geometry could be returned. This is a material automation-budget change, not an
+application responsiveness guarantee. The elapsed cap controls starting and accepting
+observations; an already-running synchronous AX request can finish after it, but its
+late result cannot be accepted. It is not a hard wall-clock cancellation of the transport.
+Missing/invalid frames, non-hittability, budget
+exhaustion, and snapshot errors still fail; no tap, launch, or capture is silently retried.
+Pure policy regression controls run in the semantic suite, including missing/infinite/empty
+frames, offscreen geometry, lost foreground/hittability, changing geometry, and both budget limits.
+
+The runner boots the selected simulator explicitly (180-second boot-command limit),
+disables parallel XCTest simulator workers, and retains boot/resource state beside the
+existing source/toolchain receipts. The CI job remains capped at 45 minutes. Distinct hosted
+runner IDs do not establish shared-simulator contention; the boot diagnostics investigate
+launch reliability without asserting an unproved infrastructure cause.

@@ -29,51 +29,123 @@ final class ComponentInventoryUITests: XCTestCase {
         add(hierarchy)
     }
 
-    private func hasFiniteArea(_ frame: CGRect) -> Bool {
-        !frame.isNull && !frame.isInfinite && !frame.isEmpty
-            && frame.origin.x.isFinite && frame.origin.y.isFinite
-            && frame.width.isFinite && frame.height.isFinite
+    private struct ReadinessProgress {
+        static let maximumObservations = 6
+        static let maximumElapsed: TimeInterval = 120
+        var observations = 0
+        var stableSamples = 0
+        private var previousWindow: CGRect?
+        private var previousHeading: CGRect?
+
+        static func finiteArea(_ frame: CGRect) -> Bool {
+            !frame.isNull && !frame.isInfinite && !frame.isEmpty
+                && frame.origin.x.isFinite && frame.origin.y.isFinite
+                && frame.width.isFinite && frame.height.isFinite
+        }
+
+        static func usable(window: CGRect?, heading: CGRect?) -> Bool {
+            guard let window, let heading else { return false }
+            return finiteArea(window) && finiteArea(heading) && finiteArea(window.intersection(heading))
+        }
+
+        private func stable(_ lhs: CGRect?, _ rhs: CGRect) -> Bool {
+            guard let lhs else { return false }
+            // Permit subpixel settling, but never a moving/offscreen layout.
+            return abs(lhs.minX - rhs.minX) <= 1 && abs(lhs.minY - rhs.minY) <= 1
+                && abs(lhs.width - rhs.width) <= 1 && abs(lhs.height - rhs.height) <= 1
+        }
+
+        func canObserve(elapsed: TimeInterval) -> Bool {
+            observations < Self.maximumObservations && elapsed < Self.maximumElapsed
+        }
+
+        mutating func observe(window: CGRect?, heading: CGRect?, foreground: Bool,
+                              hittable: Bool, elapsed: TimeInterval) -> Bool {
+            observations += 1
+            guard observations <= Self.maximumObservations, elapsed < Self.maximumElapsed,
+                  foreground, hittable, Self.usable(window: window, heading: heading),
+                  let window, let heading else {
+                stableSamples = 0
+                previousWindow = nil
+                previousHeading = nil
+                return false
+            }
+            if stable(previousWindow, window) && stable(previousHeading, heading) {
+                stableSamples += 1
+            } else {
+                stableSamples = 1
+                // Anchor the streak so a series of 1-point moves cannot accumulate drift.
+                previousWindow = window
+                previousHeading = heading
+            }
+            return stableSamples >= 3
+        }
     }
 
-    /// Uninitialized AX trees can have infinite origins and zero-sized windows.
-    /// Never ask those snapshots for hit points or treat them as rendered evidence.
+    private func hasFiniteArea(_ frame: CGRect) -> Bool { ReadinessProgress.finiteArea(frame) }
+
+    /// The prior 10-second waiter interrupted individual AX requests before they
+    /// completed. This explicitly changes synchronization budget to six completed
+    /// observations / 120 seconds, not a claim about application responsiveness.
+    /// No invalid snapshot, timeout, or failed hit test is accepted as readiness.
     private func waitForRenderedHeading(_ heading: XCUIElement, id: String,
                                         state: String, appearance: String, app: XCUIApplication) -> Bool {
-        let started = Date()
-        var observations: [String] = []
-        var snapshotError: String?
-        let rendered = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
-            let before = Date().timeIntervalSince(started)
+        let started = ProcessInfo.processInfo.systemUptime
+        func elapsed() -> TimeInterval { ProcessInfo.processInfo.systemUptime - started }
+        var progress = ReadinessProgress()
+        var observations = ["policy=completed-observations/v1 maximumObservations=6 maximumElapsed=120 requiredStableSamples=3"]
+        var succeeded = false
+        var outcome = "observation_or_elapsed_budget_exhausted"
+        while progress.canObserve(elapsed: elapsed()) {
+            let before = elapsed()
             let stateBefore = app.state
-            guard heading.exists, app.windows.firstMatch.exists else {
-                observations.append("before=\(before) after=\(Date().timeIntervalSince(started)) stateBefore=\(stateBefore.rawValue) result=missing")
-                return false
+            let headingExists = heading.exists
+            let afterHeadingExists = elapsed()
+            let windowElement = app.windows.firstMatch
+            let windowExists = windowElement.exists
+            let afterWindowExists = elapsed()
+            guard headingExists && windowExists else {
+                _ = progress.observe(window: nil, heading: nil, foreground: stateBefore == .runningForeground,
+                                     hittable: false, elapsed: elapsed())
+                observations.append("before=\(before) afterHeadingExists=\(afterHeadingExists) afterWindowExists=\(afterWindowExists) headingExists=\(headingExists) windowExists=\(windowExists) stateBefore=\(stateBefore.rawValue) result=missing")
+                continue
             }
+            var stage = "windowSnapshot"
+            var knownWindow: CGRect?
+            var completedWindowAt: TimeInterval?
             do {
-                let window = try app.windows.firstMatch.snapshot().frame
+                let window = try windowElement.snapshot().frame
+                let afterWindowSnapshot = elapsed()
+                knownWindow = window
+                completedWindowAt = afterWindowSnapshot
+                stage = "headingSnapshot"
                 let frame = try heading.snapshot().frame
-                guard self.hasFiniteArea(window), self.hasFiniteArea(frame),
-                      self.hasFiniteArea(window.intersection(frame)) else {
-                    observations.append("before=\(before) after=\(Date().timeIntervalSince(started)) stateBefore=\(stateBefore.rawValue) window=\(window) heading=\(frame) result=invalidGeometry")
-                    return false
-                }
-                let hittable = heading.isHittable
+                let afterHeadingSnapshot = elapsed()
+                let usable = ReadinessProgress.usable(window: window, heading: frame)
+                // Short circuit prevents AX hit-point errors for infinite/empty geometry.
+                let hittable = usable && heading.isHittable
                 let stateAfter = app.state
-                observations.append("before=\(before) after=\(Date().timeIntervalSince(started)) stateBefore=\(stateBefore.rawValue) stateAfter=\(stateAfter.rawValue) window=\(window) heading=\(frame) hittable=\(hittable)")
-                return stateBefore == .runningForeground && stateAfter == .runningForeground && hittable
+                let after = elapsed()
+                succeeded = progress.observe(window: window, heading: frame,
+                    foreground: stateBefore == .runningForeground && stateAfter == .runningForeground,
+                    hittable: hittable, elapsed: after)
+                observations.append("before=\(before) afterHeadingExists=\(afterHeadingExists) afterWindowExists=\(afterWindowExists) afterWindowSnapshot=\(afterWindowSnapshot) afterHeadingSnapshot=\(afterHeadingSnapshot) after=\(after) stateBefore=\(stateBefore.rawValue) stateAfter=\(stateAfter.rawValue) window=\(window) heading=\(frame) usable=\(usable) hittable=\(hittable) stableSamples=\(progress.stableSamples)")
+                if succeeded { outcome = "three_stable_visible_observations"; break }
             } catch {
-                snapshotError = String(describing: error)
-                observations.append("before=\(before) after=\(Date().timeIntervalSince(started)) result=snapshotError error=\(error)")
-                return false
+                outcome = "snapshot_error"
+                observations.append("before=\(before) afterHeadingExists=\(afterHeadingExists) afterWindowExists=\(afterWindowExists) headingExists=\(headingExists) windowExists=\(windowExists) completedWindowAt=\(String(describing: completedWindowAt)) knownWindow=\(String(describing: knownWindow)) stateBefore=\(stateBefore.rawValue) failedStage=\(stage) after=\(elapsed()) result=snapshotError error=\(error)")
+                break
             }
-        }, object: heading)
-        let result = XCTWaiter.wait(for: [rendered], timeout: 10)
-        observations.append("waiterResult=\(result.rawValue) elapsed=\(Date().timeIntervalSince(started)) finalAppState=\(app.state.rawValue)")
+        }
+        let finalState = app.state
+        let finalElapsed = elapsed()
+        let accepted = succeeded && finalElapsed < ReadinessProgress.maximumElapsed && finalState == .runningForeground
+        observations.append("outcome=\(outcome) accepted=\(accepted) observations=\(progress.observations) elapsed=\(finalElapsed) finalAppState=\(finalState.rawValue)")
         let diagnostic = XCTAttachment(string: observations.joined(separator: "\n"))
         diagnostic.name = "diagnostics--readiness--" + id.replacingOccurrences(of: "/", with: "--") + "--" + state + "--" + appearance
         diagnostic.lifetime = .keepAlways
         add(diagnostic)
-        return result == .completed && snapshotError == nil && app.state == .runningForeground
+        return accepted
     }
 
     /// Capture only app-observed, nonsecret fixture inputs. Never infer these from
@@ -215,6 +287,44 @@ final class ComponentInventoryUITests: XCTestCase {
         XCTAssertFalse(hasFiniteArea(.infinite))
         XCTAssertFalse(hasFiniteArea(CGRect(x: CGFloat.infinity, y: 0, width: 20, height: 20)))
         XCTAssertFalse(hasFiniteArea(CGRect(x: 0, y: CGFloat.nan, width: 20, height: 20)))
+        let window = CGRect(x: 0, y: 0, width: 390, height: 844)
+        let heading = CGRect(x: 16, y: 100, width: 180, height: 20)
+        XCTAssertFalse(ReadinessProgress.usable(window: nil, heading: heading))
+        XCTAssertFalse(ReadinessProgress.usable(window: window, heading: nil))
+        XCTAssertFalse(ReadinessProgress.usable(window: .infinite, heading: heading))
+        XCTAssertFalse(ReadinessProgress.usable(window: window, heading: .zero))
+        XCTAssertFalse(ReadinessProgress.usable(window: window, heading: heading.offsetBy(dx: 500, dy: 0)))
+        var stable = ReadinessProgress()
+        XCTAssertFalse(stable.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 1))
+        XCTAssertFalse(stable.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 2))
+        XCTAssertTrue(stable.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 3))
+        var anchored = ReadinessProgress()
+        XCTAssertFalse(anchored.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 1))
+        XCTAssertFalse(anchored.observe(window: window, heading: heading.offsetBy(dx: 1, dy: 0), foreground: true, hittable: true, elapsed: 2))
+        XCTAssertFalse(anchored.observe(window: window, heading: heading.offsetBy(dx: 2, dy: 0), foreground: true, hittable: true, elapsed: 3))
+        XCTAssertEqual(anchored.stableSamples, 1, "Pairwise subpixel changes must not accumulate beyond the streak anchor")
+        var tolerance = ReadinessProgress()
+        XCTAssertFalse(tolerance.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 1))
+        XCTAssertFalse(tolerance.observe(window: window, heading: heading.offsetBy(dx: 1, dy: 0), foreground: true, hittable: true, elapsed: 2))
+        XCTAssertTrue(tolerance.observe(window: window, heading: heading.offsetBy(dx: 1, dy: 0), foreground: true, hittable: true, elapsed: 3))
+        var interrupted = ReadinessProgress()
+        XCTAssertFalse(interrupted.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 1))
+        XCTAssertFalse(interrupted.observe(window: window, heading: heading, foreground: true, hittable: false, elapsed: 2))
+        XCTAssertEqual(interrupted.stableSamples, 0)
+        XCTAssertFalse(interrupted.observe(window: window, heading: heading, foreground: false, hittable: true, elapsed: 3))
+        XCTAssertFalse(interrupted.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 120))
+        XCTAssertFalse(interrupted.canObserve(elapsed: 120))
+        var exhausted = ReadinessProgress()
+        for index in 0..<6 {
+            XCTAssertFalse(exhausted.observe(window: nil, heading: nil, foreground: true, hittable: false, elapsed: Double(index)))
+        }
+        XCTAssertFalse(exhausted.canObserve(elapsed: 6))
+        XCTAssertFalse(exhausted.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 7))
+        var moving = ReadinessProgress()
+        for index in 0..<6 {
+            XCTAssertFalse(moving.observe(window: window, heading: heading.offsetBy(dx: CGFloat(index * 3), dy: 0),
+                                          foreground: true, hittable: true, elapsed: Double(index)))
+        }
         try matrix(["primitive/corner-geometry", "foundation/color-role", "foundation/typography-role", "foundation/surface-role"])
     }
     func testExplicitAlternateStates() throws {
