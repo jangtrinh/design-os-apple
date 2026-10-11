@@ -353,7 +353,12 @@ struct ComponentInventorySpecimen: View {
             // mobbin.com/screens/3c445308-cc7d-4692-910a-374022783faf (private research only).
             ForEach(InventoryReader.samples) { reader in
                 DesignOSChoiceRow {
-                    DesignOSAvatar(size: 44) { Text(reader.initials).font(.headline) }
+                    DesignOSAvatar(size: 44) {
+                        // Decorative initials fit this fixed avatar; the adjacent full name still scales.
+                        Text(reader.initials).font(.headline).lineLimit(1)
+                            .minimumScaleFactor(0.25).padding(4)
+                    }
+                    .accessibilityHidden(true)
                 } description: {
                     Text(reader.name).font(.headline)
                     Text(reader.detail).foregroundStyle(.secondary)

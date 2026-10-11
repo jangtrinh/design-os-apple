@@ -14,12 +14,66 @@ final class ComponentInventoryUITests: XCTestCase {
         add(screenshot)
         var facts = ["appState=\(app.state.rawValue)", "headingExists=\(heading.exists)"]
         if heading.exists {
-            facts.append("headingFrame=\(heading.frame) hittable=\(heading.isHittable)")
+            let frame = heading.frame
+            let window = app.windows.firstMatch.frame
+            facts.append("headingFrame=\(frame) windowFrame=\(window)")
+            if hasFiniteArea(frame), hasFiniteArea(window), hasFiniteArea(frame.intersection(window)) {
+                facts.append("hittable=\(heading.isHittable)")
+            } else {
+                facts.append("hittable=notQueriedInvalidGeometry")
+            }
         }
         let hierarchy = XCTAttachment(string: facts.joined(separator: "\n") + "\n\n" + app.debugDescription)
         hierarchy.name = stem + "--accessibility"
         hierarchy.lifetime = .keepAlways
         add(hierarchy)
+    }
+
+    private func hasFiniteArea(_ frame: CGRect) -> Bool {
+        !frame.isNull && !frame.isInfinite && !frame.isEmpty
+            && frame.origin.x.isFinite && frame.origin.y.isFinite
+            && frame.width.isFinite && frame.height.isFinite
+    }
+
+    /// Uninitialized AX trees can have infinite origins and zero-sized windows.
+    /// Never ask those snapshots for hit points or treat them as rendered evidence.
+    private func waitForRenderedHeading(_ heading: XCUIElement, id: String,
+                                        state: String, appearance: String, app: XCUIApplication) -> Bool {
+        let started = Date()
+        var observations: [String] = []
+        var snapshotError: String?
+        let rendered = XCTNSPredicateExpectation(predicate: NSPredicate { _, _ in
+            let before = Date().timeIntervalSince(started)
+            let stateBefore = app.state
+            guard heading.exists, app.windows.firstMatch.exists else {
+                observations.append("before=\(before) after=\(Date().timeIntervalSince(started)) stateBefore=\(stateBefore.rawValue) result=missing")
+                return false
+            }
+            do {
+                let window = try app.windows.firstMatch.snapshot().frame
+                let frame = try heading.snapshot().frame
+                guard self.hasFiniteArea(window), self.hasFiniteArea(frame),
+                      self.hasFiniteArea(window.intersection(frame)) else {
+                    observations.append("before=\(before) after=\(Date().timeIntervalSince(started)) stateBefore=\(stateBefore.rawValue) window=\(window) heading=\(frame) result=invalidGeometry")
+                    return false
+                }
+                let hittable = heading.isHittable
+                let stateAfter = app.state
+                observations.append("before=\(before) after=\(Date().timeIntervalSince(started)) stateBefore=\(stateBefore.rawValue) stateAfter=\(stateAfter.rawValue) window=\(window) heading=\(frame) hittable=\(hittable)")
+                return stateBefore == .runningForeground && stateAfter == .runningForeground && hittable
+            } catch {
+                snapshotError = String(describing: error)
+                observations.append("before=\(before) after=\(Date().timeIntervalSince(started)) result=snapshotError error=\(error)")
+                return false
+            }
+        }, object: heading)
+        let result = XCTWaiter.wait(for: [rendered], timeout: 10)
+        observations.append("waiterResult=\(result.rawValue) elapsed=\(Date().timeIntervalSince(started)) finalAppState=\(app.state.rawValue)")
+        let diagnostic = XCTAttachment(string: observations.joined(separator: "\n"))
+        diagnostic.name = "diagnostics--readiness--" + id.replacingOccurrences(of: "/", with: "--") + "--" + state + "--" + appearance
+        diagnostic.lifetime = .keepAlways
+        add(diagnostic)
+        return result == .completed && snapshotError == nil && app.state == .runningForeground
     }
 
     /// Capture only app-observed, nonsecret fixture inputs. Never infer these from
@@ -82,10 +136,7 @@ final class ComponentInventoryUITests: XCTestCase {
         // Native AX can expose the heading while the app still renders blank.
         // Observe actual hittability within a deadline; never relaunch or accept
         // mere existence as successful rendered-component evidence.
-        let rendered = XCTNSPredicateExpectation(
-            predicate: NSPredicate(format: "exists == true AND hittable == true"), object: ready)
-        guard XCTWaiter.wait(for: [rendered], timeout: 10) == .completed,
-              app.state == .runningForeground else {
+        guard waitForRenderedHeading(ready, id: id, state: state, appearance: appearance, app: app) else {
             attachReadinessFailure(id, state: state, appearance: appearance, heading: ready, app: app)
             XCTFail("Exact component route heading must exist and be visible/hittable in the foreground native window: \(id)")
             return
@@ -158,6 +209,12 @@ final class ComponentInventoryUITests: XCTestCase {
         try matrix(["shell/adaptive-navigation", "shell/native-host"])
     }
     func testResolvedFoundationSamples() throws {
+        XCTAssertTrue(hasFiniteArea(CGRect(x: 0, y: 0, width: 390, height: 844)))
+        XCTAssertFalse(hasFiniteArea(.zero))
+        XCTAssertFalse(hasFiniteArea(.null))
+        XCTAssertFalse(hasFiniteArea(.infinite))
+        XCTAssertFalse(hasFiniteArea(CGRect(x: CGFloat.infinity, y: 0, width: 20, height: 20)))
+        XCTAssertFalse(hasFiniteArea(CGRect(x: 0, y: CGFloat.nan, width: 20, height: 20)))
         try matrix(["primitive/corner-geometry", "foundation/color-role", "foundation/typography-role", "foundation/surface-role"])
     }
     func testExplicitAlternateStates() throws {

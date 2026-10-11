@@ -313,6 +313,25 @@ final class LayeredKitPreviewUITests: XCTestCase {
                     XCTFail("Incoming/outgoing bubbles must expose actual local metadata"); return
                 }
             }
+            if route == "media-composer" {
+                let cover = app.images["fixtureMedia"].firstMatch
+                XCTAssertTrue(cover.waitForExistence(timeout: 5))
+                XCTAssertGreaterThan(cover.frame.width, 0)
+                XCTAssertEqual(cover.frame.width, cover.frame.height, accuracy: 1,
+                               "The original composer must use the same square cover geometry as its isolated component")
+                let edit = app.buttons["composerMediaAction"].firstMatch
+                XCTAssertTrue(edit.isHittable)
+                XCTAssertEqual(edit.value as? String, "Original colors")
+                edit.tap()
+                let changed = XCTNSPredicateExpectation(
+                    predicate: NSPredicate(format: "value == %@", "Alternate colors"), object: edit)
+                XCTAssertEqual(XCTWaiter.wait(for: [changed], timeout: 5), .completed)
+                XCTAssertTrue(cover.exists, "Editing sample colors must retain the original local image")
+                edit.tap()
+                let restored = XCTNSPredicateExpectation(
+                    predicate: NSPredicate(format: "value == %@", "Original colors"), object: edit)
+                XCTAssertEqual(XCTWaiter.wait(for: [restored], timeout: 5), .completed)
+            }
             if route == "discovery" {
                 app.buttons["category-art"].tap()
                 XCTAssertEqual(app.staticTexts["selectedCategory"].label, "Art")

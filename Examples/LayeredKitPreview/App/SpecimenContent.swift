@@ -14,10 +14,10 @@ struct SpecimenContent: View {
     @State private var notifications = true
     @State private var completed = false
     @State private var shell = 0
-    @State private var showFixtureMedia = true
+    @State private var composerAlternateColors = false
     @FocusState private var editingTitle: Bool
 
-    private var photo: Image? { (hideMedia || !showFixtureMedia) ? nil : FixtureMedia.image }
+    private var photo: Image? { hideMedia ? nil : FixtureMedia.image }
 
     var body: some View {
         Group {
@@ -57,12 +57,14 @@ struct SpecimenContent: View {
             case .mediaComposer:
                 DesignOSMediaComposerScreen(media: photo) {
                     DesignOSMediaComposerHeader {
-                        hero
+                        composerCover
                     } mediaActions: {
-                        Button(showFixtureMedia ? "Hide sample photo" : "Use sample photo") { showFixtureMedia.toggle() }
-                            .buttonStyle(DesignOSSecondaryButtonStyle())
-                            .accessibilityIdentifier("composerMediaAction")
-                    } field: { titleField } feedback: { feedback }
+                        EmptyView()
+                    } field: { titleField } feedback: {
+                        feedback
+                        Text("Edit changes the local sample colors. No photo library or upload is used.")
+                            .font(.caption).foregroundStyle(.secondary)
+                    }
                 } fields: {
                     DesignOSFieldGroup {
                         Toggle("Send reminders", isOn: $notifications).accessibilityIdentifier("fixtureToggle")
@@ -147,6 +149,29 @@ struct SpecimenContent: View {
             }.frame(maxWidth: 360)
                 .accessibilityLabel("Original synthetic meal photograph")
                 .accessibilityIdentifier("fixtureMedia")
+        }
+    }
+
+    @ViewBuilder private var composerCover: some View {
+        if let photo {
+            DesignOSMediaFrame(aspectRatio: 1, cornerRadius: 24) {
+                photo.resizable().scaledToFill()
+                    .hueRotation(.degrees(composerAlternateColors ? 45 : 0))
+            }
+            .frame(maxWidth: 360)
+            .accessibilityLabel("Original synthetic meal photograph")
+            .accessibilityIdentifier("fixtureMedia")
+            .overlay(alignment: .bottomTrailing) {
+                Button { composerAlternateColors.toggle() } label: {
+                    Label("Edit local sample", systemImage: "pencil").labelStyle(.iconOnly)
+                }
+                .buttonStyle(DesignOSSecondaryButtonStyle(size: .compact))
+                .accessibilityLabel("Change local sample colors")
+                .accessibilityValue(composerAlternateColors ? "Alternate colors" : "Original colors")
+                .accessibilityIdentifier("composerMediaAction")
+                .padding(12)
+            }
+            .frame(maxWidth: .infinity, alignment: .center)
         }
     }
 

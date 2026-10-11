@@ -28,6 +28,8 @@ public struct DesignOSMediaBackdrop<Media: View>: View {
         ) {
           media
             .frame(width: geometry.size.width, height: geometry.size.height)
+            // Apply the blur to the complete caller-owned composition, not each child layer.
+            .compositingGroup()
             .blur(radius: DesignOSMediaBackdropPolicy.blurRadius, opaque: true)
             .opacity(DesignOSMediaBackdropPolicy.imageOpacity)
           style.palette.canvas.color

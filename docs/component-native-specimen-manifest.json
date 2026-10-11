@@ -502,7 +502,7 @@
       "native_status": "not_run",
       "visual_status": "not_reviewed",
       "evidence": {},
-      "source_sha256": "77367c6c6b80fbeb395a3a59ec521d1c01a5e76de104888723f95a68c42f1759",
+      "source_sha256": "9c2ef6ec223f7eb3bdbbcbb16f1572b97848b9474531b265351fcadb1d4527f4",
       "public_declarations": [
         "init",
         "struct DesignOSMediaBackdrop",
@@ -2270,6 +2270,6 @@
       "reason": "SwiftUI colorSchemeContrast is read-only. Requires the real platform Increase Contrast accessibility setting and independently verified native evidence; no launch-state override is provided."
     }
   ],
-  "fixture_source_sha256": "69848b9b94fe671c38cfce4df11a06b5a860cf855b27a20ce967b40da19cf48e",
-  "capture_test_source_sha256": "10af29365c0154f8eb06cd972378f03ec1e32ebd190f09b43cec6966c1ff7ba3"
+  "fixture_source_sha256": "1470a0b993300dccec505cc87accb9fa0c4e632cff8b92825140898f5b57b15f",
+  "capture_test_source_sha256": "95ce2f436b6d4f938bc8e0f057d6cae8d03d09a7d4ed5b21c98a0587b7038ccb"
 }
