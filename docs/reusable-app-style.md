@@ -268,3 +268,64 @@ accessibility fallbacks before calling the visual implementation verified.
 Platform implementation references: [UIKit dynamic colors](https://developer.apple.com/documentation/uikit/uicolor/init(dynamicprovider:)),
 [AppKit dynamic colors](https://developer.apple.com/documentation/appkit/nscolor/init(name:dynamicprovider:)),
 and [SwiftUI ButtonStyle](https://developer.apple.com/documentation/swiftui/buttonstyle).
+
+## Native editorial text input
+
+Apply `DesignOSAppTextFieldModifier` directly to app-owned standalone `TextField` or
+`SecureField` content. It is a public `ViewModifier`, not a `TextFieldStyle` conformance,
+so it uses supported SwiftUI APIs without the underscored custom-style hook.
+
+```swift
+TextField("Gathering name", text: $name)
+  .focused($editingName)
+  .modifier(DesignOSAppTextFieldModifier())
+  .onSubmit { editingName = false }
+
+TextField("Details", text: $details, axis: .vertical)
+  .lineLimit(3...6)
+  .modifier(DesignOSAppTextFieldModifier(multiline: true))
+```
+
+The single-line variant is a genuine continuous capsule. The multiline variant uses the
+existing editorial surface radius; both reuse the content inset, item spacing and adaptive
+surface/ink roles. A 44-point minimum does not cap Dynamic Type growth. This is an opt-in
+filled control surface, not a global rule that every text editor becomes a pill. Keep plain
+inline editors inside grouped profile/form rows, native searchable controls, system pickers,
+authentication dialogs, and security sheets under platform ownership.
+
+For truly concentric nesting only, pass `cornerRadius: DesignOSCornerGeometry.innerRadius(
+outerRadius: style.metrics.surfaceRadius, inset: actualInset)`. The inset must be the real
+separation between those corresponding edges, not an unrelated spacing token. An explicit
+nested surface uses the subtle fill to distinguish it from the outer group. The isolated
+`nested` fixture has 24-point outer radius and an actual 16-point inset, hence an 8-point
+inner radius; that is a geometry demonstration, not a claim that Luma nests standalone inputs.
+
+The native control retains text selection, paste, keyboard, focus binding, secure entry,
+accessibility label/value and disabled semantics. Focus uses the native insertion point.
+Do not simulate focus by drawing a permanent ring or adding a tap-blocking overlay. Validation
+and its timing remain app-owned: show a visible error message below the field and provide an
+appropriate accessibility hint. The observed reference retains neutral field fill even when
+invalid; there is no invented red outline. Increase Contrast adds a passive 1-point boundary
+as an explicit accessibility adaptation. Disabled text uses the shared secondary ink.
+
+### Reference and remaining gaps
+
+Inspected references: [profile onboarding](https://mobbin.com/screens/dbc57f37-ea1c-4a10-9b97-eb4b68beed26)
+(single-line soft capsule and taller Bio), [grouped edit profile](https://mobbin.com/screens/9c280804-6c03-46ca-becd-fad82251e0fd)
+(plain rows), and [focused username](https://mobbin.com/screens/46b79fb5-fa43-4bcf-8d4f-aa429d98f41a)
+(neutral fill, native caret, separate error copy). The previous specimen explicitly selected
+`.roundedBorder`, which ignored editorial shape/fill and produced the small outlined rectangle.
+
+Raster evidence establishes shape and hierarchy, not exact source point values. Shared
+metrics, font rendering, disabled appearance, dark fallback, increased-contrast boundary and
+macOS adaptation are implementation choices pending native screenshot review. The immersive
+reference's translucent field treatment is not represented by this opaque variant. No exact
+reference-state parity is claimed. CalorieCam's existing plain grouped food editors and secure
+settings fields remain plain because their row/system contexts do not call for another box.
+
+Native comparison fixture: `LAYERED_KIT_SPECIMEN=text-fields`, with
+`LAYERED_KIT_FIELD_STATE=normal|focused|disabled|error|secure|multiline|nested` and
+`LAYERED_KIT_APPEARANCE=light|dark`. The UI suite `TextFieldSpecimenUITests` creates individually
+named screenshot attachments for every state in both appearances and tests repeated native
+editing, focus dismissal and secure-entry classification. Secure captures contain no entered
+content. These are source-authored tests, not evidence of execution on a non-Apple host.

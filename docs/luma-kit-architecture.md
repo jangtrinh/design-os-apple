@@ -387,3 +387,13 @@ successful reuse must not require copying a CalorieCam file or importing its Cor
 Families absent from CalorieCam still need a native specimen host and state fixtures. Do not add
 chat, event ticketing, payment, or social-account features to CalorieCam merely to demonstrate
 coverage. A new demonstration host is additive and separate from the frozen release catalog.
+
+## Additive standalone text input
+
+`DesignOSAppTextFieldModifier` adds one public semantic appearance contract beyond the
+first-slice types above. It is a ViewModifier applied to real TextField/SecureField controls,
+not a replacement input widget. Its internal appearance policy is not a separate public API.
+Single-line capsules and multiline rounded fills are reference-informed; plain grouped rows
+remain native. Source, compile fixture, requirements and evidence status are listed separately
+in the editorial manifest and layered index. Native renders and reference parity remain
+NOT VERIFIED until exact-candidate captures are reviewed.

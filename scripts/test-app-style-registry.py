@@ -55,7 +55,7 @@ class AppStyleIndexTests(unittest.TestCase):
     def test_valid_index(self):
         result = REGISTRY.validate(self.root)
         self.assertEqual(result["id"], "editorial")
-        self.assertEqual(len(result["components"]), 6)
+        self.assertEqual(len(result["components"]), 7)
         self.assertEqual(result["verification"]["semantics"], "requirements-only")
 
     def test_unknown_claim_field_is_rejected_at_each_level(self):
@@ -209,6 +209,16 @@ class AppStyleIndexTests(unittest.TestCase):
         path = self.root / component["source"]
         path.write_text("/*\n" + path.read_text(encoding="utf-8") + "\n*/", encoding="utf-8")
         self.reject("public Swift declaration not found")
+
+    def test_text_field_requires_native_input_states(self):
+        field = next(c for c in self.data["components"] if c["id"] == "text-field-modifier")
+        field["requiredStates"].remove("secure-entry")
+        self.reject("component-kind state requirements missing")
+
+    def test_text_field_kind_cannot_be_recast_as_button(self):
+        field = next(c for c in self.data["components"] if c["id"] == "text-field-modifier")
+        field["kind"] = "native-button-style"
+        self.reject("component-kind state requirements missing")
 
     def test_unknown_component_kind(self):
         self.data["components"][0]["kind"] = "html-widget"

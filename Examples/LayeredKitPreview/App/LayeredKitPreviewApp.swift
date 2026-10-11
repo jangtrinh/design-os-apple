@@ -3,10 +3,18 @@ import SwiftUI
 
 @main
 struct LayeredKitPreviewApp: App {
-    @State private var appearance = PreviewAppearance.system
+    @State private var appearance = ProcessInfo.processInfo.environment["LAYERED_KIT_APPEARANCE"]
+        .flatMap(PreviewAppearance.init(rawValue:)) ?? .system
     var body: some Scene {
         WindowGroup {
-            PreviewNavigation(appearance: $appearance)
+            Group {
+                if let componentID = ProcessInfo.processInfo.environment["LAYERED_KIT_COMPONENT"],
+                   ComponentInventorySpecimen.supports(componentID) {
+                    ComponentInventorySpecimen(componentID: componentID)
+                } else {
+                    PreviewNavigation(appearance: $appearance)
+                }
+            }
                 .designOSAppStyle(.editorial)
                 .preferredColorScheme(appearance.scheme)
         }
@@ -34,7 +42,7 @@ struct PreviewNavigation: View {
         DesignOSAdaptiveNavigationShell(columnVisibility: $columnVisibility) {
             List(selection: $selected) {
                 Section("Reusable layers") {
-                    ForEach([Specimen.foundations, .composites, .shells]) { item in row(item) }
+                    ForEach([Specimen.foundations, .composites, .shells, .textFields]) { item in row(item) }
                 }
                 Section("18 screen families") {
                     ForEach(Specimen.screens) { item in row(item) }

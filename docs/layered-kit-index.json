@@ -1464,6 +1464,29 @@
       "source_sha256": "3cfde4e79cd3fc40ebd56f1bdb788071df940f3785e6001c03889f4e0f6f1e54",
       "public_declarations": [],
       "visibility": "internal"
+    },
+    {
+      "id": "semantic/text-field-modifier",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Opt-in content appearance only; native TextField/SecureField own editing, selection, keyboard and accessibility. The consumer owns labels, text, focus bindings and validation. Native inline rows and system security dialogs retain platform appearance.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/DesignOSAppTextFieldModifier.swift",
+      "symbol": "DesignOSAppTextFieldModifier",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "e324fe7767be06b057763859d58640ef4b21d28d6ca92ee46c1200da43fc356c",
+      "public_declarations": [
+        "func body",
+        "init",
+        "struct DesignOSAppTextFieldModifier"
+      ],
+      "visibility": "public",
+      "documentation": "docs/reusable-app-style.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/AppStyle/DesignOSAppTextFieldModifierTests.swift"
     }
   ]
 }

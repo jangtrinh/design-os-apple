@@ -21,10 +21,14 @@ TIERS = {
 STATES = {
     "light", "dark", "increased-contrast", "accessibility-dynamic-type", "long-content",
     "enabled", "pressed", "disabled", "keyboard-focus", "pointer-hover", "multiline-label",
-    "photo", "no-photo", "reduce-transparency", "opaque-only-policy", "reduce-motion", "destructive",
+    "photo", "no-photo", "reduce-transparency", "opaque-only-policy", "reduce-motion", "destructive", "error", "secure-entry", "multiline-input",
 }
-KINDS = {"content-layout", "content-surface", "native-button-style", "decorative-background"}
+KINDS = {"content-layout", "content-surface", "native-button-style", "native-text-field-modifier", "decorative-background"}
 KIND_STATES = {
+    "native-text-field-modifier": {
+        "accessibility-dynamic-type", "enabled", "disabled", "keyboard-focus",
+        "error", "secure-entry", "multiline-input",
+    },
     "content-layout": {"accessibility-dynamic-type", "long-content"},
     "content-surface": {"accessibility-dynamic-type", "long-content"},
     "native-button-style": {

@@ -124,7 +124,8 @@ struct ExtendedSpecimenContent: View {
                     } input: {
                         TextField("Local message", text: $draft, axis: .vertical)
                             .lineLimit(1...4)
-                            .textFieldStyle(.roundedBorder).accessibilityIdentifier("messageDraft")
+                            .modifier(DesignOSAppTextFieldModifier(multiline: true))
+                            .accessibilityIdentifier("messageDraft")
                     } actions: {
                         Button("Add locally") { messages.append(draft); draft = "" }
                             .buttonStyle(DesignOSSecondaryButtonStyle())

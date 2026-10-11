@@ -41,6 +41,7 @@ jobs:
           python3 scripts/verify-app-style-registry.py
           python3 scripts/test-layered-kit-verifier.py
           python3 scripts/verify-layered-kit.py
+          python3 scripts/verify-component-specimens.py
 
   caloriecam-native:
     strategy:
@@ -123,6 +124,7 @@ jobs:
       - name: Verify reusable native UI-kit specimens
         env:
           LAYERED_KIT_DESTINATION: ${{ matrix.destination }}
+          LAYERED_KIT_TEST_SUITE: original
           LAYERED_KIT_RESULTS_DIR: ${{ runner.temp }}/layered-kit-results
         run: scripts/verify-layered-kit-preview.sh
       - name: Preserve layered-kit native evidence
@@ -134,5 +136,78 @@ jobs:
             ${{ runner.temp }}/layered-kit-results/*.xcresult
             ${{ runner.temp }}/layered-kit-results/selected-simulators.txt
             ${{ runner.temp }}/layered-kit-results/toolchain.txt
+            ${{ runner.temp }}/layered-kit-results/source-revision.txt
+            ${{ runner.temp }}/layered-kit-results/test-selection.txt
             ${{ runner.temp }}/layered-kit-results/screenshots-*/
+          if-no-files-found: ignore
+
+  # Keep field regressions independent of the broad component screenshot inventory.
+  layered-kit-fields:
+    strategy:
+      fail-fast: false
+      matrix:
+        destination: [iphone, ipad, macos]
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Verify native text-field specimens and interactions
+        env:
+          LAYERED_KIT_DESTINATION: ${{ matrix.destination }}
+          LAYERED_KIT_TEST_SUITE: fields
+          LAYERED_KIT_RESULTS_DIR: ${{ runner.temp }}/layered-kit-fields-results
+        run: scripts/verify-layered-kit-preview.sh
+      - name: Preserve native field evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: layered-kit-fields-${{ matrix.destination }}-test-results
+          path: |
+            ${{ runner.temp }}/layered-kit-fields-results/*.xcresult
+            ${{ runner.temp }}/layered-kit-fields-results/selected-simulators.txt
+            ${{ runner.temp }}/layered-kit-fields-results/toolchain.txt
+            ${{ runner.temp }}/layered-kit-fields-results/source-revision.txt
+            ${{ runner.temp }}/layered-kit-fields-results/test-selection.txt
+            ${{ runner.temp }}/layered-kit-fields-results/screenshots-*/
+          if-no-files-found: ignore
+
+  layered-kit-components:
+    # Give the smaller, priority field matrix runner capacity first; still collect
+    # component evidence after a field failure, without making that failure pass.
+    needs: layered-kit-fields
+    if: ${{ !cancelled() }}
+    strategy:
+      fail-fast: false
+      matrix:
+        destination: [iphone, ipad, macos]
+        shard: [semantic, composite, shell, native]
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Verify isolated native component shard
+        env:
+          LAYERED_KIT_DESTINATION: ${{ matrix.destination }}
+          LAYERED_KIT_TEST_SUITE: components
+          LAYERED_KIT_COMPONENT_SHARD: ${{ matrix.shard }}
+          LAYERED_KIT_RESULTS_DIR: ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results
+        run: scripts/verify-layered-kit-preview.sh
+      - name: Preserve isolated component evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: layered-kit-components-${{ matrix.shard }}-${{ matrix.destination }}-test-results
+          path: |
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/*.xcresult
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/selected-simulators.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/toolchain.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/source-revision.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/test-selection.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/screenshots-*/
           if-no-files-found: ignore

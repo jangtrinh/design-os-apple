@@ -88,3 +88,29 @@ have passed native execution or visual comparison. The current suite has nine te
 reachability, and one exact toggle-scalar decoder contract test. The latter accepts only native
 String or numeric 0/1 representations and does not substitute for actual toggle activation or
 measured accessibility layout reflow.
+
+
+## Isolated native text fields
+
+`LAYERED_KIT_SPECIMEN=text-fields` opens `TextFieldSpecimen`. The additional fixture-only
+`LAYERED_KIT_FIELD_STATE` values are `normal`, `focused`, `disabled`, `error`, `secure`,
+`multiline` and `nested`; `LAYERED_KIT_APPEARANCE=light|dark` selects reproducible appearance
+without imposing a theme on consuming apps. A focused capture requires a real tap by the UI
+suite, not programmatic focus on launch. Run `TextFieldSpecimenUITests` on each native target
+for 14 separate state/appearance captures and repeated editing / secure-entry tests.
+
+Example focused suite (after XcodeGen; use an installed simulator):
+
+```sh
+xcodebuild test -project Examples/LayeredKitPreview/LayeredKitPreview.xcodeproj \
+  -scheme LayeredKitPreview-iOS \
+  -destination 'platform=iOS Simulator,name=<installed simulator>' \
+  -only-testing:LayeredKitPreview-iOS-UITests/TextFieldSpecimenUITests \
+  -resultBundlePath /tmp/TextFields-unique.xcresult
+```
+
+The source-authored field suite adds three methods to the existing nine preview methods.
+Its native results remain NOT VERIFIED until executed on the exact candidate. Captures use
+original fixture content; the secure screenshot is empty and never captures entered content.
+Reference screenshots stay outside the app and repository. See the shared
+[modifier contract and reference gaps](../../docs/reusable-app-style.md#native-editorial-text-input).

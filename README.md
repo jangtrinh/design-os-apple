@@ -1,26 +1,52 @@
 # Apple Design OS
 
-[![Swift 6.2](https://img.shields.io/badge/Swift-6.2-F05138.svg?style=flat&logo=swift&logoColor=white)](https://swift.org)
-[![Platforms: iOS 17 | iPadOS 17 | macOS 14](https://img.shields.io/badge/Platforms-iOS%2017%20%7C%20iPadOS%2017%20%7C%20macOS%2014-0071e3.svg?style=flat)](Package.swift)
-[![License: MIT](https://img.shields.io/badge/License-MIT-green.svg?style=flat)](LICENSE)
-[![Zero Dependencies](https://img.shields.io/badge/Dependencies-Zero-blue.svg?style=flat)](Package.swift)
-[![State: 0.1.0-rc.1 untagged](https://img.shields.io/badge/State-0.1.0--rc.1%20(untagged)-gray.svg?style=flat)](RELEASING.md)
+> **A native SwiftUI design system, from component to screen.**
+> One considered design language for iPhone, iPad, and Mac. Reusable layers, unified themes, and real native controls.
 
-Apple Design OS is a SwiftUI design-system library for iOS, iPadOS, and macOS. It keeps
-Apple-owned controls and interaction native, then adds semantic roles, typed profiles,
-content-only components, native API recipes, and a searchable Gallery of instructional
-reference pages that both people and AI agents can read.
+[![CI](https://github.com/jangtrinh/design-os-apple/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jangtrinh/design-os-apple/actions/workflows/ci.yml)
+[![Swift 6.2](https://img.shields.io/badge/Swift-6.2-555555?style=flat-square)](Package.swift)
+[![Zero dependencies](https://img.shields.io/badge/Dependencies-0-555555?style=flat-square)](Package.swift)
+[![MIT](https://img.shields.io/badge/License-MIT-555555?style=flat-square)](LICENSE)
 
-> **Release state:** `0.1.0-rc.1` candidate on `main`. No version tag has been published yet;
-> pin a branch or commit until the first tag lands.
+[Explore the visual guide](https://jangtrinh.github.io/design-os-apple/) · [Get started](#add-the-package) · [Inspect the candidate](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e)
 
-Minimum platforms: iOS and iPadOS 17, macOS 14. Swift 6.2 toolchain, Swift Package Manager.
-DESIGN:OS maintainer tooling is not required by package consumers.
-Web documentation site: [https://jangtrinh.github.io/design-os-apple/](https://jangtrinh.github.io/design-os-apple/)
+<p align="center"><img src="docs/assets/marketing/kit-overview.png" alt="Real native Apple Design OS candidate screenshots showing reusable discovery, composer, and form compositions" width="1000"></p>
+
+**Shown above: the layered kit candidate at [`adcf88a`](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e).**
+This documentation preview does not merge that implementation into `main`.
+The main-branch CI badge describes main; [candidate CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370) is the source-bound evidence for the images and kit claims below.
+No version tag is claimed. [Proof and image provenance](docs/marketing/proof.md).
+
+## What it solves
+
+Bring a consistent editorial style to native Apple apps without taking ownership away from SwiftUI.
+Compose with meaningful components, reuse a screen structure, and connect your own models and actions.
+
+- **A shared visual language.** Palette, typography, spacing, and metrics flow from an opt-in application style. Keep system, light, or dark appearance coherent across the app.
+- **Considered geometry.** Continuous image corners; nested radii derived from the actual inset; full-pill styles applied to real native buttons.
+- **Reusable layers.** Primitives → semantic components → composites → shells → screen types. Native navigation, focus, inputs, and presentation retain their platform owner.
+
+Choose this for native SwiftUI composition. Plain SwiftUI may be simpler when you do not need shared design rules. This is not a cross-platform rendering engine, a backend, or a turnkey application.
+
+## Technical register
+
+| Fact | Contract |
+| --- | --- |
+| Platforms | iOS 17+, iPadOS 17+, macOS 14+ |
+| Toolchain | Swift 6.2 · Swift Package Manager |
+| Main product | `DesignOSApple` |
+| Optional products | `DesignOSAppleExtensions`, `DesignOSAppleCatalog` |
+| Package dependencies | Zero external dependencies |
+| Application ownership | Your state, routes, services, native controls, and actions |
+| License | MIT for original software and documentation |
+
+Package consumers do not need DESIGN:OS maintainer tooling. The library has no first-party telemetry; this README loads external badge images, and the documentation's Markdown layout retains its existing external Buy Me a Coffee widget.
 
 ## Add the package
 
-In `Package.swift`:
+### Existing library on main
+
+In `Package.swift`, add the package and link the product:
 
 ```swift
 dependencies: [
@@ -33,57 +59,59 @@ targets: [
 ]
 ```
 
-Or in Xcode choose **File > Add Package Dependencies**, paste the repository URL, and link
-the `DesignOSApple` product to your target. `DesignOSAppleExtensions` and
-`DesignOSAppleCatalog` are optional products for extension surfaces and catalog metadata.
+Or choose **File > Add Package Dependencies** in Xcode, paste the repository URL, and link `DesignOSApple`.
+The first compiling view is in [Getting Started](docs/getting-started.md). Its example is kept in parity with the landing page and type-checked by `scripts/verify-consumer-quickstart.sh` against the built package.
 
-The first compiling view is in [Getting Started](docs/getting-started.md). Its code block is
-type-checked by `scripts/verify-consumer-quickstart.sh` against the built package.
+### Evaluate the layered kit candidate
 
-## Choose the right API
+The new kit APIs shown in this README are pinned to the candidate. Replace the dependency above with:
 
-- Put `DesignOSListRow` or `DesignOSSidebarRow` inside caller-owned native containers.
-- Use `DesignOSColorRole`, `DesignOSTypographyRole`, and `DesignOSSurfaceRole` for semantic
-  construction intent.
-- Inject a validated `DesignOSProfile` once at a product subtree boundary.
-- Call `Button`, `List`, `NavigationSplitView`, presentation modifiers, and extension APIs
-  directly. The DocC recipes document their layout and accessibility contracts.
+```swift
+.package(
+  url: "https://github.com/jangtrinh/design-os-apple.git",
+  revision: "adcf88a468a43ed1727c9c902ae5243423e4176e"
+)
+```
 
-### Key specifications (6 facts)
+Keep the same `DesignOSApple` product dependency. Read the [candidate architecture guide](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-kit-architecture.md) and [reusable application style](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md) before adopting these APIs.
 
-- **Repository:** [`jangtrinh/design-os-apple`](https://github.com/jangtrinh/design-os-apple)
-- **Requires:** iOS 17+, iPadOS 17+, macOS 14+ · Swift 6.2 · Zero external package dependencies
-- **Interface:** Native SwiftUI Library (Swift Package Manager)
-- **Transport / Protocol:** In-process Swift Package · DocC Documentation
-- **Telemetry / Privacy:** Zero first-party telemetry or tracking in library; web documentation page loads external Shields badges and Buy Me a Coffee widget
-- **License:** [MIT License](LICENSE)
+## Architecture: compose up, keep ownership clear
 
-### Honest boundary
+| Layer | Responsibility | Additive candidate source |
+| --- | --- | --- |
+| Primitives | Geometry, clipping, adaptive placement | 3 new internal helpers |
+| Semantic components | Media, identity, labeled values, status | 4 new public APIs |
+| Composites | Meaningful groups with caller-owned slots | 11 new public APIs |
+| Shells | One scrolling/container and safe-area policy | 9 new public APIs |
+| Screen types | Named task hierarchies built from lower layers | 18 new public APIs |
 
-- **Use when:** Building native SwiftUI apps for iOS 17+, iPadOS 17+, and macOS 14+ that need semantic roles, typed profiles, and adaptive recipes without third-party dependencies.
-- **Avoid when:** Requiring cross-platform abstractions (Flutter/React Native), custom non-native rendering engines, or legacy deployments below iOS 17 / macOS 14.
+**42 additive public APIs**, plus **4 native or existing-component recipes** counted separately.
+These are source counts, not 42 complete apps. Existing theme/profile/token authorities support every layer.
 
-### 3 Safe-use steps
+1. **Choose the surface.** Start with the screen family that matches the user's task.
+2. **Inject the style.** Apply the shared app style once at a product boundary.
+3. **Connect real behavior.** Supply native controls, content, routes, state, and actions.
 
-1. **Add Package:** Link `DesignOSApple` via Swift Package Manager with zero external dependencies.
-2. **Compose Natively:** Place `DesignOSListRow` inside native `List` or `NavigationSplitView`.
-3. **Inject Profile:** Apply `.designOSProfile(.default)` once at a product subtree boundary.
+[Machine-readable kit index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json) · [Native layout recipes](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/native-layout-recipes.md) · [Design-system ownership](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/design-system-organization.md)
 
-### Practical verification verbs
+## Gallery: actual native captures
 
-- `build`: `swift build` — Compiles package in debug mode.
-- `test`: `swift test` — Runs package unit tests (historically recorded 90 passed in baseline; 91 passed in debug configuration).
-- `inspect`: `xcodegen generate --spec Examples/DesignOSAppleGallery/project.yml --project Examples/DesignOSAppleGallery` followed by `open Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj` (see [Browse the Gallery](#browse-the-gallery)) — Generates Xcode project (separate open command launches catalog).
-- `verify`: `scripts/verify-release-candidate.sh` — Validates candidate release gate (historical baseline failed Swift 6.2.3 SIL crash; workaround avoids crash with strict release build passed).
+<table><tr>
+<td width="33%"><img src="docs/assets/marketing/iphone-discovery-light.png" alt="Native discovery fixture in light appearance" width="290"><br><strong>Discover &amp; collect</strong></td>
+<td width="33%"><img src="docs/assets/marketing/iphone-grouped-form-light.png" alt="Native grouped form fixture in light appearance" width="290"><br><strong>Group &amp; refine</strong></td>
+<td width="33%"><img src="docs/assets/marketing/iphone-media-composer-dark.png" alt="Native media composer fixture in dark appearance" width="290"><br><strong>Create &amp; edit</strong></td>
+</tr></table>
 
-Start at the [DocC landing page](Sources/DesignOSApple/DesignOSApple.docc/DesignOSApple.md)
-for runtime concepts. AI-assisted consumers should read [AI Usage](docs/ai-usage.md) before
-generating an interface.
+Selected fixtures from **108 native family captures**, not generated mockups. Capture selection, source filenames, and transformations are recorded in the [asset manifest](docs/assets/marketing/manifest.json).
+See the [visual guide](https://jangtrinh.github.io/design-os-apple/#gallery) for iPad and Mac captures.
 
-## Browse the Gallery
+The candidate has **18 screen types**: discovery, flat collection, hero collection, media detail, record detail, profile detail, media composer, freeform editor, grouped form, search selection, message thread, onboarding, confirmation, status, focused task, utility canvas, native presentation, and provider host.
 
-Install [XcodeGen](https://github.com/yonaskolb/XcodeGen), then generate and open the native
-Gallery:
+[Explore their Swift source](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e/Sources/DesignOSApple/Screens).
+
+### Browse the native Gallery
+
+On a Mac with Xcode and [XcodeGen](https://github.com/yonaskolb/XcodeGen):
 
 ```bash
 xcodegen generate --spec Examples/DesignOSAppleGallery/project.yml \
@@ -91,83 +119,29 @@ xcodegen generate --spec Examples/DesignOSAppleGallery/project.yml \
 open Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj
 ```
 
-Run `DesignOSAppleGallery-iOS` or `DesignOSAppleGallery-macOS`. The default route is the
-searchable Catalog. Every Catalog story is an instructional reference page: stable AI
-keyword, executable preview or native destination, concrete use/avoid/placement guidance,
-copyable SwiftUI call site, ownership, availability, fallback, related stories, and source
-path. Package-internal primitives remain browsable under **Implementation internals** but
-point product code toward semantic components.
+Run `DesignOSAppleGallery-iOS` or `DesignOSAppleGallery-macOS`. The Catalog provides instructional reference pages with use/avoid guidance, call sites, ownership, availability, and source paths. Launch arguments `--design-os-story <story-id>` and `--design-os-profile <profile-id>` open a specific admitted story or profile. Implementation internals stay distinct from public APIs; local demo IDs stay separate from the typed release catalog.
 
-A specific admitted story or profile can be opened with launch arguments:
+## Verification, with boundaries
 
-```text
---design-os-story <story-id>
---design-os-profile <profile-id>
-```
+[Candidate CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370) passed all **8 jobs** for candidate `adcf88a` (tested merge `86b686d`):
 
-Open **Examples** for six original, local-only two-screen mini apps that show native
-SwiftUI composition in product-shaped contexts. They use fictional fixtures, SF Symbols, and
-generated artwork; they are learning surfaces, not public runtime APIs or release catalog
-entries.
+- **CalorieCam:** 10/10 UI tests on each of iPhone, iPad, and Mac.
+- **Layered kit:** 9/9 UI tests on each of iPhone, iPad, and Mac.
+- **Package:** 173 reported tests; the genuine high-contrast fixture was skipped.
+- **Research:** 393 distinct reference states mapped. This is not 393 fully reconstructed or visually accepted screens.
 
-### Catalog authority
+Earlier intermittent activation failures remain unexplained. A green run does not establish live AI, physical-camera behavior, OS 27 / iPhone Duo execution, complete VoiceOver behavior, performance, or full reference-state fidelity.
 
-- [`DesignOSReleaseCatalog`](Sources/DesignOSAppleCatalog/DesignOSReleaseCatalog.swift) is
-  the typed release-story authority.
-- The [catalog bundle `v2`](Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v2.json)
-  is a checked machine-readable projection for tools and AI agents, not a second authority.
-  The `v1` artifact stays frozen for compatibility.
-- The [local demo catalog](Examples/DesignOSAppleGallery/Generated/local-demo-catalog.v2.json)
-  is a separate `localOnly` manifest for the mini apps. Tools must not merge its IDs into
-  the release catalog or infer package API availability from it.
+[CalorieCam](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/Examples/CalorieCam/README.md) is a separate native dogfood app for a photo-reference meal journal. Its offline mode uses labeled sample data, not image recognition.
 
-Maintainers follow the [catalog thumbnail workflow](docs/catalog-thumbnail-workflow.md) for
-generated artwork and the
-[reference reconstruction workflow](docs/reference-reconstruction-workflow.md) for new
-research-driven mini apps.
-
-## CalorieCam: native app dogfood
-
-[CalorieCam](Examples/CalorieCam/README.md) is a separate iPhone/iPad/macOS example that
-uses this design system for a photo-reference meal journal: choose or capture a photo,
-review editable food estimates, and explicitly save a meal. Its initial offline mode uses
-labeled sample data, not image recognition. Native build, simulator, camera and live-AI
-verification must be reported separately; source availability is not runtime acceptance.
-
-- [Native API lookup and coverage](docs/component-coverage.md): find a native API's
-  existing story and evidence level without inventing a wrapper.
-- [Latest Apple UI roadmap](docs/apple-ui-roadmap-2026-10.md): stable versus prerelease
-  capabilities, including documented Duo additions pending SDK verification.
-- [Mobbin research and interaction decisions](docs/caloriecam-mobbin-research.md).
-- [Design-system organization](docs/design-system-organization.md): Design OS authority layers
-  and a [machine-readable app-style index](docs/app-styles/editorial/manifest.json).
-- [Reusable editorial app style](docs/reusable-app-style.md): opt-in shared palette,
-  media rows, content surfaces, native button appearance and accessible media backdrops.
-- [Luma visual reference evidence](docs/luma-style-reference.md): observed pixels, inferred
-  geometry, native interaction mapping and explicit fidelity limits.
-
-On a Mac with Xcode and XcodeGen, run `scripts/verify-caloriecam.sh` for core tests and
-iPhone/iPad/macOS UI tests. This is a separate dogfood check and does not replace the
-package release-candidate gate.
-
-## Verify the checkout
+On a supported Apple development environment:
 
 ```bash
 swift test
 scripts/verify-release-candidate.sh
 ```
 
-The release gate covers package tests, strict release compilation, formatting, DocC,
-catalog drift, publication boundary, the consumer quickstart, and feasible Gallery
-build/smoke checks. Passing it does not prove manual VoiceOver behavior, physical-device
-behavior, visual taste, independent review, or owner acceptance. See
-[Quality Evidence](docs/quality-evidence.md).
-
-## Maintainer-only design management
-
-### Portable documentation and provenance checks
-
-The documentation and provenance regression checks also run on Linux with Python 3:
+Portable documentation checks, from the pinned candidate checkout:
 
 ```bash
 python3 scripts/test-ukmc-verifier.py
@@ -175,53 +149,49 @@ python3 scripts/test-quickstart-parity.py
 python3 scripts/verify-quickstart-parity.py
 ```
 
-These checks reject malformed provenance and drift between the landing-page Swift example
-and the Getting Started example. They do not compile SwiftUI or replace the macOS release
-gate. The UKMC regression suite distinguishes local structural validation from canonical
-knowledge-builder integration; a passing portable suite is not canonical-contract proof.
+The portable checks do not compile SwiftUI or replace native execution. [Quality evidence](docs/quality-evidence.md) · [Portable verification](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/portable-verification.md) · [Candidate evidence and provenance](docs/marketing/proof.md).
 
-See [portable verification](docs/portable-verification.md) for dependency setup and scope.
+## Frequently asked questions
 
-### Managed design intent
+### What is Apple Design OS?
 
-`design/` is the DESIGN:OS management source of truth. `Sources/DesignOSApple/` is the
-native runtime implementation. Maintainers changing managed design intent use `ui ds`;
-consumers never need it:
+Apple Design OS is a zero-dependency SwiftUI design system for iOS, iPadOS, and macOS. Its layered kit candidate adds reusable semantic components, composites, shells, and screen types while keeping native controls and application state in the consuming app.
 
-```bash
-ui ds status --dir .
-ui ds context --strict --dir .
-ui ds change-token <token.path> --value <value> --reason "<decision>" --dir .
-```
+### Which platforms and toolchain does it require?
 
-Never hand-edit `design/design.tokens.json`. The DESIGN:OS persona is an aesthetic seed;
-Apple documentation, platform APIs, and live behavior remain authoritative.
+The package requires Swift 6.2, iOS 17 or later, iPadOS 17 or later, and macOS 14 or later. It uses Swift Package Manager and has no external package dependencies.
 
-## OS 27 & iPhone Duo Intake
+### Is the layered kit available on main?
 
-The September 2026 Apple platform announcements (iPhone Duo hardware architecture, iOS 27, iPadOS 27, macOS 27) are audited in the [iPhone Duo & OS 27 Platform Intake Report](docs/os27-intake-report.md). Authoritative knowledge units are maintained in [`docs/knowledge/`](docs/knowledge/) under the Universal Knowledge Markdown Contract (UKMC.v1). The intake tracks repository subsystem gap inventory (`Profile/`, `Tokens/`, `Components/`, `Recipes/`, `DesignOSApple.docc/`, `Examples/DesignOSAppleGallery/`), preserves strict package floors (iOS 17, iPadOS 17, macOS 14), and documents verified simulator specimen evidence.
+The layered kit shown here is a candidate at revision adcf88a468a43ed1727c9c902ae5243423e4176e. Pin that revision to evaluate these APIs. The main branch quickstart remains available for the existing library. No version tag is claimed.
 
-## Implementation Specimens
+### Are all 393 reference screens implemented?
 
-Native navigation behavior verified on Apple platform simulators:
-- [iPhone 17 Pro Portrait (iOS 26.2 build 23C54)](docs/specimens/specimen-iphone17pro-compact.png)
-- [iPhone 17 Pro Landscape (iOS 26.2 build 23C54)](docs/specimens/specimen-iphone17pro-landscape.png)
-- [iPad Pro 11-inch M5 Two-Column Split View (iPadOS 26.2 build 23C54)](docs/specimens/specimen-ipadpro-wide.png)
-- [Specimens Manifest](docs/specimens/manifest.json)
+No. The research atlas maps 393 distinct reference states. The candidate contains 42 additive public APIs, three new internal primitives, and four native or existing-component recipes. Mapping and family-level screenshots do not establish complete reconstruction or visual acceptance of all 393 states.
 
-## Project routes
+### What has been verified, and what is still open?
 
-- [Web Documentation Site](https://jangtrinh.github.io/design-os-apple/)
-- [Contributing](CONTRIBUTING.md)
-- [Support](SUPPORT.md)
-- [Security](SECURITY.md)
-- [Apple platform evolution](docs/apple-platform-evolution.md)
-- [iPhone Duo & OS 27 Intake Report](docs/os27-intake-report.md)
-- [Release process](RELEASING.md)
-- [Changelog](CHANGELOG.md)
+CI run 38087127370 passed all eight jobs for candidate adcf88a: CalorieCam reported 10 of 10 UI tests and the kit 9 of 9 on each of iPhone, iPad, and Mac. The package reported 173 tests with the genuine high-contrast fixture skipped. Earlier intermittent activation failures remain unexplained. Live AI, physical camera, OS 27 and iPhone Duo execution, complete VoiceOver behavior, and performance are not established by this run.
 
-Original project software and documentation use the [MIT License](LICENSE). Apple Design
-OS is independent and is not affiliated with, endorsed by, or sponsored by Apple Inc.
-Apple platform names and trademarks belong to Apple Inc. Apple Design Resources, fonts,
-symbols, template artwork, and other Apple-owned assets are not distributed under this
-license.
+## Ecosystem
+
+- [design-os](https://github.com/jangtrinh/design-os): design-intent management for maintainers.
+- [design-os-figma-plugin](https://github.com/jangtrinh/design-os-figma-plugin): a companion design workflow.
+- [design-os-github-page](https://github.com/jangtrinh/design-os-github-page): the README and nine-tier Pages foundation used here.
+
+## Read next
+
+- [Getting Started](docs/getting-started.md) and [DocC runtime concepts](Sources/DesignOSApple/DesignOSApple.docc/DesignOSApple.md)
+- [Candidate layered kit architecture](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-kit-architecture.md) and [API index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json)
+- [Candidate themes, corners, and pill controls](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md)
+- [AI usage](docs/ai-usage.md) and [candidate native API coverage](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/component-coverage.md)
+- [Catalog thumbnail workflow](docs/catalog-thumbnail-workflow.md) and [reference reconstruction workflow](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reference-reconstruction-workflow.md)
+- [Candidate Luma reference study](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-style-reference.md), [atlas](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-layout-atlas.md), and [CalorieCam research](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/caloriecam-mobbin-research.md)
+- [Apple platform evolution](docs/apple-platform-evolution.md), [OS 27 intake](docs/os27-intake-report.md), and [candidate roadmap](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/apple-ui-roadmap-2026-10.md)
+- [Contributing](CONTRIBUTING.md) · [Support](SUPPORT.md) · [Security](SECURITY.md) · [Release process](RELEASING.md) · [Changelog](CHANGELOG.md)
+
+Maintainers: `design/` remains managed design intent; `Sources/DesignOSApple/` remains runtime implementation. Use the documented `ui ds` workflow for managed changes. Never hand-edit `design/design.tokens.json`.
+
+## License
+
+Original software and documentation use the [MIT License](LICENSE). Apple Design OS is independent and is not affiliated with, endorsed by, or sponsored by Apple Inc. Apple names and trademarks belong to Apple Inc. Apple-owned resources, fonts, symbols, and template artwork are not relicensed by this project. Reference-app screenshots and branding are research provenance, not distributable product assets.

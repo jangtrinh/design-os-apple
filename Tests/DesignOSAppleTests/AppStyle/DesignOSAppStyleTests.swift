@@ -311,6 +311,8 @@ func appStyleCompositionsCompile() {
   let ambient = DesignOSAppSurface(tone: .ambient) { Text("Media details") }
   let action = Button("Continue") {}.buttonStyle(DesignOSPrimaryButtonStyle())
   let secondary = Button("Choose another") {}.buttonStyle(DesignOSSecondaryButtonStyle())
+  let field = TextField("Name", text: .constant("Local fixture"))
+    .modifier(DesignOSAppTextFieldModifier())
   let backdrop = DesignOSMediaBackdrop { Color.gray }
   let composed = VStack {
     header
@@ -319,6 +321,7 @@ func appStyleCompositionsCompile() {
     ambient
     action
     secondary
+    field
   }
   .background { backdrop }
   .designOSAppStyle(.editorial)

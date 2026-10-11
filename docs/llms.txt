@@ -1,21 +1,38 @@
 # Apple Design OS (DesignOSApple)
 
-> Apple Design OS: a native SwiftUI design-system library for iOS 17+, iPadOS 17+, and macOS 14+ with semantic roles, typed profiles, and verified recipes.
+> A native, zero-external-dependency SwiftUI design system for iOS 17+, iPadOS 17+, and macOS 14+, using Swift 6.2.
 
-Apple Design OS is a SwiftUI design-system library that keeps controls native while adding semantic roles, typed profiles, and platform-adaptive recipes.
+## Availability and authority
+
+The layered kit preview is candidate revision adcf88a468a43ed1727c9c902ae5243423e4176e, not a claim that these APIs exist on main. Pin that revision to evaluate the shown kit. Main retains its existing core-library quickstart. No version tag is claimed.
+
+The consuming app owns state, routes, services, native controls, and actions. Existing AppStyle, Profile, and Tokens are runtime theme authority. Composition flows from primitives to semantic components to composites to shells to screen types.
 
 ## Documentation
 
-- [Overview](https://jangtrinh.github.io/design-os-apple/): Main project overview, features, specimens, and verified evidence.
-- [Repository](https://github.com/jangtrinh/design-os-apple): GitHub repository, source code, and release tags.
-- [Getting Started](https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md): Swift Package Manager setup and first compiling view.
-- [iPhone Duo & OS 27 Intake Report](https://github.com/jangtrinh/design-os-apple/blob/main/docs/os27-intake-report.md): Architectural audit, UKMC knowledge units, and execution boundaries.
-- [Quality Evidence](https://github.com/jangtrinh/design-os-apple/blob/main/docs/quality-evidence.md): Test suites, verification gates, and diagnostic records.
+- [Overview](https://jangtrinh.github.io/design-os-apple/): Image-led kit preview, installation, architecture, FAQ and evidence.
+- [Main quickstart](https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md): Existing library setup and first compiling view.
+- [Candidate source](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e): Exact source for the new kit.
+- [Candidate architecture](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-kit-architecture.md): Layer responsibilities, boundaries and API contracts.
+- [Candidate API index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json): Machine-readable discovery with source and evidence boundaries.
+- [Candidate application style](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md): Unified themes, continuous corners, concentric inset geometry, and full-pill native buttons.
+- [Candidate native recipes](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/native-layout-recipes.md): Native layout and interaction handoffs.
+- [AI usage](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/ai-usage.md): Guidance before generating an interface.
+- [Proof and provenance](https://github.com/jangtrinh/design-os-apple/blob/main/docs/marketing/proof.md): Claim register and known limits.
+- [Screenshot manifest](https://jangtrinh.github.io/design-os-apple/assets/marketing/manifest.json): Asset hashes, original captures and transformations.
+- [Quality evidence](https://github.com/jangtrinh/design-os-apple/blob/main/docs/quality-evidence.md): Package verification contracts and historical evidence.
+- [Platform intake](https://github.com/jangtrinh/design-os-apple/blob/main/docs/os27-intake-report.md): Documented platform research, distinct from runtime execution.
 
-## Core Features & Architecture
+## Source counts, not acceptance counts
 
-- **Primary Interface**: SwiftUI Library (`DesignOSApple`), Extension APIs (`DesignOSAppleExtensions`), and Metadata Catalog (`DesignOSAppleCatalog`).
-- **Platform Floors**: iOS 17+, iPadOS 17+, macOS 14+; Swift 6.2 toolchain with zero third-party dependencies.
-- **Verification Gates**: Historical audit at 2bcb5bb (2026-10-01): 90 package unit tests, 10 iPhone UI tests, 1 iPad targeted test, 15 UKMC verifier tests, and 417 classified publication boundary files. Current verified candidate: 91 package unit tests (debug) with targeted descriptor decoding regression passed under release optimization, and 424 classified publication boundary files (historical UI test counts preserved).
-- **Documented vs. Runtime Boundaries**: OS 27 and iPhone Duo specifications are audited from verified Apple primary sources. Native execution is verified on iOS 26.2 and iPadOS 26.2 simulator runtimes. Local OS 27 and Duo SDKs or runtimes remain unavailable.
-- **Deterministic Workflows**: Clear separation between semantic design intent (`design/`) and compiled runtime Swift implementations (`Sources/`).
+42 additive public APIs: 4 semantic, 11 composite, 9 shell and 18 screen types. Three new internal primitives and four native or existing-component recipes are counted separately. 393 distinct reference states are mapped; this does not mean 393 fully reconstructed or visually accepted screens.
+
+## Native evidence snapshot
+
+[CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370) passed all 8 jobs for candidate adcf88a (tested merge 86b686d). CalorieCam reported 10/10 and kit 9/9 UI tests on each of iPhone, iPad and Mac. The package reported 173 tests with the genuine high-contrast fixture skipped. 108 native family captures were retained; selected actual captures appear in the marketing page.
+
+Earlier intermittent activation failures remain unexplained. Do not infer live AI, physical-camera acceptance, OS 27/iPhone Duo native execution, complete VoiceOver validation, performance proof, or full reference-state fidelity from this run. Screenshots are genuine native renders; sample meal media is an original synthetic fixture, not image recognition.
+
+## License and network distinction
+
+Original code/documentation: MIT. Independent project, no Apple endorsement. Reference-app assets are not distributed as kit product assets. No first-party package telemetry. Landing page uses local styles/images; README badges and the existing Markdown-layout Buy Me a Coffee widget are external web resources.

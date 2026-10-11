@@ -22,6 +22,7 @@ struct SpecimenContent: View {
     var body: some View {
         Group {
             switch specimen {
+            case .textFields: TextFieldSpecimen()
             case .foundations: foundations
             case .composites: composites
             case .shells: shells
@@ -103,7 +104,14 @@ struct SpecimenContent: View {
     }
 
     private var titleField: some View {
-        TextField("Gathering name", text: $title).textFieldStyle(.roundedBorder)
+        Group {
+            if specimen == .groupedForm {
+                TextField("Gathering name", text: $title).textFieldStyle(.plain)
+            } else {
+                TextField("Gathering name", text: $title)
+                    .modifier(DesignOSAppTextFieldModifier())
+            }
+        }
             .focused($editingTitle).onSubmit { editingTitle = false }
             .accessibilityIdentifier("fixtureTitle")
     }

@@ -55,8 +55,8 @@ class LayeredKitControls(unittest.TestCase):
         result = gate.verify(self.root)
         self.assertEqual(result['source_present_recipes'], 4)
         self.assertEqual(result['native_delegation_recipes'], 2)
-        self.assertEqual(result['public_source_present_apis'], 49)
-        self.assertEqual(result['source_present_records'], 56)
+        self.assertEqual(result['public_source_present_apis'], 50)
+        self.assertEqual(result['source_present_records'], 57)
         self.assertEqual(result['exact_screen_states_source_verified'], 0)
 
     def test_recipe_requires_fixture(self):

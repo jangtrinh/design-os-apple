@@ -1,0 +1,66 @@
+name: Marketing browser preview
+
+on:
+  pull_request:
+    paths:
+      - README.md
+      - 'docs/**'
+      - scripts/verify-marketing-browser.cjs
+      - scripts/verify-marketing-image-provenance.py
+      - scripts/test-marketing-image-provenance.py
+      - .github/workflows/marketing-preview.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: marketing-preview-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  browser-preview:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '22'
+      - name: Prepare failure evidence
+        run: |
+          export MARKETING_BROWSER_OUTPUT="$RUNNER_TEMP/marketing-browser-results"
+          export PLAYWRIGHT_BROWSERS_PATH="$RUNNER_TEMP/marketing-browsers"
+          printf 'MARKETING_BROWSER_OUTPUT=%s\n' "$MARKETING_BROWSER_OUTPUT" >> "$GITHUB_ENV"
+          printf 'PLAYWRIGHT_BROWSERS_PATH=%s\n' "$PLAYWRIGHT_BROWSERS_PATH" >> "$GITHUB_ENV"
+          mkdir -p "$MARKETING_BROWSER_OUTPUT"
+          printf '%s\n' '{"status":"setup-incomplete","note":"Browser checks have not run."}' > "$MARKETING_BROWSER_OUTPUT/results.json"
+      - name: Install pinned preview-only tooling
+        id: tooling
+        run: |
+          npm install --prefix "$RUNNER_TEMP/marketing-preview-tools" --registry=https://registry.npmjs.org --no-audit --no-fund --ignore-scripts --save-exact playwright@1.58.2 marked@15.0.12
+          "$RUNNER_TEMP/marketing-preview-tools/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify reviewed image provenance
+        shell: bash
+        run: |
+          python3 scripts/verify-marketing-image-provenance.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/image-provenance.log"
+      - name: Test provenance guard controls
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          python3 scripts/test-marketing-image-provenance.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/image-provenance-tests.log"
+      - name: Validate and capture previews
+        if: ${{ !cancelled() && steps.tooling.outcome == 'success' }}
+        env:
+          NODE_PATH: ${{ runner.temp }}/marketing-preview-tools/node_modules
+        run: node scripts/verify-marketing-browser.cjs
+      - name: Preserve screenshots and check results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: marketing-browser-preview
+          path: ${{ runner.temp }}/marketing-browser-results
+          retention-days: 14
+          if-no-files-found: error

@@ -2,6 +2,7 @@ import SwiftUI
 
 enum Specimen: String, CaseIterable, Identifiable {
     case foundations, composites, shells
+    case textFields = "text-fields"
     case flatCollection = "flat-collection"
     case mediaDetail = "media-detail"
     case mediaComposer = "media-composer"
@@ -22,7 +23,7 @@ enum Specimen: String, CaseIterable, Identifiable {
     var id: String { rawValue }
     var title: String { rawValue.replacingOccurrences(of: "-", with: " ").capitalized }
     var available: Bool { true }
-    static var screens: [Self] { allCases.filter { ![.foundations, .composites, .shells].contains($0) } }
+    static var screens: [Self] { allCases.filter { ![.foundations, .composites, .shells, .textFields].contains($0) } }
 }
 
 enum PreviewAppearance: String, CaseIterable {

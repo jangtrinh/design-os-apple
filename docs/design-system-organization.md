@@ -73,6 +73,7 @@ The shared reusable inventory is:
 - `DesignOSAppSurface`: standard/subtle opaque groups and an ambient media grouping with opaque fallbacks
 - `DesignOSPrimaryButtonStyle`: full-pill primary appearance for a real native `Button`
 - `DesignOSSecondaryButtonStyle`: quiet full-pill appearance sharing the native action implementation
+- `DesignOSAppTextFieldModifier`: opt-in single-line capsule or multiline rounded fill on real native fields; caller owns focus, validation and secure-entry bindings
 - `DesignOSMediaBackdrop`: decorative, image-derived background with opaque fallbacks
 
 The [adoption guide](reusable-app-style.md) contains complete call sites and constraints.

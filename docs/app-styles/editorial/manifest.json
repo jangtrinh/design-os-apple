@@ -63,6 +63,14 @@
       "kind": "decorative-background",
       "variants": ["image-derived", "opaque-fallback"],
       "requiredStates": ["light", "dark", "increased-contrast", "photo", "no-photo", "reduce-transparency", "opaque-only-policy", "reduce-motion"]
+    },
+    {
+      "id": "text-field-modifier",
+      "symbol": "DesignOSAppTextFieldModifier",
+      "source": "Sources/DesignOSApple/Components/DesignOSAppTextFieldModifier.swift",
+      "kind": "native-text-field-modifier",
+      "variants": ["single-line", "multiline", "nested"],
+      "requiredStates": ["light", "dark", "increased-contrast", "accessibility-dynamic-type", "enabled", "disabled", "keyboard-focus", "error", "secure-entry", "multiline-input"]
     }
   ],
   "verification": {
@@ -74,7 +82,8 @@
     "sourceTests": [
       "Tests/DesignOSAppleTests/AppStyle/DesignOSAppStyleTests.swift",
       "Tests/DesignOSAppleTests/AppStyle/DesignOSAdaptiveColorPlatformTests.swift",
-      "Tests/DesignOSAppleTests/AppStyle/DesignOSCornerGeometryTests.swift"
+      "Tests/DesignOSAppleTests/AppStyle/DesignOSCornerGeometryTests.swift",
+      "Tests/DesignOSAppleTests/AppStyle/DesignOSAppTextFieldModifierTests.swift"
     ],
     "nativeCommands": [
       "scripts/verify-swift-package.sh",
