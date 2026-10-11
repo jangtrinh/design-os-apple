@@ -117,7 +117,8 @@ Reference screenshots stay outside the app and repository. See the shared
 
 ### Native synchronization diagnostics
 
-Component capture readiness uses at most six completed native observations and requires
+Component capture readiness uses at most six completed native observations, paced at least
+two monotonic seconds between observation starts, and requires
 three consecutive visible, foreground, finite geometry samples within a 1-point settling
 tolerance. Every accepted sample remains hittable and intersects its actual window.
 A 120-second elapsed synchronization cap replaces the previous 10-second XCTWaiter:
@@ -136,3 +137,11 @@ disables parallel XCTest simulator workers, and retains boot/resource state besi
 existing source/toolchain receipts. The CI job remains capped at 45 minutes. Distinct hosted
 runner IDs do not establish shared-simulator contention; the boot diagnostics investigate
 launch reliability without asserting an unproved infrastructure cause.
+
+The pacing prevents back-to-back observations from exhausting the count in a tight loop;
+it does not guarantee readiness before the sixth observation. Slow AX calls add no extra sleep. No wait is scheduled when
+the next observation would begin at or beyond the elapsed cap; wakeups recheck the cap.
+
+Gallery verification uses the same bounded simulator boot observation and serial XCTest
+worker controls, retaining boot/resource logs in its configured results directory on failure.
+Native launch and interaction failures still fail that gate.

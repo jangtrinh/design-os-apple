@@ -32,6 +32,7 @@ final class ComponentInventoryUITests: XCTestCase {
     private struct ReadinessProgress {
         static let maximumObservations = 6
         static let maximumElapsed: TimeInterval = 120
+        static let minimumObservationInterval: TimeInterval = 2
         var observations = 0
         var stableSamples = 0
         private var previousWindow: CGRect?
@@ -56,7 +57,18 @@ final class ComponentInventoryUITests: XCTestCase {
         }
 
         func canObserve(elapsed: TimeInterval) -> Bool {
-            observations < Self.maximumObservations && elapsed < Self.maximumElapsed
+            observations < Self.maximumObservations && elapsed.isFinite && elapsed >= 0 && elapsed < Self.maximumElapsed
+        }
+
+        /// Pace completed AX observations without spending the count in a tight loop.
+        /// A nil delay means no new observation can start before the deadline.
+        func nextObservationDelay(elapsed: TimeInterval, lastStarted: TimeInterval?) -> TimeInterval? {
+            guard canObserve(elapsed: elapsed) else { return nil }
+            guard let lastStarted else { return 0 }
+            guard lastStarted.isFinite, lastStarted >= 0 else { return nil }
+            let nextStart = max(elapsed, lastStarted + Self.minimumObservationInterval)
+            guard nextStart < Self.maximumElapsed else { return nil }
+            return nextStart - elapsed
         }
 
         mutating func observe(window: CGRect?, heading: CGRect?, foreground: Bool,
@@ -93,11 +105,20 @@ final class ComponentInventoryUITests: XCTestCase {
         let started = ProcessInfo.processInfo.systemUptime
         func elapsed() -> TimeInterval { ProcessInfo.processInfo.systemUptime - started }
         var progress = ReadinessProgress()
-        var observations = ["policy=completed-observations/v1 maximumObservations=6 maximumElapsed=120 requiredStableSamples=3"]
+        var observations = ["policy=completed-observations/v2 maximumObservations=6 maximumElapsed=120 minimumObservationInterval=2 requiredStableSamples=3"]
+        var lastObservationStarted: TimeInterval?
         var succeeded = false
         var outcome = "observation_or_elapsed_budget_exhausted"
-        while progress.canObserve(elapsed: elapsed()) {
+        while let delay = progress.nextObservationDelay(elapsed: elapsed(), lastStarted: lastObservationStarted) {
+            if delay > 0 {
+                // This pauses only the test runner; the app continues settling.
+                // Recalculate against monotonic time after waking (including early wakes).
+                Thread.sleep(forTimeInterval: delay)
+                continue
+            }
             let before = elapsed()
+            guard progress.canObserve(elapsed: before) else { break }
+            lastObservationStarted = before
             let stateBefore = app.state
             let headingExists = heading.exists
             let afterHeadingExists = elapsed()
@@ -294,6 +315,20 @@ final class ComponentInventoryUITests: XCTestCase {
         XCTAssertFalse(ReadinessProgress.usable(window: .infinite, heading: heading))
         XCTAssertFalse(ReadinessProgress.usable(window: window, heading: .zero))
         XCTAssertFalse(ReadinessProgress.usable(window: window, heading: heading.offsetBy(dx: 500, dy: 0)))
+        let schedule = ReadinessProgress()
+        XCTAssertEqual(schedule.nextObservationDelay(elapsed: 0, lastStarted: nil), 0)
+        XCTAssertEqual(schedule.nextObservationDelay(elapsed: 0.25, lastStarted: 0), 1.75)
+        XCTAssertEqual(schedule.nextObservationDelay(elapsed: 1.5, lastStarted: 0), 0.5,
+                       "An early wake must wait the remaining monotonic interval")
+        XCTAssertEqual(schedule.nextObservationDelay(elapsed: 2, lastStarted: 0), 0)
+        XCTAssertEqual(schedule.nextObservationDelay(elapsed: 8, lastStarted: 0), 0,
+                       "A slow AX observation needs no additional interval")
+        XCTAssertEqual(schedule.nextObservationDelay(elapsed: 118.5, lastStarted: 117), 0.5)
+        XCTAssertNil(schedule.nextObservationDelay(elapsed: 119, lastStarted: 118),
+                     "Never request a sleep whose next observation would start at the cap")
+        XCTAssertNil(schedule.nextObservationDelay(elapsed: 120, lastStarted: nil))
+        XCTAssertNil(schedule.nextObservationDelay(elapsed: .infinity, lastStarted: nil))
+        XCTAssertNil(schedule.nextObservationDelay(elapsed: -1, lastStarted: nil))
         var stable = ReadinessProgress()
         XCTAssertFalse(stable.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 1))
         XCTAssertFalse(stable.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 2))
@@ -319,6 +354,7 @@ final class ComponentInventoryUITests: XCTestCase {
             XCTAssertFalse(exhausted.observe(window: nil, heading: nil, foreground: true, hittable: false, elapsed: Double(index)))
         }
         XCTAssertFalse(exhausted.canObserve(elapsed: 6))
+        XCTAssertNil(exhausted.nextObservationDelay(elapsed: 6, lastStarted: 5))
         XCTAssertFalse(exhausted.observe(window: window, heading: heading, foreground: true, hittable: true, elapsed: 7))
         var moving = ReadinessProgress()
         for index in 0..<6 {
