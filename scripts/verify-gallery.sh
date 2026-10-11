@@ -25,7 +25,7 @@ cleanup() {
 }
 trap cleanup EXIT
 
-for command in xcodegen xcodebuild ditto; do
+for command in xcodegen xcodebuild xcrun python3 ditto; do
   command -v "$command" >/dev/null || {
     print -u2 -- "E_GALLERY_TOOL: missing '$command'"
     exit 1
@@ -93,10 +93,30 @@ ios_test_selection=(
   -only-testing:DesignOSAppleGalleryUITests/DesignOSAppleGalleryLocalDemoUITests
 )
 for simulator_id in "$iphone_id" "$ipad_id"; do
+  # Complete the selected simulator boot before launch/AX work. Keep observations
+  # on failures without claiming that serial workers eliminate launch failures.
+  diagnostic_root="${results_dir:-$temporary_root}"
+  mkdir -p "$diagnostic_root"
+  {
+    date -u '+%Y-%m-%dT%H:%M:%SZ'
+    uptime
+    vm_stat
+    xcrun simctl list devices booted --json
+    python3 - "$simulator_id" <<'BOOTPY'
+import subprocess, sys, time
+started = time.monotonic()
+try:
+    subprocess.run(['xcrun', 'simctl', 'bootstatus', sys.argv[1], '-b'], check=True, timeout=180)
+finally:
+    print(f'simulator_boot_observation_elapsed={time.monotonic() - started:.3f}', flush=True)
+BOOTPY
+    xcrun simctl list devices booted --json
+  } 2>&1 | tee "$diagnostic_root/simulator-readiness-$simulator_id.txt"
   xcodebuild test \
     -project Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj \
     -scheme DesignOSAppleGallery-iOS \
     -destination "id=$simulator_id" \
+    -parallel-testing-enabled NO -maximum-concurrent-test-simulator-destinations 1 \
     -derivedDataPath "$temporary_root/DerivedData-$simulator_id" \
     "${ios_test_selection[@]}" \
     ${(z)$(result_bundle_for "ios-$simulator_id")} \
@@ -111,7 +131,7 @@ macos_test_selection=(
 xcodebuild test \
   -project Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj \
   -scheme DesignOSAppleGallery-macOS \
-  -destination 'platform=macOS' \
+  -destination 'platform=macOS' -parallel-testing-enabled NO \
   -derivedDataPath "$temporary_root/DerivedData" \
   "${macos_test_selection[@]}" \
   ${(z)$(result_bundle_for macos)} \

@@ -1,0 +1,1498 @@
+{
+  "schema_version": 2,
+  "module": "DesignOSApple",
+  "purpose": "Additive actual-source and recipe discovery. Public APIs, internal source records, native-delegation/existing-composition recipes, native execution and visual review are counted separately. Research mapping does not certify any exact source-screen implementation. The atlas remains schema v1 with exact-state coverage unverified pending typed per-state fixture/evidence bindings.",
+  "discovery_roots": {
+    "primitive": "Sources/DesignOSApple/Primitives/Editorial",
+    "semantic": "Sources/DesignOSApple/Components/Semantic",
+    "composite": "Sources/DesignOSApple/Components/Composite",
+    "shell": "Sources/DesignOSApple/Shells",
+    "screen": "Sources/DesignOSApple/Screens"
+  },
+  "frozen_sha256": {
+    "design/design.tokens.json": "8eb0c9075b7d08d9835958cf18160e18aeafd8257e00f5e3676955da5ed27e33",
+    "design/component-registry.json": "492b7a539ff6b7148b45608b221549d9732c5b658e0d404c286163e38aa1bd92",
+    "design/ds.manifest.json": "5dbcd8f9ce5ae2d6c09a7c6b8966a89cfcc4d8f41f76b85699d1672fda718cbb"
+  },
+  "records": [
+    {
+      "id": "primitive/corner-geometry",
+      "layer": "primitive",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/AppStyle/DesignOSCornerGeometry.swift",
+      "symbol": "DesignOSCornerGeometry",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "9a2acc9e088d8d88cc98e224fb38ea9a9bf5bd58935a609e540ed0f8718f78eb",
+      "public_declarations": [
+        "enum DesignOSCornerGeometry",
+        "func innerRadius"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Semantic/DesignOSSemanticComponentTests.swift"
+    },
+    {
+      "id": "primitive/section-content-layout",
+      "layer": "primitive",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Primitives/SectionContentLayout.swift",
+      "symbol": "SectionContentLayout",
+      "dependencies": [
+        "primitive/accessory-slot-layout"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "8c39761a09dee82776ea2710ed0470a4ba5060605b59008f9a28802ccd8b41cd",
+      "public_declarations": [],
+      "visibility": "package"
+    },
+    {
+      "id": "primitive/accessory-slot-layout",
+      "layer": "primitive",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Primitives/AccessorySlotLayout.swift",
+      "symbol": "AccessorySlotLayout",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "1b7e48b485eade64e9343c1e4c98e75ba67971b2314e66afdca2eed6033a7307",
+      "public_declarations": [],
+      "visibility": "package"
+    },
+    {
+      "id": "primitive/symbol-content",
+      "layer": "primitive",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Primitives/SymbolContent.swift",
+      "symbol": "SymbolContent",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "c30548f74d3892f7a9f706cbf88ac5f2d47bf31e768dfacbc801da738d28c17c",
+      "public_declarations": [],
+      "visibility": "package"
+    },
+    {
+      "id": "primitive/sidebar-toolbar-content",
+      "layer": "primitive",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Primitives/SidebarToolbarContent.swift",
+      "symbol": "SidebarToolbarContent",
+      "dependencies": [
+        "primitive/accessory-slot-layout"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "8c6b04dc8b983081429993e7044f0b0661d513533c3e0d8a7279dacfde213389",
+      "public_declarations": [],
+      "visibility": "package"
+    },
+    {
+      "id": "semantic/media-frame",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Semantic/DesignOSMediaFrame.swift",
+      "symbol": "DesignOSMediaFrame",
+      "dependencies": [
+        "primitive/editorial-clipped-content",
+        "primitive/editorial-geometry"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "40ce3642d762c1c83b28ca8b48acdb53a822ca580ab951958e1c15f58c9aac2a",
+      "public_declarations": [
+        "init",
+        "struct DesignOSMediaFrame",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Semantic/DesignOSSemanticComponentTests.swift"
+    },
+    {
+      "id": "semantic/avatar",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Semantic/DesignOSAvatar.swift",
+      "symbol": "DesignOSAvatar",
+      "dependencies": [
+        "primitive/editorial-clipped-content",
+        "primitive/editorial-geometry"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "b2337630e08bd8093dfd4dbf4355dccdd2071e3483ca078c391dd0b01f3f3a0b",
+      "public_declarations": [
+        "init",
+        "struct DesignOSAvatar",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Semantic/DesignOSSemanticComponentTests.swift"
+    },
+    {
+      "id": "semantic/labeled-value-row",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Semantic/DesignOSLabeledValueRow.swift",
+      "symbol": "DesignOSLabeledValueRow",
+      "dependencies": [
+        "primitive/editorial-adaptive-row-layout"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "f56e4d832508210882570428f55c44ca1145c599903e8090a8240685ace5c4cf",
+      "public_declarations": [
+        "init",
+        "struct DesignOSLabeledValueRow",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Semantic/DesignOSSemanticComponentTests.swift"
+    },
+    {
+      "id": "semantic/status-message",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Semantic/DesignOSStatusMessage.swift",
+      "symbol": "DesignOSStatusMessage",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "2cd9c952291691adbd061d193b49ff8e0c7c723b1963d101603edc9f5d27828f",
+      "public_declarations": [
+        "init",
+        "struct DesignOSStatusMessage",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Semantic/DesignOSSemanticComponentTests.swift"
+    },
+    {
+      "id": "semantic/media-row",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/DesignOSMediaRow.swift",
+      "symbol": "DesignOSMediaRow",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "22248a758da45c040c9180952c98b74e50041a591b318e18f909f0ce6d8c62e7",
+      "public_declarations": [
+        "init",
+        "struct DesignOSMediaRow",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/AppStyle/NativeLayoutRecipeCompositionTests.swift"
+    },
+    {
+      "id": "semantic/section-header",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/DesignOSAppSectionHeader.swift",
+      "symbol": "DesignOSAppSectionHeader",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "70306bb41bfd8d0d1c84f0587fac7430ba0b0fb835c495a60e14bed711b5efa0",
+      "public_declarations": [
+        "init",
+        "struct DesignOSAppSectionHeader",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/AppStyle/NativeLayoutRecipeCompositionTests.swift"
+    },
+    {
+      "id": "semantic/content-surface",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/DesignOSAppSurface.swift",
+      "symbol": "DesignOSAppSurface",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "9d51ce7064c11ce477ed8ed2c6aeefd7586e918916542f88f253487aa8693c5a",
+      "public_declarations": [
+        "enum Tone",
+        "init",
+        "struct DesignOSAppSurface",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/AppStyle/NativeLayoutRecipeCompositionTests.swift"
+    },
+    {
+      "id": "semantic/primary-action",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/DesignOSPrimaryButtonStyle.swift",
+      "symbol": "DesignOSPrimaryButtonStyle",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "2b1d589f035d1e342aa39d815a1d05eb8c3e43b3149970d361effa7ed437e46c",
+      "public_declarations": [
+        "func makeBody",
+        "init",
+        "struct DesignOSPrimaryButtonStyle"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Semantic/DesignOSSemanticComponentTests.swift"
+    },
+    {
+      "id": "semantic/secondary-action",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/DesignOSSecondaryButtonStyle.swift",
+      "symbol": "DesignOSSecondaryButtonStyle",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "73547aa813ce6cd4beb14127ab627713e53041ded08bb8c3dc715bfb1329cdfa",
+      "public_declarations": [
+        "enum Size",
+        "enum Treatment",
+        "func makeBody",
+        "init",
+        "struct DesignOSSecondaryButtonStyle"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/AppStyle/NativeLayoutRecipeCompositionTests.swift"
+    },
+    {
+      "id": "semantic/media-backdrop",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/DesignOSMediaBackdrop.swift",
+      "symbol": "DesignOSMediaBackdrop",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "9c2ef6ec223f7eb3bdbbcbb16f1572b97848b9474531b265351fcadb1d4527f4",
+      "public_declarations": [
+        "init",
+        "struct DesignOSMediaBackdrop",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/AppStyle/NativeLayoutRecipeCompositionTests.swift"
+    },
+    {
+      "id": "composite/field-group",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSFieldGroup.swift",
+      "symbol": "DesignOSFieldGroup",
+      "dependencies": [
+        "semantic/content-surface"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "a8b2a96ea62303caa96f521dc42f5f6c4871956d5ad6c5e32bbcfcd40fcf99f6",
+      "public_declarations": [
+        "init",
+        "struct DesignOSFieldGroup",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSCompositeTests.swift"
+    },
+    {
+      "id": "composite/identity-header",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSIdentityHeader.swift",
+      "symbol": "DesignOSIdentityHeader",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "6c6186e0a6f23296b2bd049dc9b6437d3000d71cc5472872272829501c9bc94d",
+      "public_declarations": [
+        "init",
+        "struct DesignOSIdentityHeader",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSCompositeTests.swift"
+    },
+    {
+      "id": "composite/media-detail-header",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSMediaDetailHeader.swift",
+      "symbol": "DesignOSMediaDetailHeader",
+      "dependencies": [
+        "composite/identity-header"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "1d099a0a90c27e7062d850b9f93248dc98cdc0a14afb142b8be26e33779b58e8",
+      "visibility": "public",
+      "public_declarations": [
+        "init",
+        "struct DesignOSMediaDetailHeader",
+        "var body"
+      ],
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSExtendedCompositeTests.swift"
+    },
+    {
+      "id": "composite/media-composer-header",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSMediaComposerHeader.swift",
+      "symbol": "DesignOSMediaComposerHeader",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "69531b17a67f35c88ef009cbc54c70232d4d62ebd91412fc057e9eee944b73f4",
+      "visibility": "public",
+      "public_declarations": [
+        "init",
+        "struct DesignOSMediaComposerHeader",
+        "var body"
+      ],
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSExtendedCompositeTests.swift"
+    },
+    {
+      "id": "composite/choice-row",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSChoiceRow.swift",
+      "symbol": "DesignOSChoiceRow",
+      "dependencies": [
+        "primitive/editorial-adaptive-row-layout"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "1b0682c5cf2b446f30502c204e79d1c5a3c6d07175e77f45fd17090fbe91c525",
+      "visibility": "public",
+      "public_declarations": [
+        "init",
+        "struct DesignOSChoiceRow",
+        "var body"
+      ],
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSExtendedCompositeTests.swift"
+    },
+    {
+      "id": "composite/selection-summary",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSSelectionSummary.swift",
+      "symbol": "DesignOSSelectionSummary",
+      "dependencies": [
+        "primitive/editorial-geometry"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "f30c40fa1eff6bde5f8b8b9228c36a9faf995a607ed0014287e7a76ea62fadc4",
+      "visibility": "public",
+      "public_declarations": [
+        "enum Sizing",
+        "init",
+        "struct DesignOSSelectionSummary",
+        "var body"
+      ],
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSExtendedCompositeTests.swift"
+    },
+    {
+      "id": "composite/sectioned-media-collection",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "host-app",
+      "boundary": "Consumer composition recipe, not a new public runtime API. Native controls/presentation and app-owned actions/state remain with their actual owners; source presence is not executed native integration or exact source-screen completion.",
+      "source_status": "recipe_present",
+      "source": null,
+      "symbol": null,
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSCompositeRecipeTests.swift",
+      "compile_fixture_sha256": "8cb304e887c3d350e69dd4b2acfee326425705261852c3c8341b2f47b97104c4",
+      "recipe": {
+        "kind": "native_delegation",
+        "fixture_function": "nativeSectionedMediaCollectionRecipeCompiles",
+        "bindings": [
+          {
+            "module": "SwiftUI",
+            "reference": "Section"
+          },
+          {
+            "module": "SwiftUI",
+            "reference": "ForEach"
+          },
+          {
+            "module": "DesignOSApple",
+            "reference": "shell/flat-list"
+          },
+          {
+            "module": "DesignOSApple",
+            "reference": "semantic/media-row"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composite/category-rail",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSCategoryRail.swift",
+      "symbol": "DesignOSCategoryRail",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "072e7626301f12c227a4d9f965a2bea2b95d3bffadd75d782c0495e9ffada714",
+      "visibility": "public",
+      "public_declarations": [
+        "init",
+        "struct DesignOSCategoryRail",
+        "var body"
+      ],
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSExtendedCompositeTests.swift"
+    },
+    {
+      "id": "composite/form-section",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "host-app",
+      "boundary": "Consumer composition recipe, not a new public runtime API. Native controls/presentation and app-owned actions/state remain with their actual owners; source presence is not executed native integration or exact source-screen completion.",
+      "source_status": "recipe_present",
+      "source": null,
+      "symbol": null,
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSCompositeRecipeTests.swift",
+      "compile_fixture_sha256": "8cb304e887c3d350e69dd4b2acfee326425705261852c3c8341b2f47b97104c4",
+      "recipe": {
+        "kind": "native_delegation",
+        "fixture_function": "nativeFormSectionRecipeCompiles",
+        "bindings": [
+          {
+            "module": "SwiftUI",
+            "reference": "Form"
+          },
+          {
+            "module": "SwiftUI",
+            "reference": "Section"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composite/confirmation-content",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "host-app",
+      "boundary": "Consumer composition recipe, not a new public runtime API. Native controls/presentation and app-owned actions/state remain with their actual owners; source presence is not executed native integration or exact source-screen completion.",
+      "source_status": "recipe_present",
+      "source": null,
+      "symbol": null,
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSCompositeRecipeTests.swift",
+      "compile_fixture_sha256": "8cb304e887c3d350e69dd4b2acfee326425705261852c3c8341b2f47b97104c4",
+      "recipe": {
+        "kind": "existing_composition",
+        "fixture_function": "nativeConfirmationContentRecipeCompiles",
+        "bindings": [
+          {
+            "module": "SwiftUI",
+            "reference": "Text"
+          },
+          {
+            "module": "SwiftUI",
+            "reference": "Button"
+          },
+          {
+            "module": "DesignOSApple",
+            "reference": "screen/confirmation"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composite/status-content",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "host-app",
+      "boundary": "Consumer composition recipe, not a new public runtime API. Native controls/presentation and app-owned actions/state remain with their actual owners; source presence is not executed native integration or exact source-screen completion.",
+      "source_status": "recipe_present",
+      "source": null,
+      "symbol": null,
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSCompositeRecipeTests.swift",
+      "compile_fixture_sha256": "8cb304e887c3d350e69dd4b2acfee326425705261852c3c8341b2f47b97104c4",
+      "recipe": {
+        "kind": "existing_composition",
+        "fixture_function": "reusedStatusContentRecipeCompiles",
+        "bindings": [
+          {
+            "module": "DesignOSApple",
+            "reference": "semantic/status-message"
+          },
+          {
+            "module": "SwiftUI",
+            "reference": "Button"
+          }
+        ]
+      }
+    },
+    {
+      "id": "composite/message-bubble",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSMessageBubble.swift",
+      "symbol": "DesignOSMessageBubble",
+      "dependencies": [
+        "semantic/content-surface"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "9719d2e68bf4ac8d13610e10efb87f9ba5f7a5ca41e28a6f6d64c00bcabee3a7",
+      "visibility": "public",
+      "public_declarations": [
+        "enum OutgoingAppearance",
+        "init",
+        "struct DesignOSMessageBubble",
+        "var body"
+      ],
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSExtendedCompositeTests.swift"
+    },
+    {
+      "id": "composite/conversation-composer",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSConversationComposer.swift",
+      "symbol": "DesignOSConversationComposer",
+      "dependencies": [
+        "primitive/editorial-adaptive-row-layout"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "c0f053e90e4231aa74f96be3bd7ffb1487522067a0b5c6c4dd1a41e0ca2bf725",
+      "visibility": "public",
+      "public_declarations": [
+        "init",
+        "struct DesignOSConversationComposer",
+        "var body"
+      ],
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSExtendedCompositeTests.swift"
+    },
+    {
+      "id": "composite/record-summary",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSRecordSummary.swift",
+      "symbol": "DesignOSRecordSummary",
+      "dependencies": [
+        "semantic/content-surface"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "780a94b577f92a942c2129a2ae488172ba8b26e4fef257f8b33231eb9a2d7bc1",
+      "visibility": "public",
+      "public_declarations": [
+        "init",
+        "struct DesignOSRecordSummary",
+        "var body"
+      ],
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSExtendedCompositeTests.swift"
+    },
+    {
+      "id": "composite/utility-overlay",
+      "layer": "composite",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/Composite/DesignOSUtilityOverlay.swift",
+      "symbol": "DesignOSUtilityOverlay",
+      "dependencies": [
+        "semantic/content-surface"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "bff2defb126056f555f7941b744a92ee30c14af49d48606131d03f14cb1fd37c",
+      "visibility": "public",
+      "public_declarations": [
+        "init",
+        "struct DesignOSUtilityOverlay",
+        "var body"
+      ],
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Composite/DesignOSExtendedCompositeTests.swift"
+    },
+    {
+      "id": "shell/flat-list",
+      "layer": "shell",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Shells/DesignOSFlatListShell.swift",
+      "symbol": "DesignOSFlatListShell",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "440713c3398d059363f78fdf0cec9b8416cb9cde73b21970e350a94d10f4deac",
+      "public_declarations": [
+        "init",
+        "struct DesignOSFlatListShell",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Shells/DesignOSShellTests.swift"
+    },
+    {
+      "id": "shell/flat-scroll",
+      "layer": "shell",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Shells/DesignOSFlatScrollShell.swift",
+      "symbol": "DesignOSFlatScrollShell",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "4f86fdbd86f2788473c02a6745d124abcb304b90cf96e1ce7f76568e3e1e6748",
+      "public_declarations": [
+        "init",
+        "struct DesignOSFlatScrollShell",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Shells/DesignOSExtendedShellTests.swift"
+    },
+    {
+      "id": "shell/grouped-form",
+      "layer": "shell",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Shells/DesignOSGroupedFormShell.swift",
+      "symbol": "DesignOSGroupedFormShell",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "6eef1a048418bd8b674ecd202e5a65549c1363bf8ad0ac3ced2ea7e8e1afe0be",
+      "public_declarations": [
+        "init",
+        "struct DesignOSGroupedFormShell",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Shells/DesignOSShellTests.swift"
+    },
+    {
+      "id": "shell/ambient-scroll",
+      "layer": "shell",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Shells/DesignOSAmbientScrollShell.swift",
+      "symbol": "DesignOSAmbientScrollShell",
+      "dependencies": [
+        "semantic/media-backdrop"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "c197bbbe7b9d4f94644f5a5d186c3154ed9d8d9fbb8a1cc14d483708285ce135",
+      "public_declarations": [
+        "init",
+        "struct DesignOSAmbientScrollShell",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Shells/DesignOSShellTests.swift"
+    },
+    {
+      "id": "shell/focused-task",
+      "layer": "shell",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Shells/DesignOSFocusedTaskShell.swift",
+      "symbol": "DesignOSFocusedTaskShell",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "9b40f7bdb2bf80eddae6f1c3870653e4e8aa739178609a589ffc35fdd1e7f1ee",
+      "public_declarations": [
+        "init",
+        "struct DesignOSFocusedTaskShell",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Shells/DesignOSShellTests.swift"
+    },
+    {
+      "id": "shell/conversation",
+      "layer": "shell",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Shells/DesignOSConversationShell.swift",
+      "symbol": "DesignOSConversationShell",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "ddf17c6659c72a17ecdd230b5ff6aeac576e424c42d0cd52eef156e4d54d4223",
+      "public_declarations": [
+        "init",
+        "struct DesignOSConversationShell",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Shells/DesignOSExtendedShellTests.swift"
+    },
+    {
+      "id": "shell/utility-canvas",
+      "layer": "shell",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Shells/DesignOSUtilityCanvasShell.swift",
+      "symbol": "DesignOSUtilityCanvasShell",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "8dac673a3727f5f590835014e33588e89062eca606d01220e3d1b03a48ad47fa",
+      "public_declarations": [
+        "init",
+        "struct DesignOSUtilityCanvasShell",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Shells/DesignOSExtendedShellTests.swift"
+    },
+    {
+      "id": "shell/adaptive-navigation",
+      "layer": "shell",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Shells/DesignOSAdaptiveNavigationShell.swift",
+      "symbol": "DesignOSAdaptiveNavigationShell",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "b7bc8ff510117a0bb23be5fad8b4737d36cbf0d842d09bfe08ef94f2b1e49049",
+      "public_declarations": [
+        "init",
+        "struct DesignOSAdaptiveNavigationShell",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Shells/DesignOSExtendedShellTests.swift"
+    },
+    {
+      "id": "shell/native-host",
+      "layer": "shell",
+      "module": "DesignOSApple",
+      "ownership": "platform",
+      "boundary": "Real platform UI remains host-owned; this contract is not a fake dialog or executed native integration.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Shells/DesignOSNativeHostShell.swift",
+      "symbol": "DesignOSNativeHostShell",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "25abaad6e41efbefbb08cbe54aa226c07326990488b9483af9fec765715469d2",
+      "public_declarations": [
+        "init",
+        "struct DesignOSNativeHostShell",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Shells/DesignOSExtendedShellTests.swift"
+    },
+    {
+      "id": "screen/onboarding",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSOnboardingScreen.swift",
+      "symbol": "DesignOSOnboardingScreen",
+      "dependencies": [
+        "shell/focused-task"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "cf41d868345ffaf008ec364d27e13f2ef3806202efa9ec21a1ac5c619da3d800",
+      "public_declarations": [
+        "init",
+        "struct DesignOSOnboardingScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/flat-collection",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSFlatCollectionScreen.swift",
+      "symbol": "DesignOSFlatCollectionScreen",
+      "dependencies": [
+        "shell/flat-list"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "6107c3eff9c5ecee7f3d6444d5587317bd027b5d3e7b115e4067e5ef9f43eafc",
+      "public_declarations": [
+        "init",
+        "struct DesignOSFlatCollectionScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSScreenCompositionTests.swift"
+    },
+    {
+      "id": "screen/discovery",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSDiscoveryScreen.swift",
+      "symbol": "DesignOSDiscoveryScreen",
+      "dependencies": [
+        "shell/flat-scroll"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "0da17f74e1d1aa17d3944acc4b491e9f319e41a710a904546e9acc307adfd50d",
+      "public_declarations": [
+        "init",
+        "struct DesignOSDiscoveryScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/profile-detail",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSProfileDetailScreen.swift",
+      "symbol": "DesignOSProfileDetailScreen",
+      "dependencies": [
+        "shell/ambient-scroll"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "1a42219dc1ca2e378773c0b06d109bbabe202899415685c5d80417a60a10bce8",
+      "public_declarations": [
+        "init",
+        "struct DesignOSProfileDetailScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/media-detail",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSMediaDetailScreen.swift",
+      "symbol": "DesignOSMediaDetailScreen",
+      "dependencies": [
+        "shell/ambient-scroll"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "89111bce13c38feeaec3acbb608465540f57ffa24e4b783ac2c4d62b3c609005",
+      "public_declarations": [
+        "init",
+        "struct DesignOSMediaDetailScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSScreenCompositionTests.swift"
+    },
+    {
+      "id": "screen/hero-collection",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSHeroCollectionScreen.swift",
+      "symbol": "DesignOSHeroCollectionScreen",
+      "dependencies": [
+        "shell/flat-scroll"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "dac51cc6adb2cb1d4ae4479bc90fefcacc0b2b736b545d3be8c33ccbb7ec5115",
+      "public_declarations": [
+        "init",
+        "struct DesignOSHeroCollectionScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/media-composer",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSMediaComposerScreen.swift",
+      "symbol": "DesignOSMediaComposerScreen",
+      "dependencies": [
+        "shell/ambient-scroll"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "0091a2b95d0a75a968211c9fe36d9a401328f51ab163d687ebc98b975d8c7fa8",
+      "public_declarations": [
+        "init",
+        "struct DesignOSMediaComposerScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSScreenCompositionTests.swift"
+    },
+    {
+      "id": "screen/grouped-form",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSGroupedFormScreen.swift",
+      "symbol": "DesignOSGroupedFormScreen",
+      "dependencies": [
+        "shell/grouped-form"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "2ea9235847b9812023d1a8d2d96ba6bddb1b633cd6de053df354fed8183312a3",
+      "public_declarations": [
+        "init",
+        "struct DesignOSGroupedFormScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSScreenCompositionTests.swift"
+    },
+    {
+      "id": "screen/focused-task",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSFocusedTaskScreen.swift",
+      "symbol": "DesignOSFocusedTaskScreen",
+      "dependencies": [
+        "shell/focused-task"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "9528f5570deef266ce122e0f33cbf073a377e8b35c24abe701d509aa576b8797",
+      "public_declarations": [
+        "init",
+        "struct DesignOSFocusedTaskScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSScreenCompositionTests.swift"
+    },
+    {
+      "id": "screen/freeform-editor",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSFreeformEditorScreen.swift",
+      "symbol": "DesignOSFreeformEditorScreen",
+      "dependencies": [
+        "shell/native-host"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "b2956f7da0426ded01ccae553a3dbd632823ef369757e17365d9ccee4e8e6ff6",
+      "public_declarations": [
+        "init",
+        "struct DesignOSFreeformEditorScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/search-selection",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSSearchSelectionScreen.swift",
+      "symbol": "DesignOSSearchSelectionScreen",
+      "dependencies": [
+        "shell/flat-list"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "4fae6e015195338e63bd939295afd7f130a6a718e2ff545570bc2660a2d2a3f5",
+      "public_declarations": [
+        "init",
+        "struct DesignOSSearchSelectionScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/confirmation",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSConfirmationScreen.swift",
+      "symbol": "DesignOSConfirmationScreen",
+      "dependencies": [
+        "shell/focused-task"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "ebb9d14cdcc3bb2565f8ba43128e5685aa36b60c41449f4cd706f097ed0152ec",
+      "public_declarations": [
+        "init",
+        "struct DesignOSConfirmationScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/status",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSStatusScreen.swift",
+      "symbol": "DesignOSStatusScreen",
+      "dependencies": [
+        "shell/focused-task"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "a575228bbd43790488d35039f5e46218f387fa4b126de1dc6f09adaf4f4b65ac",
+      "public_declarations": [
+        "init",
+        "struct DesignOSStatusScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/message-thread",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSMessageThreadScreen.swift",
+      "symbol": "DesignOSMessageThreadScreen",
+      "dependencies": [
+        "shell/conversation"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "7afac7e4ee5c88e33489fd72255d83e52c9211191288b4c4eb239d123e5fdcaf",
+      "public_declarations": [
+        "init",
+        "struct DesignOSMessageThreadScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/utility-canvas",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSUtilityCanvasScreen.swift",
+      "symbol": "DesignOSUtilityCanvasScreen",
+      "dependencies": [
+        "shell/utility-canvas"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "f6b340bcfa482fb0a37b6c69f859165d87a5be12116479c264e64e86bbc77914",
+      "public_declarations": [
+        "init",
+        "struct DesignOSUtilityCanvasScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/provider-host",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "provider",
+      "boundary": "Provider UI, credentials, transactions and service calls remain host-owned; layout is not integration execution.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSProviderHostScreen.swift",
+      "symbol": "DesignOSProviderHostScreen",
+      "dependencies": [
+        "shell/native-host"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "d0a811bfb7700056410dd528e16504e94d74ee5195d3781f321597eaabd5c3e7",
+      "public_declarations": [
+        "init",
+        "struct DesignOSProviderHostScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/record-detail",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Layout/content composition only; native controls and app state, services, navigation and actions remain caller-owned.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSRecordDetailScreen.swift",
+      "symbol": "DesignOSRecordDetailScreen",
+      "dependencies": [
+        "shell/flat-scroll"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "216831d7e5a1c125d39df5fa6fbc6d775692801d7c865635372ec2f670336486",
+      "public_declarations": [
+        "init",
+        "struct DesignOSRecordDetailScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "screen/native-presentation",
+      "layer": "screen",
+      "module": "DesignOSApple",
+      "ownership": "platform",
+      "boundary": "Real platform UI remains host-owned; this contract is not a fake dialog or executed native integration.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Screens/DesignOSNativePresentationScreen.swift",
+      "symbol": "DesignOSNativePresentationScreen",
+      "dependencies": [
+        "shell/native-host"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "b675711c0db010e0ff5affa9f2e97ac73776cd7dafe81f8bf259cc6862764d81",
+      "public_declarations": [
+        "init",
+        "struct DesignOSNativePresentationScreen",
+        "var body"
+      ],
+      "visibility": "public",
+      "documentation": "docs/luma-kit-architecture.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/Screens/DesignOSExtendedScreenTests.swift"
+    },
+    {
+      "id": "primitive/editorial-adaptive-row-layout",
+      "layer": "primitive",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Internal layout/geometry only; caller owns semantics, native interaction and application state.",
+      "source": "Sources/DesignOSApple/Primitives/Editorial/DesignOSEditorialAdaptiveRowLayout.swift",
+      "symbol": "DesignOSEditorialAdaptiveRowLayout",
+      "dependencies": [
+        "primitive/editorial-geometry"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_status": "source_present",
+      "source_sha256": "240dd94bcfc064f907ee4e10884e5cc6a4d40739ed6ccd32e42991c227a8a52a",
+      "public_declarations": [],
+      "visibility": "internal"
+    },
+    {
+      "id": "primitive/editorial-geometry",
+      "layer": "primitive",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Internal layout/geometry only; caller owns semantics, native interaction and application state.",
+      "source": "Sources/DesignOSApple/Primitives/Editorial/DesignOSEditorialGeometry.swift",
+      "symbol": "DesignOSEditorialGeometry",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_status": "source_present",
+      "source_sha256": "fce86662debc3fc00bd4c919e05860c9de1ee5ac14355f7a851b491f078b7f8a",
+      "public_declarations": [],
+      "visibility": "internal"
+    },
+    {
+      "id": "primitive/editorial-clipped-content",
+      "layer": "primitive",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Internal layout/geometry only; caller owns semantics, native interaction and application state.",
+      "source": "Sources/DesignOSApple/Primitives/Editorial/DesignOSEditorialClippedContent.swift",
+      "symbol": "DesignOSEditorialClippedContent",
+      "dependencies": [
+        "primitive/editorial-geometry"
+      ],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_status": "source_present",
+      "source_sha256": "3cfde4e79cd3fc40ebd56f1bdb788071df940f3785e6001c03889f4e0f6f1e54",
+      "public_declarations": [],
+      "visibility": "internal"
+    },
+    {
+      "id": "semantic/text-field-modifier",
+      "layer": "semantic",
+      "module": "DesignOSApple",
+      "ownership": "kit",
+      "boundary": "Opt-in content appearance only; native TextField/SecureField own editing, selection, keyboard and accessibility. The consumer owns labels, text, focus bindings and validation. Native inline rows and system security dialogs retain platform appearance.",
+      "source_status": "source_present",
+      "source": "Sources/DesignOSApple/Components/DesignOSAppTextFieldModifier.swift",
+      "symbol": "DesignOSAppTextFieldModifier",
+      "dependencies": [],
+      "native_status": "not_run",
+      "visual_status": "not_run",
+      "evidence": {},
+      "source_sha256": "d11a85d088a93b053c6c4e781a19bf50802dfaa01007938556b9f91a6c9c3659",
+      "public_declarations": [
+        "func body",
+        "init",
+        "struct DesignOSAppTextFieldModifier"
+      ],
+      "visibility": "public",
+      "documentation": "docs/reusable-app-style.md",
+      "compile_fixture": "Tests/DesignOSAppleTests/AppStyle/DesignOSAppTextFieldModifierTests.swift"
+    }
+  ]
+}

@@ -30,6 +30,8 @@ cleanup() {
 }
 trap cleanup EXIT
 
+node "$project_root/scripts/test-caloriecam-sample-provenance.mjs" --with-package-tests
+
 expect_generated_accepted() {
   local label=$1 case_root=$2 output
   if ! output=$(node "$generated_art_verifier" --root "$case_root" 2>&1); then
@@ -211,5 +213,11 @@ print -r -- "$approved_specimen" > "$file_list"
 "$verifier" --file-list "$file_list" >/dev/null
 cp "$project_root/$approved_specimen" "$fixture_dir/unapproved-specimen.png"
 expect_rejected "unapproved specimen name" "${fixture_dir#$project_root/}/unapproved-specimen.png" "unapproved binary or design asset"
+
+approved_sample="Examples/CalorieCam/Resources/DemoMeal.png"
+print -r -- "$approved_sample" > "$file_list"
+"$verifier" --file-list "$file_list" >/dev/null
+cp "$project_root/$approved_sample" "$fixture_dir/unapproved-sample.png"
+expect_rejected "unapproved sample location" "${fixture_dir#$project_root/}/unapproved-sample.png" "unapproved binary or design asset"
 
 print -- "Publication boundary hostile probes passed."

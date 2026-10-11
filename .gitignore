@@ -26,3 +26,6 @@ AGENTS.md
 AGENTS.*.json
 CLAUDE.md
 design-os-model.sh
+
+# Generated from the checked-in CalorieCam XcodeGen specification.
+Examples/CalorieCam/CalorieCam.xcodeproj/
