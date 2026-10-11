@@ -42,14 +42,29 @@
   search.addEventListener('input', apply);
   buttons.forEach(button => button.addEventListener('click', () => { layer = button.dataset.filter; apply(); }));
   document.getElementById('catalog-reset').addEventListener('click', () => { layer = 'all'; search.value = ''; apply(); search.focus(); });
-  // A deep link must remain reachable even after a filter hid its group.
-  function revealAnchor() {
-    const target = document.getElementById(decodeURIComponent(location.hash.slice(1)));
+  // Resolve the intended link, not the previous location hash. Clicking the
+  // current hash does not emit hashchange, but must still reveal filtered content.
+  function revealAnchor(hash = location.hash) {
+    let id;
+    try { id = decodeURIComponent(hash.slice(1)); } catch { return; }
+    const target = document.getElementById(id);
     if (target && (target.matches('.component-entry, .catalog-group, .catalog-token, .catalog-token-section') || target.closest('.component-entry'))) {
-      layer = 'all'; search.value = ''; apply(); target.scrollIntoView();
+      layer = 'all'; search.value = ''; apply();
+      for (let ancestor = target.parentElement; ancestor; ancestor = ancestor.parentElement) {
+        if (ancestor.tagName === 'DETAILS') ancestor.open = true;
+      }
+      target.scrollIntoView();
     }
   }
-  addEventListener('hashchange', revealAnchor);
+  document.addEventListener('click', event => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    const anchor = event.target instanceof Element ? event.target.closest('a[href]') : null;
+    if (!anchor || anchor.hasAttribute('download') || (anchor.target && anchor.target !== '_self')) return;
+    const url = new URL(anchor.href, location.href);
+    if (url.origin === location.origin && url.pathname === location.pathname && url.search === location.search && url.hash && url.hash === location.hash) revealAnchor(url.hash);
+    // Preserve the browser's native hash navigation and keyboard focus behavior.
+  });
+  addEventListener('hashchange', () => revealAnchor(location.hash));
   tools.hidden = false;
   apply();
   revealAnchor();

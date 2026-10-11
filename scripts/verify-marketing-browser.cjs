@@ -27,13 +27,20 @@ const report = {
 };
 const save = () => fs.writeFileSync(path.join(output, 'results.json'), JSON.stringify(report, null, 2) + '\n');
 save();
-let browser, server;
+let browser, server, activePage;
 async function check(name, fn) {
   try {
     const details = await fn();
     report.checks.push({ name, status: 'passed', ...(details === undefined ? {} : { details }) });
   } catch (error) {
     report.checks.push({ name, status: 'failed', error: String(error.stack || error) });
+    if (activePage && !activePage.isClosed()) {
+      const filename = `failed-${name.replace(/[^a-z0-9]+/gi, '-').toLowerCase()}.png`;
+      try {
+        await activePage.screenshot({ path: path.join(output, filename), fullPage: true, animations: 'disabled', timeout: 10000 });
+        report.screenshots.push(filename);
+      } catch (captureError) { report.checks.at(-1).failureScreenshotError = String(captureError); }
+    }
   }
   save();
 }
@@ -86,6 +93,7 @@ async function main() {
     for (const kind of ['site', 'readme', 'catalog', 'catalog-no-js']) {
       const context = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: 1, reducedMotion: 'reduce', javaScriptEnabled: kind !== 'catalog-no-js' });
       const page = await context.newPage();
+      activePage = page;
       page.setDefaultTimeout(10000);
       const errors = [], failedRequests = [], failedResponses = [];
       page.on('pageerror', e => errors.push(String(e)));
@@ -149,7 +157,7 @@ async function main() {
         if (kind === 'site') await siteInteractions(page, prefix);
         if (kind.startsWith('catalog')) await catalogInteractions(page, prefix, kind === 'catalog');
         await check(`${prefix}: page errors`, () => { assert.deepEqual(errors, []); assert.deepEqual(failedRequests, []); assert.deepEqual(failedResponses, []); });
-      } finally { await context.close(); }
+      } finally { activePage = null; await context.close(); }
     }
   }
 }
@@ -498,13 +506,26 @@ async function catalogInteractions(page, prefix, enhanced) {
       await anchor.focus();
       await anchor.press('Enter');
       await page.waitForFunction(expectedHash => location.hash === expectedHash, hash);
+      // location.hash changes synchronously; hashchange handlers run in a later
+      // browser task. Wait for their required UI effect, then assert it. This
+      // retains the visibility requirement and the existing 10-second deadline.
+      await page.locator(hash).waitFor({ state: 'visible' });
       assert.ok(await page.locator(hash).isVisible(), `Anchor target hidden: ${hash}`);
       if (enhanced) {
         assert.equal(await page.locator('#catalog-search').inputValue(), '');
         assert.equal(await entries.evaluateAll(nodes => nodes.filter(n => !n.hidden).length), expected.length);
+        // Re-selecting the current fragment does not dispatch hashchange. The
+        // actual anchor activation must still restore a group hidden by search.
+        await page.locator('#catalog-search').fill('zzzz-no-component-can-match-43859');
+        assert.equal(await page.locator(hash).isVisible(), false);
+        await anchor.focus();
+        await anchor.press('Enter');
+        await page.locator(hash).waitFor({ state: 'visible' });
+        assert.equal(await page.locator('#catalog-search').inputValue(), '');
+        assert.equal(await entries.evaluateAll(nodes => nodes.filter(n => !n.hidden).length), expected.length);
       }
     }
-    return { count };
+    return { count, repeatedCurrentHash: enhanced };
   });
 }
 
