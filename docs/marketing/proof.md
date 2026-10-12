@@ -11,13 +11,13 @@ The layered implementation is now merged into main through [PR 3](https://github
 
 [CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) passed all 23 workflow jobs. Its reviewed image set comprises 360 isolated component captures, 108 screen-family captures and 42 dedicated text-field states across iPhone, iPad and Mac. Accessibility-size and RTL cases occur within the isolated set; these counts are not complete accessibility acceptance.
 
-The [catalog](../components.html) hosts 142 original native iPhone images in 71 light/dark pairs: 106 isolated defaults and 36 screen-family fixtures. Other reviewed platform/state evidence is separate; links to source archives are not hosted previews. There are 99 source entries, including 28 helpers/support/OS-hosted records without a standalone published image, and 160 token values counted separately.
+The [catalog](../components.html) hosts 142 original native iPhone images in 71 light/dark pairs: 106 isolated defaults and 36 screen-family fixtures. Other reviewed platform/state evidence is separate; links to source archives are not hosted previews. There are 99 source entries, including 28 helper/support/integration records. Six of those reuse native consumer examples; 22 use compact reference cards. These are not new standalone native captures. The 160 token values retain the published presentation and are counted separately.
 
 The [component image manifest](../assets/components/manifest.json) binds every hosted image to original capture and source hashes. Display images are lossless native pixels. Documented crops remove platform framing or exact-uniform trailing blank rows, preserving displayed UI. No generated replacement UI or copied third-party product screenshot is presented as native evidence.
 
-## Historical overview images
+## Current homepage and README images
 
-The six homepage images and README overview retain their original [adcf88a source](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e) and [CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370). That historical run passed eight jobs. Its reported package count was 173, with the genuine high-contrast fixture skipped; it is not a claim of 173 fully accepted accessibility tests. The [marketing image manifest](../assets/marketing/manifest.json) records the original transforms, scaling and overview composition. These images are not silently relabeled as current captures.
+Eight native screen-family captures and one composed overview are derived from the same [1898ce2 source](https://github.com/jangtrinh/design-os-apple/tree/1898ce28861d642f57dccd88fd57afcbe3be5bb9) and [CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095). These replace the earlier overview assets, including the old outlined Grouped Form field. The current Grouped Form fixture uses a plain native field within its rounded form section. The [marketing image manifest](../assets/marketing/manifest.json) records original capture identities, hashes, scaling and overview composition. Rendering-source freshness is checked against the production SwiftUI and preview fixture files; unrelated documentation changes do not relabel captures.
 
 ## Verification boundaries
 

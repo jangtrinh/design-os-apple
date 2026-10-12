@@ -144,7 +144,7 @@ To ensure exact build provenance from this isolated checkout:
 - **Launch Command with Typed Story Route:** `xcrun simctl launch <device> com.jang.designos.apple.gallery --design-os-story native.navigation-tabs-toolbars`
 
 ### Executed Interactive Specimen Screenshot Evidence
-Interactive screenshots of the task application were captured from real executed simulator runtimes via automated XCTest UI test harnesses (using `XCUIApplication.screenshot()` for compact portrait and tablet wide layouts, and `XCUIScreen.main.screenshot()` for landscape orientation) and are maintained as repository-owned assets in [`docs/specimens/`](specimens/) accompanied by [`docs/specimens/manifest.json`](specimens/manifest.json):
+Interactive screenshots of the task application were captured from real executed simulator runtimes via automated XCTest UI test harnesses (using `XCUIApplication.screenshot()` for compact portrait and tablet wide layouts, and `XCUIScreen.main.screenshot()` for landscape orientation) and are maintained as repository-owned assets in [`docs/specimens/`](https://github.com/jangtrinh/design-os-apple/tree/c8eb91b52820e09310c240e3e7849fd63cdab856/docs/specimens) accompanied by [`docs/specimens/manifest.json`](specimens/manifest.json):
 
 | Specimen Asset | Device / Runtime | Resolution (Encoded / Display) | Byte Size | SHA-256 Digest | Layout & Provenance Description |
 | :--- | :--- | :--- | :--- | :--- | :--- |

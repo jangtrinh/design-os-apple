@@ -6,6 +6,8 @@ from pathlib import Path
 import shutil
 import tempfile
 import unittest
+import sys
+sys.dont_write_bytecode = True
 
 SPEC = importlib.util.spec_from_file_location("marketing", Path(__file__).with_name("verify-marketing-image-provenance.py"))
 MODULE = importlib.util.module_from_spec(SPEC)
@@ -20,6 +22,10 @@ class MarketingImageTests(unittest.TestCase):
         self.root = Path(self.temporary.name)
         self.directory = self.root / MODULE.DIRECTORY
         shutil.copytree(ROOT / MODULE.DIRECTORY, self.directory)
+        for relative in MODULE.freshness_files(ROOT):
+            destination = self.root / relative
+            destination.parent.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(ROOT / relative, destination)
         self.image = self.directory / "iphone-discovery-light.png"
         self.manifest = self.directory / "manifest.json"
 
@@ -100,6 +106,65 @@ class MarketingImageTests(unittest.TestCase):
             asset = next(item for item in data["assets"] if item["file"] == self.image.name)
             asset.update(byte_size=self.image.stat().st_size, sha256=hashlib.sha256(self.image.read_bytes()).hexdigest())
         self.alter_manifest(update)
+
+
+    def test_changed_runtime_source(self):
+        source = self.root / 'Sources/DesignOSApple/Components/DesignOSAppTextFieldModifier.swift'
+        source.write_text(source.read_text() + '\n// changed runtime\n')
+        self.rejected('runtime source changed')
+
+    def test_changed_preview_form_source(self):
+        source = self.root / 'Examples/LayeredKitPreview/App/SpecimenContent.swift'
+        source.write_text(source.read_text().replace('.textFieldStyle(.plain)', '.textFieldStyle(.roundedBorder)'))
+        self.rejected('runtime source changed')
+
+    def test_added_runtime_source(self):
+        (self.root / 'Sources/DesignOSApple/NewRuntime.swift').write_text('struct NewRuntime {}')
+        self.rejected('runtime freshness inventory changed')
+
+    def test_removed_runtime_source(self):
+        (self.root / 'Examples/LayeredKitPreview/App/SpecimenContent.swift').unlink()
+        self.rejected('runtime freshness inventory changed')
+
+    def test_changed_demo_resource(self):
+        resource = self.root / MODULE.RESOURCE_FILES[0]
+        resource.write_bytes(resource.read_bytes() + b'changed')
+        self.rejected('runtime source changed')
+
+    def test_symlink_runtime_source(self):
+        relative = 'Examples/LayeredKitPreview/App/SpecimenContent.swift'
+        source = self.root / relative
+        source.unlink()
+        source.symlink_to(ROOT / relative)
+        self.rejected('missing or nonregular')
+
+    def test_documentation_and_test_diagnostics_are_not_visual_freshness(self):
+        (self.root / 'README.md').write_text('Documentation-only edit')
+        tests = self.root / 'Examples/LayeredKitPreview/UITests'
+        tests.mkdir(parents=True)
+        (tests / 'DiagnosticsOnly.swift').write_text('// Additional test failure logging')
+        self.assertEqual(MODULE.verify(self.root), 9)
+
+    def test_obsolete_capture_source_rejected_even_if_manifest_resealed(self):
+        import hashlib
+        from unittest.mock import patch
+        data = json.loads(self.manifest.read_text())
+        data['source']['head_sha'] = 'adcf88a468a43ed1727c9c902ae5243423e4176e'
+        self.manifest.write_text(json.dumps(data))
+        with patch.object(MODULE, 'MANIFEST_SHA256', hashlib.sha256(self.manifest.read_bytes()).hexdigest()):
+            self.rejected('wrong source commit')
+
+    def test_freshness_scope_cannot_be_removed(self):
+        self.alter_manifest(lambda data: data.pop('runtime_freshness'))
+
+    def test_hero_input_cannot_self_approve_change(self):
+        self.alter_manifest(lambda data: next(a for a in data['assets'] if a['file']=='kit-overview.png')['source_file_sha256'].update({'iphone-grouped-form-light.png':'0'*64}))
+
+    def test_asset_source_cannot_be_relabelled(self):
+        self.alter_manifest(lambda data: data['assets'][0]['source'].update(head_sha='0'*40))
+
+    def test_crop_cannot_hide_ui(self):
+        self.alter_manifest(lambda data: data['assets'][0].update(crop=[100,100,500,500]))
 
 
 if __name__ == "__main__":

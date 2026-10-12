@@ -12,6 +12,19 @@ eyebrow: SwiftUI Design System · Apple Platforms
 logo: /assets/marketing/kit-overview.png
 
 exclude:
+  # Reference/source records remain in the repository; they are not marketing pages.
+  - luma-layout-atlas.inventory.json
+  - layered-kit-index.json
+  - app-styles/editorial/manifest.json
+  - app-styles/editorial/compact-actions.md
+  - reusable-app-style.md
+  - luma-layout-atlas.md
+  - luma-kit-coverage.json
+  - luma-kit-architecture.md
+  - design-system-organization.md
+  - native-layout-recipes.md
+  - luma-style-reference.md
+  - component-native-specimen-manifest.json
   - corpus/
   - tests/
   - scripts/

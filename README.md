@@ -10,11 +10,11 @@
 
 [Explore the visual guide](https://jangtrinh.github.io/design-os-apple/) · [Browse every component](https://jangtrinh.github.io/design-os-apple/components.html) · [Get started](#add-the-package) · [Inspect tested source](https://github.com/jangtrinh/design-os-apple/tree/1898ce28861d642f57dccd88fd57afcbe3be5bb9)
 
-<p align="center"><img src="docs/assets/marketing/kit-overview.png" alt="Historical native Apple Design OS screenshots showing reusable discovery, composer, and form compositions" width="1000"></p>
+<p align="center"><img src="docs/assets/marketing/kit-overview.png" alt="Source-matched native Apple Design OS screenshots showing reusable discovery, composer, and form compositions" width="1000"></p>
 
-**Shown above: historical layered kit fixtures at [`adcf88a`](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e).**
-The layered implementation is now merged into `main` via PR 3. The overview images above retain their original historical source; the [complete component catalog](https://jangtrinh.github.io/design-os-apple/components.html) has current source-matched native previews.
-The main-branch CI badge describes main. [Native CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) verifies the current catalog source; [historical CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370) remains the provenance for the overview images.
+**Shown above: actual native kit captures at [`1898ce2`](https://github.com/jangtrinh/design-os-apple/tree/1898ce28861d642f57dccd88fd57afcbe3be5bb9).**
+The layered implementation is merged into `main` via PR 3. Homepage, README and [complete component catalog](https://jangtrinh.github.io/design-os-apple/components.html) now share the same tested capture source.
+The main-branch CI badge describes main. [Native CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) verifies the displayed source; the image manifests retain exact capture identities and transformations.
 No version tag is claimed. [Proof and image provenance](docs/marketing/proof.md).
 
 ## What it solves
@@ -73,7 +73,7 @@ To pin the native revision reviewed before merging PR 3, replace the dependency 
 )
 ```
 
-Keep the same `DesignOSApple` product dependency. Read the [kit architecture guide](https://jangtrinh.github.io/design-os-apple/kit-architecture.html) and [reusable application style](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md) before adopting these APIs.
+Keep the same `DesignOSApple` product dependency. Read the [kit architecture guide](https://jangtrinh.github.io/design-os-apple/kit-architecture.html) and [reusable application style](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/reusable-app-style.md) before adopting these APIs.
 
 ## Architecture: compose up, keep ownership clear
 
@@ -92,7 +92,7 @@ These are source counts, not 42 complete apps. Existing theme/profile/token auth
 2. **Inject the style.** Apply the shared app style once at a product boundary.
 3. **Connect real behavior.** Supply native controls, content, routes, state, and actions.
 
-[Machine-readable kit index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json) · [Native layout recipes](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/native-layout-recipes.md) · [Design-system ownership](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/design-system-organization.md)
+[Machine-readable kit index](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/layered-kit-index.json) · [Native layout recipes](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/native-layout-recipes.md) · [Design-system ownership](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/design-system-organization.md)
 
 ## Gallery: actual native captures
 
@@ -107,7 +107,7 @@ See the [visual guide](https://jangtrinh.github.io/design-os-apple/#gallery) for
 
 The kit has **18 screen types**: discovery, flat collection, hero collection, media detail, record detail, profile detail, media composer, freeform editor, grouped form, search selection, message thread, onboarding, confirmation, status, focused task, utility canvas, native presentation, and provider host.
 
-[Explore their Swift source](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e/Sources/DesignOSApple/Screens).
+[Explore their Swift source](https://github.com/jangtrinh/design-os-apple/tree/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Sources/DesignOSApple/Screens).
 
 ### Browse the native Gallery
 
@@ -125,19 +125,11 @@ Run `DesignOSAppleGallery-iOS` or `DesignOSAppleGallery-macOS`. The Catalog prov
 
 Current component catalog: [CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) passed all 23 workflow jobs at `1898ce2`. Its 510 reviewed native captures comprise 360 isolated component, 108 screen-family and 42 dedicated text-field-state images. These do not establish complete reference-state fidelity or full accessibility acceptance.
 
-The overview image set retains the following historical evidence:
+The homepage and README use eight selected native screen-family captures and one composed overview from this same run. Their rendering sources match the merged implementation; the [marketing image manifest](docs/assets/marketing/manifest.json) records original hashes, resizing and composition. The catalog hosts 142 selected iPhone images; additional platform/state evidence is separately identified.
 
-Current catalog source `1898ce2` passed all 23 workflow jobs in [native CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095). The reviewed evidence includes 360 isolated component captures, 108 screen-family fixtures, and 42 dedicated text-field states. The website hosts 142 iPhone previews; additional evidence is separately identified.
+A green run does not establish live AI, physical-camera behavior, OS 27 / iPhone Duo execution, complete VoiceOver behavior, performance, or every reference state.
 
-[Historical CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370) passed all **8 jobs** for candidate `adcf88a` (tested merge `86b686d`):
-
-- **CalorieCam:** 10/10 UI tests on each of iPhone, iPad, and Mac.
-- **Layered kit:** 9/9 UI tests on each of iPhone, iPad, and Mac.
-- **Package:** 173 reported tests; the genuine high-contrast fixture was skipped.
-
-Earlier intermittent activation failures remain unexplained. A green run does not establish live AI, physical-camera behavior, OS 27 / iPhone Duo execution, complete VoiceOver behavior, performance, or full reference-state fidelity.
-
-[CalorieCam](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/Examples/CalorieCam/README.md) is a separate native dogfood app for a photo-reference meal journal. Its offline mode uses labeled sample data, not image recognition.
+[CalorieCam](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Examples/CalorieCam/README.md) is a separate native dogfood app for a photo-reference meal journal. Its offline mode uses labeled sample data, not image recognition.
 
 On a supported Apple development environment:
 
@@ -154,7 +146,7 @@ python3 scripts/test-quickstart-parity.py
 python3 scripts/verify-quickstart-parity.py
 ```
 
-The portable checks do not compile SwiftUI or replace native execution. [Quality evidence](docs/quality-evidence.md) · [Portable verification](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/portable-verification.md) · [Evidence and provenance](docs/marketing/proof.md).
+The portable checks do not compile SwiftUI or replace native execution. [Quality evidence](docs/quality-evidence.md) · [Portable verification](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/portable-verification.md) · [Evidence and provenance](docs/marketing/proof.md).
 
 ## Frequently asked questions
 
@@ -172,11 +164,11 @@ Yes. The layered kit was merged into main in PR 3. The component catalog is pinn
 
 ### Does the catalog show every component and state?
 
-The catalog lists 99 source entries and 160 token values. It displays 142 native iPhone images across 71 visual entries, with light and dark previews. The remaining source helpers have explicit coverage notes. Selected previews do not establish complete behavior or every state on every platform.
+The catalog lists 99 source entries and 160 token values. It displays 142 native iPhone images across 71 visual entries, with light and dark previews. Six helpers and modifiers show labeled native consumer examples. Configuration and integration references use compact documentation cards. Selected previews do not establish complete behavior or every state on every platform.
 
 ### What has been verified, and what is still open?
 
-Native CI run 38157622095 passed all 23 workflow jobs at revision 1898ce2. The reviewed capture set contains 360 isolated components, 108 screen-family fixtures and 42 dedicated text-field states across iPhone, iPad and Mac. The overview images retain their historical adcf88a provenance. Live services, physical-device behavior, complete accessibility acceptance and performance remain outside these claims.
+Native CI run 38157622095 passed all 23 workflow jobs at revision 1898ce2. The reviewed capture set contains 360 isolated components, 108 screen-family fixtures and 42 dedicated text-field states across iPhone, iPad and Mac. The homepage and README images use the same source-matched native capture run. Live services, physical-device behavior, complete accessibility acceptance and performance remain outside these claims.
 
 ## Ecosystem
 
@@ -187,11 +179,11 @@ Native CI run 38157622095 passed all 23 workflow jobs at revision 1898ce2. The r
 ## Read next
 
 - [Getting Started](docs/getting-started.md) and [DocC runtime concepts](Sources/DesignOSApple/DesignOSApple.docc/DesignOSApple.md)
-- [Candidate layered kit architecture](https://jangtrinh.github.io/design-os-apple/kit-architecture.html) and [API index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json)
-- [Kit themes, corners, and pill controls](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md)
-- [AI usage](docs/ai-usage.md) and [native API coverage](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/component-coverage.md)
-- [Catalog thumbnail workflow](docs/catalog-thumbnail-workflow.md) and [reference reconstruction workflow](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reference-reconstruction-workflow.md)
-- [Apple platform evolution](docs/apple-platform-evolution.md), [OS 27 intake](docs/os27-intake-report.md), and [historical roadmap](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/apple-ui-roadmap-2026-10.md)
+- [Layered kit architecture](https://jangtrinh.github.io/design-os-apple/kit-architecture.html) and [API index](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/layered-kit-index.json)
+- [Kit themes, corners, and pill controls](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/reusable-app-style.md)
+- [AI usage](docs/ai-usage.md) and [native API coverage](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/component-coverage.md)
+- [Catalog thumbnail workflow](docs/catalog-thumbnail-workflow.md) and [reference reconstruction workflow](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/reference-reconstruction-workflow.md)
+- [Apple platform evolution](docs/apple-platform-evolution.md), [OS 27 intake](docs/os27-intake-report.md), and [historical roadmap](https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/docs/apple-ui-roadmap-2026-10.md)
 - [Contributing](CONTRIBUTING.md) · [Support](SUPPORT.md) · [Security](SECURITY.md) · [Release process](RELEASING.md) · [Changelog](CHANGELOG.md)
 
 Maintainers: `design/` remains managed design intent; `Sources/DesignOSApple/` remains runtime implementation. Use the documented `ui ds` workflow for managed changes. Never hand-edit `design/design.tokens.json`.

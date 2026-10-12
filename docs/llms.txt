@@ -20,7 +20,7 @@ The layered implementation is merged into main through PR 3. The catalog is pinn
 
 ## Coverage and limits
 
-CI run 38157622095 passed all 23 workflow jobs at source 1898ce2, actual tested merge f77ab0e051d22d9c80bc6bd24edf952ffb2bc430. The reviewed set contains 360 isolated captures, 108 screen-family captures and 42 dedicated text-field states across iPhone, iPad and Mac. The catalog hosts 142 selected iPhone images; artifact-only evidence is not counted as a hosted image. Source helpers without standalone visual specimens are labeled explicitly. The original overview images remain bound to historical adcf88a and run 38087127370.
+CI run 38157622095 passed all 23 workflow jobs at source 1898ce2, actual tested merge f77ab0e051d22d9c80bc6bd24edf952ffb2bc430. The reviewed set contains 360 isolated captures, 108 screen-family captures and 42 dedicated text-field states across iPhone, iPad and Mac. The catalog hosts 142 selected iPhone images; artifact-only evidence is not counted as a hosted image. Six helpers and modifiers reuse authenticated native consumer examples, without adding unique captures. Configuration and host-integration references are compact documentation cards. The homepage and README use eight native screen-family captures and a composed overview from the same 1898ce2 capture run, with exact transforms and source freshness recorded in the marketing manifest.
 
 A fixture screenshot does not establish every state, physical-device behavior, live AI/camera services, or complete accessibility acceptance. Counts of source APIs, records, token values, screenshots and test cases are different units.
 

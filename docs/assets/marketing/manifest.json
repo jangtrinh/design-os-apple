@@ -1,230 +1,773 @@
 {
-  "version": 1,
+  "version": 2,
   "source": {
     "repository": "jangtrinh/design-os-apple",
-    "head_sha": "adcf88a468a43ed1727c9c902ae5243423e4176e",
-    "run_id": 38087127370,
-    "run_url": "https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370"
+    "head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+    "tested_merge_sha": "f77ab0e051d22d9c80bc6bd24edf952ffb2bc430",
+    "source_tree_sha": "d409c1deaa8c4f766916d728b20c53852214d09b",
+    "run_id": 38157622095,
+    "run_attempt": 1,
+    "run_url": "https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095"
   },
-  "capture_note": "iPhone and iPad are native simulator captures from XCTest on GitHub Actions. Mac is a native application screenshot on the CI macOS runner, not a simulator. Demo meal media is an original synthetic local fixture; screenshots themselves are genuine native renders.",
-  "transformations": "Publication PNGs are losslessly encoded. iPhone and iPad are uniformly downsampled by 50% with Lanczos; Mac is cropped to the app window. Original exported PNGs and artifact archives are preserved in the working evidence package.",
+  "capture_note": "Eight authenticated original-suite native screenshots plus one deterministic composition of those captures. iPhone and iPad are simulator captures; macOS is a native application window. Original synthetic local meal media. Still images do not establish unseen interactions or full runtime acceptance.",
+  "transformations": "Lossless PNG encoding. Complete iPhone/iPad viewports downsampled uniformly by 50% using Lanczos. macOS cropped to the original app window without scaling. Hero preserves its 2000\u00d71000 layout and uses only admitted current screenshots, uniformly scaled with external labels. No UI retouching.",
+  "runtime_freshness": {
+    "source_head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+    "scope": "Exact production Swift sources, preview app Swift sources and the local demo image used by these captures. Documentation and UITest-only instrumentation are deliberately excluded.",
+    "source_globs": [
+      "Sources/DesignOSApple/**/*.swift",
+      "Examples/LayeredKitPreview/App/**/*.swift"
+    ],
+    "resource_files": [
+      "Examples/CalorieCam/Resources/DemoMeal.png"
+    ],
+    "files": [
+      {
+        "path": "Examples/CalorieCam/Resources/DemoMeal.png",
+        "sha256": "46b0bd52d774aae7490e8efe3ac85a630b0fb17efe013dceae63f81cb75f9c22"
+      },
+      {
+        "path": "Examples/LayeredKitPreview/App/ComponentInventorySpecimens.swift",
+        "sha256": "1470a0b993300dccec505cc87accb9fa0c4e632cff8b92825140898f5b57b15f"
+      },
+      {
+        "path": "Examples/LayeredKitPreview/App/ExtendedSpecimenContent.swift",
+        "sha256": "184a02020702bea3c85036f149989f2b6eb561fde217daa0a96e6bdffa7981a2"
+      },
+      {
+        "path": "Examples/LayeredKitPreview/App/LayeredKitPreviewApp.swift",
+        "sha256": "8beffdc43d8072ece289e5c9afeec96b4f9ecfd3fbc4b7d570b1b80c2c1f25f6"
+      },
+      {
+        "path": "Examples/LayeredKitPreview/App/SpecimenCatalog.swift",
+        "sha256": "d1aa68971a9696b55c67f4081fbbc86a067fbffdd70900d2f93d605afa123c90"
+      },
+      {
+        "path": "Examples/LayeredKitPreview/App/SpecimenContent.swift",
+        "sha256": "ae2b20c04d2158c391bb7c010d68a3d157119d777391313c5485dac677818c3f"
+      },
+      {
+        "path": "Examples/LayeredKitPreview/App/TextFieldSpecimen.swift",
+        "sha256": "fdebb036aa95eef53da4b5aec64b4aad8cce36ee9f4e539a0d7d7cc411209fb1"
+      },
+      {
+        "path": "Sources/DesignOSApple/AppStyle/DesignOSAdaptiveColor.swift",
+        "sha256": "644b8a99bd90228df778f5bd5e83e6365a31d1b7e31257b66901e4c36d7056b3"
+      },
+      {
+        "path": "Sources/DesignOSApple/AppStyle/DesignOSAppMetrics.swift",
+        "sha256": "b0796b1c7b04f66913e6a0360579356f7e0bf0078b8dbb076f97722425d09566"
+      },
+      {
+        "path": "Sources/DesignOSApple/AppStyle/DesignOSAppPalette.swift",
+        "sha256": "e80a66f1dc87dbe3c4d8ae226a52201c73dd5c1aee638326ab92d588191b2083"
+      },
+      {
+        "path": "Sources/DesignOSApple/AppStyle/DesignOSAppStyle.swift",
+        "sha256": "a60bf9b9d5b4f5d33147b69c39213649936af0d9c527cd9792d724d2c88a4813"
+      },
+      {
+        "path": "Sources/DesignOSApple/AppStyle/DesignOSCornerGeometry.swift",
+        "sha256": "9a2acc9e088d8d88cc98e224fb38ea9a9bf5bd58935a609e540ed0f8718f78eb"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSCategoryRail.swift",
+        "sha256": "072e7626301f12c227a4d9f965a2bea2b95d3bffadd75d782c0495e9ffada714"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSChoiceRow.swift",
+        "sha256": "1b0682c5cf2b446f30502c204e79d1c5a3c6d07175e77f45fd17090fbe91c525"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSConversationComposer.swift",
+        "sha256": "c0f053e90e4231aa74f96be3bd7ffb1487522067a0b5c6c4dd1a41e0ca2bf725"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSFieldGroup.swift",
+        "sha256": "a8b2a96ea62303caa96f521dc42f5f6c4871956d5ad6c5e32bbcfcd40fcf99f6"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSIdentityHeader.swift",
+        "sha256": "6c6186e0a6f23296b2bd049dc9b6437d3000d71cc5472872272829501c9bc94d"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSMediaComposerHeader.swift",
+        "sha256": "69531b17a67f35c88ef009cbc54c70232d4d62ebd91412fc057e9eee944b73f4"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSMediaDetailHeader.swift",
+        "sha256": "1d099a0a90c27e7062d850b9f93248dc98cdc0a14afb142b8be26e33779b58e8"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSMessageBubble.swift",
+        "sha256": "9719d2e68bf4ac8d13610e10efb87f9ba5f7a5ca41e28a6f6d64c00bcabee3a7"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSRecordSummary.swift",
+        "sha256": "780a94b577f92a942c2129a2ae488172ba8b26e4fef257f8b33231eb9a2d7bc1"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSSelectionSummary.swift",
+        "sha256": "f30c40fa1eff6bde5f8b8b9228c36a9faf995a607ed0014287e7a76ea62fadc4"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Composite/DesignOSUtilityOverlay.swift",
+        "sha256": "bff2defb126056f555f7941b744a92ee30c14af49d48606131d03f14cb1fd37c"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/DesignOSAppSectionHeader.swift",
+        "sha256": "70306bb41bfd8d0d1c84f0587fac7430ba0b0fb835c495a60e14bed711b5efa0"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/DesignOSAppSurface.swift",
+        "sha256": "9d51ce7064c11ce477ed8ed2c6aeefd7586e918916542f88f253487aa8693c5a"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/DesignOSAppTextFieldModifier.swift",
+        "sha256": "d11a85d088a93b053c6c4e781a19bf50802dfaa01007938556b9f91a6c9c3659"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/DesignOSListRow.swift",
+        "sha256": "167e0aa51f2f57595f8b178477c70626914a5523d2e0f4caa921d8b785d166c6"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/DesignOSMediaBackdrop.swift",
+        "sha256": "9c2ef6ec223f7eb3bdbbcbb16f1572b97848b9474531b265351fcadb1d4527f4"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/DesignOSMediaRow.swift",
+        "sha256": "22248a758da45c040c9180952c98b74e50041a591b318e18f909f0ce6d8c62e7"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/DesignOSPrimaryButtonStyle.swift",
+        "sha256": "2b1d589f035d1e342aa39d815a1d05eb8c3e43b3149970d361effa7ed437e46c"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/DesignOSSecondaryButtonStyle.swift",
+        "sha256": "73547aa813ce6cd4beb14127ab627713e53041ded08bb8c3dc715bfb1329cdfa"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/DesignOSSidebarRow.swift",
+        "sha256": "16e0d2e8a42a7634319c0a53c4329413b1519afa784213ba5cbd12522fea0f45"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Semantic/DesignOSAvatar.swift",
+        "sha256": "b2337630e08bd8093dfd4dbf4355dccdd2071e3483ca078c391dd0b01f3f3a0b"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Semantic/DesignOSLabeledValueRow.swift",
+        "sha256": "f56e4d832508210882570428f55c44ca1145c599903e8090a8240685ace5c4cf"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Semantic/DesignOSMediaFrame.swift",
+        "sha256": "40ce3642d762c1c83b28ca8b48acdb53a822ca580ab951958e1c15f58c9aac2a"
+      },
+      {
+        "path": "Sources/DesignOSApple/Components/Semantic/DesignOSStatusMessage.swift",
+        "sha256": "2cd9c952291691adbd061d193b49ff8e0c7c723b1963d101603edc9f5d27828f"
+      },
+      {
+        "path": "Sources/DesignOSApple/DesignOSApple.swift",
+        "sha256": "905df4bc420a5cf5d91599a4e9a923cf6f5ce1e7de89f86923f1cb564c139e69"
+      },
+      {
+        "path": "Sources/DesignOSApple/Platform/PlatformAccessibility.swift",
+        "sha256": "3cb6f973fbce26184371633ea3e48cc3411d38a1bea432e56e532588209f32e4"
+      },
+      {
+        "path": "Sources/DesignOSApple/Platform/PlatformSemanticColor.swift",
+        "sha256": "c6612613219bd8e21c3ec421a0d1bba7a440d10d5ccac3b7035a073cbcc5e5f3"
+      },
+      {
+        "path": "Sources/DesignOSApple/Platform/PlatformSurface.swift",
+        "sha256": "4fac5bb4e2c6b8b864394b19276027c05917f80c9151c6912967c413464c7394"
+      },
+      {
+        "path": "Sources/DesignOSApple/Platform/PlatformTypography.swift",
+        "sha256": "68b79ddd970da927f250e8694435f076200ffb4bec784bd9d11c6e3343023c9a"
+      },
+      {
+        "path": "Sources/DesignOSApple/Primitives/AccessorySlotLayout.swift",
+        "sha256": "1b7e48b485eade64e9343c1e4c98e75ba67971b2314e66afdca2eed6033a7307"
+      },
+      {
+        "path": "Sources/DesignOSApple/Primitives/Editorial/DesignOSEditorialAdaptiveRowLayout.swift",
+        "sha256": "240dd94bcfc064f907ee4e10884e5cc6a4d40739ed6ccd32e42991c227a8a52a"
+      },
+      {
+        "path": "Sources/DesignOSApple/Primitives/Editorial/DesignOSEditorialClippedContent.swift",
+        "sha256": "3cfde4e79cd3fc40ebd56f1bdb788071df940f3785e6001c03889f4e0f6f1e54"
+      },
+      {
+        "path": "Sources/DesignOSApple/Primitives/Editorial/DesignOSEditorialGeometry.swift",
+        "sha256": "fce86662debc3fc00bd4c919e05860c9de1ee5ac14355f7a851b491f078b7f8a"
+      },
+      {
+        "path": "Sources/DesignOSApple/Primitives/SectionContentLayout.swift",
+        "sha256": "8c39761a09dee82776ea2710ed0470a4ba5060605b59008f9a28802ccd8b41cd"
+      },
+      {
+        "path": "Sources/DesignOSApple/Primitives/SidebarToolbarContent.swift",
+        "sha256": "8c6b04dc8b983081429993e7044f0b0661d513533c3e0d8a7279dacfde213389"
+      },
+      {
+        "path": "Sources/DesignOSApple/Primitives/SymbolContent.swift",
+        "sha256": "c30548f74d3892f7a9f706cbf88ac5f2d47bf31e768dfacbc801da738d28c17c"
+      },
+      {
+        "path": "Sources/DesignOSApple/Profile/DesignOSAccessibilityPolicy.swift",
+        "sha256": "4512e3986be8d6af1aff75f8d51a1362d19b46b30ef70acce3c7907b3897126f"
+      },
+      {
+        "path": "Sources/DesignOSApple/Profile/DesignOSProfile.swift",
+        "sha256": "22642cf608a20953cb99eef4cd2fada09d749c8ac2b5153055660d28615a85a6"
+      },
+      {
+        "path": "Sources/DesignOSApple/Profile/DesignOSProfileEnvironment.swift",
+        "sha256": "3ba2f58f41069fefcabbbed913738a3329f2447685ec23bd03f48b33e297cc01"
+      },
+      {
+        "path": "Sources/DesignOSApple/Profile/DesignOSRadiusProfile.swift",
+        "sha256": "0ecaa6fb1c9f9a18736e3cae11041b1264191a409a31cd962df92da6f850a58e"
+      },
+      {
+        "path": "Sources/DesignOSApple/Profile/DesignOSSemanticColorProfile.swift",
+        "sha256": "ca14b721dd061448ddff2d1604f9f33fb95611e2a6312cf24fa75c6473f26ebc"
+      },
+      {
+        "path": "Sources/DesignOSApple/Profile/DesignOSSpacingProfile.swift",
+        "sha256": "86a375133e5003892641006254960b08f4d7ff43debc0ef99f352025956a67c1"
+      },
+      {
+        "path": "Sources/DesignOSApple/Profile/DesignOSSurfaceProfile.swift",
+        "sha256": "b8eea56c01e3738e094aba17d343002a702847bf358e780a50da2b1123064d51"
+      },
+      {
+        "path": "Sources/DesignOSApple/Profile/DesignOSTypographyProfile.swift",
+        "sha256": "26d04eb92795cce7e58583ee83b014e5dd86ce6defe33ea340e85a1d535150ea"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeButtonAndToolbarActionRecipe.swift",
+        "sha256": "d730e34e165fd696f51f7f07123c20c6fd314b23b476e0566218562859b39186"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeContentUnavailableViewRecipe.swift",
+        "sha256": "d8fc6a68dc7d8da08205c912545b51e9e03871412202f507afc5767eb1bc521a"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeElevatedBackgroundRecipe.swift",
+        "sha256": "df5424ae9808405a4a00032222619aca270de394f5185f065cecc063e8544c20"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeHierarchicalStyleRecipe.swift",
+        "sha256": "1e3331d6e713f0c7e144ffc91f812ddfaab4c20909ee0e90dde46419a1eade0c"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeHomeScreenQuickActionRecipe.swift",
+        "sha256": "0dcd576a36de9e08b7d1ba08dfdfb61a67318259028530cf6c0458f0fe56797e"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeListSidebarAndDisclosureRecipe.swift",
+        "sha256": "937ed3c97df71d5db7218af60f26a92d48e4fbc320b02d37165347fd4e036e5d"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeMaterialAndGlassSurfaceRecipe.swift",
+        "sha256": "8700be5eb4011abc9e0baa03a96b1f72fb2d98e83a6eb6a75f5082dee3371f83"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeMenuContextAndEditActionsRecipe.swift",
+        "sha256": "f31a149d61996479f198c4184a54a05af25f28e527e5287f704903639086dfcd"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeNavigationTabsAndToolbarsRecipe.swift",
+        "sha256": "c134436943496cac83415133c7b8a19bd52d0e287181793a07c67a1d61bbf3bc"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativePickerAndDateColorInputRecipe.swift",
+        "sha256": "6af069a89d490aba985673ed5f27f971642022bbe145005e67eaadacbcb05476"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativePresentationAndShareRecipe.swift",
+        "sha256": "6be02acf38416f22064f7077c79aa815fa047acd74fedd57ee3a5cc96e18dece"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeProgressSliderStepperRecipe.swift",
+        "sha256": "51c55d3e66a8394b6c5c81794101fe2611366847b17080bfc9d88c671caddc8a"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/NativeTextSearchAndKeyboardInputRecipe.swift",
+        "sha256": "85e6783fe827a2c5bd623a452c6299cd56a595eee6d81d9578a19ecd150b19b7"
+      },
+      {
+        "path": "Sources/DesignOSApple/Recipes/SystemDeviceChromeHostRecipe.swift",
+        "sha256": "2ad936e517c2a619cffd07e622bacf505a4358b6f06a6b691faa442283ad68cd"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSConfirmationScreen.swift",
+        "sha256": "ebb9d14cdcc3bb2565f8ba43128e5685aa36b60c41449f4cd706f097ed0152ec"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSDiscoveryScreen.swift",
+        "sha256": "0da17f74e1d1aa17d3944acc4b491e9f319e41a710a904546e9acc307adfd50d"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSFlatCollectionScreen.swift",
+        "sha256": "6107c3eff9c5ecee7f3d6444d5587317bd027b5d3e7b115e4067e5ef9f43eafc"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSFocusedTaskScreen.swift",
+        "sha256": "9528f5570deef266ce122e0f33cbf073a377e8b35c24abe701d509aa576b8797"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSFreeformEditorScreen.swift",
+        "sha256": "b2956f7da0426ded01ccae553a3dbd632823ef369757e17365d9ccee4e8e6ff6"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSGroupedFormScreen.swift",
+        "sha256": "2ea9235847b9812023d1a8d2d96ba6bddb1b633cd6de053df354fed8183312a3"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSHeroCollectionScreen.swift",
+        "sha256": "dac51cc6adb2cb1d4ae4479bc90fefcacc0b2b736b545d3be8c33ccbb7ec5115"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSMediaComposerScreen.swift",
+        "sha256": "0091a2b95d0a75a968211c9fe36d9a401328f51ab163d687ebc98b975d8c7fa8"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSMediaDetailScreen.swift",
+        "sha256": "89111bce13c38feeaec3acbb608465540f57ffa24e4b783ac2c4d62b3c609005"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSMessageThreadScreen.swift",
+        "sha256": "7afac7e4ee5c88e33489fd72255d83e52c9211191288b4c4eb239d123e5fdcaf"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSNativePresentationScreen.swift",
+        "sha256": "b675711c0db010e0ff5affa9f2e97ac73776cd7dafe81f8bf259cc6862764d81"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSOnboardingScreen.swift",
+        "sha256": "cf41d868345ffaf008ec364d27e13f2ef3806202efa9ec21a1ac5c619da3d800"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSProfileDetailScreen.swift",
+        "sha256": "1a42219dc1ca2e378773c0b06d109bbabe202899415685c5d80417a60a10bce8"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSProviderHostScreen.swift",
+        "sha256": "d0a811bfb7700056410dd528e16504e94d74ee5195d3781f321597eaabd5c3e7"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSRecordDetailScreen.swift",
+        "sha256": "216831d7e5a1c125d39df5fa6fbc6d775692801d7c865635372ec2f670336486"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSSearchSelectionScreen.swift",
+        "sha256": "4fae6e015195338e63bd939295afd7f130a6a718e2ff545570bc2660a2d2a3f5"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSStatusScreen.swift",
+        "sha256": "a575228bbd43790488d35039f5e46218f387fa4b126de1dc6f09adaf4f4b65ac"
+      },
+      {
+        "path": "Sources/DesignOSApple/Screens/DesignOSUtilityCanvasScreen.swift",
+        "sha256": "f6b340bcfa482fb0a37b6c69f859165d87a5be12116479c264e64e86bbc77914"
+      },
+      {
+        "path": "Sources/DesignOSApple/Shells/DesignOSAdaptiveNavigationShell.swift",
+        "sha256": "b7bc8ff510117a0bb23be5fad8b4737d36cbf0d842d09bfe08ef94f2b1e49049"
+      },
+      {
+        "path": "Sources/DesignOSApple/Shells/DesignOSAmbientScrollShell.swift",
+        "sha256": "c197bbbe7b9d4f94644f5a5d186c3154ed9d8d9fbb8a1cc14d483708285ce135"
+      },
+      {
+        "path": "Sources/DesignOSApple/Shells/DesignOSConversationShell.swift",
+        "sha256": "ddf17c6659c72a17ecdd230b5ff6aeac576e424c42d0cd52eef156e4d54d4223"
+      },
+      {
+        "path": "Sources/DesignOSApple/Shells/DesignOSFlatListShell.swift",
+        "sha256": "440713c3398d059363f78fdf0cec9b8416cb9cde73b21970e350a94d10f4deac"
+      },
+      {
+        "path": "Sources/DesignOSApple/Shells/DesignOSFlatScrollShell.swift",
+        "sha256": "4f86fdbd86f2788473c02a6745d124abcb304b90cf96e1ce7f76568e3e1e6748"
+      },
+      {
+        "path": "Sources/DesignOSApple/Shells/DesignOSFocusedTaskShell.swift",
+        "sha256": "9b40f7bdb2bf80eddae6f1c3870653e4e8aa739178609a589ffc35fdd1e7f1ee"
+      },
+      {
+        "path": "Sources/DesignOSApple/Shells/DesignOSGroupedFormShell.swift",
+        "sha256": "6eef1a048418bd8b674ecd202e5a65549c1363bf8ad0ac3ced2ea7e8e1afe0be"
+      },
+      {
+        "path": "Sources/DesignOSApple/Shells/DesignOSNativeHostShell.swift",
+        "sha256": "25abaad6e41efbefbb08cbe54aa226c07326990488b9483af9fec765715469d2"
+      },
+      {
+        "path": "Sources/DesignOSApple/Shells/DesignOSUtilityCanvasShell.swift",
+        "sha256": "8dac673a3727f5f590835014e33588e89062eca606d01220e3d1b03a48ad47fa"
+      },
+      {
+        "path": "Sources/DesignOSApple/Tokens/DesignOSColorRole.swift",
+        "sha256": "5d2a867622ae766019d934d30d2305494e9614ede48d3df8e39f83917d9bc904"
+      },
+      {
+        "path": "Sources/DesignOSApple/Tokens/DesignOSSurfaceRole.swift",
+        "sha256": "36d15468901bb53aa9892681c90ee52294c988920b8c19f7fdc361c71689637b"
+      },
+      {
+        "path": "Sources/DesignOSApple/Tokens/DesignOSTypographyRole.swift",
+        "sha256": "54ce5593fa76b63bcddce6c69dd3f660a1fbea538b9de0afd36c2b90da715b7e"
+      }
+    ]
+  },
   "assets": [
     {
-      "file": "iphone-discovery-light.png",
+      "file": "ipad-discovery-light.png",
       "kind": "native-ci-screenshot",
-      "sha256": "4affdc4a00a7cdb0f6f0d9b970d142e11b1146dec2c230ed6345bbf37d87a165",
-      "byte_size": 464740,
-      "width": 603,
-      "height": 1311,
+      "sha256": "1a647893bb65ba9664ea9dbebceb51822c9fc68d7d19fc1aa673d60c23308c84",
+      "byte_size": 409593,
+      "width": 1032,
+      "height": 1376,
+      "platform": "ipad",
+      "component_id": "screen/discovery",
+      "state": "populated",
+      "appearance": "light",
       "source": {
-        "artifact_id": 11683400972,
-        "artifact_name": "layered-kit-iphone-test-results",
-        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
-        "exported_file": "screenshots-iPhone/663FFC81-3967-4281-86F9-128306534371.png",
-        "sha256": "cfd47c05ccb57421bc93c8bc33321cc1a57020b583252e9fbacbe37796d8bdf0",
-        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "artifact_id": 11710600575,
+        "artifact_name": "layered-kit-ipad-test-results",
+        "artifact_sha256": "e9f71cad9c4962af214109d5b0c32589ecf54961d52b6395f174f857c984a677",
+        "job_id": 114526372932,
+        "run_attempt": 1,
+        "head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+        "tested_merge_sha": "f77ab0e051d22d9c80bc6bd24edf952ffb2bc430",
+        "exported_file": "screenshots-iPad-original/DC9A7938-4E7C-495C-A2C5-00F55B9A7FA0.png",
+        "sha256": "81517c08b7856e40923a9b018736c38509718c725b9ff9d6e8f07bc2bccc3cbf",
+        "manifest_sha256": "9ab7f21426c593eb9357997d97f820047f4d134d58ea2531a02f8005e1a02388",
         "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
-        "attachment_name": "screen-discovery-light_0_D809E0EA-12FE-45C6-A935-8D4E68D41ECD.png",
-        "device_name": "iPhone 17 Pro",
-        "capture_timestamp": 1791667829.872,
-        "original_width": 1206,
-        "original_height": 2622
+        "test_result": "Success",
+        "attachment_name": "screen-discovery-light_0_AA2AB7BC-3421-4E7B-874F-1EAE45EE0CB1.png",
+        "device_name": "iPad Pro 13-inch (M5)",
+        "capture_timestamp": 1791739901.395,
+        "original_width": 2064,
+        "original_height": 2752,
+        "database_sha256": "68750d54cea4bfed3aa4f8117731e17f3db9562c685604a053adefa308400cec",
+        "original_payload_sha256": "81517c08b7856e40923a9b018736c38509718c725b9ff9d6e8f07bc2bccc3cbf",
+        "original_payload_equals_export": true,
+        "binding_kind": "named_native_attachment",
+        "generic_json_binding_present": false,
+        "recovered_evidence_sha256": "159b61eef696b324c985bbde2c7035bcc320480b4076fbc6ed1634ba84f0ca20"
       },
       "crop": null,
       "resize": {
         "scale": 0.5,
         "resampling": "Lanczos"
       },
-      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+      "ui_retouched": false,
+      "description": "Complete native simulator screenshot, uniformly downsampled to 50% with Lanczos and losslessly encoded; no crop, masking or UI retouching."
     },
     {
       "file": "iphone-discovery-dark.png",
       "kind": "native-ci-screenshot",
-      "sha256": "0d3c25c3f2716a895cf0a6329f141ce1b7e7e1ac8fbcad54f4d4525dd38a9b1b",
-      "byte_size": 462209,
+      "sha256": "711dc157ee92124bc8107856e9d94b45ad4077000ab6324bfc1b10f3fccf5da4",
+      "byte_size": 461987,
       "width": 603,
       "height": 1311,
+      "platform": "iphone",
+      "component_id": "screen/discovery",
+      "state": "populated",
+      "appearance": "dark",
       "source": {
-        "artifact_id": 11683400972,
+        "artifact_id": 11709824406,
         "artifact_name": "layered-kit-iphone-test-results",
-        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
-        "exported_file": "screenshots-iPhone/1DE482CA-1456-4E19-9357-87339416FE54.png",
-        "sha256": "cb24b64c334ca193e72647d79b4ca6b10e8eefb299e22bb4c7be3707b71aa805",
-        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "artifact_sha256": "ca418e564935cc3ea20db77f65b5c74565a96483c855bdf678c861aeaa70945b",
+        "job_id": 114526372935,
+        "run_attempt": 1,
+        "head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+        "tested_merge_sha": "f77ab0e051d22d9c80bc6bd24edf952ffb2bc430",
+        "exported_file": "screenshots-iPhone-original/C4D1EF7E-3503-429A-90C2-B8A6757EF32A.png",
+        "sha256": "7baf79c9b0257badf986f4d61d27ea85446f55f31cf669e7d5cc77ac2c968508",
+        "manifest_sha256": "f81c4764330da8ae0f58953cbbe463f3132f7aa9b11ec93df6b3fb6311c5c08f",
         "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
-        "attachment_name": "screen-discovery-dark_0_003BA4BF-EE5C-4F88-BA05-470E86EDDC5B.png",
+        "test_result": "Success",
+        "attachment_name": "screen-discovery-dark_0_8ED8CE7D-70A3-464E-908A-F427BF3961A0.png",
         "device_name": "iPhone 17 Pro",
-        "capture_timestamp": 1791667846.205,
+        "capture_timestamp": 1791739460.659,
         "original_width": 1206,
-        "original_height": 2622
+        "original_height": 2622,
+        "database_sha256": "b4a24a5459ee7bef90263959d151de4635c620cf2df0ecde61b15d180113db1b",
+        "original_payload_sha256": "7baf79c9b0257badf986f4d61d27ea85446f55f31cf669e7d5cc77ac2c968508",
+        "original_payload_equals_export": true,
+        "binding_kind": "named_native_attachment",
+        "generic_json_binding_present": false,
+        "recovered_evidence_sha256": "603c4dd1050535b5c2d4092eee287adc274485bfed41f261ac017b829ef8a35e"
       },
       "crop": null,
       "resize": {
         "scale": 0.5,
         "resampling": "Lanczos"
       },
-      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+      "ui_retouched": false,
+      "description": "Complete native simulator screenshot, uniformly downsampled to 50% with Lanczos and losslessly encoded; no crop, masking or UI retouching."
     },
     {
-      "file": "iphone-media-composer-dark.png",
+      "file": "iphone-discovery-light.png",
       "kind": "native-ci-screenshot",
-      "sha256": "b7afab1e590f4346419dc50db67b691c31a34794e59eb73f9c860c262bfc1c62",
-      "byte_size": 508128,
+      "sha256": "60540a4ec8fd07f95286119a120a1ef42f8eb38d72aea9161aef9c5616f1f406",
+      "byte_size": 464536,
       "width": 603,
       "height": 1311,
+      "platform": "iphone",
+      "component_id": "screen/discovery",
+      "state": "populated",
+      "appearance": "light",
       "source": {
-        "artifact_id": 11683400972,
+        "artifact_id": 11709824406,
         "artifact_name": "layered-kit-iphone-test-results",
-        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
-        "exported_file": "screenshots-iPhone/BFE5AF3D-EB04-48E0-8D3F-EA8CE4836AA0.png",
-        "sha256": "57fe1827ceec43e94e7c40033e77d29f30ef0c2ab2aa51ad63f1ab812c2ca91e",
-        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "artifact_sha256": "ca418e564935cc3ea20db77f65b5c74565a96483c855bdf678c861aeaa70945b",
+        "job_id": 114526372935,
+        "run_attempt": 1,
+        "head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+        "tested_merge_sha": "f77ab0e051d22d9c80bc6bd24edf952ffb2bc430",
+        "exported_file": "screenshots-iPhone-original/6926F102-D59E-4B11-B49A-0FA6D012A8D3.png",
+        "sha256": "5693fa4c99bd75974acc4afff227ae5c4bfedc9b706bce0f98333d0828f2d520",
+        "manifest_sha256": "f81c4764330da8ae0f58953cbbe463f3132f7aa9b11ec93df6b3fb6311c5c08f",
         "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
-        "attachment_name": "screen-media-composer-dark_0_16AFDC30-825B-4B6A-B267-45235F97F868.png",
+        "test_result": "Success",
+        "attachment_name": "screen-discovery-light_0_C8957C82-4747-443A-883B-50DE70224399.png",
         "device_name": "iPhone 17 Pro",
-        "capture_timestamp": 1791667712.307,
+        "capture_timestamp": 1791739442.441,
         "original_width": 1206,
-        "original_height": 2622
+        "original_height": 2622,
+        "database_sha256": "b4a24a5459ee7bef90263959d151de4635c620cf2df0ecde61b15d180113db1b",
+        "original_payload_sha256": "5693fa4c99bd75974acc4afff227ae5c4bfedc9b706bce0f98333d0828f2d520",
+        "original_payload_equals_export": true,
+        "binding_kind": "named_native_attachment",
+        "generic_json_binding_present": false,
+        "recovered_evidence_sha256": "603c4dd1050535b5c2d4092eee287adc274485bfed41f261ac017b829ef8a35e"
       },
       "crop": null,
       "resize": {
         "scale": 0.5,
         "resampling": "Lanczos"
       },
-      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+      "ui_retouched": false,
+      "description": "Complete native simulator screenshot, uniformly downsampled to 50% with Lanczos and losslessly encoded; no crop, masking or UI retouching."
     },
     {
       "file": "iphone-grouped-form-light.png",
       "kind": "native-ci-screenshot",
-      "sha256": "a5de1dd7fa05ca870b54ca33b0f3e2c783064590c603b5b052c097573f9d9633",
-      "byte_size": 56744,
+      "sha256": "d4e14446a291a9812769fe4a663e021fe7e72ecd1db1215d0d081203fa913412",
+      "byte_size": 55906,
       "width": 603,
       "height": 1311,
+      "platform": "iphone",
+      "component_id": "screen/grouped-form",
+      "state": "populated",
+      "appearance": "light",
       "source": {
-        "artifact_id": 11683400972,
+        "artifact_id": 11709824406,
         "artifact_name": "layered-kit-iphone-test-results",
-        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
-        "exported_file": "screenshots-iPhone/1FDDC901-F381-4A40-8E20-95348F07FA24.png",
-        "sha256": "750a0154fa12ac297b57ca69cc8a65edc3a368c1cfcac4a23ff6d8057d396dd4",
-        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "artifact_sha256": "ca418e564935cc3ea20db77f65b5c74565a96483c855bdf678c861aeaa70945b",
+        "job_id": 114526372935,
+        "run_attempt": 1,
+        "head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+        "tested_merge_sha": "f77ab0e051d22d9c80bc6bd24edf952ffb2bc430",
+        "exported_file": "screenshots-iPhone-original/1583511B-EE0B-42C7-91FF-BC5F3D8A74E6.png",
+        "sha256": "cb87da59233d53aa5395a5df28c7a9de8e83561fcf4d973b92bb0d50d184ad2c",
+        "manifest_sha256": "f81c4764330da8ae0f58953cbbe463f3132f7aa9b11ec93df6b3fb6311c5c08f",
         "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
-        "attachment_name": "screen-grouped-form-light_0_5B42006A-6E66-44B3-ACA7-8D64707D065E.png",
+        "test_result": "Success",
+        "attachment_name": "screen-grouped-form-light_0_49AA79EE-61AE-4455-812F-5C40D8F3AAE9.png",
         "device_name": "iPhone 17 Pro",
-        "capture_timestamp": 1791667728.983,
+        "capture_timestamp": 1791739334.921,
         "original_width": 1206,
-        "original_height": 2622
+        "original_height": 2622,
+        "database_sha256": "b4a24a5459ee7bef90263959d151de4635c620cf2df0ecde61b15d180113db1b",
+        "original_payload_sha256": "cb87da59233d53aa5395a5df28c7a9de8e83561fcf4d973b92bb0d50d184ad2c",
+        "original_payload_equals_export": true,
+        "binding_kind": "named_native_attachment",
+        "generic_json_binding_present": false,
+        "recovered_evidence_sha256": "603c4dd1050535b5c2d4092eee287adc274485bfed41f261ac017b829ef8a35e"
       },
       "crop": null,
       "resize": {
         "scale": 0.5,
         "resampling": "Lanczos"
       },
-      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+      "ui_retouched": false,
+      "description": "Complete native simulator screenshot, uniformly downsampled to 50% with Lanczos and losslessly encoded; no crop, masking or UI retouching."
+    },
+    {
+      "file": "iphone-media-composer-dark.png",
+      "kind": "native-ci-screenshot",
+      "sha256": "ad42d9f03578bd12f84498932857038b0b132caa2efcf72cdf2e6de336742667",
+      "byte_size": 655791,
+      "width": 603,
+      "height": 1311,
+      "platform": "iphone",
+      "component_id": "screen/media-composer",
+      "state": "populated",
+      "appearance": "dark",
+      "source": {
+        "artifact_id": 11709824406,
+        "artifact_name": "layered-kit-iphone-test-results",
+        "artifact_sha256": "ca418e564935cc3ea20db77f65b5c74565a96483c855bdf678c861aeaa70945b",
+        "job_id": 114526372935,
+        "run_attempt": 1,
+        "head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+        "tested_merge_sha": "f77ab0e051d22d9c80bc6bd24edf952ffb2bc430",
+        "exported_file": "screenshots-iPhone-original/D4D96151-A360-4AE1-A80C-87CCFEB45BB1.png",
+        "sha256": "56a4d38db2afebbd2a963924c7d162781e83f969cd28db6e77c85bc9c01aff10",
+        "manifest_sha256": "f81c4764330da8ae0f58953cbbe463f3132f7aa9b11ec93df6b3fb6311c5c08f",
+        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
+        "test_result": "Success",
+        "attachment_name": "screen-media-composer-dark_0_38578879-6D05-4702-8223-65B36396BC2E.png",
+        "device_name": "iPhone 17 Pro",
+        "capture_timestamp": 1791739316.083,
+        "original_width": 1206,
+        "original_height": 2622,
+        "database_sha256": "b4a24a5459ee7bef90263959d151de4635c620cf2df0ecde61b15d180113db1b",
+        "original_payload_sha256": "56a4d38db2afebbd2a963924c7d162781e83f969cd28db6e77c85bc9c01aff10",
+        "original_payload_equals_export": true,
+        "binding_kind": "named_native_attachment",
+        "generic_json_binding_present": false,
+        "recovered_evidence_sha256": "603c4dd1050535b5c2d4092eee287adc274485bfed41f261ac017b829ef8a35e"
+      },
+      "crop": null,
+      "resize": {
+        "scale": 0.5,
+        "resampling": "Lanczos"
+      },
+      "ui_retouched": false,
+      "description": "Complete native simulator screenshot, uniformly downsampled to 50% with Lanczos and losslessly encoded; no crop, masking or UI retouching."
     },
     {
       "file": "iphone-message-thread-dark.png",
       "kind": "native-ci-screenshot",
-      "sha256": "f2db4d82f1f9bc9858e661ebce9bfc81529566c317ac16219f758318c0c2ee52",
-      "byte_size": 71319,
+      "sha256": "18a302ee454b2a2d78b7e6a32836fc701adfd95c7acad25a7ec76e1212894aa5",
+      "byte_size": 73187,
       "width": 603,
       "height": 1311,
+      "platform": "iphone",
+      "component_id": "screen/message-thread",
+      "state": "populated",
+      "appearance": "dark",
       "source": {
-        "artifact_id": 11683400972,
+        "artifact_id": 11709824406,
         "artifact_name": "layered-kit-iphone-test-results",
-        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
-        "exported_file": "screenshots-iPhone/1078E52F-31B4-4C0E-B1C5-BB4BE43FEBD0.png",
-        "sha256": "fb6c744c26a148cd22058f66b00212916aaabc48f13c927b47aecb0917e0ba95",
-        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "artifact_sha256": "ca418e564935cc3ea20db77f65b5c74565a96483c855bdf678c861aeaa70945b",
+        "job_id": 114526372935,
+        "run_attempt": 1,
+        "head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+        "tested_merge_sha": "f77ab0e051d22d9c80bc6bd24edf952ffb2bc430",
+        "exported_file": "screenshots-iPhone-original/C5AF2FE8-9C4F-463B-8061-5DB1CBABF8EC.png",
+        "sha256": "d2642597b2dc638b27ba28091414e142e0aa28d4ae1980334c94637e0d501cd5",
+        "manifest_sha256": "f81c4764330da8ae0f58953cbbe463f3132f7aa9b11ec93df6b3fb6311c5c08f",
         "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
-        "attachment_name": "screen-message-thread-dark_0_9A8EB558-7B11-42E4-A93F-78270536E3A2.png",
+        "test_result": "Success",
+        "attachment_name": "screen-message-thread-dark_0_D286C424-80B3-4D23-A9FF-6027B932D4A6.png",
         "device_name": "iPhone 17 Pro",
-        "capture_timestamp": 1791668063.493,
+        "capture_timestamp": 1791739690.938,
         "original_width": 1206,
-        "original_height": 2622
+        "original_height": 2622,
+        "database_sha256": "b4a24a5459ee7bef90263959d151de4635c620cf2df0ecde61b15d180113db1b",
+        "original_payload_sha256": "d2642597b2dc638b27ba28091414e142e0aa28d4ae1980334c94637e0d501cd5",
+        "original_payload_equals_export": true,
+        "binding_kind": "named_native_attachment",
+        "generic_json_binding_present": false,
+        "recovered_evidence_sha256": "603c4dd1050535b5c2d4092eee287adc274485bfed41f261ac017b829ef8a35e"
       },
       "crop": null,
       "resize": {
         "scale": 0.5,
         "resampling": "Lanczos"
       },
-      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+      "ui_retouched": false,
+      "description": "Complete native simulator screenshot, uniformly downsampled to 50% with Lanczos and losslessly encoded; no crop, masking or UI retouching."
     },
     {
       "file": "iphone-onboarding-light.png",
       "kind": "native-ci-screenshot",
-      "sha256": "228094641be69092120a1f1daeca8a4fa6a7a144d9b35841fa0f6a8fbf874456",
-      "byte_size": 477352,
+      "sha256": "439d5769815d6b1a35336e46448591be738ef414ae925918f0c44d91556c0afc",
+      "byte_size": 477720,
       "width": 603,
       "height": 1311,
+      "platform": "iphone",
+      "component_id": "screen/onboarding",
+      "state": "populated",
+      "appearance": "light",
       "source": {
-        "artifact_id": 11683400972,
+        "artifact_id": 11709824406,
         "artifact_name": "layered-kit-iphone-test-results",
-        "artifact_sha256": "95ebe78195152a5a8e349eb8c2b82e6243b1e33ccbd23cec872e40738a46e147",
-        "exported_file": "screenshots-iPhone/869B845C-2585-4365-92B4-6FE2EC9E83AC.png",
-        "sha256": "13b35c4058e3c4807326228c6041abd1bd421d171304250786dcc0a582ec45a1",
-        "manifest_sha256": "954124e2d1a49750726ca048e459dd89cdcaa968a7c2ddda73e854e328c6e429",
+        "artifact_sha256": "ca418e564935cc3ea20db77f65b5c74565a96483c855bdf678c861aeaa70945b",
+        "job_id": 114526372935,
+        "run_attempt": 1,
+        "head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+        "tested_merge_sha": "f77ab0e051d22d9c80bc6bd24edf952ffb2bc430",
+        "exported_file": "screenshots-iPhone-original/38D3982F-8113-477F-96D5-BC0C25F3C02D.png",
+        "sha256": "0d90981b23e26951a26377852308a8428e7f778c52794a6ac11910aab635fb14",
+        "manifest_sha256": "f81c4764330da8ae0f58953cbbe463f3132f7aa9b11ec93df6b3fb6311c5c08f",
         "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
-        "attachment_name": "screen-onboarding-light_0_DDF88253-47DA-4D08-BDC0-4B1AFC327E2A.png",
+        "test_result": "Success",
+        "attachment_name": "screen-onboarding-light_0_945BCDC9-D2F1-492E-84A1-130C53B89786.png",
         "device_name": "iPhone 17 Pro",
-        "capture_timestamp": 1791667797.858,
+        "capture_timestamp": 1791739405.794,
         "original_width": 1206,
-        "original_height": 2622
+        "original_height": 2622,
+        "database_sha256": "b4a24a5459ee7bef90263959d151de4635c620cf2df0ecde61b15d180113db1b",
+        "original_payload_sha256": "0d90981b23e26951a26377852308a8428e7f778c52794a6ac11910aab635fb14",
+        "original_payload_equals_export": true,
+        "binding_kind": "named_native_attachment",
+        "generic_json_binding_present": false,
+        "recovered_evidence_sha256": "603c4dd1050535b5c2d4092eee287adc274485bfed41f261ac017b829ef8a35e"
       },
       "crop": null,
       "resize": {
         "scale": 0.5,
         "resampling": "Lanczos"
       },
-      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
-    },
-    {
-      "file": "ipad-discovery-light.png",
-      "kind": "native-ci-screenshot",
-      "sha256": "c7c6b2360b9e5134436c6f62ee9697832e153603bbe0e9ecb115f745df2ad4a9",
-      "byte_size": 406939,
-      "width": 1032,
-      "height": 1376,
-      "source": {
-        "artifact_id": 11683226773,
-        "artifact_name": "layered-kit-ipad-test-results",
-        "artifact_sha256": "9162bef302d8c8a25c15dd9c87ddb8d42f86fef5e876fc23de171a593bdf65c3",
-        "exported_file": "screenshots-iPad/8E9ACD82-1346-42B7-A66A-C29ADD866DEC.png",
-        "sha256": "6be6a8263fe757790ae68e509a1ca740470d5c6340afd84cecad1289140b530a",
-        "manifest_sha256": "fd266eaeb4045fca23173e4f2ad8ad12d6333e1612670728936dceb2dbcdd520",
-        "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
-        "attachment_name": "screen-discovery-light_0_0F1DC037-5232-486E-A2AF-8C18E9AFB9F8.png",
-        "device_name": "iPad Pro 13-inch (M5)",
-        "capture_timestamp": 1791668008.37,
-        "original_width": 2064,
-        "original_height": 2752
-      },
-      "crop": null,
-      "resize": {
-        "scale": 0.5,
-        "resampling": "Lanczos"
-      },
-      "description": "Complete native simulator screenshot, including status bar. Uniformly scaled to 50%; no crop or UI retouching."
+      "ui_retouched": false,
+      "description": "Complete native simulator screenshot, uniformly downsampled to 50% with Lanczos and losslessly encoded; no crop, masking or UI retouching."
     },
     {
       "file": "macos-discovery-dark.png",
       "kind": "native-ci-screenshot",
-      "sha256": "ae4ee4b008efce5d4fd6b57f236b14128fde98e3ec6681f0e881143ab2615804",
-      "byte_size": 220682,
+      "sha256": "580f6e844bf1c8f203fbdf02a2bc72187deed42f009597e959371ba1bed541f5",
+      "byte_size": 220138,
       "width": 902,
       "height": 453,
+      "platform": "macos",
+      "component_id": "screen/discovery",
+      "state": "populated",
+      "appearance": "dark",
       "source": {
-        "artifact_id": 11682309988,
+        "artifact_id": 11710826153,
         "artifact_name": "layered-kit-macos-test-results",
-        "artifact_sha256": "0a9cda9ffdd253e8f58a0569036da82ef066969dcf5bfa08c5b24b242b69898a",
-        "exported_file": "screenshots-macOS/37358462-11E2-4A5B-957D-5C44D51D5750.png",
-        "sha256": "96ea87656ddcd84e6bef4170a14b497231ba978a98df528b6ba11de78869adfb",
-        "manifest_sha256": "02afbc4de54bddacd02edcafa6d477161874047d757a933a61a5710d439027d4",
+        "artifact_sha256": "cc9034a275f53c518fffe9c30512e037a250576a7284d16a3d00b699798d1fa6",
+        "job_id": 114526373030,
+        "run_attempt": 1,
+        "head_sha": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+        "tested_merge_sha": "f77ab0e051d22d9c80bc6bd24edf952ffb2bc430",
+        "exported_file": "screenshots-macOS-original/83C7D097-707A-4E51-A047-2D1C04784852.png",
+        "sha256": "57a474323a823f10db71e7a53b6c28ce0d1202e7790ed375fe164f7447fe52ff",
+        "manifest_sha256": "97b59cae425d9fa6ce53b3344fc67ef2a4759aaee00fe94210cd7fd9b8738be9",
         "test_identifier": "LayeredKitPreviewUITests/testEighteenScreenTypesInLightAndDark()",
-        "attachment_name": "screen-discovery-dark_0_E87B6FCB-BCB0-4B54-A002-3442B7A32F43.png",
+        "test_result": "Success",
+        "attachment_name": "screen-discovery-dark_0_CE9BFC55-3528-4E17-B483-DE76D1D91194.png",
         "device_name": "My Mac",
-        "capture_timestamp": 1791667401.254,
+        "capture_timestamp": 1791740994.12,
         "original_width": 1024,
-        "original_height": 768
+        "original_height": 768,
+        "database_sha256": "969a3d5307604de1be59615efdaeb9ffa8627c204f0fc17ee2f2a0a251fb641b",
+        "original_payload_sha256": "57a474323a823f10db71e7a53b6c28ce0d1202e7790ed375fe164f7447fe52ff",
+        "original_payload_equals_export": true,
+        "binding_kind": "named_native_attachment",
+        "generic_json_binding_present": false,
+        "recovered_evidence_sha256": "c3af036e5b00b066d9f274e2bc39cdca028389078fbc7ade491fab01105918ac"
       },
       "crop": [
         61,
@@ -233,13 +776,14 @@
         595
       ],
       "resize": null,
-      "description": "Full native macOS app window, cropped only to exclude desktop, menu bar and Dock. Content clipped by the original scroll viewport is preserved."
+      "ui_retouched": false,
+      "description": "Full native macOS app window cropped only to exclude desktop, menu bar and Dock; original viewport clipping is retained."
     },
     {
       "file": "kit-overview.png",
       "kind": "screenshot-composition",
-      "sha256": "f822b05aeda14243d5715b3f1d53483959bf460a93b888b79a0532d57943b5f6",
-      "byte_size": 490236,
+      "sha256": "5ca0822cf57e82219e7955efc6e85e82f038a6006dd832950d6caa024507a02c",
+      "byte_size": 523489,
       "width": 2000,
       "height": 1000,
       "source_files": [
@@ -249,6 +793,13 @@
         "iphone-grouped-form-light.png",
         "ipad-discovery-light.png"
       ],
+      "source_file_sha256": {
+        "iphone-discovery-light.png": "60540a4ec8fd07f95286119a120a1ef42f8eb38d72aea9161aef9c5616f1f406",
+        "iphone-discovery-dark.png": "711dc157ee92124bc8107856e9d94b45ad4077000ab6324bfc1b10f3fccf5da4",
+        "iphone-media-composer-dark.png": "ad42d9f03578bd12f84498932857038b0b132caa2efcf72cdf2e6de336742667",
+        "iphone-grouped-form-light.png": "d4e14446a291a9812769fe4a663e021fe7e72ecd1db1215d0d081203fa913412",
+        "ipad-discovery-light.png": "1a647893bb65ba9664ea9dbebceb51822c9fc68d7d19fc1aa673d60c23308c84"
+      },
       "composition": {
         "background": "#eeeae4",
         "placements": [
@@ -288,7 +839,71 @@
             "height": 700
           }
         ],
-        "note": "Editorial labels outside screenshots; aspect-ratio-preserving scaling; no generated UI, masking, fabricated device frame or composited UI content."
+        "labels": [
+          {
+            "text": "Native by design.",
+            "x": 60,
+            "y": 40,
+            "size": 48,
+            "color": "#191919"
+          },
+          {
+            "text": "Real CI captures  /  iPhone and iPad  /  Light and dark",
+            "x": 62,
+            "y": 106,
+            "size": 24,
+            "color": "#605c58"
+          },
+          {
+            "text": "iPhone / Discovery / Light",
+            "x": 60,
+            "y": 759,
+            "size": 17,
+            "color": "#35332f"
+          },
+          {
+            "text": "iPhone / Discovery / Dark",
+            "x": 350,
+            "y": 759,
+            "size": 17,
+            "color": "#35332f"
+          },
+          {
+            "text": "iPhone / Media composer",
+            "x": 640,
+            "y": 759,
+            "size": 17,
+            "color": "#35332f"
+          },
+          {
+            "text": "iPhone / Grouped form",
+            "x": 930,
+            "y": 759,
+            "size": 17,
+            "color": "#35332f"
+          },
+          {
+            "text": "iPad / Adaptive sidebar",
+            "x": 1270,
+            "y": 894,
+            "size": 20,
+            "color": "#35332f"
+          },
+          {
+            "text": "Native simulator captures  /  CI run 38157622095  /  Source 1898ce2  /  Original local demo content",
+            "x": 60,
+            "y": 958,
+            "size": 18,
+            "color": "#696560"
+          }
+        ],
+        "font": {
+          "name": "DejaVu Sans",
+          "sha256": "57f73e11f51999432bf7ab22ce55b6f945d5eca1bf824404cfa9ec2e3718c84e"
+        },
+        "resampling": "Lanczos",
+        "ui_retouched": false,
+        "note": "Labels are outside screenshots. Uniform aspect-ratio-preserving scaling with integer rounding; no masking, invented device frames, generated UI or composited UI content."
       }
     }
   ]
