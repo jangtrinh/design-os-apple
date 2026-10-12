@@ -8,6 +8,10 @@ struct TextFieldSpecimen: View {
     @State private var biography = "Bring something you enjoy sharing."
     @State private var password = ""
     @FocusState private var focusedField: Field?
+    #if DEBUG
+    @State private var finishEditingActions = 0
+    private let recordsEditing = ProcessInfo.processInfo.environment["LAYERED_KIT_EDITING_DIAGNOSTICS"] == "1"
+    #endif
     private enum Field: Hashable { case name, biography, password }
     private let state = ProcessInfo.processInfo.environment["LAYERED_KIT_FIELD_STATE"] ?? "normal"
     private var isInvalid: Bool { state == "error" }
@@ -60,9 +64,19 @@ struct TextFieldSpecimen: View {
                 Text("Local native input specimen · \(state)")
                     .font(.caption)
                     .foregroundStyle(style.palette.secondaryInk.color)
-                Button("Finish editing") { focusedField = nil }
+                Button("Finish editing") {
+                    #if DEBUG
+                    if recordsEditing { finishEditingActions += 1 }
+                    #endif
+                    focusedField = nil
+                }
                     .buttonStyle(DesignOSSecondaryButtonStyle())
                     .accessibilityIdentifier("fieldFinishEditing")
+                    #if DEBUG
+                    .accessibilityValue(recordsEditing
+                        ? "focus=\(focusedField.map { String(describing: $0) } ?? "none");finish=\(finishEditingActions)"
+                        : "")
+                    #endif
             }
             .padding(style.metrics.pageInset)
             .frame(maxWidth: 640, alignment: .leading)
