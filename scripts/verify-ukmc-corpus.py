@@ -24,24 +24,47 @@ from pathlib import Path
 # Prevent bytecode caching into repository publication boundaries
 sys.dont_write_bytecode = True
 
-# Add knowledge-builder to path for canonical contract invocation
+# Canonical validation remains mandatory unless local-only fallback is explicitly requested.
 REPO_ROOT = Path(__file__).resolve().parent.parent
 KB_SRC = REPO_ROOT.parent / "knowledge-builder" / "src"
-if KB_SRC.exists():
-    sys.path.insert(0, str(KB_SRC))
+HAS_CANONICAL_BUILDER = False
+CANONICAL_ERROR = ""
+
+
+def load_canonical_contract(source=None):
+    """Load the canonical contract from an explicit source or the legacy sibling checkout."""
+    global HAS_CANONICAL_BUILDER, CANONICAL_ERROR
+    global UniversalKnowledgeUnit, KnowledgeMetadata, SourceAttribution, ModalityType, TrustTier
+    source = Path(source or os.environ.get("UKMC_KNOWLEDGE_BUILDER_SRC") or KB_SRC).expanduser().resolve()
+    HAS_CANONICAL_BUILDER = False
+    CANONICAL_ERROR = f"Canonical knowledge-builder contract not found at {source}"
+    if not (source / "knowledge_builder" / "contract.py").is_file():
+        return
+    if not (source / "knowledge_builder" / "__init__.py").is_file():
+        CANONICAL_ERROR = f"Canonical knowledge-builder source at {source} must contain knowledge_builder/__init__.py; namespace packages are not supported"
+        return
+    # Never let a previously imported or installed package override the selected source.
+    for name in list(sys.modules):
+        if name == "knowledge_builder" or name.startswith("knowledge_builder."):
+            del sys.modules[name]
+    sys.path.insert(0, str(source))
     try:
         from knowledge_builder.contract import (
-            UniversalKnowledgeUnit,
-            KnowledgeMetadata,
-            SourceAttribution,
-            ModalityType,
-            TrustTier,
+            UniversalKnowledgeUnit, KnowledgeMetadata, SourceAttribution, ModalityType, TrustTier,
         )
+        loaded = Path(sys.modules["knowledge_builder.contract"].__file__).resolve()
+        if loaded != (source / "knowledge_builder" / "contract.py").resolve():
+            raise ImportError(f"Resolved contract outside selected source: {loaded}")
         HAS_CANONICAL_BUILDER = True
-    except ImportError:
-        HAS_CANONICAL_BUILDER = False
-else:
-    HAS_CANONICAL_BUILDER = False
+        CANONICAL_ERROR = ""
+    except Exception as exc:
+        CANONICAL_ERROR = f"Canonical knowledge-builder contract could not load from {source}: {type(exc).__name__}: {exc}"
+    finally:
+        sys.path.remove(str(source))
+
+
+if __name__ != "__main__":
+    load_canonical_contract()
 
 
 def validate_iso8601_timestamp(ts: str) -> bool:
@@ -106,15 +129,15 @@ def parse_frontmatter(content: str):
         m_sub = re.match(r"^\s{2}([a-z0-9_]+):\s*(.*)$", line_clean)
         if m_sub and current_key:
             sub_k, sub_v = m_sub.groups()
-            sub_v = sub_v.strip().strip("\"'")
+            sub_v = sub_v.strip()
             if isinstance(data[current_key], dict):
                 if sub_v:
-                    if sub_v.lower() == "false":
+                    if sub_v == "false":
                         data[current_key][sub_k] = False
-                    elif sub_v.lower() == "true":
+                    elif sub_v == "true":
                         data[current_key][sub_k] = True
                     else:
-                        data[current_key][sub_k] = sub_v
+                        data[current_key][sub_k] = sub_v.strip("\"'")
                 else:
                     data[current_key][sub_k] = []
                     sub_list = data[current_key][sub_k]
@@ -176,21 +199,42 @@ def verify_corpus_and_units(repo_root: Path, check_only: bool = False, allow_fal
     if not manifest_path.exists():
         return [f"Corpus manifest missing: {manifest_path}"]
 
-    with open(manifest_path, "r", encoding="utf-8") as f:
-        manifest = json.load(f)
+    try:
+        with open(manifest_path, "r", encoding="utf-8") as f:
+            manifest = json.load(f)
+    except (OSError, ValueError) as exc:
+        return [f"Could not read corpus manifest: {exc}"]
+    if not isinstance(manifest, dict) or not manifest:
+        return ["Corpus manifest must be a non-empty JSON object"]
 
     manifest_info_by_uri = {}
     print(f"[*] Checking {len(manifest)} source corpus files in {corpus_dir}...")
     for key, info in manifest.items():
+        if not isinstance(info, dict):
+            errors.append(f"Manifest entry '{key}' must be an object")
+            continue
         rel_file = info.get("file", "")
-        file_path = repo_root / rel_file
-        if not file_path.exists():
+        if not isinstance(rel_file, str) or not rel_file:
+            errors.append(f"Manifest entry '{key}' needs a non-empty file path")
+            continue
+        file_path = (repo_root / rel_file).resolve()
+        if not file_path.is_relative_to(corpus_dir.resolve()):
+            errors.append(f"Manifest entry '{key}' file path must stay inside docs/corpus")
+            continue
+        if not file_path.is_file():
             errors.append(f"Corpus file missing: {rel_file}")
             continue
 
+        invalid_fields = False
         for req_key in ["uri", "sha256", "captured_at", "modality", "license"]:
-            if req_key not in info or not str(info[req_key]).strip():
-                errors.append(f"Manifest entry '{key}' missing required field: '{req_key}'")
+            if not isinstance(info.get(req_key), str) or not info[req_key].strip():
+                errors.append(f"Manifest entry '{key}' missing required string field: '{req_key}'")
+                invalid_fields = True
+        if invalid_fields:
+            continue
+        if info["uri"] in manifest_info_by_uri:
+            errors.append(f"Manifest entry '{key}' duplicates source URI: {info['uri']}")
+            continue
 
         if "captured_at" in info and not validate_iso8601_timestamp(info["captured_at"]):
             errors.append(f"Manifest entry '{key}' has invalid ISO 8601 captured_at: '{info['captured_at']}'")
@@ -227,8 +271,9 @@ def verify_corpus_and_units(repo_root: Path, check_only: bool = False, allow_fal
             continue
 
         uid = fm.get("id")
-        if not uid or not re.match(r"^[a-z0-9]+(?:-[a-z0-9]+)*$", uid):
+        if not isinstance(uid, str) or not uid or not re.match(r"^[a-z0-9]+(?:-[a-z0-9]+)*$", uid):
             errors.append(f"Invalid or missing id in {kf.name}: '{uid}'")
+            continue
         elif uid in unit_ids:
             errors.append(f"Duplicate unit id '{uid}' in {kf.name}")
         else:
@@ -319,7 +364,14 @@ def verify_corpus_and_units(repo_root: Path, check_only: bool = False, allow_fal
             errors.append(f"{kf.name}: 'Failure Modes' contains no numbered failure items")
 
         # Verify ALL <!-- ease:source ... --> anchors in body
-        all_anchors = re.findall(r'<!--\s*ease:source\s+ref="([^"]+)"\s+sha256="([^"]+)"\s+captured="([^"]+)"\s*-->', body)
+        anchor_comments = re.findall(r'<!--\s*ease:source\b.*?(?:-->|\Z)', body, re.DOTALL)
+        all_anchors = []
+        for comment in anchor_comments:
+            match = re.fullmatch(r'<!--\s*ease:source\s+ref="([^"\n]+)"\s+sha256="([a-f0-9]{64})"\s+captured="([^"\n]+)"\s*-->', comment)
+            if match is None:
+                errors.append(f"{kf.name}: malformed ease:source provenance anchor")
+            else:
+                all_anchors.append(match.groups())
         if not all_anchors:
             errors.append(f"{kf.name} missing '<!-- ease:source ... -->' provenance anchor")
         else:
@@ -377,7 +429,7 @@ def verify_corpus_and_units(repo_root: Path, check_only: bool = False, allow_fal
                 errors.append(f"{kf.name} canonical instantiation failed: {ex}")
         else:
             if not allow_fallback:
-                errors.append(f"{kf.name}: Canonical knowledge-builder contract not found at knowledge-builder/src. Explicitly blocked unless --allow-fallback / compatible local mode is declared.")
+                errors.append(f"{kf.name}: {CANONICAL_ERROR or 'Canonical knowledge-builder contract not found'}. Set --knowledge-builder-src or UKMC_KNOWLEDGE_BUILDER_SRC. --allow-fallback performs local checks only.")
 
         parsed_units[uid] = (kf, fm, body)
 
@@ -385,12 +437,21 @@ def verify_corpus_and_units(repo_root: Path, check_only: bool = False, allow_fal
     print("\n[*] Validating entity relationships...")
     for uid, (kf, fm, _) in parsed_units.items():
         rel = fm.get("relationships", {})
+        if not isinstance(rel, dict):
+            errors.append(f"{kf.name}: relationships must be a mapping")
+            continue
         linked = rel.get("linked_units", [])
+        if not isinstance(linked, list):
+            errors.append(f"{kf.name}: relationships.linked_units must be a list")
+            continue
         if linked:
             for link in linked:
+                if not isinstance(link, dict):
+                    errors.append(f"{kf.name}: each linked unit must be a mapping")
+                    continue
                 target_id = link.get("id")
                 rel_type = link.get("relationship")
-                if not target_id or target_id not in unit_ids:
+                if not isinstance(target_id, str) or not target_id or target_id not in unit_ids:
                     errors.append(f"{kf.name}: Relationship references non-existent unit id '{target_id}'")
                 elif rel_type not in ["prerequisite", "extends", "complements", "replaces"]:
                     errors.append(f"{kf.name}: Invalid relationship type '{rel_type}' for target '{target_id}'")
@@ -433,6 +494,8 @@ def verify_corpus_and_units(repo_root: Path, check_only: bool = False, allow_fal
             errors.append("Existing index.strict.json root must be a JSON array")
             return errors
 
+        if any(not isinstance(entry, dict) for entry in existing_index):
+            return ["Each index.strict.json entry must be a JSON object"]
         sorted_existing = sorted(existing_index, key=lambda x: str(x.get("id", "")))
 
         if len(sorted_existing) != len(strict_index):
@@ -485,7 +548,10 @@ def main():
     parser = argparse.ArgumentParser(description="Strict UKMC and Corpus Verifier")
     parser.add_argument("--check", action="store_true", help="Run in read-only check mode without writing index")
     parser.add_argument("--allow-fallback", action="store_true", help="Allow fallback verification when canonical knowledge-builder is unavailable")
+    parser.add_argument("--knowledge-builder-src", type=Path,
+                        help="Canonical knowledge-builder src directory (or UKMC_KNOWLEDGE_BUILDER_SRC)")
     args = parser.parse_args()
+    load_canonical_contract(args.knowledge_builder_src)
 
     repo_root = Path(__file__).resolve().parent.parent
     errors = verify_corpus_and_units(repo_root, check_only=args.check, allow_fallback=args.allow_fallback)
@@ -496,7 +562,10 @@ def main():
             print(f"    - {e}")
         sys.exit(1)
     else:
-        print("\n[✓] ALL CHECKS PASSED: Full cryptographic and schema validation succeeded.")
+        if HAS_CANONICAL_BUILDER:
+            print("\n[✓] ALL CHECKS PASSED: Canonical contract and local provenance validation succeeded.")
+        else:
+            print("\n[✓] LOCAL CHECKS PASSED: Canonical contract validation NOT VERIFIED (--allow-fallback).")
 
 
 if __name__ == "__main__":

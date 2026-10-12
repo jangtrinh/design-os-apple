@@ -1,3 +1,5 @@
+# Project documentation copy only. Crawlers consult https://jangtrinh.github.io/robots.txt.
+# This subpath file does not enforce origin-wide permissions.
 User-agent: *
 Allow: /
 

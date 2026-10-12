@@ -109,3 +109,14 @@
 .catalog .catalog-token-section { padding-top:var(--s-24); }
 .catalog .catalog-token { padding-block:var(--s-6); }
 @media (max-width:650px) { .catalog h1 { font-size:var(--t-36); } .catalog .catalog-intro { padding-top:var(--s-12); } .catalog .component-grid { gap:var(--s-12); } .catalog .component-pending { min-height:112px; } }
+/* Keep the mobile section index to one reachable, keyboard-scrollable rail. */
+@media (max-width:650px) {
+  .catalog .catalog-toc { flex-wrap:nowrap; overflow-x:auto; max-width:100%; gap:var(--s-8); padding-block:var(--s-4); scroll-snap-type:x proximity; scrollbar-width:thin; }
+  .catalog .catalog-toc a { flex:0 0 auto; white-space:nowrap; scroll-snap-align:start; }
+  .catalog .catalog-toc a:focus-visible { outline-offset:-3px; }
+}
+
+.catalog .native-evidence-group { margin-block:var(--s-8); }
+.catalog .native-evidence-list { padding-left:var(--s-16); }
+.catalog .native-evidence-list li { margin-block:var(--s-8); overflow-wrap:anywhere; font-size:var(--t-14); }
+.catalog .native-evidence-list span { display:block; }

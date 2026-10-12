@@ -14,7 +14,70 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  portable-contracts:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Set up Python
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify photo-analysis server without credentials
+        run: |
+          node --test Examples/CalorieCam/Server/server.test.mjs
+          node scripts/test-caloriecam-sample-provenance.mjs
+      - name: Verify provenance guard regressions and public quickstart parity
+        run: |
+          python3 scripts/test-ukmc-verifier.py
+          python3 scripts/test-quickstart-parity.py
+          python3 scripts/verify-quickstart-parity.py
+          python3 scripts/test-app-style-registry.py
+          python3 scripts/verify-app-style-registry.py
+          python3 scripts/test-layered-kit-verifier.py
+          python3 scripts/verify-layered-kit.py
+          python3 scripts/verify-component-specimens.py
+          python3 scripts/test-component-specimens.py
+
+  caloriecam-native:
+    # Validate priority field behavior before expanding native runner work.
+    needs: layered-kit-fields
+    strategy:
+      fail-fast: false
+      matrix:
+        destination: [iphone, ipad, macos]
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Verify CalorieCam core and native UI flows
+        env:
+          CALORIECAM_DESTINATION: ${{ matrix.destination }}
+          CALORIECAM_RESULTS_DIR: ${{ runner.temp }}/caloriecam-results
+        run: scripts/verify-caloriecam.sh
+      - name: Preserve CalorieCam test evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: caloriecam-${{ matrix.destination }}-test-results
+          path: |
+            ${{ runner.temp }}/caloriecam-results/*.xcresult
+            ${{ runner.temp }}/caloriecam-results/selected-simulators.txt
+            ${{ runner.temp }}/caloriecam-results/toolchain.txt
+            ${{ runner.temp }}/caloriecam-results/screenshots-*/
+          if-no-files-found: ignore
+
   release-candidate:
+    # Validate priority field behavior before expanding native runner work.
+    needs: layered-kit-fields
     runs-on: macos-26
     timeout-minutes: 45
     steps:
@@ -22,14 +85,138 @@ jobs:
         uses: actions/checkout@v6
       - name: Install XcodeGen and ripgrep
         run: brew install xcodegen ripgrep
+      - name: Diagnose native color resolution
+        continue-on-error: true
+        run: |
+          swiftc -swift-version 6 Sources/DesignOSApple/AppStyle/DesignOSAdaptiveColor.swift scripts/diagnose-app-style-color.swift -o "$RUNNER_TEMP/diagnose-app-style-color"
+          "$RUNNER_TEMP/diagnose-app-style-color"
       - name: Verify the same release-candidate gates used locally
         env:
           DESIGN_OS_APPLE_GALLERY_RESULTS_DIR: ${{ runner.temp }}/gallery-results
         run: scripts/verify-release-candidate.sh
+      - name: Preserve formatter suggestions after failed verification
+        if: failure()
+        run: |
+          swift format format --recursive --in-place Sources Tests
+          git diff -- Sources Tests > "$RUNNER_TEMP/swift-format.patch"
+      - name: Upload formatter suggestions
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: swift-format-suggestions
+          path: ${{ runner.temp }}/swift-format.patch
+          if-no-files-found: ignore
       - name: Upload Gallery test results on failure
         if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: gallery-test-results
           path: ${{ runner.temp }}/gallery-results
+          if-no-files-found: ignore
+
+  layered-kit-native:
+    # Validate priority field behavior before expanding native runner work.
+    needs: layered-kit-fields
+    strategy:
+      fail-fast: false
+      matrix:
+        destination: [iphone, ipad, macos]
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Verify reusable native UI-kit specimens
+        env:
+          LAYERED_KIT_DESTINATION: ${{ matrix.destination }}
+          LAYERED_KIT_TEST_SUITE: original
+          LAYERED_KIT_RESULTS_DIR: ${{ runner.temp }}/layered-kit-results
+        run: scripts/verify-layered-kit-preview.sh
+      - name: Preserve layered-kit native evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: layered-kit-${{ matrix.destination }}-test-results
+          path: |
+            ${{ runner.temp }}/layered-kit-results/*.xcresult
+            ${{ runner.temp }}/layered-kit-results/selected-simulators.txt
+            ${{ runner.temp }}/layered-kit-results/simulator-readiness-*.txt
+            ${{ runner.temp }}/layered-kit-results/toolchain.txt
+            ${{ runner.temp }}/layered-kit-results/source-revision.txt
+            ${{ runner.temp }}/layered-kit-results/test-selection.txt
+            ${{ runner.temp }}/layered-kit-results/screenshots-*/
+          if-no-files-found: ignore
+
+  # Keep field regressions independent of the broad component screenshot inventory.
+  layered-kit-fields:
+    strategy:
+      fail-fast: false
+      matrix:
+        destination: [iphone, ipad, macos]
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Verify native text-field specimens and interactions
+        env:
+          LAYERED_KIT_DESTINATION: ${{ matrix.destination }}
+          LAYERED_KIT_TEST_SUITE: fields
+          LAYERED_KIT_RESULTS_DIR: ${{ runner.temp }}/layered-kit-fields-results
+        run: scripts/verify-layered-kit-preview.sh
+      - name: Preserve native field evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: layered-kit-fields-${{ matrix.destination }}-test-results
+          path: |
+            ${{ runner.temp }}/layered-kit-fields-results/*.xcresult
+            ${{ runner.temp }}/layered-kit-fields-results/selected-simulators.txt
+            ${{ runner.temp }}/layered-kit-fields-results/simulator-readiness-*.txt
+            ${{ runner.temp }}/layered-kit-fields-results/toolchain.txt
+            ${{ runner.temp }}/layered-kit-fields-results/source-revision.txt
+            ${{ runner.temp }}/layered-kit-fields-results/test-selection.txt
+            ${{ runner.temp }}/layered-kit-fields-results/screenshots-*/
+          if-no-files-found: ignore
+
+  layered-kit-components:
+    # Capture the wider kit only after priority field behavior passes.
+    # A failed prerequisite keeps this run failed, never a full native pass.
+    needs: layered-kit-fields
+    strategy:
+      fail-fast: false
+      matrix:
+        destination: [iphone, ipad, macos]
+        shard: [semantic, composite, shell, native]
+    runs-on: macos-26
+    timeout-minutes: 45
+    steps:
+      - name: Check out source
+        uses: actions/checkout@v6
+      - name: Install XcodeGen
+        run: brew install xcodegen
+      - name: Verify isolated native component shard
+        env:
+          LAYERED_KIT_DESTINATION: ${{ matrix.destination }}
+          LAYERED_KIT_TEST_SUITE: components
+          LAYERED_KIT_COMPONENT_SHARD: ${{ matrix.shard }}
+          LAYERED_KIT_RESULTS_DIR: ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results
+        run: scripts/verify-layered-kit-preview.sh
+      - name: Preserve isolated component evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: layered-kit-components-${{ matrix.shard }}-${{ matrix.destination }}-test-results
+          path: |
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/*.xcresult
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/selected-simulators.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/simulator-readiness-*.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/toolchain.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/source-revision.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/test-selection.txt
+            ${{ runner.temp }}/layered-kit-components-${{ matrix.shard }}-results/screenshots-*/
           if-no-files-found: ignore

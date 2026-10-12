@@ -6,6 +6,9 @@ on:
       - README.md
       - 'docs/**'
       - scripts/verify-marketing-browser.cjs
+      - scripts/generate-component-catalog.py
+      - scripts/verify-marketing-metadata.py
+      - scripts/test-marketing-metadata.py
       - scripts/verify-marketing-image-provenance.py
       - scripts/test-marketing-image-provenance.py
       - scripts/verify-component-image-provenance.py
@@ -42,6 +45,9 @@ jobs:
       - name: Verify static catalog coverage without JavaScript
         shell: bash
         run: |
+          python3 scripts/generate-component-catalog.py --check
+          python3 scripts/verify-marketing-metadata.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/metadata.log"
+          python3 scripts/test-marketing-metadata.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/metadata-tests.log"
           node scripts/verify-marketing-browser.cjs --static-only 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/catalog-static.log"
       - name: Install pinned preview-only tooling
         id: tooling

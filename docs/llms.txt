@@ -1,38 +1,29 @@
-# Apple Design OS (DesignOSApple)
+# Apple Design OS
 
 > A native, zero-external-dependency SwiftUI design system for iOS 17+, iPadOS 17+, and macOS 14+, using Swift 6.2.
 
-## Availability and authority
+## Availability and source authority
 
-The layered kit preview is candidate revision adcf88a468a43ed1727c9c902ae5243423e4176e, not a claim that these APIs exist on main. Pin that revision to evaluate the shown kit. Main retains its existing core-library quickstart. No version tag is claimed.
-
-The consuming app owns state, routes, services, native controls, and actions. Existing AppStyle, Profile, and Tokens are runtime theme authority. Composition flows from primitives to semantic components to composites to shells to screen types.
+The layered implementation is merged into main through PR 3. The catalog is pinned to tested source 1898ce28861d642f57dccd88fd57afcbe3be5bb9; merged main 56f10a1d7d1c9ceebef312da97b70888f88fa8a3 has the same tree d409c1deaa8c4f766916d728b20c53852214d09b. No tagged release is claimed. The app owns state, services, routes, native controls and actions.
 
 ## Documentation
 
-- [Overview](https://jangtrinh.github.io/design-os-apple/): Image-led kit preview, installation, architecture, FAQ and evidence.
-- [Main quickstart](https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md): Existing library setup and first compiling view.
-- [Candidate source](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e): Exact source for the new kit.
-- [Candidate architecture](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-kit-architecture.md): Layer responsibilities, boundaries and API contracts.
-- [Candidate API index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json): Machine-readable discovery with source and evidence boundaries.
-- [Candidate application style](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md): Unified themes, continuous corners, concentric inset geometry, and full-pill native buttons.
-- [Candidate native recipes](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/native-layout-recipes.md): Native layout and interaction handoffs.
-- [AI usage](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/ai-usage.md): Guidance before generating an interface.
-- [Proof and provenance](https://github.com/jangtrinh/design-os-apple/blob/main/docs/marketing/proof.md): Claim register and known limits.
-- [Screenshot manifest](https://jangtrinh.github.io/design-os-apple/assets/marketing/manifest.json): Asset hashes, original captures and transformations.
-- [Quality evidence](https://github.com/jangtrinh/design-os-apple/blob/main/docs/quality-evidence.md): Package verification contracts and historical evidence.
-- [Platform intake](https://github.com/jangtrinh/design-os-apple/blob/main/docs/os27-intake-report.md): Documented platform research, distinct from runtime execution.
+- [Overview](https://jangtrinh.github.io/design-os-apple/): System overview, installation, native screenshots and FAQ.
+- [Complete component catalog](https://jangtrinh.github.io/design-os-apple/components.html): 99 source entries, 160 token values and 142 current native iPhone images in 71 light/dark pairs. All entries and images exist in static HTML without JavaScript.
+- [Kit architecture](https://jangtrinh.github.io/design-os-apple/kit-architecture.html): Primitives, semantic components, composites, shells and screen types; ownership boundaries.
+- [Source inventory JSON](https://jangtrinh.github.io/design-os-apple/marketing/component-catalog.json): Stable IDs, source revision and hashes, APIs, configuration and coverage limits.
+- [Current native image manifest](https://jangtrinh.github.io/design-os-apple/assets/components/manifest.json): Exact image hashes, original source identity, platform, appearance and pixel-preserving crop transformations.
+- [Evidence and publication scope](https://jangtrinh.github.io/design-os-apple/marketing/proof.html): Current and historical evidence boundaries.
+- [Source repository](https://github.com/jangtrinh/design-os-apple): Swift package and examples.
+- [Getting started](https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md): Package setup and first compiling view.
+- [MIT license](https://github.com/jangtrinh/design-os-apple/blob/main/LICENSE): Software licensing; does not relicense third-party assets.
 
-## Source counts, not acceptance counts
+## Coverage and limits
 
-42 additive public APIs: 4 semantic, 11 composite, 9 shell and 18 screen types. Three new internal primitives and four native or existing-component recipes are counted separately. 393 distinct reference states are mapped; this does not mean 393 fully reconstructed or visually accepted screens.
+CI run 38157622095 passed all 24 checks at source 1898ce2, actual tested merge f77ab0e051d22d9c80bc6bd24edf952ffb2bc430. The reviewed set contains 360 isolated captures, 108 screen-family captures and 42 dedicated text-field states across iPhone, iPad and Mac. The catalog hosts 142 selected iPhone images; artifact-only evidence is not counted as a hosted image. Source helpers without standalone visual specimens are labeled explicitly. The original overview images remain bound to historical adcf88a and run 38087127370.
 
-## Native evidence snapshot
+A fixture screenshot does not establish every state, physical-device behavior, live AI/camera services, or complete accessibility acceptance. Counts of source APIs, records, token values, screenshots and test cases are different units.
 
-[CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370) passed all 8 jobs for candidate adcf88a (tested merge 86b686d). CalorieCam reported 10/10 and kit 9/9 UI tests on each of iPhone, iPad and Mac. The package reported 173 tests with the genuine high-contrast fixture skipped. 108 native family captures were retained; selected actual captures appear in the marketing page.
+This file is a human- and agent-readable documentation index. It does not guarantee search indexing, ranking, rich results or AI citations. The canonical static HTML pages and source-linked JSON remain the substantive content.
 
-Earlier intermittent activation failures remain unexplained. Do not infer live AI, physical-camera acceptance, OS 27/iPhone Duo native execution, complete VoiceOver validation, performance proof, or full reference-state fidelity from this run. Screenshots are genuine native renders; sample meal media is an original synthetic fixture, not image recognition.
-
-## License and network distinction
-
-Original code/documentation: MIT. Independent project, no Apple endorsement. Reference-app assets are not distributed as kit product assets. No first-party package telemetry. Landing page uses local styles/images; README badges and the existing Markdown-layout Buy Me a Coffee widget are external web resources.
+- [All native state/platform capture records](https://jangtrinh.github.io/design-os-apple/marketing/native-capture-index.json): 510 authenticated records, 170 per platform; 142 selected iPhone images are hosted. Artifact downloads may require sign-in and expire.

@@ -90,7 +90,7 @@ async function main() {
   browser = await chromium.launch({ headless: true });
   report.browserVersion = browser.version();
   for (const width of [375, 768, 1440]) {
-    for (const kind of ['site', 'readme', 'catalog', 'catalog-no-js']) {
+    for (const kind of ['site', 'readme', 'catalog', 'catalog-no-js', 'architecture']) {
       const context = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: 1, reducedMotion: 'reduce', javaScriptEnabled: kind !== 'catalog-no-js' });
       const page = await context.newPage();
       activePage = page;
@@ -113,7 +113,7 @@ async function main() {
       const prefix = `${kind}-${width}`;
       try {
         await check(`${prefix}: load`, async () => {
-          const response = await page.goto(origin + (kind === 'site' ? '/design-os-apple/' : kind.startsWith('catalog') ? '/design-os-apple/components.html' : '/__readme-preview.html'), { waitUntil: 'load', timeout: 30000 });
+          const response = await page.goto(origin + (kind === 'site' ? '/design-os-apple/' : kind === 'architecture' ? '/design-os-apple/kit-architecture.html' : kind.startsWith('catalog') ? '/design-os-apple/components.html' : '/__readme-preview.html'), { waitUntil: 'load', timeout: 30000 });
           assert.equal(response.status(), 200);
           await page.evaluate(async () => {
             for (const img of document.images) img.loading = 'eager';
@@ -129,7 +129,8 @@ async function main() {
         });
         await check(`${prefix}: loaded images`, async () => {
           const images = await page.locator('img').evaluateAll(imgs => imgs.map(i => ({ src: i.currentSrc || i.src, loaded: i.complete && i.naturalWidth > 0 && i.naturalHeight > 0 })));
-          assert.ok(images.length > 0, 'Expected marketing images');
+          if (kind === 'architecture') assert.equal(images.length, 0, 'Architecture guide is text-only');
+          else assert.ok(images.length > 0, 'Expected marketing images');
           assert.deepEqual(images.filter(i => !i.loaded), []);
           return { count: images.length };
         });
@@ -265,8 +266,11 @@ function staticCatalogCoverage(options = {}) {
     assert.ok(item.source && /^[a-f0-9]{40}$/.test(item.source.commit), `Missing source commit: ${item.id}`);
     const sourcePath = path.resolve(root, item.source.path);
     assert.ok(sourcePath.startsWith(root + path.sep), `Source outside checkout: ${item.id}`);
-    // This is the public docs checkout, not the pinned layered candidate. Do not
-    // misrepresent source URLs/hashes as verification of absent candidate files.
+    // The merged source is present: verify actual bytes and declared initializer text.
+    const sourceBytes = fs.readFileSync(sourcePath);
+    assert.equal(require('node:crypto').createHash('sha256').update(sourceBytes).digest('hex'), item.source.sha256, `Stale source digest: ${item.id}`);
+    const normalize = value => value.replace(/\s+/g, '');
+    for (const initializer of item.configuration?.initializers || []) assert.ok(normalize(sourceBytes.toString()).includes(normalize(initializer)), `Invented initializer: ${item.id}`);
     assert.match(item.source.sha256, /^[a-f0-9]{64}$/, `Missing source digest: ${item.id}`);
     assert.equal(item.source.commit, inventory.sourceCommit, `Unpinned source revision: ${item.id}`);
     assert.equal(item.source.url, `https://github.com/jangtrinh/design-os-apple/blob/${item.source.commit}/${item.source.path}`, `Wrong source permalink: ${item.id}`);
@@ -275,7 +279,7 @@ function staticCatalogCoverage(options = {}) {
     assert.ok(['source-only', 'native-capture', 'historical-native-capture'].includes(item.review.status), `Unsupported or falsely promoted visual status: ${item.id}`);
     assert.match(item.review.detail, /(?:no independent|pending|unverified|not established|not .*acceptance)/i, `Independent visual acceptance must remain unclaimed: ${item.id}`);
     assert.ok(entry.text.includes(item.review.detail), `Review caveat missing from HTML: ${item.id}`);
-    const badge = { 'source-only': 'Source inspected · visual review pending', 'native-capture': 'Native capture · visual acceptance pending', 'historical-native-capture': 'Historical native capture · current review pending' }[item.review.status];
+    const badge = { 'source-only': 'Source inspected · no standalone preview', 'native-capture': 'Native capture · source matched', 'historical-native-capture': 'Historical native capture · current review pending' }[item.review.status];
     assert.ok(entry.text.includes(badge), `Wrong source-bound review badge: ${item.id}`);
     if (item.preview) {
       assert.ok(item.preview.src && item.preview.alt && item.preview.caption, `Incomplete image evidence: ${item.id}`);
@@ -305,7 +309,7 @@ function staticCatalogCoverage(options = {}) {
     } else {
       assert.equal(item.review.status, 'source-only', `Native status without published evidence: ${item.id}`);
       assert.deepEqual(entry.images, [], `Invented component image: ${item.id}`);
-      assert.match(entry.text, /pending|not yet|not reviewed/i, `No native evidence but no pending disclosure: ${item.id}`);
+      assert.match(entry.text, /no standalone|not yet|not reviewed/i, `No native evidence but no pending disclosure: ${item.id}`);
     }
   }
   const reviewCounts = {};
@@ -324,11 +328,11 @@ function staticCatalogCoverage(options = {}) {
   }
   const evidence = withClass('component-evidence');
   assert.equal(evidence.length, entries.length, 'Missing review disclosure');
-  for (const item of evidence) assert.match(item.text, /^(?:Source inspected · visual review pending|Native capture · visual acceptance pending|Historical native capture · current review pending)/, 'False visual status badge');
+  for (const item of evidence) assert.match(item.text, /^(?:Source inspected · no standalone preview|Native capture · source matched|Historical native capture · current review pending)/, 'False visual status badge');
   const approvedImages = new Map();
   for (const [directory, digest] of [
     ['marketing', '8d41bcc4d4972815526432b09677b4657f5ecf70470a5ad4aec25a7c0a8feb27'],
-    ['components', '9bc5f6bee51a27bf82c25dd18a1d963f2c40ca7295cd32d61bdab5c2470cbfc3']
+    ['components', '53322222c939046166e7994dfd28601c0ef8db00a84cde625f1f623a37394775']
   ]) {
     const bytes = fs.readFileSync(path.join(root, `docs/assets/${directory}/manifest.json`));
     assert.equal(require('node:crypto').createHash('sha256').update(bytes).digest('hex'), digest, `Unreviewed ${directory} manifest`);
@@ -376,7 +380,7 @@ function testStaticCatalogGuard() {
   rejects('relabeled screenshot source revision', { inventory: relabeledCapture });
   const historicalIndex = inventory.entries.findIndex(entry => entry.preview?.historical);
   if (historicalIndex >= 0) {
-    rejects('historical badge promoted to current native capture', { html: html.replace('Historical native capture · current review pending', 'Native capture · visual acceptance pending') });
+    rejects('historical badge promoted to current native capture', { html: html.replace('Historical native capture · current review pending', 'Native capture · source matched') });
     const currentPromotion = structuredClone(inventory);
     currentPromotion.entries[historicalIndex].review.status = 'native-capture';
     rejects('historical capture promoted to current candidate', { inventory: currentPromotion });
@@ -390,10 +394,17 @@ function testStaticCatalogGuard() {
     missingHistoricalCaption.entries[historicalIndex].preview.caption = 'Native capture verified for the current candidate.';
     rejects('historical limitation removed', { inventory: missingHistoricalCaption });
   }
-  rejects('missing image', { html: html.replace('src="assets/marketing/kit-overview.png"', 'src="assets/marketing/does-not-exist.png"') });
-  rejects('false visual status badge', { html: html.replace('Source inspected · visual review pending', 'Visually reviewed · accepted') });
+  const firstImage = inventory.entries[nativeIndex].preview.src;
+  rejects('missing image', { html: html.replace(`src="${firstImage}"`, 'src="assets/components/does-not-exist.webp"') });
+  rejects('false visual status badge', { html: html.replace('Source inspected · no standalone preview', 'Visually reviewed · accepted') });
   rejects('missing token', { html: html.replace(`id="${inventory.tokens[0].id}"`, 'id="invented-token"') });
-  rejects('external reference image', { html: html.replace('src="assets/marketing/kit-overview.png"', 'src="https://lu.ma/reference.png"') });
+  rejects('external reference image', { html: html.replace(`src="${firstImage}"`, 'src="https://example.com/reference.png"') });
+  const staleSource = structuredClone(inventory); staleSource.entries[0].source.sha256 = '0'.repeat(64);
+  rejects('stale source hash', { inventory: staleSource });
+  const inventedAPI = structuredClone(inventory); inventedAPI.entries[0].configuration = { initializers: ['public init(inventedParameter: ImpossibleType)'] };
+  rejects('invented initializer', { inventory: inventedAPI });
+  const wrongAppearance = structuredClone(inventory); wrongAppearance.entries[nativeIndex].preview.darkSrc = wrongAppearance.entries[nativeIndex].preview.src;
+  rejects('light image substituted for dark', { inventory: wrongAppearance });
   return { rejectedMutations: rejected };
 }
 
@@ -412,6 +423,17 @@ async function catalogInteractions(page, prefix, enhanced) {
     assert.deepEqual(await tokens.evaluateAll(nodes => nodes.map(n => n.id).sort()), inventory.tokens.map(t => t.id).sort());
     for (let i = 0; i < await tokens.count(); i++) assert.ok(await tokens.nth(i).isVisible(), `Hidden token ${i}`);
     return { entries: rendered.length, groups: await groups.count(), javaScriptEnabled: enhanced };
+  });
+  if (page.viewportSize().width <= 650) await check(`${prefix}: mobile section rail`, async () => {
+    const rail = page.locator('.catalog-toc');
+    const metrics = await rail.evaluate(el => ({ wrap: getComputedStyle(el).flexWrap, width: el.clientWidth, scroll: el.scrollWidth }));
+    assert.equal(metrics.wrap, 'nowrap');
+    assert.ok(metrics.scroll > metrics.width, 'Expected contained horizontal section rail');
+    const last = rail.locator('a').last(); await last.focus();
+    const visible = await last.evaluate(el => { const a=el.getBoundingClientRect(), r=el.parentElement.getBoundingClientRect(); return a.left >= r.left-1 && a.right <= r.right+1; });
+    assert.ok(visible, 'Focused section link must scroll into view');
+    assert.ok(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1));
+    return metrics;
   });
   await check(`${prefix}: progressive enhancement controls`, async () => {
     assert.equal(await page.locator('.catalog-tools').isVisible(), enhanced);
@@ -512,12 +534,13 @@ async function catalogInteractions(page, prefix, enhanced) {
       await page.locator(hash).waitFor({ state: 'visible' });
       assert.ok(await page.locator(hash).isVisible(), `Anchor target hidden: ${hash}`);
       if (enhanced) {
+        await page.waitForFunction(() => document.getElementById('catalog-search').value === '');
         assert.equal(await page.locator('#catalog-search').inputValue(), '');
         assert.equal(await entries.evaluateAll(nodes => nodes.filter(n => !n.hidden).length), expected.length);
         // Re-selecting the current fragment does not dispatch hashchange. The
         // actual anchor activation must still restore a group hidden by search.
         await page.locator('#catalog-search').fill('zzzz-no-component-can-match-43859');
-        assert.equal(await page.locator(hash).isVisible(), false);
+        assert.equal(await page.locator(hash).isVisible(), hash === '#native-evidence', 'Only catalog entries and token values are filtered; the evidence index remains accessible');
         await anchor.focus();
         await anchor.press('Enter');
         await page.locator(hash).waitFor({ state: 'visible' });
