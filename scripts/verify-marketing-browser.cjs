@@ -18,12 +18,13 @@ const report = {
     'Static docs preview, not a deployed GitHub Pages/Jekyll build.',
     'README uses local marked rendering and preview CSS, not GitHub exact styling.',
     'Buy Me a Coffee third-party requests are intentionally blocked; the live widget and payment flow are NOT VERIFIED.',
+    'Full-page screenshots are layout context; visible-section and individually painted preview captures establish below-fold image paint.',
     'Screenshots require human visual review; basic keyboard checks are not a full accessibility audit.',
     'External destinations are not visited or link-checked.',
     'Catalog entries with pending native evidence establish source coverage only, not native visual acceptance.',
     'Historical catalog screenshots remain bound to their original source revision and do not verify the current candidate.'
   ],
-  blockedRequests: [], checks: [], screenshots: []
+  blockedRequests: [], pageDiagnostics: [], checks: [], screenshots: []
 };
 const save = () => fs.writeFileSync(path.join(output, 'results.json'), JSON.stringify(report, null, 2) + '\n');
 save();
@@ -97,6 +98,8 @@ async function main() {
       page.setDefaultTimeout(10000);
       const errors = [], failedRequests = [], failedResponses = [];
       page.on('pageerror', e => errors.push(String(e)));
+      page.on('crash', () => report.pageDiagnostics.push({kind,width,event:'crash'}));
+      page.on('framenavigated', frame => { if (frame === page.mainFrame()) report.pageDiagnostics.push({kind,width,event:'navigation',url:frame.url()}); });
       page.on('response', response => {
         if (response.status() >= 400 && !isCoffee(response.url())) failedResponses.push({ url: response.url(), status: response.status() });
       });
@@ -115,20 +118,33 @@ async function main() {
         await check(`${prefix}: load`, async () => {
           const response = await page.goto(origin + (kind === 'site' ? '/design-os-apple/' : kind === 'architecture' ? '/design-os-apple/kit-architecture.html' : kind.startsWith('catalog') ? '/design-os-apple/components.html' : '/__readme-preview.html'), { waitUntil: 'load', timeout: 30000 });
           assert.equal(response.status(), 200);
-          await page.evaluate(async () => {
-            for (const img of document.images) img.loading = 'eager';
-            await document.fonts.ready;
-            await Promise.all([...document.images].map(img => img.complete ? Promise.resolve() : new Promise(resolve => { img.onload = img.onerror = resolve; setTimeout(resolve, 10000); })));
-            // Async decoding can leave offscreen panels blank in a full-page
-            // screenshot even after naturalWidth/load succeeds. Decode actual
-            // pixels and visit each viewport before recording visual evidence.
-            await Promise.all([...document.images].map(img => img.decode()));
-            const paint = () => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-            for (let y = 0; y < document.documentElement.scrollHeight; y += Math.max(1, innerHeight * 0.8)) {
-              scrollTo(0, y); await paint();
+          await page.evaluate(() => { for (const img of document.images) img.loading = 'eager'; });
+          const loadDeadline = Date.now() + 30000;
+          while (!(await page.evaluate(() => [...document.images].every(img => img.complete && img.naturalWidth > 0 && img.naturalHeight > 0)))) {
+            if (Date.now() >= loadDeadline) throw new Error('Images did not finish loading: ' + JSON.stringify(await page.locator('img').evaluateAll(imgs => imgs.filter(img => !img.complete || !img.naturalWidth || !img.naturalHeight).map(img => ({src:img.currentSrc || img.src,complete:img.complete,width:img.naturalWidth,height:img.naturalHeight})))));
+            await page.waitForTimeout(100);
+          }
+          // Keep scheduling in Node: no-JS pages must not depend on RAF, load
+          // handlers or timer-backed promises injected into their page context.
+          const seen = new Map();
+          const geometry = await page.evaluate(() => ({ height: document.documentElement.scrollHeight, step: Math.max(1, innerHeight * 0.8) }));
+          for (let y = 0; y < geometry.height; y += geometry.step) {
+            await page.evaluate(position => scrollTo(0, position), y);
+            await page.waitForTimeout(35);
+            const visible = await page.locator('img').evaluateAll(imgs => imgs.map((img, index) => { const r=img.getBoundingClientRect(); return { index, src: new URL(img.currentSrc || img.src).pathname, width:r.width, height:r.height, naturalWidth:img.naturalWidth, naturalHeight:img.naturalHeight, visible:r.width>0 && r.height>0 && r.bottom>0 && r.top<innerHeight }; }).filter(img => img.visible));
+            for (const item of visible) {
+              if (seen.has(item.src)) continue;
+              try { await page.locator('img').nth(item.index).evaluate(img => img.decode()); }
+              catch (error) { throw new Error(`Visible image decode failed: ${item.src}; natural=${item.naturalWidth}x${item.naturalHeight}; ${error}`); }
+              seen.set(item.src, { src:item.src, width:item.width, height:item.height, decoded:true, visitedWhileVisible:true });
             }
-            scrollTo(0, 0); await paint();
-          });
+            await page.waitForTimeout(35);
+          }
+          const expected = await page.locator('img').evaluateAll(imgs => new Set(imgs.map(img => new URL(img.currentSrc || img.src).pathname)).size);
+          assert.equal(seen.size, expected, 'Every image must be decoded while visible');
+          await page.evaluate(() => scrollTo(0, 0));
+          await page.waitForTimeout(35);
+          return { decoded:seen.size, expected, images:[...seen.values()] };
         });
         // Capture before interaction assertions so failed tests still have visual evidence.
         await check(`${prefix}: screenshot`, async () => {
@@ -139,13 +155,26 @@ async function main() {
           const sections = kind === 'site' ? ['gallery'] : kind.startsWith('catalog') && [375, 1440].includes(width) ? ['semantic', 'composite', 'shells', 'screen-types', 'native-recipes'] : [];
           for (const id of sections) {
             await page.locator(`[id="${id}"]`).evaluate(el => el.scrollIntoView({ block: 'start' }));
-            await page.evaluate(async () => {
-              await Promise.all([...document.images].filter(img => { const r = img.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; }).map(img => img.decode()));
-              await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
-            });
+            const visible = await page.locator('img').evaluateAll(imgs => imgs.map((img,index) => { const r=img.getBoundingClientRect(); return {index,visible:r.bottom>0 && r.top<innerHeight}; }).filter(i=>i.visible).map(i=>i.index));
+            for (const index of visible) await page.locator('img').nth(index).evaluate(img => img.decode());
+            await page.waitForTimeout(70);
             const sectionFile = `${prefix}-section-${id}.png`;
             await page.screenshot({ path: path.join(output, sectionFile), fullPage: false, animations: 'disabled', timeout: 30000 });
             report.screenshots.push(sectionFile);
+          }
+          if (kind === 'catalog' && width === 375) {
+            const previews = page.locator('.component-preview img');
+            assert.equal(await previews.count(), 142);
+            for (let index = 0; index < await previews.count(); index++) {
+              const preview = previews.nth(index);
+              await preview.scrollIntoViewIfNeeded();
+              await preview.evaluate(img => img.decode());
+              await page.waitForTimeout(35);
+              const asset = path.basename(await preview.getAttribute('src'), '.webp');
+              const file = `painted-${asset}.png`;
+              await preview.screenshot({ path:path.join(output,file), animations:'disabled', timeout:10000 });
+              report.screenshots.push(file);
+            }
           }
           await page.evaluate(() => scrollTo(0, 0));
         });
