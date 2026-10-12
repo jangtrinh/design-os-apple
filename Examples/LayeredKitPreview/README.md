@@ -109,7 +109,7 @@ xcodebuild test -project Examples/LayeredKitPreview/LayeredKitPreview.xcodeproj 
   -resultBundlePath /tmp/TextFields-unique.xcresult
 ```
 
-The source-authored field suite adds three methods to the existing nine preview methods.
+The source-authored field suite adds four methods (three native flows and one pure diagnostic-policy control) to the existing nine preview methods.
 Its native results remain NOT VERIFIED until executed on the exact candidate. Captures use
 original fixture content; the secure screenshot is empty and never captures entered content.
 Reference screenshots stay outside the app and repository. See the shared
@@ -145,3 +145,27 @@ the next observation would begin at or beyond the elapsed cap; wakeups recheck t
 Gallery verification uses the same bounded simulator boot observation and serial XCTest
 worker controls, retaining boot/resource logs in its configured results directory on failure.
 Native launch and interaction failures still fail that gate.
+
+### Keyboard-dismissal diagnostic investigation
+
+The editing test can enable `LAYERED_KIT_EDITING_DIAGNOSTICS=1` in its DEBUG fixture.
+The existing Finish editing control then exposes the actual SwiftUI FocusState and
+its own action count as a nonsecret accessibility receipt. The one native tap,
+original five-second `Keyboard.exists == false` waiter, and retained-text/re-editing
+assertions remain the pass/fail contract. No semantic sidecar can convert a failed
+waiter into a passing test.
+
+Before the tap and after the waiter, separately timed native snapshots retain the
+focus receipt, app-window/keyboard/key geometry and a screenshot. The optional
+candidate requires the same detector to first observe an active keyboard; missing,
+zero or invalid geometry is unknown. Its absence scope is only the app window,
+not a whole-screen claim on a windowed iPad. Post-wait observations cannot prove
+state at the earlier deadline. These diagnostics investigate two recorded failures
+where original video shows dismissal but XCTest's existence waiter failed; a
+lingering AX node or transport cause has not yet been established.
+
+Each diagnostic screenshot is acquired after its hierarchy observation and has separate
+attachment timing; it is not proof of pixels at snapshot completion or the waiter deadline.
+The pre-tap snapshot/screenshot and DEBUG receipt can affect timing. A passing diagnostic
+run is instrumented evidence, not an unchanged reproduction or proof that the prior cause
+has been fixed.
