@@ -127,6 +127,38 @@ is_marketing_image() {
   esac
   return 1
 }
+# Exact native catalog image names; content is separately bound to the pinned manifest.
+is_component_image() {
+  local candidate=$1 route theme
+  for route in confirmation discovery flat-collection focused-task freeform-editor \
+    grouped-form hero-collection media-composer media-detail message-thread \
+    native-presentation onboarding profile-detail provider-host record-detail \
+    search-selection status utility-canvas \
+    primitive-corner-geometry semantic-media-frame semantic-avatar \
+    semantic-labeled-value-row semantic-status-message semantic-media-row \
+    semantic-section-header semantic-content-surface semantic-primary-action \
+    semantic-secondary-action semantic-media-backdrop composite-field-group \
+    composite-identity-header composite-media-detail-header composite-media-composer-header \
+    composite-choice-row composite-selection-summary composite-category-rail \
+    composite-message-bubble composite-conversation-composer composite-record-summary \
+    composite-utility-overlay shell-flat-list shell-flat-scroll \
+    shell-grouped-form shell-ambient-scroll shell-focused-task \
+    shell-conversation shell-utility-canvas shell-adaptive-navigation \
+    shell-native-host semantic-text-field-modifier semantic-list-row \
+    semantic-sidebar-row foundation-color-role foundation-typography-role \
+    foundation-surface-role composite-sectioned-media-collection composite-form-section \
+    composite-confirmation-content composite-status-content native-button-and-toolbar-action-recipe \
+    native-content-unavailable-view-recipe native-elevated-background-recipe native-hierarchical-style-recipe \
+    native-list-sidebar-and-disclosure-recipe native-material-and-glass-surface-recipe native-menu-context-and-edit-actions-recipe \
+    native-navigation-tabs-and-toolbars-recipe native-picker-and-date-color-input-recipe native-presentation-and-share-recipe \
+    native-progress-slider-stepper-recipe native-text-search-and-keyboard-input-recipe; do
+    for theme in light dark; do
+      [[ "$candidate" == "docs/assets/components/iphone-$route-$theme.webp" ]] && return 0
+    done
+  done
+  return 1
+}
+
 is_curated_specimen_asset() {
   local candidate=$1
   case "$candidate" in
@@ -186,6 +218,15 @@ if grep -q '^docs/assets/marketing/' "$temporary_list"; then
   fi
 fi
 
+component_images_admitted=0
+if grep -q '^docs/assets/components/' "$temporary_list"; then
+  if python3 "$scan_root/scripts/verify-component-image-provenance.py" --root "$scan_root"; then
+    component_images_admitted=1
+  else
+    report "component-image provenance admission failed"
+  fi
+fi
+
 while IFS= read -r relative_path; do
   [[ -z "$relative_path" ]] && continue
   checked=$((checked + 1))
@@ -228,17 +269,19 @@ while IFS= read -r relative_path; do
   if (( size > 1048576 )); then
     if ! { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
       && ! { (( caloriecam_sample_admitted )) && is_caloriecam_sample_asset "$relative_path"; } \
-      && ! { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; }; then
+      && ! { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; } \
+      && ! { (( component_images_admitted )) && is_component_image "$relative_path"; }; then
       report "file exceeds 1 MiB '$relative_path'"
     fi
   fi
 
   case "$relative_path" in
-    *.png|*.jpg|*.jpeg|*.gif|*.pdf|*.fig|*.sketch|*.zip|*.dmg|*.pkg|*.bin)
+    *.png|*.jpg|*.jpeg|*.gif|*.webp|*.pdf|*.fig|*.sketch|*.zip|*.dmg|*.pkg|*.bin)
       is_approved_catalog_thumbnail "$relative_path" \
         || { (( gallery_generated_art_admitted )) && is_gallery_generated_art "$relative_path"; } \
         || { (( caloriecam_sample_admitted )) && is_caloriecam_sample_asset "$relative_path"; } \
         || { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; } \
+        || { (( component_images_admitted )) && is_component_image "$relative_path"; } \
         || is_curated_specimen_asset "$relative_path" \
         || report "unapproved binary or design asset '$relative_path'"
       ;;
@@ -253,6 +296,10 @@ while IFS= read -r relative_path; do
         || { (( caloriecam_sample_admitted )) && is_caloriecam_sample_asset "$relative_path"; } \
         || { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; } \
         || is_curated_specimen_asset "$relative_path" \
+        || report "unclassified non-text content '$relative_path' ($mime_type)"
+      ;;
+    image/webp)
+      { (( component_images_admitted )) && is_component_image "$relative_path"; } \
         || report "unclassified non-text content '$relative_path' ($mime_type)"
       ;;
     *) report "unclassified non-text content '$relative_path' ($mime_type)" ;;

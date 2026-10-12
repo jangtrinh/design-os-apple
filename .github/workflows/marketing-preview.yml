@@ -6,8 +6,13 @@ on:
       - README.md
       - 'docs/**'
       - scripts/verify-marketing-browser.cjs
+      - scripts/generate-component-catalog.py
+      - scripts/verify-marketing-metadata.py
+      - scripts/test-marketing-metadata.py
       - scripts/verify-marketing-image-provenance.py
       - scripts/test-marketing-image-provenance.py
+      - scripts/verify-component-image-provenance.py
+      - scripts/test-component-image-provenance.py
       - .github/workflows/marketing-preview.yml
   workflow_dispatch:
 
@@ -37,6 +42,13 @@ jobs:
           printf 'PLAYWRIGHT_BROWSERS_PATH=%s\n' "$PLAYWRIGHT_BROWSERS_PATH" >> "$GITHUB_ENV"
           mkdir -p "$MARKETING_BROWSER_OUTPUT"
           printf '%s\n' '{"status":"setup-incomplete","note":"Browser checks have not run."}' > "$MARKETING_BROWSER_OUTPUT/results.json"
+      - name: Verify static catalog coverage without JavaScript
+        shell: bash
+        run: |
+          python3 scripts/generate-component-catalog.py --check
+          python3 scripts/verify-marketing-metadata.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/metadata.log"
+          python3 scripts/test-marketing-metadata.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/metadata-tests.log"
+          node scripts/verify-marketing-browser.cjs --static-only 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/catalog-static.log"
       - name: Install pinned preview-only tooling
         id: tooling
         run: |
@@ -46,11 +58,21 @@ jobs:
         shell: bash
         run: |
           python3 scripts/verify-marketing-image-provenance.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/image-provenance.log"
+      - name: Verify native component image provenance
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          python3 scripts/verify-component-image-provenance.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/component-image-provenance.log"
       - name: Test provenance guard controls
         if: ${{ !cancelled() }}
         shell: bash
         run: |
           python3 scripts/test-marketing-image-provenance.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/image-provenance-tests.log"
+      - name: Test component provenance guard controls
+        if: ${{ !cancelled() }}
+        shell: bash
+        run: |
+          python3 scripts/test-component-image-provenance.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/component-image-provenance-tests.log"
       - name: Validate and capture previews
         if: ${{ !cancelled() && steps.tooling.outcome == 'success' }}
         env:

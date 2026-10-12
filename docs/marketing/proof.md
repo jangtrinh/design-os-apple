@@ -1,57 +1,30 @@
-# Marketing proof and publication scope
+---
+title: Native capture evidence and publication scope
+description: Source-bound native fixture evidence, transformations, coverage and verification limits for Apple Design OS.
+---
 
-This page describes the evidence behind the README and GitHub Pages kit preview. It is not a release certificate or an assertion of complete visual acceptance.
+# Native capture evidence and publication scope
 
-## Source and availability
+The layered implementation is now merged into main through [PR 3](https://github.com/jangtrinh/design-os-apple/pull/3). Tested head [1898ce2](https://github.com/jangtrinh/design-os-apple/tree/1898ce28861d642f57dccd88fd57afcbe3be5bb9), actual test merge `f77ab0e051d22d9c80bc6bd24edf952ffb2bc430`, and merged main `56f10a1` share source tree `d409c1deaa8c4f766916d728b20c53852214d09b`. No tagged release is claimed.
 
-- Candidate source: [`adcf88a468a43ed1727c9c902ae5243423e4176e`](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e).
-- Candidate review: [pull request 3](https://github.com/jangtrinh/design-os-apple/pull/3).
-- Native verification: [CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370), candidate `adcf88a`, tested merge `86b686d`.
-- Publication scope: README, Pages presentation, selected screenshots, and provenance. Publishing these documents does not merge the candidate implementation into main.
-- Consumers wanting the new kit must pin the candidate revision. The [main quickstart](https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md) remains available for the existing library.
+## Current component catalog
 
-## Claim register
+[CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) passed all 23 workflow jobs. Its reviewed image set comprises 360 isolated component captures, 108 screen-family captures and 42 dedicated text-field states across iPhone, iPad and Mac. Accessibility-size and RTL cases occur within the isolated set; these counts are not complete accessibility acceptance.
 
-| Published statement | Evidence and limit |
-| --- | --- |
-| Swift 6.2; iOS/iPadOS 17 and macOS 14 minimum; no external package dependencies | [Candidate Package.swift](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/Package.swift). Platform floors are not a claim of execution on every OS version. |
-| 42 additive public APIs | 4 semantic + 11 composite + 9 shell + 18 screen APIs in the [candidate architecture](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-kit-architecture.md) and [source index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json). |
-| 3 new internal helpers; 4 further native/existing-component recipes | Counted separately from the 42 APIs. Internal measurement helpers do not become public APIs for marketing purposes. |
-| Unified application style and continuous/pill geometry | [Style contract and source links](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md). Continuous corners are this project's design rule, not an Apple-mandated universal radius. |
-| 393 reference states mapped | [Atlas](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-layout-atlas.md). Research mapping is not complete reconstruction or visual acceptance. |
-| 8 CI jobs passed | [Run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370). Historical result for the named revision, not a guarantee about later revisions or all behaviors. |
-| CalorieCam 10/10 and kit 9/9 on each of iPhone, iPad, Mac | Reported native UI suites from the named run. CalorieCam is an app example, not a package API. |
-| 173 reported package tests | Native package report, with the genuine high-contrast fixture skipped. The count must not be rendered as “173 passed with full accessibility proof.” |
-| 108 native family captures | Original family artifacts from the named run. Selected captures on this site are resized/cropped/composed only as recorded in the [asset manifest](../assets/marketing/manifest.json). |
+The [catalog](../components.html) hosts 142 original native iPhone images in 71 light/dark pairs: 106 isolated defaults and 36 screen-family fixtures. Other reviewed platform/state evidence is separate; links to source archives are not hosted previews. There are 99 source entries, including 28 helpers/support/OS-hosted records without a standalone published image, and 160 token values counted separately.
 
-## Screenshot provenance
+The [component image manifest](../assets/components/manifest.json) binds every hosted image to original capture and source hashes. Display images are lossless native pixels. Documented crops remove platform framing or exact-uniform trailing blank rows, preserving displayed UI. No generated replacement UI or copied third-party product screenshot is presented as native evidence.
 
-The [asset manifest](../assets/marketing/manifest.json) records source paths, dimensions, transformations, and source binding. Gallery pictures are actual native fixtures, not AI-generated UI or copied reference-app assets. The overview is an editorial composition of native captures; it is not one simultaneously running app screen. Mac imagery may be cropped to the app window, as recorded in the manifest.
+## Historical overview images
 
-Screenshots demonstrate selected visible family states. They do not prove every source state, interaction, accessibility mode, display size, or platform configuration.
+The six homepage images and README overview retain their original [adcf88a source](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e) and [CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370). That historical run passed eight jobs. Its reported package count was 173, with the genuine high-contrast fixture skipped; it is not a claim of 173 fully accepted accessibility tests. The [marketing image manifest](../assets/marketing/manifest.json) records the original transforms, scaling and overview composition. These images are not silently relabeled as current captures.
 
-## Known limits
+## Verification boundaries
 
-Earlier intermittent control-activation failures remain unexplained. One successful verification run is useful evidence, but does not establish that those failures were repaired.
+Source coverage, compiler/tests, fixture execution, image review and full product acceptance are different claims. No screenshot or green run alone establishes every visual state, physical-device behavior, live AI or camera integration, complete VoiceOver behavior, performance or every supported OS version. The native controls and app actions remain caller-owned.
 
-The marketing preview makes no claim of:
+The MIT software license does not grant rights in third-party imagery or products. Published fixtures use original synthetic example content. Source and image provenance remain pinned; private review material is not published.
 
-- complete reconstruction or visual acceptance of all 393 reference states;
-- live AI inference or physical-camera acceptance;
-- OS 27 / iPhone Duo native execution;
-- complete VoiceOver validation, genuine high-contrast fixture coverage, or performance results;
-- a tagged release, a production-readiness guarantee, or Apple endorsement.
+## Crawlability and machine-readable content
 
-## Documentation routes
-
-Existing package: [Getting Started](https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md), [DocC](https://github.com/jangtrinh/design-os-apple/blob/main/Sources/DesignOSApple/DesignOSApple.docc/DesignOSApple.md), [Quality Evidence](https://github.com/jangtrinh/design-os-apple/blob/main/docs/quality-evidence.md), [Portable verification](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/portable-verification.md).
-
-Candidate-specific: [architecture](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-kit-architecture.md), [index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json), [theme and geometry](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md), [native recipes](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/native-layout-recipes.md), [ownership](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/design-system-organization.md), [reference atlas](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/luma-layout-atlas.md), [native API coverage](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/component-coverage.md), [CalorieCam](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/Examples/CalorieCam/README.md).
-
-Maintainer routes: [catalog thumbnail workflow](https://github.com/jangtrinh/design-os-apple/blob/main/docs/catalog-thumbnail-workflow.md), [reference reconstruction](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reference-reconstruction-workflow.md), [release process](https://github.com/jangtrinh/design-os-apple/blob/main/RELEASING.md), [contributing](https://github.com/jangtrinh/design-os-apple/blob/main/CONTRIBUTING.md).
-
-## Page foundation and privacy
-
-The page adapts the nine-tier architecture from [design-os-github-page revision d45be6a](https://github.com/jangtrinh/design-os-github-page/tree/d45be6a73af64ff7407d0a98dc3a3d980f00e05c): hero, facts, honest comparison, install, safe-use loop, gallery/evidence, FAQ, ecosystem, and documentation routes. Its [MIT license](https://github.com/jangtrinh/design-os-github-page/blob/d45be6a73af64ff7407d0a98dc3a3d980f00e05c/LICENSE) applies to reused template material.
-
-The landing page uses local CSS, system fonts, and local images, with no third-party script. This README loads external Shields badge images; the existing Markdown document layout retains an external Buy Me a Coffee widget. These are separate from the Swift package's no-first-party-telemetry behavior.
+The static catalog includes names, APIs, native images and source links without executing JavaScript. Filters are progressive enhancement. The sitemap advertises the actual HTML routes; canonical metadata and JSON-LD describe visible content. llms.txt and JSON inventories help documentation consumers, without promising eligibility, ranking, indexing or AI citations. A robots.txt served beneath /design-os-apple/ does not control the origin: crawlers consult https://jangtrinh.github.io/robots.txt. Absence of an origin robots file is not a crawl block.

@@ -794,3 +794,13 @@ strong { font-weight: var(--fw-semibold); }
  .marketing .marketing-footer nav a { padding-left:0; padding-right:24px; }
 }
 @media(prefers-reduced-motion:reduce) { .marketing *, .marketing *::before, .marketing *::after { scroll-behavior:auto !important; transition:none !important; } }
+
+/* Template-derived prose rhythm for the neutral architecture guide. */
+.architecture .prose { max-width:76ch; padding-block:var(--s-24) var(--s-32); }
+.architecture .prose h1 { font-size:clamp(32px,5vw,48px); line-height:1.15; }
+.architecture .prose h2 { font-size:var(--t-24); margin-top:var(--s-24); }
+.architecture .prose h3 { font-size:var(--t-20); margin-top:var(--s-16); }
+.architecture .prose p, .architecture .prose ul, .architecture .prose ol { margin-top:var(--s-8); }
+.architecture .prose li { margin-top:var(--s-4); }
+.architecture .prose a, .architecture .prose code { overflow-wrap:anywhere; }
+@media (max-width:650px) { .architecture .marketing-nav { flex-wrap:wrap; } }
