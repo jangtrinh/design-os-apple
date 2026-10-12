@@ -14426,11 +14426,11 @@
     "mergedMainCommit": "56f10a1d7d1c9ceebef312da97b70888f88fa8a3",
     "runId": 38157622095,
     "runUrl": "https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095",
-    "checksPassed": 24,
     "isolatedCaptures": 360,
     "screenFamilyCaptures": 108,
     "dedicatedTextFieldCaptures": 42,
     "reviewedNativeCaptures": 510,
-    "scope": "Original native fixtures. Not blanket reference-state fidelity, physical-device behavior or complete accessibility acceptance."
+    "scope": "Original native fixtures. Not blanket reference-state fidelity, physical-device behavior or complete accessibility acceptance.",
+    "nativeJobsPassed": 23
   }
 }

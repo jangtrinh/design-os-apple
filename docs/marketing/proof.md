@@ -9,7 +9,7 @@ The layered implementation is now merged into main through [PR 3](https://github
 
 ## Current component catalog
 
-[CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) passed all 24 checks. Its reviewed image set comprises 360 isolated component captures, 108 screen-family captures and 42 dedicated text-field states across iPhone, iPad and Mac. Accessibility-size and RTL cases occur within the isolated set; these counts are not complete accessibility acceptance.
+[CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) passed all 23 workflow jobs. Its reviewed image set comprises 360 isolated component captures, 108 screen-family captures and 42 dedicated text-field states across iPhone, iPad and Mac. Accessibility-size and RTL cases occur within the isolated set; these counts are not complete accessibility acceptance.
 
 The [catalog](../components.html) hosts 142 original native iPhone images in 71 light/dark pairs: 106 isolated defaults and 36 screen-family fixtures. Other reviewed platform/state evidence is separate; links to source archives are not hosted previews. There are 99 source entries, including 28 helpers/support/OS-hosted records without a standalone published image, and 160 token values counted separately.
 

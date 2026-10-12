@@ -123,11 +123,11 @@ Run `DesignOSAppleGallery-iOS` or `DesignOSAppleGallery-macOS`. The Catalog prov
 
 ## Verification, with boundaries
 
-Current component catalog: [CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) passed all 24 checks at `1898ce2`. Its 510 reviewed native captures comprise 360 isolated component, 108 screen-family and 42 dedicated text-field-state images. These do not establish complete reference-state fidelity or full accessibility acceptance.
+Current component catalog: [CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) passed all 23 workflow jobs at `1898ce2`. Its 510 reviewed native captures comprise 360 isolated component, 108 screen-family and 42 dedicated text-field-state images. These do not establish complete reference-state fidelity or full accessibility acceptance.
 
 The overview image set retains the following historical evidence:
 
-Current catalog source `1898ce2` passed all 24 checks in [native CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095). The reviewed evidence includes 360 isolated component captures, 108 screen-family fixtures, and 42 dedicated text-field states. The website hosts 142 iPhone previews; additional evidence is separately identified.
+Current catalog source `1898ce2` passed all 23 workflow jobs in [native CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095). The reviewed evidence includes 360 isolated component captures, 108 screen-family fixtures, and 42 dedicated text-field states. The website hosts 142 iPhone previews; additional evidence is separately identified.
 
 [Historical CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370) passed all **8 jobs** for candidate `adcf88a` (tested merge `86b686d`):
 
@@ -176,7 +176,7 @@ The catalog lists 99 source entries and 160 token values. It displays 142 native
 
 ### What has been verified, and what is still open?
 
-Native CI run 38157622095 passed all 24 checks at revision 1898ce2. The reviewed capture set contains 360 isolated components, 108 screen-family fixtures and 42 dedicated text-field states across iPhone, iPad and Mac. The overview images retain their historical adcf88a provenance. Live services, physical-device behavior, complete accessibility acceptance and performance remain outside these claims.
+Native CI run 38157622095 passed all 23 workflow jobs at revision 1898ce2. The reviewed capture set contains 360 isolated components, 108 screen-family fixtures and 42 dedicated text-field states across iPhone, iPad and Mac. The overview images retain their historical adcf88a provenance. Live services, physical-device behavior, complete accessibility acceptance and performance remain outside these claims.
 
 ## Ecosystem
 

@@ -62,6 +62,9 @@ def validate():
  sitemap=ET.parse(R/'docs/sitemap.xml');ns={'s':'http://www.sitemaps.org/schemas/sitemap/0.9','image':'http://www.google.com/schemas/sitemap-image/1.1'};urls=sitemap.findall('s:url',ns);locations=[u.findtext('s:loc',namespaces=ns) for u in urls];assert set(locations)=={BASE,BASE+'components.html',BASE+'kit-architecture.html'},'sitemap routes differ'
  catalog=next(u for u in urls if u.findtext('s:loc',namespaces=ns)==BASE+'components.html');images=[n.text for n in catalog.findall('image:image/image:loc',ns)];manifest=json.loads((R/'docs/assets/components/manifest.json').read_text());assert set(images)=={BASE+'assets/components/'+a['file'] for a in manifest['assets']},'image sitemap incomplete'
  inventory=json.loads((R/'docs/marketing/component-catalog.json').read_text());assert len(pages['components.html'].select('img'))==len(manifest['assets'])==inventory['counts']['publishedPreviewFiles']==142,'hosted image count mismatch'
+ assert inventory['nativeEvidence'].get('nativeJobsPassed')==23 and 'checksPassed' not in inventory['nativeEvidence'],'native workflow count must be23 verified jobs, not the PR aggregate'
+ for name in ['README.md','docs/index.html','docs/components.html','docs/llms.txt','docs/marketing/proof.md']:
+  raw=(R/name).read_text();assert '23 workflow jobs' in raw and '24 checks' not in raw,('native job count/parity',name)
  evidence_bytes=(R/'docs/marketing/native-capture-index.json').read_bytes()
  assert hashlib.sha256(evidence_bytes).hexdigest()=='d8a3318c1c2bcb825bcdfeb417abe68ceb9d484d0248be116077abc55a1be98a','unreviewed native evidence index'
  evidence=json.loads(evidence_bytes);records=evidence['records'];assert len(records)==510 and len({r['id'] for r in records})==510,'native evidence count/identity'

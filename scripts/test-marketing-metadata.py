@@ -14,6 +14,8 @@ class MetadataControls(unittest.TestCase):
  def reject(self,name,before,after):
   p=self.root/name;s=p.read_text();self.assertIn(before,s);p.write_text(s.replace(before,after,1))
   with self.assertRaises((AssertionError,ValueError,KeyError,StopIteration)):guard.validate()
+ def test_wrong_native_job_count(self):self.reject('docs/marketing/component-catalog.json','"nativeJobsPassed": 23','"nativeJobsPassed": 24')
+ def test_wrong_job_count_copy(self):self.reject('README.md','23 workflow jobs','24 checks')
  def test_valid(self):self.assertEqual(guard.validate()['hostedImages'],142)
  def test_wrong_canonical(self):self.reject('docs/components.html','rel="canonical" href="https://jangtrinh.github.io/design-os-apple/components.html"','rel="canonical" href="https://example.com/"')
  def test_hidden_from_search(self):self.reject('docs/index.html','content="index, follow','content="noindex, follow')
