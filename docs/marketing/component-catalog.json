@@ -4,7 +4,7 @@
   "generatedDate": "2026-10-12",
   "scope": "All tracked DesignOSApple Swift source files, layered composition recipes, extension release recipes, semantic roles and separate design token leaves; app-specific dogfood screens are examples rather than extra reusable kit APIs.",
   "statusDefinitions": {
-    "source-only": "Source inspected; explanatory illustration available, no standalone native capture. Not native visual acceptance.",
+    "source-only": "Source inspected; consumer examples show usage context when mapped, not standalone native acceptance.",
     "native-capture": "Source-matched native sample reviewed; not blanket visual acceptance across every state or platform.",
     "historical-native-capture": "Historical source-bound native capture, not proof of current rendering."
   },
@@ -41,8 +41,8 @@
     "currentCandidateCaptureFiles": 510,
     "nativeCapturedIsolatedRoutes": 53,
     "publishedPreviewFiles": 142,
-    "explanatoryIllustrations": 28,
-    "tokenIllustrations": 160
+    "nativeConsumerExamples": 6,
+    "compactReferenceEntries": 22
   },
   "groups": [
     {
@@ -204,10 +204,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -223,7 +223,27 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Layout helper",
+          "consumerPreview": {
+            "componentId": "semantic/list-row",
+            "consumerName": "List Row",
+            "src": "assets/components/iphone-semantic-list-row-light.webp",
+            "darkSrc": "assets/components/iphone-semantic-list-row-dark.webp",
+            "sourceCommit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+            "alt": "Native iPhone List Row usage example for Section Content Layout",
+            "caption": "Native iPhone consumer example: List Row · light and dark · 1898ce2.",
+            "detail": "Uses the section label and trailing-content layout.",
+            "source": {
+              "path": "Sources/DesignOSApple/Components/DesignOSListRow.swift",
+              "commit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+              "sha256": "167e0aa51f2f57595f8b178477c70626914a5523d2e0f4caa921d8b785d166c6",
+              "url": "https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Sources/DesignOSApple/Components/DesignOSListRow.swift"
+            },
+            "checkedDeclarations": [
+              "SectionContentLayout {"
+            ]
+          }
         },
         {
           "id": "primitive/accessory-slot-layout",
@@ -256,10 +276,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -275,7 +295,27 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Layout helper",
+          "consumerPreview": {
+            "componentId": "semantic/list-row",
+            "consumerName": "List Row",
+            "src": "assets/components/iphone-semantic-list-row-light.webp",
+            "darkSrc": "assets/components/iphone-semantic-list-row-dark.webp",
+            "sourceCommit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+            "alt": "Native iPhone List Row usage example for Accessory Slot Layout",
+            "caption": "Native iPhone consumer example: List Row · light and dark · 1898ce2.",
+            "detail": "The list row uses this accessory layout through SectionContentLayout.",
+            "source": {
+              "path": "Sources/DesignOSApple/Primitives/SectionContentLayout.swift",
+              "commit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+              "sha256": "8c39761a09dee82776ea2710ed0470a4ba5060605b59008f9a28802ccd8b41cd",
+              "url": "https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Sources/DesignOSApple/Primitives/SectionContentLayout.swift"
+            },
+            "checkedDeclarations": [
+              "AccessorySlotLayout {"
+            ]
+          }
         },
         {
           "id": "primitive/symbol-content",
@@ -318,10 +358,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -337,7 +377,27 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Layout helper",
+          "consumerPreview": {
+            "componentId": "semantic/list-row",
+            "consumerName": "List Row",
+            "src": "assets/components/iphone-semantic-list-row-light.webp",
+            "darkSrc": "assets/components/iphone-semantic-list-row-dark.webp",
+            "sourceCommit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+            "alt": "Native iPhone List Row usage example for Symbol Content",
+            "caption": "Native iPhone consumer example: List Row · light and dark · 1898ce2.",
+            "detail": "Shows regular/symbol usage; other symbol configurations are not established by this example.",
+            "source": {
+              "path": "Sources/DesignOSApple/Components/DesignOSListRow.swift",
+              "commit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+              "sha256": "167e0aa51f2f57595f8b178477c70626914a5523d2e0f4caa921d8b785d166c6",
+              "url": "https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Sources/DesignOSApple/Components/DesignOSListRow.swift"
+            },
+            "checkedDeclarations": [
+              "SymbolContent(scale: .regular, kind: .symbol)"
+            ]
+          }
         },
         {
           "id": "primitive/sidebar-toolbar-content",
@@ -372,10 +432,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Package visual helper with a compile-only test and no rendered native fixture. The similarly named Gallery example does not invoke this helper, so no unrelated screenshot is assigned. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -391,7 +451,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Layout helper"
         },
         {
           "id": "primitive/editorial-adaptive-row-layout",
@@ -431,10 +492,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -448,7 +509,27 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Layout helper",
+          "consumerPreview": {
+            "componentId": "semantic/labeled-value-row",
+            "consumerName": "Labeled Value Row",
+            "src": "assets/components/iphone-semantic-labeled-value-row-light.webp",
+            "darkSrc": "assets/components/iphone-semantic-labeled-value-row-dark.webp",
+            "sourceCommit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+            "alt": "Native iPhone Labeled Value Row usage example for Editorial Adaptive Row Layout",
+            "caption": "Native iPhone consumer example: Labeled Value Row · light and dark · 1898ce2.",
+            "detail": "Shows the default consumer layout; other reflow states are separate evidence.",
+            "source": {
+              "path": "Sources/DesignOSApple/Components/Semantic/DesignOSLabeledValueRow.swift",
+              "commit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+              "sha256": "f56e4d832508210882570428f55c44ca1145c599903e8090a8240685ace5c4cf",
+              "url": "https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Sources/DesignOSApple/Components/Semantic/DesignOSLabeledValueRow.swift"
+            },
+            "checkedDeclarations": [
+              "DesignOSEditorialAdaptiveRowLayout("
+            ]
+          }
         },
         {
           "id": "primitive/editorial-geometry",
@@ -481,10 +562,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -498,7 +579,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Layout helper"
         },
         {
           "id": "primitive/editorial-clipped-content",
@@ -533,10 +615,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [],
@@ -548,7 +630,27 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Layout helper",
+          "consumerPreview": {
+            "componentId": "semantic/media-frame",
+            "consumerName": "Media Frame",
+            "src": "assets/components/iphone-semantic-media-frame-light.webp",
+            "darkSrc": "assets/components/iphone-semantic-media-frame-dark.webp",
+            "sourceCommit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+            "alt": "Native iPhone Media Frame usage example for Editorial Clipped Content",
+            "caption": "Native iPhone consumer example: Media Frame · light and dark · 1898ce2.",
+            "detail": "The media frame uses finite-frame clipping.",
+            "source": {
+              "path": "Sources/DesignOSApple/Components/Semantic/DesignOSMediaFrame.swift",
+              "commit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+              "sha256": "40ce3642d762c1c83b28ca8b48acdb53a822ca580ab951958e1c15f58c9aac2a",
+              "url": "https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Sources/DesignOSApple/Components/Semantic/DesignOSMediaFrame.swift"
+            },
+            "checkedDeclarations": [
+              "DesignOSEditorialClippedContent("
+            ]
+          }
         }
       ]
     },
@@ -9044,10 +9146,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Integration metadata only: this empty enum documents host-owned system APIs and does not implement the system or provider UI. No native capture of that external UI is claimed. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -9085,7 +9187,8 @@
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
           "hostIntegrationRequired": true,
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Integration guide"
         },
         {
           "id": "native/list-sidebar-and-disclosure-recipe",
@@ -10605,10 +10708,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Integration metadata only: this empty enum documents host-owned system APIs and does not implement the system or provider UI. No native capture of that external UI is claimed. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -10628,7 +10731,8 @@
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
           "hostIntegrationRequired": true,
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Integration guide"
         },
         {
           "id": "native/extension-control-widget",
@@ -10661,10 +10765,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Integration metadata only: this empty enum documents host-owned system APIs and does not implement the system or provider UI. No native capture of that external UI is claimed. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -10702,7 +10806,8 @@
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
           "hostIntegrationRequired": true,
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Integration guide"
         },
         {
           "id": "native/extension-widget",
@@ -10735,10 +10840,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Integration metadata only: this empty enum documents host-owned system APIs and does not implement the system or provider UI. No native capture of that external UI is claimed. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -10776,7 +10881,8 @@
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
           "hostIntegrationRequired": true,
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Integration guide"
         }
       ]
     },
@@ -10825,10 +10931,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -10893,7 +10999,8 @@
             ],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/app-metrics",
@@ -10934,10 +11041,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -11037,7 +11144,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/app-palette",
@@ -11080,10 +11188,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [],
@@ -11196,7 +11304,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/app-style",
@@ -11236,10 +11345,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -11287,7 +11396,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/platform-accessibility",
@@ -11320,10 +11430,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [],
@@ -11336,7 +11446,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/platform-semantic-color",
@@ -11369,10 +11480,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -11390,17 +11501,18 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/platform-surface",
           "name": "Platform Surface",
-          "symbol": "PlatformSurface",
+          "symbol": "View.designOSCustomSurface()",
           "layer": "support",
           "group": "support",
           "kind": "internal-helper",
           "visibility": "internal",
-          "summary": "Shared runtime support.",
+          "summary": "Applies profile-owned styling to custom non-interactive content while native containers retain platform ownership.",
           "variants": [
             "No separate named variant set. Caller-owned content slots and API configuration are listed below."
           ],
@@ -11410,7 +11522,7 @@
             "url": "https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Sources/DesignOSApple/Platform/PlatformSurface.swift",
             "commit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
             "sha256": "4fac5bb4e2c6b8b864394b19276027c05917f80c9151c6912967c413464c7394",
-            "symbol": "PlatformSurface"
+            "symbol": "designOSCustomSurface"
           },
           "dependencies": [],
           "declarations": [
@@ -11433,10 +11545,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [],
@@ -11449,7 +11561,27 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Rendering modifier",
+          "consumerPreview": {
+            "componentId": "foundation/surface-role",
+            "consumerName": "Surface Role",
+            "src": "assets/components/iphone-foundation-surface-role-light.webp",
+            "darkSrc": "assets/components/iphone-foundation-surface-role-dark.webp",
+            "sourceCommit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+            "alt": "Native iPhone Surface Role usage example for Platform Surface",
+            "caption": "Native iPhone consumer example: Surface Role · light and dark · 1898ce2.",
+            "detail": "The native surface fixture invokes this rendering modifier directly.",
+            "source": {
+              "path": "Examples/LayeredKitPreview/App/ComponentInventorySpecimens.swift",
+              "commit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
+              "sha256": "1470a0b993300dccec505cc87accb9fa0c4e632cff8b92825140898f5b57b15f",
+              "url": "https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Examples/LayeredKitPreview/App/ComponentInventorySpecimens.swift"
+            },
+            "checkedDeclarations": [
+              ".designOSCustomSurface().designOSProfile(profile)"
+            ]
+          }
         },
         {
           "id": "support/platform-typography",
@@ -11482,10 +11614,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -11503,7 +11635,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/accessibility-policy",
@@ -11537,10 +11670,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -11578,7 +11711,8 @@
             ],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/profile",
@@ -11629,10 +11763,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -11785,7 +11919,8 @@
             ],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/profile-environment",
@@ -11818,10 +11953,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [],
@@ -11836,7 +11971,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/radius-profile",
@@ -11869,10 +12005,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -11901,7 +12037,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/semantic-color-profile",
@@ -11934,10 +12071,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -11966,7 +12103,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/spacing-profile",
@@ -12001,10 +12139,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -12051,7 +12189,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/surface-profile",
@@ -12084,10 +12223,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -12116,7 +12255,8 @@
             "enumCases": [],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/typography-profile",
@@ -12155,10 +12295,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [
@@ -12195,7 +12335,8 @@
             ],
             "basis": "Exact public source declarations. Content slots and caller-owned state are configuration, not inferred built-in variants."
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         },
         {
           "id": "support/app-color-pair",
@@ -12229,10 +12370,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Source record inspected. This helper, configuration or integration declaration is not an additional standalone public mobile control. Native consumer examples, where mapped, show usage context rather than isolated helper acceptance. Independent native acceptance is not established.",
             "evidence": [],
             "gaps": [
-              "No standalone native capture."
+              "No standalone native fixture is claimed."
             ]
           },
           "fixturePaths": [],
@@ -12272,7 +12413,8 @@
             ],
             "enumCases": []
           },
-          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary."
+          "referenceRelationship": "Native controls and application behavior remain caller-owned; source links establish the implementation boundary.",
+          "presentationType": "Configuration"
         }
       ]
     }

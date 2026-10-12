@@ -4,7 +4,7 @@ import importlib.util,json,shutil,tempfile,unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parent.parent
 spec=importlib.util.spec_from_file_location('metadata',ROOT/'scripts/verify-marketing-metadata.py');guard=importlib.util.module_from_spec(spec);spec.loader.exec_module(guard)
-FILES=['docs/assets/illustrations/manifest.json','README.md','docs/index.html','docs/components.html','docs/kit-architecture.html','docs/sitemap.xml','docs/robots.txt','docs/llms.txt','docs/_config.yml','docs/marketing/proof.md','docs/marketing/component-catalog.json','docs/assets/components/manifest.json','docs/marketing/native-capture-index.json']
+FILES=['docs/assets/marketing/manifest.json','README.md','docs/index.html','docs/components.html','docs/kit-architecture.html','docs/sitemap.xml','docs/robots.txt','docs/llms.txt','docs/_config.yml','docs/marketing/proof.md','docs/marketing/component-catalog.json','docs/assets/components/manifest.json','docs/marketing/native-capture-index.json']
 class MetadataControls(unittest.TestCase):
  def setUp(self):
   self.temp=tempfile.TemporaryDirectory();self.root=Path(self.temp.name);self.original=guard.R;guard.R=self.root
@@ -14,6 +14,7 @@ class MetadataControls(unittest.TestCase):
  def reject(self,name,before,after):
   p=self.root/name;s=p.read_text();self.assertIn(before,s);p.write_text(s.replace(before,after,1))
   with self.assertRaises((AssertionError,ValueError,KeyError,StopIteration)):guard.validate()
+ def test_stale_homepage_capture(self):self.reject('docs/assets/marketing/manifest.json','1898ce28861d642f57dccd88fd57afcbe3be5bb9','adcf88a468a43ed1727c9c902ae5243423e4176e')
  def test_wrong_native_job_count(self):self.reject('docs/marketing/component-catalog.json','"nativeJobsPassed": 23','"nativeJobsPassed": 24')
  def test_wrong_job_count_copy(self):self.reject('README.md','23 workflow jobs','24 checks')
  def test_valid(self):self.assertEqual(guard.validate()['hostedImages'],142)

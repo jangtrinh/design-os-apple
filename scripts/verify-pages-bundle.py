@@ -14,7 +14,7 @@ class Links(HTMLParser):
 def validate(site):
  assert site.is_dir(),'Build output directory missing'
  files=list(site.rglob('*'));checked=0;binary=0
- required=['index.html','components.html','kit-architecture.html','llms.txt','sitemap.xml','assets/components/manifest.json','assets/illustrations/manifest.json']
+ required=['index.html','components.html','kit-architecture.html','llms.txt','sitemap.xml','assets/components/manifest.json']
  for name in required:assert (site/name).is_file(),'Missing built route: '+name
  allowed={}
  # Historical public specimens retain their existing rights notice and evidence links.
@@ -24,7 +24,7 @@ def validate(site):
   "specimens/specimen-ipadpro-wide.png":"2ed549e7d66e4b6c4d3be95aea0c4738704deb591b1d5eb5051c6344c223292a"}
  for path,digest in legacy.items():
   if (site/path).exists():allowed[path]=digest
- for family in ['components','marketing','illustrations']:
+ for family in ['components','marketing']:
   manifest=json.loads((site/f'assets/{family}/manifest.json').read_text())
   for a in manifest['assets']:allowed[f'assets/{family}/'+a['file']]=a['sha256']
  import hashlib
@@ -53,7 +53,7 @@ def validate(site):
     assert target.is_file(),'Broken built-site link: '+rel+' -> '+value
   checked+=1
  for rel in allowed:assert (site/rel).is_file(),'Missing admitted image: '+rel
- return {'status':'passed','textFiles':checked,'binaryFiles':binary,'admittedAssets':len(allowed),'limits':['Text and file admission checks do not OCR pixels. Native pixels and diagrams are separately reviewed.']}
+ return {'status':'passed','textFiles':checked,'binaryFiles':binary,'admittedAssets':len(allowed),'limits':['Text and file admission checks do not OCR pixels. Native pixels are separately reviewed.']}
 def main():
  p=argparse.ArgumentParser(description=__doc__);p.add_argument('--site',required=True,type=Path);p.add_argument('--output',type=Path);a=p.parse_args()
  try:result=validate(a.site)

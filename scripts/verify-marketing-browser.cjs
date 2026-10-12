@@ -15,6 +15,7 @@ const report = {
   commit: process.env.GITHUB_SHA || null,
   tooling: { playwright: '1.58.2', marked: '15.0.12' },
   limitations: [
+    'Desktop-only website review at1440px per current user scope; native mobile component gates remain separate.',
     'Static docs preview, not a deployed GitHub Pages/Jekyll build.',
     'README uses local marked rendering and preview CSS, not GitHub exact styling.',
     'Buy Me a Coffee third-party requests are intentionally blocked; the live widget and payment flow are NOT VERIFIED.',
@@ -90,7 +91,7 @@ async function main() {
   const origin = `http://127.0.0.1:${server.address().port}`;
   browser = await chromium.launch({ headless: true });
   report.browserVersion = browser.version();
-  for (const width of [375, 768, 1440]) {
+  for (const width of [1440]) {
     for (const kind of ['site', 'readme', 'catalog', 'catalog-no-js', 'architecture']) {
       const context = await browser.newContext({ viewport: { width, height: 1000 }, deviceScaleFactor: 1, reducedMotion: 'reduce', javaScriptEnabled: kind !== 'catalog-no-js' });
       const page = await context.newPage();
@@ -152,7 +153,7 @@ async function main() {
           await page.screenshot({ path: path.join(output, filename), fullPage: true, animations: 'disabled', timeout: 30000 });
           report.screenshots.push(filename);
           // Independent viewport captures make below-fold image paint auditable.
-          const sections = kind === 'site' ? ['gallery'] : kind.startsWith('catalog') && [375, 1440].includes(width) ? ['primitives', 'semantic', 'composite', 'shells', 'screen-types', 'native-recipes', 'support', 'token-values'] : [];
+          const sections = kind === 'site' ? ['gallery'] : kind.startsWith('catalog') && [375, 1440].includes(width) ? ['primitives', 'semantic', 'composite', 'shells', 'screen-types', 'native-recipes', 'support'] : [];
           for (const id of sections) {
             await page.locator(`[id="${id}"]`).evaluate(el => el.scrollIntoView({ block: 'start' }));
             const visible = await page.locator('img').evaluateAll(imgs => imgs.map((img,index) => { const r=img.getBoundingClientRect(); return {index,visible:r.bottom>0 && r.top<innerHeight}; }).filter(i=>i.visible).map(i=>i.index));
@@ -162,8 +163,8 @@ async function main() {
             await page.screenshot({ path: path.join(output, sectionFile), fullPage: false, animations: 'disabled', timeout: 30000 });
             report.screenshots.push(sectionFile);
           }
-          if (kind === 'catalog' && width === 375) {
-            const previews = page.locator('.component-preview img');
+          if (kind === 'catalog' && width === 1440) {
+            const previews = page.locator('.component-preview:not(.component-consumer-preview) img');
             assert.equal(await previews.count(), 142);
             for (let index = 0; index < await previews.count(); index++) {
               const preview = previews.nth(index);
@@ -176,19 +177,19 @@ async function main() {
               report.screenshots.push(file);
             }
           }
-          if (kind === 'catalog' && width === 375) {
-            const diagrams = page.locator('.component-illustration img');
-            assert.equal(await diagrams.count(), 28);
-            for (let index=0; index<await diagrams.count(); index++) {
-              const figure=diagrams.nth(index); await figure.scrollIntoViewIfNeeded(); await figure.evaluate(img=>img.decode()); await page.waitForTimeout(35);
-              const file='illustrated-'+path.basename(await figure.getAttribute('src'),'.svg')+'.png';
-              await figure.screenshot({path:path.join(output,file),animations:'disabled'}); report.screenshots.push(file);
+          if(kind==='catalog' && width===1440) {
+            const helpers=page.locator('.component-entry').filter({has:page.locator('.component-consumer-preview')});
+            assert.equal(await helpers.count(),6);
+            for(let index=0;index<await helpers.count();index++) {
+              const card=helpers.nth(index);await card.scrollIntoViewIfNeeded();
+              for(const img of await card.locator('img').all()) await img.evaluate(n=>n.decode());
+              const file='consumer-'+(await card.getAttribute('id')).replaceAll('/','-')+'.png';
+              await card.screenshot({path:path.join(output,file),animations:'disabled'});report.screenshots.push(file);
             }
-            for (const kind of ['color','duration','shadow','fontFamily','dimension','fontWeight','typography']) {
-              const target=page.locator('.token-type').filter({has:page.locator('h3',{hasText:new RegExp('^'+kind+'$')})});
-              await target.scrollIntoViewIfNeeded(); const file=`${prefix}-tokens-${kind}.png`;
-              await page.screenshot({path:path.join(output,file),fullPage:false,animations:'disabled'}); report.screenshots.push(file);
-            }
+            const first=page.locator('[id="primitive/section-content-layout"]'),second=page.locator('[id="primitive/accessory-slot-layout"]');
+            await first.scrollIntoViewIfNeeded();const a=await first.boundingBox(),b=await second.boundingBox();
+            const file='desktop-section-accessory-consumers.png';
+            await page.screenshot({path:path.join(output,file),clip:{x:Math.min(a.x,b.x),y:Math.min(a.y,b.y),width:Math.max(a.x+a.width,b.x+b.width)-Math.min(a.x,b.x),height:Math.max(a.y+a.height,b.y+b.height)-Math.min(a.y,b.y)},animations:'disabled'});report.screenshots.push(file);
           }
           await page.evaluate(() => scrollTo(0, 0));
         });
@@ -219,20 +220,6 @@ async function main() {
             }
           }
           return { count: local.length };
-        });
-        if (kind.startsWith('catalog')) await check(`${prefix}: all token visuals render source values`, async () => {
-          const values=await page.locator('[data-token-visual]').evaluateAll(nodes=>nodes.map(n=>{
-            const r=n.getBoundingClientRect(),s=getComputedStyle(n),kind=n.dataset.tokenKind,value=JSON.parse(n.dataset.tokenResolved);
-            let match=true;
-            if(kind==='color') { const probe=document.createElement('span');probe.style.color=value;document.body.append(probe);match=s.backgroundColor===getComputedStyle(probe).color;probe.remove(); }
-            if(kind==='fontWeight') match=s.fontWeight===String(value);
-            if(kind==='typography') match=s.fontSize===value.fontSize && s.fontWeight===String(value.fontWeight);
-            if(kind==='dimension' && n.dataset.tokenVisual.startsWith('token/font-size.')) match=s.fontSize===value;
-            if(kind==='shadow') match=s.boxShadow!=='none';
-            return {id:n.dataset.tokenVisual,kind,match,width:r.width,height:r.height,background:s.backgroundColor,fontSize:s.fontSize};
-          }));
-          assert.equal(values.length,160);assert.deepEqual(values.filter(v=>!v.match||v.width<=0||v.height<=0),[]);
-          return {count:values.length,colors:values.filter(v=>v.kind==='color').length,values};
         });
         if (kind === 'site') await siteInteractions(page, prefix);
         if (kind.startsWith('catalog')) await catalogInteractions(page, prefix, kind === 'catalog');
@@ -324,6 +311,7 @@ p=CatalogParser(); p.feed(sys.stdin.read()); print(json.dumps(p.nodes))
 function staticCatalogCoverage(options = {}) {
   const inventory = options.inventory || readCatalogInventory();
   const html = options.html ?? fs.readFileSync(path.join(root, 'docs/components.html'), 'utf8');
+  assert.ok(!html.includes('No standalone visual specimen') && !html.includes('component-pending'), 'Broken-looking placeholder media well');
   const nodes = parseCatalog(html);
   const withClass = name => nodes.filter(n => (n.attrs.class || '').split(/\s+/).includes(name));
   const entries = withClass('component-entry'), groups = withClass('catalog-group');
@@ -332,6 +320,9 @@ function staticCatalogCoverage(options = {}) {
   assert.ok(expectedIds.length > 0, 'Empty catalog inventory');
   assert.equal(inventory.counts.records, expectedIds.length, 'Declared record count differs');
   for (const group of inventory.groups) assert.equal(inventory.counts.byGroup[group.id], group.items.length, `Declared group count differs: ${group.id}`);
+  const actualMobile=inventory.entries.filter(i=>i.kind==='public-component');
+  assert.equal(actualMobile.length,52);
+  assert.ok(actualMobile.every(i=>i.preview?.src && i.preview?.darkSrc),'Every public mobile component needs native light/dark previews');
   const allIds = nodes.filter(n => n.attrs.id).map(n => n.attrs.id);
   assert.equal(new Set(allIds).size, allIds.length, 'Duplicate HTML IDs');
   assert.deepEqual(entries.map(e => e.attrs.id).sort(), expectedIds, 'Missing, duplicated or invented rendered entry');
@@ -358,7 +349,7 @@ function staticCatalogCoverage(options = {}) {
     assert.ok(['source-only', 'native-capture', 'historical-native-capture'].includes(item.review.status), `Unsupported or falsely promoted visual status: ${item.id}`);
     assert.match(item.review.detail, /(?:no independent|pending|unverified|not established|not .*acceptance)/i, `Independent visual acceptance must remain unclaimed: ${item.id}`);
     assert.ok(entry.text.includes(item.review.detail), `Review caveat missing from HTML: ${item.id}`);
-    const badge = { 'source-only': 'Source inspected · no standalone native capture', 'native-capture': 'Native capture · source matched', 'historical-native-capture': 'Historical native capture · current review pending' }[item.review.status];
+    const badge = item.preview ? { 'native-capture': 'Native capture · source matched', 'historical-native-capture': 'Historical native capture · current review pending' }[item.review.status] : item.presentationType;
     assert.ok(entry.text.includes(badge), `Wrong source-bound review badge: ${item.id}`);
     if (item.preview) {
       assert.ok(item.preview.src && item.preview.alt && item.preview.caption, `Incomplete image evidence: ${item.id}`);
@@ -387,25 +378,40 @@ function staticCatalogCoverage(options = {}) {
       }
     } else {
       assert.equal(item.review.status, 'source-only', `Native status without published evidence: ${item.id}`);
-      const illustrationManifest = JSON.parse(fs.readFileSync(path.join(root, 'docs/assets/illustrations/manifest.json'), 'utf8'));
-      const illustration = illustrationManifest.assets.find(a => a.entryId === item.id);
-      assert.ok(illustration, `Missing explanatory illustration: ${item.id}`);
-      assert.deepEqual(entry.images.map(a => a.src), [`assets/illustrations/${illustration.file}`], `Unmapped source illustration: ${item.id}`);
-      assert.equal(entry.images[0].alt, `${illustration.label}: ${illustration.description}`, `Incorrect illustration alt: ${item.id}`);
-      assert.ok(entry.text.includes('Source illustration, not a native screenshot.'), `Illustration evidence boundary missing: ${item.id}`);
-      assert.match(entry.text, /no standalone|not yet|not reviewed/i, `No native evidence but no pending disclosure: ${item.id}`);
+      assert.ok(['Layout helper','Configuration','Integration guide','Rendering modifier'].includes(item.presentationType), `Invalid reference type: ${item.id}`);
+      if (item.consumerPreview) {
+        const cp=item.consumerPreview, manifest=JSON.parse(fs.readFileSync(path.join(root,'docs/assets/components/manifest.json'),'utf8'));
+        assert.equal(cp.sourceCommit,inventory.sourceCommit);
+        assert.deepEqual(entry.images.map(i=>i.src),[cp.src,cp.darkSrc],`Unmapped consumer image: ${item.id}`);
+        for (const [index,src] of [cp.src,cp.darkSrc].entries()) {
+          const asset=manifest.assets.find(a=>`assets/components/${a.file}`===src);
+          assert.ok(asset && asset.component_id===cp.componentId,`Wrong native consumer mapping: ${item.id}`);
+          assert.equal(asset.appearance,index===0?'light':'dark');
+          assert.equal(entry.images[index].alt,cp.alt+' · '+asset.appearance);
+        }
+        assert.ok(entry.text.includes(cp.caption) && cp.caption.startsWith('Native iPhone consumer example:'),`Missing consumer label: ${item.id}`);
+        const bytes=fs.readFileSync(path.join(root,cp.source.path));
+        assert.equal(require('node:crypto').createHash('sha256').update(bytes).digest('hex'),cp.source.sha256);
+        assert.equal(cp.source.commit,inventory.sourceCommit);
+        assert.equal(cp.source.url,`https://github.com/jangtrinh/design-os-apple/blob/${inventory.sourceCommit}/${cp.source.path}`);
+        assert.ok(entry.links.includes(cp.source.url));
+        for(const declaration of cp.checkedDeclarations) assert.ok(bytes.toString().includes(declaration),`Unverified consumer call: ${item.id}`);
+        assert.ok(entry.text.includes('no isolated helper fixture is claimed'));
+      } else assert.deepEqual(entry.images, [], `Invented reference image: ${item.id}`);
     }
   }
   const reviewCounts = {};
   for (const entry of inventory.entries) reviewCounts[entry.review.status] = (reviewCounts[entry.review.status] || 0) + 1;
   assert.deepEqual(inventory.counts.byReviewStatus, reviewCounts, 'Declared review counts differ');
+  const tokenSection=html.split('<section class="catalog-token-section" id="token-values"')[1].split('<section id="native-evidence"')[0];
+  assert.equal(require('node:crypto').createHash('sha256').update(tokenSection).digest('hex'),'08efea2509be33879edbcde00ea4ab278b7a5bd2e585766b4166894b590a6861','Token presentation must retain published c8 bytes');
+  assert.equal(inventory.entries.filter(i=>i.consumerPreview).length,6,'Native consumer example coverage');
   const tokens = withClass('catalog-token');
   assert.ok(Array.isArray(inventory.tokens) && inventory.tokens.length > 0, 'Missing token inventory');
   assert.equal(new Set(inventory.tokens.map(t => t.id)).size, inventory.tokens.length, 'Duplicate token inventory IDs');
   assert.deepEqual(tokens.map(t => t.attrs.id).sort(), inventory.tokens.map(t => t.id).sort(), 'Token coverage differs');
   for (const token of inventory.tokens) {
     const rendered = tokens.find(t => t.attrs.id === token.id);
-    assert.equal(nodes.filter(n => n.attrs['data-token-visual'] === token.id).length, 1, `Missing token illustration: ${token.id}`);
     assert.ok(!Object.hasOwn(rendered.attrs, 'hidden'), `Token hidden without JavaScript: ${token.id}`);
     assert.ok(rendered.text.includes(token.path), `Missing token label: ${token.id}`);
     const value = token.value && typeof token.value === 'object' ? Object.entries(token.value).map(([key, val]) => `${key}: ${val}`).join('; ') : String(token.value);
@@ -413,12 +419,11 @@ function staticCatalogCoverage(options = {}) {
   }
   const evidence = withClass('component-evidence');
   assert.equal(evidence.length, entries.length, 'Missing review disclosure');
-  for (const item of evidence) assert.match(item.text, /^(?:Source inspected · no standalone native capture|Native capture · source matched|Historical native capture · current review pending)/, 'False visual status badge');
+  for (const item of evidence) assert.match(item.text, /^(?:Layout helper|Configuration|Integration guide|Rendering modifier|Native capture · source matched|Historical native capture · current review pending)/, 'False visual status badge');
   const approvedImages = new Map();
   for (const [directory, digest] of [
-    ['marketing', '8d41bcc4d4972815526432b09677b4657f5ecf70470a5ad4aec25a7c0a8feb27'],
-    ['components', '53322222c939046166e7994dfd28601c0ef8db00a84cde625f1f623a37394775'],
-    ['illustrations', '7b9e9f5004515d816ba68f7995b1a485575406fe80e19d8e14fd4cd8c297633c']
+    ['marketing', 'c109b1faa1b383fdbf58be22003eaea8c9ef9af8641356440ca510a8c5b77549'],
+    ['components', '53322222c939046166e7994dfd28601c0ef8db00a84cde625f1f623a37394775']
   ]) {
     const bytes = fs.readFileSync(path.join(root, `docs/assets/${directory}/manifest.json`));
     assert.equal(require('node:crypto').createHash('sha256').update(bytes).digest('hex'), digest, `Unreviewed ${directory} manifest`);
@@ -480,9 +485,14 @@ function testStaticCatalogGuard() {
     missingHistoricalCaption.entries[historicalIndex].preview.caption = 'Native capture verified for the current candidate.';
     rejects('historical limitation removed', { inventory: missingHistoricalCaption });
   }
+  const consumerIndex=inventory.entries.findIndex(entry=>entry.consumerPreview);
+  const wrongConsumer=structuredClone(inventory);wrongConsumer.entries[consumerIndex].consumerPreview.componentId='semantic/avatar';
+  rejects('wrong native consumer mapping',{inventory:wrongConsumer});
+  rejects('consumer label removed',{html:html.replace('Native iPhone consumer example:','Isolated native helper capture:')});
+  rejects('empty media placeholder',{html:html.replace('<main ', '<div class="component-pending">No standalone visual specimen</div><main ')});
   const firstImage = inventory.entries[nativeIndex].preview.src;
   rejects('missing image', { html: html.replace(`src="${firstImage}"`, 'src="assets/components/does-not-exist.webp"') });
-  rejects('false visual status badge', { html: html.replace('Source inspected · no standalone native capture', 'Visually reviewed · accepted') });
+  rejects('false visual status badge', { html: html.replace('<strong>Layout helper</strong>', '<strong>Visually reviewed · accepted</strong>') });
   rejects('missing token', { html: html.replace(`id="${inventory.tokens[0].id}"`, 'id="invented-token"') });
   rejects('external reference image', { html: html.replace(`src="${firstImage}"`, 'src="https://example.com/reference.png"') });
   const staleSource = structuredClone(inventory); staleSource.entries[0].source.sha256 = '0'.repeat(64);

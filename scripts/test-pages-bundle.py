@@ -7,10 +7,10 @@ class BundleControls(unittest.TestCase):
  def setUp(self):
   self.tmp=tempfile.TemporaryDirectory();self.root=Path(self.tmp.name)
   for path in ['index.html','components.html','kit-architecture.html','llms.txt','sitemap.xml']:(self.root/path).write_text('Native kit')
-  for family in ['components','marketing','illustrations']:
+  for family in ['components','marketing']:
    d=self.root/'assets'/family;d.mkdir(parents=True);raw=b'\x89PNG\xfffixture';(d/'approved.png').write_bytes(raw);(d/'manifest.json').write_text(json.dumps({'assets':[{'file':'approved.png','sha256':hashlib.sha256(raw).hexdigest()}]}))
  def tearDown(self):self.tmp.cleanup()
- def test_valid(self):self.assertEqual(guard.validate(self.root)['admittedAssets'],3)
+ def test_valid(self):self.assertEqual(guard.validate(self.root)['admittedAssets'],2)
  def reject(self,path,raw):
   (self.root/path).write_bytes(raw)
   with self.assertRaises(AssertionError):guard.validate(self.root)

@@ -6,10 +6,8 @@ on:
       - README.md
       - 'docs/**'
       - scripts/verify-marketing-browser.cjs
-      - scripts/generate-catalog-illustrations.py
       - scripts/verify-pages-bundle.py
       - scripts/test-pages-bundle.py
-      - scripts/test-catalog-illustrations.py
       - scripts/generate-component-catalog.py
       - scripts/verify-marketing-metadata.py
       - scripts/test-marketing-metadata.py
@@ -49,8 +47,6 @@ jobs:
       - name: Verify static catalog coverage without JavaScript
         shell: bash
         run: |
-          python3 scripts/generate-catalog-illustrations.py --check
-          python3 scripts/test-catalog-illustrations.py
           python3 scripts/generate-component-catalog.py --check
           python3 scripts/verify-marketing-metadata.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/metadata.log"
           python3 scripts/test-marketing-metadata.py 2>&1 | tee "$MARKETING_BROWSER_OUTPUT/metadata-tests.log"
