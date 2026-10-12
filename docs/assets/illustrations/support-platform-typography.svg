@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Platform Typography — explanatory diagram</title>
+<desc id="desc">Source-backed usage illustration. This is not a native screenshot, runtime rendering, interaction test or visual acceptance evidence.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#176f76"/></marker></defs>
+<rect x="0" y="0" width="1200" height="760" rx="0" fill="#f5f8fa"/>
+<rect x="32" y="32" width="1136" height="696" rx="24" fill="#ffffff" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="74" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">Usage illustration</text>
+<text x="64" y="123" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" text-anchor="start" fill="#182c36">Platform Typography</text>
+<text x="64" y="156" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">support/platform-typography</text>
+<line x1="64" y1="178" x2="1136" y2="178" stroke="#ccd9df" stroke-width="2"/>
+<line x1="64" y1="678" x2="1136" y2="678" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="710" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Illustration only · not a native capture · scaled for clarity</text>
+<text x="82" y="232" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">Semantic role → Font.system(textStyle, design:)</text>
+<text x="84" y="301" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="start" fill="#536771">largeTitle</text>
+<text x="327" y="301" font-family="Arial, Helvetica, sans-serif" font-size="44" font-weight="400" text-anchor="start" fill="#182c36">Readable content</text>
+<text x="84" y="373" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="start" fill="#536771">headline</text>
+<text x="327" y="373" font-family="Arial, Helvetica, sans-serif" font-size="38" font-weight="400" text-anchor="start" fill="#182c36">Readable content</text>
+<text x="84" y="445" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="start" fill="#536771">body</text>
+<text x="327" y="445" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="400" text-anchor="start" fill="#182c36">Readable content</text>
+<text x="84" y="517" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="start" fill="#536771">caption</text>
+<text x="327" y="517" font-family="Arial, Helvetica, sans-serif" font-size="28" font-weight="400" text-anchor="start" fill="#182c36">Readable content</text>
+<rect x="750" y="273" width="364" height="274" rx="14" fill="#edf5f6" stroke="#ccd9df" stroke-width="2"/>
+<text x="770" y="311" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="start" fill="#182c36">Font modifiers</text>
+<text x="770" y="373" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">Emphasized → bold</text>
+<text x="770" y="410" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">Italic → italic</text>
+<text x="770" y="447" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">standard → .default</text>
+<text x="770" y="484" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">expressive →</text>
+<text x="770" y="521" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">.rounded</text>
+<text x="76" y="640" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Representative role subset. Lettering here is schematic; system sizing and Dynamic</text>
+<text x="76" y="671" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Type resolve at runtime.</text>
+</svg>

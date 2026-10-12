@@ -11,7 +11,7 @@ The layered implementation is now merged into main through [PR 3](https://github
 
 [CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) passed all 23 workflow jobs. Its reviewed image set comprises 360 isolated component captures, 108 screen-family captures and 42 dedicated text-field states across iPhone, iPad and Mac. Accessibility-size and RTL cases occur within the isolated set; these counts are not complete accessibility acceptance.
 
-The [catalog](../components.html) hosts 142 original native iPhone images in 71 light/dark pairs: 106 isolated defaults and 36 screen-family fixtures. Other reviewed platform/state evidence is separate; links to source archives are not hosted previews. There are 99 source entries, including 28 helpers/support/OS-hosted records without a standalone published image, and 160 token values counted separately.
+The [catalog](../components.html) hosts 142 original native iPhone images in 71 light/dark pairs: 106 isolated defaults and 36 screen-family fixtures. Other reviewed platform/state evidence is separate; links to source archives are not hosted previews. There are 99 source entries, including 28 helpers/support/OS-hosted records with separately labeled source diagrams rather than standalone native captures. All 160 token values have source-driven web illustrations and are counted separately.
 
 The [component image manifest](../assets/components/manifest.json) binds every hosted image to original capture and source hashes. Display images are lossless native pixels. Documented crops remove platform framing or exact-uniform trailing blank rows, preserving displayed UI. No generated replacement UI or copied third-party product screenshot is presented as native evidence.
 

@@ -172,7 +172,7 @@ Yes. The layered kit was merged into main in PR 3. The component catalog is pinn
 
 ### Does the catalog show every component and state?
 
-The catalog lists 99 source entries and 160 token values. It displays 142 native iPhone images across 71 visual entries, with light and dark previews. The remaining source helpers have explicit coverage notes. Selected previews do not establish complete behavior or every state on every platform.
+The catalog lists 99 source entries and 160 token values. It displays 142 native iPhone images across 71 visual entries, with light and dark previews. The remaining 28 source helpers and host integrations have labeled explanatory diagrams, and all 160 token values have source-driven web illustrations. Selected previews do not establish complete behavior or every state on every platform.
 
 ### What has been verified, and what is still open?
 

@@ -159,6 +159,18 @@ is_component_image() {
   return 1
 }
 
+is_catalog_illustration() {
+  local candidate=$1
+  [[ "$candidate" == docs/assets/illustrations/*.svg ]] || return 1
+  python3 - "$scan_root" "$candidate" <<'PYCODE'
+import json,sys
+from pathlib import Path
+root=Path(sys.argv[1]);candidate=sys.argv[2]
+assets=json.loads((root/'docs/assets/illustrations/manifest.json').read_text())['assets']
+sys.exit(0 if candidate in {'docs/assets/illustrations/'+a['file'] for a in assets} else 1)
+PYCODE
+}
+
 is_curated_specimen_asset() {
   local candidate=$1
   case "$candidate" in
@@ -224,6 +236,16 @@ if grep -q '^docs/assets/components/' "$temporary_list"; then
     component_images_admitted=1
   else
     report "component-image provenance admission failed"
+  fi
+fi
+
+illustrations_admitted=0
+if grep -q '^docs/assets/illustrations/' "$temporary_list"; then
+  if python3 "$scan_root/scripts/generate-catalog-illustrations.py" --check \
+    && python3 "$scan_root/scripts/test-catalog-illustrations.py"; then
+    illustrations_admitted=1
+  else
+    report "source illustration admission failed"
   fi
 fi
 
@@ -297,6 +319,10 @@ while IFS= read -r relative_path; do
         || { (( marketing_images_admitted )) && is_marketing_image "$relative_path"; } \
         || is_curated_specimen_asset "$relative_path" \
         || report "unclassified non-text content '$relative_path' ($mime_type)"
+      ;;
+    image/svg+xml)
+      { (( illustrations_admitted )) && is_catalog_illustration "$relative_path"; } \
+        || report "unclassified SVG content '$relative_path'"
       ;;
     image/webp)
       { (( component_images_admitted )) && is_component_image "$relative_path"; } \

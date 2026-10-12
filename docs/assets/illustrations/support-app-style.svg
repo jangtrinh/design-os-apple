@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">App Style — explanatory diagram</title>
+<desc id="desc">Source-backed usage illustration. This is not a native screenshot, runtime rendering, interaction test or visual acceptance evidence.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#176f76"/></marker></defs>
+<rect x="0" y="0" width="1200" height="760" rx="0" fill="#f5f8fa"/>
+<rect x="32" y="32" width="1136" height="696" rx="24" fill="#ffffff" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="74" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">Usage illustration</text>
+<text x="64" y="123" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" text-anchor="start" fill="#182c36">App Style</text>
+<text x="64" y="156" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">support/app-style</text>
+<line x1="64" y1="178" x2="1136" y2="178" stroke="#ccd9df" stroke-width="2"/>
+<line x1="64" y1="678" x2="1136" y2="678" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="710" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Illustration only · not a native capture · scaled for clarity</text>
+<text x="76" y="231" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">01</text>
+<rect x="76" y="256" width="316" height="277" rx="14" fill="#edf5f6" stroke="#ccd9df" stroke-width="2"/>
+<text x="96" y="294" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="start" fill="#182c36">Profile</text>
+<text x="96" y="356" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">Semantic roles</text>
+<text x="96" y="393" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">Spacing / radius</text>
+<text x="96" y="430" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">Accessibility</text>
+<line x1="397" y1="393" x2="430" y2="393" stroke="#176f76" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="442" y="231" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">02</text>
+<rect x="442" y="256" width="316" height="277" rx="14" fill="#edf5f6" stroke="#ccd9df" stroke-width="2"/>
+<text x="462" y="294" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="start" fill="#182c36">Palette</text>
+<text x="462" y="356" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">Adaptive colors</text>
+<text x="462" y="393" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">Explicit pairs</text>
+<line x1="763" y1="393" x2="796" y2="393" stroke="#176f76" stroke-width="2" marker-end="url(#arrow)"/>
+<text x="808" y="231" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">03</text>
+<rect x="808" y="256" width="316" height="277" rx="14" fill="#edf5f6" stroke="#ccd9df" stroke-width="2"/>
+<text x="828" y="294" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="start" fill="#182c36">Metrics</text>
+<text x="828" y="356" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">Content geometry</text>
+<text x="828" y="393" font-family="Arial, Helvetica, sans-serif" font-size="30" font-weight="400" text-anchor="start" fill="#536771">Gaps and sizes</text>
+<text x="76" y="594" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">designOSAppStyle(style) injects the style and its profile into opt-in content;</text>
+<text x="76" y="625" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">native controls remain native.</text>
+</svg>

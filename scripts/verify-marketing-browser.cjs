@@ -152,7 +152,7 @@ async function main() {
           await page.screenshot({ path: path.join(output, filename), fullPage: true, animations: 'disabled', timeout: 30000 });
           report.screenshots.push(filename);
           // Independent viewport captures make below-fold image paint auditable.
-          const sections = kind === 'site' ? ['gallery'] : kind.startsWith('catalog') && [375, 1440].includes(width) ? ['semantic', 'composite', 'shells', 'screen-types', 'native-recipes'] : [];
+          const sections = kind === 'site' ? ['gallery'] : kind.startsWith('catalog') && [375, 1440].includes(width) ? ['primitives', 'semantic', 'composite', 'shells', 'screen-types', 'native-recipes', 'support', 'token-values'] : [];
           for (const id of sections) {
             await page.locator(`[id="${id}"]`).evaluate(el => el.scrollIntoView({ block: 'start' }));
             const visible = await page.locator('img').evaluateAll(imgs => imgs.map((img,index) => { const r=img.getBoundingClientRect(); return {index,visible:r.bottom>0 && r.top<innerHeight}; }).filter(i=>i.visible).map(i=>i.index));
@@ -174,6 +174,20 @@ async function main() {
               const file = `painted-${asset}.png`;
               await preview.screenshot({ path:path.join(output,file), animations:'disabled', timeout:10000 });
               report.screenshots.push(file);
+            }
+          }
+          if (kind === 'catalog' && width === 375) {
+            const diagrams = page.locator('.component-illustration img');
+            assert.equal(await diagrams.count(), 28);
+            for (let index=0; index<await diagrams.count(); index++) {
+              const figure=diagrams.nth(index); await figure.scrollIntoViewIfNeeded(); await figure.evaluate(img=>img.decode()); await page.waitForTimeout(35);
+              const file='illustrated-'+path.basename(await figure.getAttribute('src'),'.svg')+'.png';
+              await figure.screenshot({path:path.join(output,file),animations:'disabled'}); report.screenshots.push(file);
+            }
+            for (const kind of ['color','duration','shadow','fontFamily','dimension','fontWeight','typography']) {
+              const target=page.locator('.token-type').filter({has:page.locator('h3',{hasText:new RegExp('^'+kind+'$')})});
+              await target.scrollIntoViewIfNeeded(); const file=`${prefix}-tokens-${kind}.png`;
+              await page.screenshot({path:path.join(output,file),fullPage:false,animations:'disabled'}); report.screenshots.push(file);
             }
           }
           await page.evaluate(() => scrollTo(0, 0));
@@ -205,6 +219,20 @@ async function main() {
             }
           }
           return { count: local.length };
+        });
+        if (kind.startsWith('catalog')) await check(`${prefix}: all token visuals render source values`, async () => {
+          const values=await page.locator('[data-token-visual]').evaluateAll(nodes=>nodes.map(n=>{
+            const r=n.getBoundingClientRect(),s=getComputedStyle(n),kind=n.dataset.tokenKind,value=JSON.parse(n.dataset.tokenResolved);
+            let match=true;
+            if(kind==='color') { const probe=document.createElement('span');probe.style.color=value;document.body.append(probe);match=s.backgroundColor===getComputedStyle(probe).color;probe.remove(); }
+            if(kind==='fontWeight') match=s.fontWeight===String(value);
+            if(kind==='typography') match=s.fontSize===value.fontSize && s.fontWeight===String(value.fontWeight);
+            if(kind==='dimension' && n.dataset.tokenVisual.startsWith('token/font-size.')) match=s.fontSize===value;
+            if(kind==='shadow') match=s.boxShadow!=='none';
+            return {id:n.dataset.tokenVisual,kind,match,width:r.width,height:r.height,background:s.backgroundColor,fontSize:s.fontSize};
+          }));
+          assert.equal(values.length,160);assert.deepEqual(values.filter(v=>!v.match||v.width<=0||v.height<=0),[]);
+          return {count:values.length,colors:values.filter(v=>v.kind==='color').length,values};
         });
         if (kind === 'site') await siteInteractions(page, prefix);
         if (kind.startsWith('catalog')) await catalogInteractions(page, prefix, kind === 'catalog');
@@ -330,7 +358,7 @@ function staticCatalogCoverage(options = {}) {
     assert.ok(['source-only', 'native-capture', 'historical-native-capture'].includes(item.review.status), `Unsupported or falsely promoted visual status: ${item.id}`);
     assert.match(item.review.detail, /(?:no independent|pending|unverified|not established|not .*acceptance)/i, `Independent visual acceptance must remain unclaimed: ${item.id}`);
     assert.ok(entry.text.includes(item.review.detail), `Review caveat missing from HTML: ${item.id}`);
-    const badge = { 'source-only': 'Source inspected · no standalone preview', 'native-capture': 'Native capture · source matched', 'historical-native-capture': 'Historical native capture · current review pending' }[item.review.status];
+    const badge = { 'source-only': 'Source inspected · no standalone native capture', 'native-capture': 'Native capture · source matched', 'historical-native-capture': 'Historical native capture · current review pending' }[item.review.status];
     assert.ok(entry.text.includes(badge), `Wrong source-bound review badge: ${item.id}`);
     if (item.preview) {
       assert.ok(item.preview.src && item.preview.alt && item.preview.caption, `Incomplete image evidence: ${item.id}`);
@@ -359,7 +387,12 @@ function staticCatalogCoverage(options = {}) {
       }
     } else {
       assert.equal(item.review.status, 'source-only', `Native status without published evidence: ${item.id}`);
-      assert.deepEqual(entry.images, [], `Invented component image: ${item.id}`);
+      const illustrationManifest = JSON.parse(fs.readFileSync(path.join(root, 'docs/assets/illustrations/manifest.json'), 'utf8'));
+      const illustration = illustrationManifest.assets.find(a => a.entryId === item.id);
+      assert.ok(illustration, `Missing explanatory illustration: ${item.id}`);
+      assert.deepEqual(entry.images.map(a => a.src), [`assets/illustrations/${illustration.file}`], `Unmapped source illustration: ${item.id}`);
+      assert.equal(entry.images[0].alt, `${illustration.label}: ${illustration.description}`, `Incorrect illustration alt: ${item.id}`);
+      assert.ok(entry.text.includes('Source illustration, not a native screenshot.'), `Illustration evidence boundary missing: ${item.id}`);
       assert.match(entry.text, /no standalone|not yet|not reviewed/i, `No native evidence but no pending disclosure: ${item.id}`);
     }
   }
@@ -372,6 +405,7 @@ function staticCatalogCoverage(options = {}) {
   assert.deepEqual(tokens.map(t => t.attrs.id).sort(), inventory.tokens.map(t => t.id).sort(), 'Token coverage differs');
   for (const token of inventory.tokens) {
     const rendered = tokens.find(t => t.attrs.id === token.id);
+    assert.equal(nodes.filter(n => n.attrs['data-token-visual'] === token.id).length, 1, `Missing token illustration: ${token.id}`);
     assert.ok(!Object.hasOwn(rendered.attrs, 'hidden'), `Token hidden without JavaScript: ${token.id}`);
     assert.ok(rendered.text.includes(token.path), `Missing token label: ${token.id}`);
     const value = token.value && typeof token.value === 'object' ? Object.entries(token.value).map(([key, val]) => `${key}: ${val}`).join('; ') : String(token.value);
@@ -379,11 +413,12 @@ function staticCatalogCoverage(options = {}) {
   }
   const evidence = withClass('component-evidence');
   assert.equal(evidence.length, entries.length, 'Missing review disclosure');
-  for (const item of evidence) assert.match(item.text, /^(?:Source inspected · no standalone preview|Native capture · source matched|Historical native capture · current review pending)/, 'False visual status badge');
+  for (const item of evidence) assert.match(item.text, /^(?:Source inspected · no standalone native capture|Native capture · source matched|Historical native capture · current review pending)/, 'False visual status badge');
   const approvedImages = new Map();
   for (const [directory, digest] of [
     ['marketing', '8d41bcc4d4972815526432b09677b4657f5ecf70470a5ad4aec25a7c0a8feb27'],
-    ['components', '53322222c939046166e7994dfd28601c0ef8db00a84cde625f1f623a37394775']
+    ['components', '53322222c939046166e7994dfd28601c0ef8db00a84cde625f1f623a37394775'],
+    ['illustrations', '7b9e9f5004515d816ba68f7995b1a485575406fe80e19d8e14fd4cd8c297633c']
   ]) {
     const bytes = fs.readFileSync(path.join(root, `docs/assets/${directory}/manifest.json`));
     assert.equal(require('node:crypto').createHash('sha256').update(bytes).digest('hex'), digest, `Unreviewed ${directory} manifest`);
@@ -447,7 +482,7 @@ function testStaticCatalogGuard() {
   }
   const firstImage = inventory.entries[nativeIndex].preview.src;
   rejects('missing image', { html: html.replace(`src="${firstImage}"`, 'src="assets/components/does-not-exist.webp"') });
-  rejects('false visual status badge', { html: html.replace('Source inspected · no standalone preview', 'Visually reviewed · accepted') });
+  rejects('false visual status badge', { html: html.replace('Source inspected · no standalone native capture', 'Visually reviewed · accepted') });
   rejects('missing token', { html: html.replace(`id="${inventory.tokens[0].id}"`, 'id="invented-token"') });
   rejects('external reference image', { html: html.replace(`src="${firstImage}"`, 'src="https://example.com/reference.png"') });
   const staleSource = structuredClone(inventory); staleSource.entries[0].source.sha256 = '0'.repeat(64);

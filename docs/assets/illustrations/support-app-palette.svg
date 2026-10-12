@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">App Palette — explanatory diagram</title>
+<desc id="desc">Source-backed usage illustration. This is not a native screenshot, runtime rendering, interaction test or visual acceptance evidence.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#176f76"/></marker></defs>
+<rect x="0" y="0" width="1200" height="760" rx="0" fill="#f5f8fa"/>
+<rect x="32" y="32" width="1136" height="696" rx="24" fill="#ffffff" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="74" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">Usage illustration</text>
+<text x="64" y="123" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" text-anchor="start" fill="#182c36">App Palette</text>
+<text x="64" y="156" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">support/app-palette</text>
+<line x1="64" y1="178" x2="1136" y2="178" stroke="#ccd9df" stroke-width="2"/>
+<line x1="64" y1="678" x2="1136" y2="678" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="710" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Illustration only · not a native capture · scaled for clarity</text>
+<text x="76" y="227" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">canvas</text>
+<rect x="76" y="247" width="92" height="74" rx="10" fill="#FFFFFF" stroke="#ccd9df" stroke-width="2"/>
+<text x="76" y="348" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">FFFFFF</text>
+<rect x="186" y="247" width="92" height="74" rx="10" fill="#000000" stroke="#ccd9df" stroke-width="2"/>
+<text x="186" y="348" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">000000</text>
+<text x="76" y="378" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Light</text>
+<text x="186" y="378" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Dark</text>
+<text x="350" y="227" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">surface</text>
+<rect x="350" y="247" width="92" height="74" rx="10" fill="#F7F7F7" stroke="#ccd9df" stroke-width="2"/>
+<text x="350" y="348" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">F7F7F7</text>
+<rect x="460" y="247" width="92" height="74" rx="10" fill="#242424" stroke="#ccd9df" stroke-width="2"/>
+<text x="460" y="348" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">242424</text>
+<text x="350" y="378" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Light</text>
+<text x="460" y="378" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Dark</text>
+<text x="624" y="227" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">subtleSurface</text>
+<rect x="624" y="247" width="92" height="74" rx="10" fill="#F0F0F0" stroke="#ccd9df" stroke-width="2"/>
+<text x="624" y="348" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">F0F0F0</text>
+<rect x="734" y="247" width="92" height="74" rx="10" fill="#181818" stroke="#ccd9df" stroke-width="2"/>
+<text x="734" y="348" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">181818</text>
+<text x="624" y="378" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Light</text>
+<text x="734" y="378" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Dark</text>
+<text x="898" y="227" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">ink</text>
+<rect x="898" y="247" width="92" height="74" rx="10" fill="#161616" stroke="#ccd9df" stroke-width="2"/>
+<text x="898" y="348" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">161616</text>
+<rect x="1008" y="247" width="92" height="74" rx="10" fill="#FFFFFF" stroke="#ccd9df" stroke-width="2"/>
+<text x="1008" y="348" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">FFFFFF</text>
+<text x="898" y="378" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Light</text>
+<text x="1008" y="378" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Dark</text>
+<text x="76" y="418" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">secondaryInk</text>
+<rect x="76" y="438" width="92" height="74" rx="10" fill="#666666" stroke="#ccd9df" stroke-width="2"/>
+<text x="76" y="539" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">666666</text>
+<rect x="186" y="438" width="92" height="74" rx="10" fill="#CCCCCC" stroke="#ccd9df" stroke-width="2"/>
+<text x="186" y="539" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">CCCCCC</text>
+<text x="76" y="569" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Light</text>
+<text x="186" y="569" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Dark</text>
+<text x="350" y="418" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">separator</text>
+<rect x="350" y="438" width="92" height="74" rx="10" fill="#F0F0F0" stroke="#ccd9df" stroke-width="2"/>
+<text x="350" y="539" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">F0F0F0</text>
+<rect x="460" y="438" width="92" height="74" rx="10" fill="#252525" stroke="#ccd9df" stroke-width="2"/>
+<text x="460" y="539" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">252525</text>
+<text x="350" y="569" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Light</text>
+<text x="460" y="569" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Dark</text>
+<text x="624" y="418" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">action</text>
+<rect x="624" y="438" width="92" height="74" rx="10" fill="#161616" stroke="#ccd9df" stroke-width="2"/>
+<text x="624" y="539" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">161616</text>
+<rect x="734" y="438" width="92" height="74" rx="10" fill="#FFFFFF" stroke="#ccd9df" stroke-width="2"/>
+<text x="734" y="539" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">FFFFFF</text>
+<text x="624" y="569" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Light</text>
+<text x="734" y="569" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Dark</text>
+<text x="898" y="418" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">actionInk</text>
+<rect x="898" y="438" width="92" height="74" rx="10" fill="#FFFFFF" stroke="#ccd9df" stroke-width="2"/>
+<text x="898" y="539" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">FFFFFF</text>
+<rect x="1008" y="438" width="92" height="74" rx="10" fill="#161616" stroke="#ccd9df" stroke-width="2"/>
+<text x="1008" y="539" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">161616</text>
+<text x="898" y="569" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Light</text>
+<text x="1008" y="569" font-family="Arial, Helvetica, sans-serif" font-size="23" font-weight="400" text-anchor="start" fill="#536771">Dark</text>
+<text x="76" y="635" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Exact editorial RGB values. Custom foreground/background pairs need contrast</text>
+<text x="76" y="666" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">checks.</text>
+</svg>

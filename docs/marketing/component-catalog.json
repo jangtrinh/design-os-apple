@@ -4,7 +4,7 @@
   "generatedDate": "2026-10-12",
   "scope": "All tracked DesignOSApple Swift source files, layered composition recipes, extension release recipes, semantic roles and separate design token leaves; app-specific dogfood screens are examples rather than extra reusable kit APIs.",
   "statusDefinitions": {
-    "source-only": "Source inspected; no standalone published visual specimen. Not visual acceptance.",
+    "source-only": "Source inspected; explanatory illustration available, no standalone native capture. Not native visual acceptance.",
     "native-capture": "Source-matched native sample reviewed; not blanket visual acceptance across every state or platform.",
     "historical-native-capture": "Historical source-bound native capture, not proof of current rendering."
   },
@@ -40,7 +40,9 @@
     "historicalNativeCaptureFiles": 0,
     "currentCandidateCaptureFiles": 510,
     "nativeCapturedIsolatedRoutes": 53,
-    "publishedPreviewFiles": 142
+    "publishedPreviewFiles": 142,
+    "explanatoryIllustrations": 28,
+    "tokenIllustrations": 160
   },
   "groups": [
     {
@@ -202,10 +204,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -254,10 +256,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -316,10 +318,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -370,10 +372,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -429,10 +431,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -479,10 +481,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -531,10 +533,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [],
@@ -9042,10 +9044,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -10603,10 +10605,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -10659,10 +10661,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -10733,10 +10735,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -10791,7 +10793,7 @@
           "group": "support",
           "kind": "runtime-support",
           "visibility": "public",
-          "summary": "Validation failures for an opt-in application style.",
+          "summary": "An opaque sRGB color with explicit appearance and increased-contrast variants.",
           "variants": [
             "DesignOSAppStyleError: invalidColor = \"E_APP_STYLE_COLOR\" / invalidMetric = \"E_APP_STYLE_METRIC\"",
             "lightRGB: UInt32",
@@ -10823,10 +10825,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -10932,10 +10934,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -11078,10 +11080,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [],
@@ -11234,10 +11236,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -11290,12 +11292,12 @@
         {
           "id": "support/platform-accessibility",
           "name": "Platform Accessibility",
-          "symbol": "PlatformAccessibility",
+          "symbol": "PlatformAccessibilityPreferences",
           "layer": "support",
           "group": "support",
           "kind": "internal-helper",
           "visibility": "internal",
-          "summary": "Shared runtime support.",
+          "summary": "Internal snapshot of Reduce Motion, Reduce Transparency, Differentiate Without Color and contrast preferences.",
           "variants": [
             "No separate named variant set. Caller-owned content slots and API configuration are listed below."
           ],
@@ -11305,7 +11307,7 @@
             "url": "https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Sources/DesignOSApple/Platform/PlatformAccessibility.swift",
             "commit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
             "sha256": "3cb6f973fbce26184371633ea3e48cc3411d38a1bea432e56e532588209f32e4",
-            "symbol": "PlatformAccessibility"
+            "symbol": "PlatformAccessibilityPreferences"
           },
           "dependencies": [],
           "declarations": [
@@ -11318,10 +11320,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [],
@@ -11367,10 +11369,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -11431,10 +11433,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [],
@@ -11480,10 +11482,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -11535,10 +11537,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -11586,7 +11588,7 @@
           "group": "support",
           "kind": "runtime-support",
           "visibility": "public",
-          "summary": "Stable runtime validation failures for an environment profile.",
+          "summary": "Immutable, validated design-language groups injected into a runtime subtree.",
           "variants": [
             "DesignOSProfileError: invalid = \"E_PROFILE_INVALID\"",
             "typography: DesignOSTypographyProfile",
@@ -11627,10 +11629,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -11788,12 +11790,12 @@
         {
           "id": "support/profile-environment",
           "name": "Profile Environment",
-          "symbol": "DesignOSProfileEnvironment",
+          "symbol": "EnvironmentValues.designOSProfile / View.designOSProfile(_:)",
           "layer": "support",
           "group": "support",
           "kind": "internal-helper",
           "visibility": "internal",
-          "summary": "Shared runtime support.",
+          "summary": "Public environment access and subtree injection backed by a private EnvironmentKey; not a standalone type.",
           "variants": [
             "No separate named variant set. Caller-owned content slots and API configuration are listed below."
           ],
@@ -11803,7 +11805,7 @@
             "url": "https://github.com/jangtrinh/design-os-apple/blob/1898ce28861d642f57dccd88fd57afcbe3be5bb9/Sources/DesignOSApple/Profile/DesignOSProfileEnvironment.swift",
             "commit": "1898ce28861d642f57dccd88fd57afcbe3be5bb9",
             "sha256": "3ba2f58f41069fefcabbbed913738a3329f2447685ec23bd03f48b33e297cc01",
-            "symbol": "DesignOSProfileEnvironment"
+            "symbol": "designOSProfile"
           },
           "dependencies": [],
           "declarations": [
@@ -11816,10 +11818,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [],
@@ -11867,10 +11869,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -11932,10 +11934,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -11999,10 +12001,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -12082,10 +12084,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -12153,10 +12155,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [
@@ -12227,10 +12229,10 @@
           "nativeExamples": [],
           "review": {
             "status": "source-only",
-            "detail": "Current source record inspected. No standalone published visual specimen exists for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
+            "detail": "Current source record inspected. This entry has a labeled explanatory diagram; no standalone native capture is published for this helper, support type or OS-hosted integration. Source and compile coverage are not full visual acceptance.",
             "evidence": [],
             "gaps": [
-              "No standalone published visual specimen."
+              "No standalone native capture."
             ]
           },
           "fixturePaths": [],

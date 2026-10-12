@@ -69,8 +69,8 @@
 .catalog .token-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:0 var(--s-16); list-style:none; padding:0; margin:var(--s-8) 0 0; }
 .catalog .catalog-token { display:flex; align-items:center; gap:var(--s-6); padding-block:var(--s-8); border-top:1px solid var(--c-gray-300); min-width:0; }
 .catalog .catalog-token div { min-width:0; }
-.catalog .catalog-token strong, .catalog .catalog-token span:not(.token-swatch) { display:block; font-size:var(--t-14); overflow-wrap:anywhere; }
-.catalog .catalog-token span:not(.token-swatch) { color:var(--c-gray-900); }
+.catalog .catalog-token strong, .catalog .catalog-token>div>span { display:block; font-size:var(--t-14); overflow-wrap:anywhere; }
+.catalog .catalog-token>div>span { color:var(--c-gray-900); }
 .catalog .token-swatch { display:block; flex:none; width:var(--s-24); height:var(--s-24); border-radius:var(--r-3); outline:1px solid var(--c-gray-400); outline-offset:-1px; }
 @media (max-width:1000px) { .catalog .token-grid { grid-template-columns:repeat(2,minmax(0,1fr)); } }
 @media (max-width:650px) { .catalog .token-grid { grid-template-columns:1fr; } }
@@ -120,3 +120,17 @@
 .catalog .native-evidence-list { padding-left:var(--s-16); }
 .catalog .native-evidence-list li { margin-block:var(--s-8); overflow-wrap:anywhere; font-size:var(--t-14); }
 .catalog .native-evidence-list span { display:block; }
+/* Source-value illustrations are web examples, separate from native captures. */
+.catalog .token-visual { display:flex; align-items:center; justify-content:center; flex:none; width:88px; height:64px; box-sizing:border-box; overflow:hidden; color:#171719; background:#f4f4f6; border:1px solid #d5d5da; }
+.catalog .token-demo-color { width:64px; border-radius:8px; }
+.catalog .token-demo-shadow { width:52px; height:36px; margin:14px 18px; background:#fff; border-radius:6px; overflow:visible; }
+.catalog .token-demo-radius { width:64px; background:#dbe7fb; border:2px solid #5185d9; }
+.catalog .token-demo-type { font-size:24px; text-align:center; white-space:nowrap; }
+.catalog .token-demo-track { display:block; width:76px; height:12px; background:#d5d5da; border-radius:4px; }
+.catalog .token-demo-track>span { display:block; height:12px; background:#5185d9; border-radius:4px; }
+.catalog .token-demo-measure { display:block; height:24px; background:#5185d9; border-inline:2px solid #233e6d; box-sizing:content-box; }
+.catalog .catalog-token>div { flex:1; }
+.catalog .component-illustration { margin-top:var(--s-8); }
+.catalog .component-illustration a { display:block; }
+.catalog .component-illustration img { display:block; width:100%; height:auto; border:1px solid var(--c-gray-300); border-radius:var(--r-3); }
+.catalog .component-illustration figcaption { font-size:var(--t-13); color:var(--c-gray-900); margin-top:var(--s-6); }

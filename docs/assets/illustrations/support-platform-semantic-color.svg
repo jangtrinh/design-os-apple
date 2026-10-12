@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Platform Semantic Color — explanatory diagram</title>
+<desc id="desc">Source-backed usage illustration. This is not a native screenshot, runtime rendering, interaction test or visual acceptance evidence.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#176f76"/></marker></defs>
+<rect x="0" y="0" width="1200" height="760" rx="0" fill="#f5f8fa"/>
+<rect x="32" y="32" width="1136" height="696" rx="24" fill="#ffffff" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="74" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">Usage illustration</text>
+<text x="64" y="123" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" text-anchor="start" fill="#182c36">Platform Semantic Color</text>
+<text x="64" y="156" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">support/platform-semantic-color</text>
+<line x1="64" y1="178" x2="1136" y2="178" stroke="#ccd9df" stroke-width="2"/>
+<line x1="64" y1="678" x2="1136" y2="678" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="710" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Illustration only · not a native capture · scaled for clarity</text>
+<text x="82" y="231" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">Semantic role</text>
+<text x="427" y="231" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">iOS / iPadOS</text>
+<text x="790" y="231" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">macOS</text>
+<line x1="80" y1="351" x2="1115" y2="351" stroke="#ccd9df" stroke-width="2"/>
+<text x="82" y="290" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start" fill="#182c36">labelPrimary</text>
+<text x="427" y="290" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start" fill="#182c36">label</text>
+<text x="790" y="290" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start" fill="#182c36">labelColor</text>
+<line x1="80" y1="461" x2="1115" y2="461" stroke="#ccd9df" stroke-width="2"/>
+<text x="82" y="400" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start" fill="#182c36">backgroundPrimary</text>
+<text x="427" y="400" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start" fill="#182c36">systemBackground</text>
+<text x="790" y="400" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start" fill="#182c36">windowBackgroundColor</text>
+<line x1="80" y1="571" x2="1115" y2="571" stroke="#ccd9df" stroke-width="2"/>
+<text x="82" y="510" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start" fill="#182c36">separator</text>
+<text x="427" y="510" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start" fill="#182c36">separator</text>
+<text x="790" y="510" font-family="Arial, Helvetica, sans-serif" font-size="29" font-weight="400" text-anchor="start" fill="#182c36">separatorColor</text>
+<text x="76" y="639" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Names map to adaptive platform providers. Fixed RGB colors would misrepresent</text>
+<text x="76" y="670" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">these roles.</text>
+</svg>

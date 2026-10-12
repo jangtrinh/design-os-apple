@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="760" viewBox="0 0 1200 760" role="img" aria-labelledby="title desc">
+<title id="title">Symbol Content — explanatory diagram</title>
+<desc id="desc">Source-backed usage illustration. This is not a native screenshot, runtime rendering, interaction test or visual acceptance evidence.</desc>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M 0 0 L 10 5 L 0 10 z" fill="#176f76"/></marker></defs>
+<rect x="0" y="0" width="1200" height="760" rx="0" fill="#f5f8fa"/>
+<rect x="32" y="32" width="1136" height="696" rx="24" fill="#ffffff" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="74" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#176f76">Usage illustration</text>
+<text x="64" y="123" font-family="Arial, Helvetica, sans-serif" font-size="34" font-weight="700" text-anchor="start" fill="#182c36">Symbol Content</text>
+<text x="64" y="156" font-family="Arial, Helvetica, sans-serif" font-size="22" font-weight="400" text-anchor="start" fill="#536771">primitive/symbol-content</text>
+<line x1="64" y1="178" x2="1136" y2="178" stroke="#ccd9df" stroke-width="2"/>
+<line x1="64" y1="678" x2="1136" y2="678" stroke="#ccd9df" stroke-width="2"/>
+<text x="64" y="710" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Illustration only · not a native capture · scaled for clarity</text>
+<text x="298" y="228" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="middle" fill="#182c36">fill</text>
+<text x="520" y="228" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="middle" fill="#182c36">circular</text>
+<text x="750" y="228" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="middle" fill="#182c36">rounded</text>
+<text x="990" y="228" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="middle" fill="#182c36">symbol</text>
+<text x="76" y="326" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">regular</text>
+<rect x="255.1" y="283.1" width="85.8" height="85.8" rx="0" fill="#c3e1e4"/>
+<text x="298" y="418" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="middle" fill="#536771">52 pt</text>
+<circle cx="520" cy="326" r="34.65" fill="#c3e1e4"/>
+<text x="520" y="418" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="middle" fill="#536771">42 pt</text>
+<rect x="725.25" y="301.25" width="49.5" height="49.5" rx="11.549999999999999" fill="#c3e1e4"/>
+<text x="750" y="418" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="middle" fill="#536771">30 pt · r 7</text>
+<text x="990" y="336" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="400" text-anchor="middle" fill="#176f76">✦</text>
+<text x="990" y="418" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="middle" fill="#536771">unchanged</text>
+<text x="76" y="506" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="700" text-anchor="start" fill="#182c36">tall</text>
+<rect x="241.9" y="449.9" width="112.19999999999999" height="112.19999999999999" rx="0" fill="#c3e1e4"/>
+<text x="298" y="598" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="middle" fill="#536771">68 pt</text>
+<circle cx="520" cy="506" r="49.5" fill="#c3e1e4"/>
+<text x="520" y="598" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="middle" fill="#536771">60 pt</text>
+<rect x="713.7" y="469.7" width="72.6" height="72.6" rx="18.15" fill="#c3e1e4"/>
+<text x="750" y="598" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="middle" fill="#536771">44 pt · r 11</text>
+<text x="990" y="516" font-family="Arial, Helvetica, sans-serif" font-size="48" font-weight="400" text-anchor="middle" fill="#176f76">✦</text>
+<text x="990" y="598" font-family="Arial, Helvetica, sans-serif" font-size="32" font-weight="400" text-anchor="middle" fill="#536771">unchanged</text>
+<text x="76" y="635" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="400" text-anchor="start" fill="#536771">Caller-owned imagery. Geometry illustrates frame and clip policies.</text>
+</svg>
