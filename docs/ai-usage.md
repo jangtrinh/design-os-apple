@@ -5,19 +5,19 @@ OS. The goal is resolvable source authority, not a larger prompt.
 
 ## Read in this order
 
-1. [`CONTEXT.md`](../CONTEXT.md) for canonical project terms.
-2. [`Package.swift`](../Package.swift) for products and supported platforms.
-3. The [DocC landing page](../Sources/DesignOSApple/DesignOSApple.docc/DesignOSApple.md) for
+1. [`CONTEXT.md`](https://github.com/jangtrinh/design-os-apple/blob/c8eb91b52820e09310c240e3e7849fd63cdab856/CONTEXT.md) for canonical project terms.
+2. [`Package.swift`](https://github.com/jangtrinh/design-os-apple/blob/c8eb91b52820e09310c240e3e7849fd63cdab856/Package.swift) for products and supported platforms.
+3. The [DocC landing page](https://github.com/jangtrinh/design-os-apple/blob/c8eb91b52820e09310c240e3e7849fd63cdab856/Sources/DesignOSApple/DesignOSApple.docc/DesignOSApple.md) for
    public runtime concepts and native recipes.
-4. The [typed release catalog authority](../Sources/DesignOSAppleCatalog/DesignOSReleaseCatalog.swift)
+4. The [typed release catalog authority](https://github.com/jangtrinh/design-os-apple/blob/c8eb91b52820e09310c240e3e7849fd63cdab856/Sources/DesignOSAppleCatalog/DesignOSReleaseCatalog.swift)
    for admitted Gallery metadata.
-5. The [catalog bundle](../Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v2.json)
+5. The [catalog bundle](https://github.com/jangtrinh/design-os-apple/blob/c8eb91b52820e09310c240e3e7849fd63cdab856/Examples/DesignOSAppleGallery/Generated/design-os-apple-catalog-bundle.v2.json)
    when machine-readable story discovery is needed.
 6. [Apple Platform Evolution](apple-platform-evolution.md) before adopting a newly released
    or beta SDK capability.
 
 For product-shaped composition examples, inspect the Gallery's
-[`localOnly` demo manifest](../Examples/DesignOSAppleGallery/Generated/local-demo-catalog.v2.json)
+[`localOnly` demo manifest](https://github.com/jangtrinh/design-os-apple/blob/c8eb91b52820e09310c240e3e7849fd63cdab856/Examples/DesignOSAppleGallery/Generated/local-demo-catalog.v2.json)
 and then read the referenced app-owned views under `App/Shared/Flows`. Reuse their native
 SwiftUI arrangement and state patterns only. Do not treat demo IDs, views, fixtures, or
 visual choices as public runtime APIs.

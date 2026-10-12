@@ -41,4 +41,4 @@ subtree boundary with `.designOSProfile(_:)`. Native control geometry, navigatio
 presentation, focus, and system chrome remain owned by SwiftUI.
 
 The detailed contract lives in
-[Profiles and Dogfood Catalog](../Sources/DesignOSApple/DesignOSApple.docc/Profiles-and-Dogfood-Catalog.md).
+[Profiles and Dogfood Catalog](https://github.com/jangtrinh/design-os-apple/blob/c8eb91b52820e09310c240e3e7849fd63cdab856/Sources/DesignOSApple/DesignOSApple.docc/Profiles-and-Dogfood-Catalog.md).
