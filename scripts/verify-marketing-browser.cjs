@@ -119,6 +119,15 @@ async function main() {
             for (const img of document.images) img.loading = 'eager';
             await document.fonts.ready;
             await Promise.all([...document.images].map(img => img.complete ? Promise.resolve() : new Promise(resolve => { img.onload = img.onerror = resolve; setTimeout(resolve, 10000); })));
+            // Async decoding can leave offscreen panels blank in a full-page
+            // screenshot even after naturalWidth/load succeeds. Decode actual
+            // pixels and visit each viewport before recording visual evidence.
+            await Promise.all([...document.images].map(img => img.decode()));
+            const paint = () => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+            for (let y = 0; y < document.documentElement.scrollHeight; y += Math.max(1, innerHeight * 0.8)) {
+              scrollTo(0, y); await paint();
+            }
+            scrollTo(0, 0); await paint();
           });
         });
         // Capture before interaction assertions so failed tests still have visual evidence.
@@ -126,6 +135,19 @@ async function main() {
           const filename = `${prefix}.png`;
           await page.screenshot({ path: path.join(output, filename), fullPage: true, animations: 'disabled', timeout: 30000 });
           report.screenshots.push(filename);
+          // Independent viewport captures make below-fold image paint auditable.
+          const sections = kind === 'site' ? ['gallery'] : kind.startsWith('catalog') && [375, 1440].includes(width) ? ['semantic', 'composite', 'shells', 'screen-types', 'native-recipes'] : [];
+          for (const id of sections) {
+            await page.locator(`[id="${id}"]`).evaluate(el => el.scrollIntoView({ block: 'start' }));
+            await page.evaluate(async () => {
+              await Promise.all([...document.images].filter(img => { const r = img.getBoundingClientRect(); return r.bottom > 0 && r.top < innerHeight; }).map(img => img.decode()));
+              await new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve)));
+            });
+            const sectionFile = `${prefix}-section-${id}.png`;
+            await page.screenshot({ path: path.join(output, sectionFile), fullPage: false, animations: 'disabled', timeout: 30000 });
+            report.screenshots.push(sectionFile);
+          }
+          await page.evaluate(() => scrollTo(0, 0));
         });
         await check(`${prefix}: loaded images`, async () => {
           const images = await page.locator('img').evaluateAll(imgs => imgs.map(i => ({ src: i.currentSrc || i.src, loaded: i.complete && i.naturalWidth > 0 && i.naturalHeight > 0 })));
