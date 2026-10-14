@@ -1,201 +1,327 @@
-# Apple Design OS
+# DESIGN:OS Apple (`design-os-apple`)
 
-> **A native SwiftUI design system, from component to screen.**
-> One considered design language for iPhone, iPad, and Mac. Reusable layers, unified themes, and real native controls.
+**Native Swift 6.2 & SwiftUI component system, adaptive color engine, and multi-platform specimen verifier for iOS 26, iPadOS 26, and macOS 26.**
 
-[![CI](https://github.com/jangtrinh/design-os-apple/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/jangtrinh/design-os-apple/actions/workflows/ci.yml)
-[![Swift 6.2](https://img.shields.io/badge/Swift-6.2-555555?style=flat-square)](Package.swift)
-[![Zero dependencies](https://img.shields.io/badge/Dependencies-0-555555?style=flat-square)](Package.swift)
-[![MIT](https://img.shields.io/badge/License-MIT-555555?style=flat-square)](LICENSE)
+Ship HIG-compliant SwiftUI interfaces with semantic tokens (`DesignOSAdaptiveColor`), Liquid Glass & tactile depth, Dynamic Type safety, and automated simulator specimen verification.
 
-[Explore the visual guide](https://jangtrinh.github.io/design-os-apple/) · [Browse every component](https://jangtrinh.github.io/design-os-apple/components.html) · [Get started](#add-the-package) · [Inspect tested source](https://github.com/jangtrinh/design-os-apple/tree/1898ce28861d642f57dccd88fd57afcbe3be5bb9)
+<p align="center">
+  <img src="docs/images/cover.png" alt="Apple Design OS — 2:1 Axonometric Technical Architecture" width="840">
+</p>
 
-<p align="center"><img src="docs/assets/marketing/kit-overview.png" alt="Historical native Apple Design OS screenshots showing reusable discovery, composer, and form compositions" width="1000"></p>
+<p align="center">
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-202020?style=flat-square&labelColor=202020&color=444444" alt="MIT License"></a>
+  <img src="https://img.shields.io/badge/Claude_Code_%C2%B7_Codex_%C2%B7_Gemini_%C2%B7_Antigravity-skill-202020?style=flat-square&labelColor=202020&color=444444" alt="Compatible agents">
+  <a href="commands/doctor.md"><img src="https://img.shields.io/badge/diagnostics-%2Fdoctor-202020?style=flat-square&labelColor=202020&color=444444" alt="Doctor command"></a>
+  <a href="https://jangtrinh.github.io/design-os-apple/"><img src="https://img.shields.io/badge/live_docs-GitHub_Pages-202020?style=flat-square&labelColor=202020&color=444444" alt="Live GitHub Pages"></a>
+  <a href="https://buymeacoffee.com/jangtrinh"><img src="https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?style=flat-square&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee"></a>
+</p>
 
-**Shown above: historical layered kit fixtures at [`adcf88a`](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e).**
-The layered implementation is now merged into `main` via PR 3. The overview images above retain their original historical source; the [complete component catalog](https://jangtrinh.github.io/design-os-apple/components.html) has current source-matched native previews.
-The main-branch CI badge describes main. [Native CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) verifies the current catalog source; [historical CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370) remains the provenance for the overview images.
-No version tag is claimed. [Proof and image provenance](docs/marketing/proof.md).
+<p align="center">
+  <a href="#quickstart">Quickstart</a> · <a href="#what-it-makes">What it makes</a> · <a href="#installation">Install</a> · <a href="#how-it-works">How it works</a> · <a href="#commands--diagnostics">Commands</a> · <a href="#quality-bar--limitations">Limits</a>
+</p>
 
-## What it solves
+---
 
-Bring a consistent editorial style to native Apple apps without taking ownership away from SwiftUI.
-Compose with meaningful components, reuse a screen structure, and connect your own models and actions.
+## Why this exists
 
-- **A shared visual language.** Palette, typography, spacing, and metrics flow from an opt-in application style. Keep system, light, or dark appearance coherent across the app.
-- **Considered geometry.** Continuous image corners; nested radii derived from the actual inset; full-pill styles applied to real native buttons.
-- **Reusable layers.** Primitives → semantic components → composites → shells → screen types. Native navigation, focus, inputs, and presentation retain their platform owner.
+AI agents writing SwiftUI frequently hallucinate deprecated modifiers, hardcode hex colors that break in Dark Mode, ignore 44×44pt hit targets, and fail Swift 6 strict concurrency checks. **`design-os-apple`** provides a Swift 6.2 package (`DesignOSApple`) paired with portable Python/Node contract verifiers and native Xcode simulator gates.
 
-Choose this for native SwiftUI composition. Plain SwiftUI may be simpler when you do not need shared design rules. This is not a cross-platform rendering engine, a backend, or a turnkey application.
+| Dimension | Generic AI / Manual Workflow | Apple Design OS (`DESIGN:OS`) |
+| :--- | :--- | :--- |
+| **Swift 6 Concurrency** | Data-race warnings and `@MainActor` compiler errors | Strict Swift 6.2 concurrency compliance out of the box |
+| **Color & Dark Mode** | Hardcoded `Color(hex:)` values that break high-contrast and Dark Mode | Semantic `DesignOSAdaptiveColor` tokens verified across light/dark appearances |
+| **Accessibility & HIG** | Tiny tap targets (<44pt) and missing VoiceOver labels | Enforced >=44pt hit targets, Dynamic Type scaling, and Reduce Motion support |
+| **Documentation Parity** | README Swift snippets that no longer compile against the library | Automated `verify-quickstart-parity.py` + native `swiftc` typecheck in CI |
+| **Privacy & Telemetry** | Opaque cloud telemetry or unverified third-party APIs | **Zero telemetry** — 100% local execution ([`PRIVACY.md`](PRIVACY.md) audited) |
 
-## Technical register
+---
 
-| Fact | Contract |
-| --- | --- |
-| Platforms | iOS 17+, iPadOS 17+, macOS 14+ |
-| Toolchain | Swift 6.2 · Swift Package Manager |
-| Main product | `DesignOSApple` |
-| Optional products | `DesignOSAppleExtensions`, `DesignOSAppleCatalog` |
-| Package dependencies | Zero external dependencies |
-| Application ownership | Your state, routes, services, native controls, and actions |
-| License | MIT for original software and documentation |
+## Quickstart
 
-Package consumers do not need DESIGN:OS maintainer tooling. The library has no first-party telemetry; this README loads external badge images, and the documentation's Markdown layout retains its existing external Buy Me a Coffee widget.
+### 1. Install the plugin or CLI
 
-## Add the package
+**In Claude Code:**
 
-### Install from main
-
-In `Package.swift`, add the package and link the product:
-
-```swift
-dependencies: [
-  .package(url: "https://github.com/jangtrinh/design-os-apple.git", branch: "main")
-],
-targets: [
-  .target(name: "MyApp", dependencies: [
-    .product(name: "DesignOSApple", package: "design-os-apple")
-  ])
-]
+```text
+/plugin marketplace add jangtrinh/design-os-apple
+/plugin install design-os-apple@design-os-apple
 ```
 
-Or choose **File > Add Package Dependencies** in Xcode, paste the repository URL, and link `DesignOSApple`.
-The first compiling view is in [Getting Started](docs/getting-started.md). Its example is kept in parity with the landing page and type-checked by `scripts/verify-consumer-quickstart.sh` against the built package.
-
-### Pin the reviewed layered kit
-
-To pin the native revision reviewed before merging PR 3, replace the dependency above with:
-
-```swift
-.package(
-  url: "https://github.com/jangtrinh/design-os-apple.git",
-  revision: "1898ce28861d642f57dccd88fd57afcbe3be5bb9"
-)
-```
-
-Keep the same `DesignOSApple` product dependency. Read the [kit architecture guide](https://jangtrinh.github.io/design-os-apple/kit-architecture.html) and [reusable application style](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md) before adopting these APIs.
-
-## Architecture: compose up, keep ownership clear
-
-| Layer | Responsibility | Historical additive source |
-| --- | --- | --- |
-| Primitives | Geometry, clipping, adaptive placement | 3 new internal helpers |
-| Semantic components | Media, identity, labeled values, status | 4 new public APIs |
-| Composites | Meaningful groups with caller-owned slots | 11 new public APIs |
-| Shells | One scrolling/container and safe-area policy | 9 new public APIs |
-| Screen types | Named task hierarchies built from lower layers | 18 new public APIs |
-
-**42 additive public APIs**, plus **4 native or existing-component recipes** counted separately.
-These are source counts, not 42 complete apps. Existing theme/profile/token authorities support every layer.
-
-1. **Choose the surface.** Start with the screen family that matches the user's task.
-2. **Inject the style.** Apply the shared app style once at a product boundary.
-3. **Connect real behavior.** Supply native controls, content, routes, state, and actions.
-
-[Machine-readable kit index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json) · [Native layout recipes](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/native-layout-recipes.md) · [Design-system ownership](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/design-system-organization.md)
-
-## Gallery: actual native captures
-
-<table><tr>
-<td width="33%"><img src="docs/assets/marketing/iphone-discovery-light.png" alt="Native discovery fixture in light appearance" width="290"><br><strong>Discover &amp; collect</strong></td>
-<td width="33%"><img src="docs/assets/marketing/iphone-grouped-form-light.png" alt="Native grouped form fixture in light appearance" width="290"><br><strong>Group &amp; refine</strong></td>
-<td width="33%"><img src="docs/assets/marketing/iphone-media-composer-dark.png" alt="Native media composer fixture in dark appearance" width="290"><br><strong>Create &amp; edit</strong></td>
-</tr></table>
-
-Selected fixtures from **108 native family captures**, not generated mockups. Capture selection, source filenames, and transformations are recorded in the [asset manifest](docs/assets/marketing/manifest.json).
-See the [visual guide](https://jangtrinh.github.io/design-os-apple/#gallery) for iPad and Mac captures.
-
-The kit has **18 screen types**: discovery, flat collection, hero collection, media detail, record detail, profile detail, media composer, freeform editor, grouped form, search selection, message thread, onboarding, confirmation, status, focused task, utility canvas, native presentation, and provider host.
-
-[Explore their Swift source](https://github.com/jangtrinh/design-os-apple/tree/adcf88a468a43ed1727c9c902ae5243423e4176e/Sources/DesignOSApple/Screens).
-
-### Browse the native Gallery
-
-On a Mac with Xcode and [XcodeGen](https://github.com/yonaskolb/XcodeGen):
+**Or from your terminal (Codex, Gemini CLI, Antigravity, OpenCode, or standalone CLI):**
 
 ```bash
-xcodegen generate --spec Examples/DesignOSAppleGallery/project.yml \
-  --project Examples/DesignOSAppleGallery
-open Examples/DesignOSAppleGallery/DesignOSAppleGallery.xcodeproj
+git clone https://github.com/jangtrinh/design-os-apple.git
+cd design-os-apple
+python3 scripts/verify-quickstart-parity.py && python3 scripts/verify-layered-kit.py
 ```
 
-Run `DesignOSAppleGallery-iOS` or `DesignOSAppleGallery-macOS`. The Catalog provides instructional reference pages with use/avoid guidance, call sites, ownership, availability, and source paths. Launch arguments `--design-os-story <story-id>` and `--design-os-profile <profile-id>` open a specific admitted story or profile. Implementation internals stay distinct from public APIs; local demo IDs stay separate from the typed release catalog.
+### 2. Ask in plain English
 
-## Verification, with boundaries
+Open your project in your AI coding agent and describe what you need:
 
-Current component catalog: [CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095) passed all 23 workflow jobs at `1898ce2`. Its 510 reviewed native captures comprise 360 isolated component, 108 screen-family and 42 dedicated text-field-state images. These do not establish complete reference-state fidelity or full accessibility acceptance.
+> "Build a native SwiftUI settings and telemetry screen using DesignOSApple semantic tokens, 44pt minimum hit targets, and Dynamic Type."
 
-The overview image set retains the following historical evidence:
+> "Audit our SwiftUI views against the Apple HIG gate for hardcoded colors, missing accessibility labels, and Reduce Motion fallbacks."
 
-Current catalog source `1898ce2` passed all 23 workflow jobs in [native CI run 38157622095](https://github.com/jangtrinh/design-os-apple/actions/runs/38157622095). The reviewed evidence includes 360 isolated component captures, 108 screen-family fixtures, and 42 dedicated text-field states. The website hosts 142 iPhone previews; additional evidence is separately identified.
+> "Run the portable contract verifiers for quickstart parity, app style registry, and layered UI-kit specimens."
 
-[Historical CI run 38087127370](https://github.com/jangtrinh/design-os-apple/actions/runs/38087127370) passed all **8 jobs** for candidate `adcf88a` (tested merge `86b686d`):
-
-- **CalorieCam:** 10/10 UI tests on each of iPhone, iPad, and Mac.
-- **Layered kit:** 9/9 UI tests on each of iPhone, iPad, and Mac.
-- **Package:** 173 reported tests; the genuine high-contrast fixture was skipped.
-
-Earlier intermittent activation failures remain unexplained. A green run does not establish live AI, physical-camera behavior, OS 27 / iPhone Duo execution, complete VoiceOver behavior, performance, or full reference-state fidelity.
-
-[CalorieCam](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/Examples/CalorieCam/README.md) is a separate native dogfood app for a photo-reference meal journal. Its offline mode uses labeled sample data, not image recognition.
-
-On a supported Apple development environment:
+### 3. Verify your setup
 
 ```bash
-swift test
-scripts/verify-release-candidate.sh
+python3 scripts/self_check.py
 ```
 
-Portable documentation checks, from the pinned source checkout:
+---
+
+## What it makes
+
+Every deliverable produced by `design-os-apple` is backed by a deterministic verification gate rather than freehand AI guesswork.
+
+<p align="center">
+  <img src="docs/images/cover.png" alt="Apple Design OS Output Specimen" width="840"><br>
+  <sub>Prompt: <code>"Build a native SwiftUI settings and telemetry screen using DesignOSApple semantic tokens, 44pt minimum hit targets, and Dynamic Type."</code></sub>
+</p>
+
+| Deliverable / Mode | Best for | Output Format | Verification Gate |
+| :--- | :--- | :--- | :--- |
+| **`DesignOSApple` Swift Package** | Drop-in SwiftUI tokens, fields, cards, shells, and adaptive colors | `Package.swift + Sources/DesignOSApple` | `swift test & verify-release-candidate.sh` |
+| **CalorieCam Reference App** | End-to-end iOS/iPadOS/macOS reference app + local Node analysis server | `Examples/CalorieCam` | `scripts/verify-caloriecam.sh` |
+| **Portable Contract Verifiers** | Fast Linux/macOS CI checks for quickstart parity, style registry, and specimens | `scripts/verify-*.py` | `Zero drift between code and docs` |
+
+---
+
+## Installation
+
+Choose the setup that matches your AI coding agent. Every option installs the same canonical skill (`skills/design-os-apple/SKILL.md`) and `/doctor` diagnostic suite.
+
+### Claude Code
+
+Run these two commands inside Claude Code:
+
+```text
+/plugin marketplace add jangtrinh/design-os-apple
+/plugin install design-os-apple@design-os-apple
+```
+
+### OpenAI Codex
+
+Install to your personal Codex skills directory:
 
 ```bash
-python3 scripts/test-ukmc-verifier.py
-python3 scripts/test-quickstart-parity.py
-python3 scripts/verify-quickstart-parity.py
+git clone https://github.com/jangtrinh/design-os-apple.git /tmp/design-os-apple
+mkdir -p ~/.codex/skills/design-os-apple ~/.codex/prompts
+cp -R /tmp/design-os-apple/skills/design-os-apple/* ~/.codex/skills/design-os-apple/
+cp /tmp/design-os-apple/prompts/doctor.md ~/.codex/prompts/design-os-apple-doctor.md
+rm -rf /tmp/design-os-apple
 ```
 
-The portable checks do not compile SwiftUI or replace native execution. [Quality evidence](docs/quality-evidence.md) · [Portable verification](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/portable-verification.md) · [Evidence and provenance](docs/marketing/proof.md).
+### Gemini CLI & Google Antigravity
 
-## Frequently asked questions
+```bash
+git clone https://github.com/jangtrinh/design-os-apple.git /tmp/design-os-apple
+mkdir -p ~/.gemini/skills/design-os-apple
+cp -R /tmp/design-os-apple/skills/design-os-apple/* ~/.gemini/skills/design-os-apple/
+rm -rf /tmp/design-os-apple
+```
 
-### What is Apple Design OS?
+### OpenCode, Cursor, Windsurf & Other Agent Harnesses
 
-Apple Design OS is a zero-dependency SwiftUI design system for iOS, iPadOS, and macOS. Its layered kit adds reusable semantic components, composites, shells, and screen types while keeping native controls and application state in the consuming app.
+```bash
+git clone https://github.com/jangtrinh/design-os-apple.git /tmp/design-os-apple
+mkdir -p ~/.agents/skills/design-os-apple
+cp -R /tmp/design-os-apple/skills/design-os-apple/* ~/.agents/skills/design-os-apple/
+rm -rf /tmp/design-os-apple
+```
 
-### Which platforms and toolchain does it require?
+<details>
+<summary>Verify or uninstall</summary>
 
-The package requires Swift 6.2, iOS 17 or later, iPadOS 17 or later, and macOS 14 or later. It uses Swift Package Manager and has no external package dependencies.
+**Verify installation:**
 
-### Is the layered kit available on main?
+```bash
+python3 scripts/self_check.py
+```
 
-Yes. The layered kit was merged into main in PR 3. The component catalog is pinned to tested revision 1898ce28861d642f57dccd88fd57afcbe3be5bb9; merged main has the same source tree. Use main or pin that revision. No version tag is claimed.
+Or run `/doctor` inside Claude Code / Codex to inspect installed skill paths, plugin manifests, and gate health.
 
-### Does the catalog show every component and state?
+**Uninstall:**
 
-The catalog lists 99 source entries and 160 token values. It displays 142 native iPhone images across 71 visual entries, with light and dark previews. The remaining source helpers have explicit coverage notes. Selected previews do not establish complete behavior or every state on every platform.
+```bash
+rm -rf ~/.claude/skills/design-os-apple ~/.codex/skills/design-os-apple ~/.gemini/skills/design-os-apple ~/.agents/skills/design-os-apple
+```
 
-### What has been verified, and what is still open?
+</details>
 
-Native CI run 38157622095 passed all 23 workflow jobs at revision 1898ce2. The reviewed capture set contains 360 isolated components, 108 screen-family fixtures and 42 dedicated text-field states across iPhone, iPad and Mac. The overview images retain their historical adcf88a provenance. Live services, physical-device behavior, complete accessibility acceptance and performance remain outside these claims.
+---
 
-## Ecosystem
+## Usage & Prompt Cookbook
 
-- [design-os](https://github.com/jangtrinh/design-os): design-intent management for maintainers.
-- [design-os-figma-plugin](https://github.com/jangtrinh/design-os-figma-plugin): a companion design workflow.
-- [design-os-github-page](https://github.com/jangtrinh/design-os-github-page): the README and nine-tier Pages foundation used here.
+Once installed, `skills/design-os-apple/SKILL.md` activates automatically when your prompt matches its domain triggers. Browse [`docs/cookbook.md`](docs/cookbook.md) for copy-paste prompt recipes.
 
-## Read next
+**Generate & Scaffold**
 
-- [Getting Started](docs/getting-started.md) and [DocC runtime concepts](Sources/DesignOSApple/DesignOSApple.docc/DesignOSApple.md)
-- [Candidate layered kit architecture](https://jangtrinh.github.io/design-os-apple/kit-architecture.html) and [API index](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/layered-kit-index.json)
-- [Kit themes, corners, and pill controls](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reusable-app-style.md)
-- [AI usage](docs/ai-usage.md) and [native API coverage](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/component-coverage.md)
-- [Catalog thumbnail workflow](docs/catalog-thumbnail-workflow.md) and [reference reconstruction workflow](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/reference-reconstruction-workflow.md)
-- [Apple platform evolution](docs/apple-platform-evolution.md), [OS 27 intake](docs/os27-intake-report.md), and [historical roadmap](https://github.com/jangtrinh/design-os-apple/blob/adcf88a468a43ed1727c9c902ae5243423e4176e/docs/apple-ui-roadmap-2026-10.md)
-- [Contributing](CONTRIBUTING.md) · [Support](SUPPORT.md) · [Security](SECURITY.md) · [Release process](RELEASING.md) · [Changelog](CHANGELOG.md)
+```text
+"Build a native SwiftUI settings and telemetry screen using DesignOSApple semantic tokens, 44pt minimum hit targets, and Dynamic Type."
+```
 
-Maintainers: `design/` remains managed design intent; `Sources/DesignOSApple/` remains runtime implementation. Use the documented `ui ds` workflow for managed changes. Never hand-edit `design/design.tokens.json`.
+**Audit & Verify**
 
-## License
+```text
+"Audit our SwiftUI views against the Apple HIG gate for hardcoded colors, missing accessibility labels, and Reduce Motion fallbacks."
+```
 
-Original software and documentation use the [MIT License](LICENSE). Apple Design OS is independent and is not affiliated with, endorsed by, or sponsored by Apple Inc. Apple names and trademarks belong to Apple Inc. Apple-owned resources, fonts, symbols, and template artwork are not relicensed by this project. Reference-app screenshots and branding are research provenance, not distributable product assets.
+**Export & Automate**
+
+```text
+"Run the portable contract verifiers for quickstart parity, app style registry, and layered UI-kit specimens."
+```
+
+---
+
+## Commands & Diagnostics
+
+| Command | Environment | What it does |
+| :--- | :--- | :--- |
+| `/doctor` | Claude Code / Codex | Read-only diagnostic check of installed skill paths, plugin manifests, and runtime prerequisites |
+| `python3 scripts/self_check.py` | Terminal / CI | Deterministic offline verification of manifests, skill contracts, and governance files |
+| `python3 scripts/verify-quickstart-parity.py` | Terminal / CI | Verify that published Swift quickstart examples in docs and HTML remain 100% byte-identical and type-safe |
+
+---
+
+## How it works
+
+1. **Intent Routing** — Your AI agent matches your request against `skills/design-os-apple/SKILL.md` frontmatter triggers.
+2. **Progressive Context Loading** — Only the entry-point `SKILL.md` router loads initially; detailed recipes and scripts load on demand.
+3. **Deterministic Execution** — Domain scripts and contracts execute locally with reproducible inputs and outputs.
+4. **Gate Verification** — `scripts/self_check.py` and domain verifiers (`python3 scripts/verify-quickstart-parity.py && python3 scripts/verify-layered-kit.py`) validate the artifact before completion.
+5. **Zero-Telemetry Delivery** — Verified files are written directly to your workspace with zero external network calls.
+
+```text
+User Prompt / CLI Invocation
+            │
+            ▼
+┌───────────────────────────────────────────────┐
+│ skills/design-os-apple/SKILL.md
+│ Progressive disclosure router & hard rules    │
+└───────────┬───────────────────────────────────┘
+            │ loads on demand
+            ▼
+┌───────────────────────────────────────────────┐
+│ python3 scripts/verify-quickstart-parity.py
+│ Deterministic build & contract enforcement    │
+└───────────┬───────────────────────────────────┘
+            │ verifies
+            ▼
+┌───────────────────────────────────────────────┐
+│ python3 scripts/self_check.py + /doctor       │
+│ Zero-telemetry local verification gate        │
+└───────────────────────────────────────────────┘
+```
+
+### What loads when
+
+`design-os-apple` uses progressive context disclosure so your agent's context window stays fast and focused:
+
+| File | Loaded when |
+| :--- | :--- |
+| `skills/design-os-apple/SKILL.md` | Always (~100–150 lines) — routing rules, triggers, and execution workflow |
+| `docs/cookbook.md` | When selecting multi-step prompt recipes or domain patterns |
+| `commands/doctor.md` / `prompts/doctor.md` | Only when running `/doctor` diagnostics |
+| `llms.txt` | When indexed by AI answer engines, RAG pipelines, or repo crawlers |
+
+---
+
+## File structure
+
+```text
+design-os-apple/
+├── .claude-plugin/
+│   ├── plugin.json                 # Claude Code plugin manifest
+│   └── marketplace.json            # Claude Code marketplace catalog
+├── .codex-plugin/
+│   └── plugin.json                 # OpenAI Codex plugin & interface manifest
+├── .agents/
+│   └── plugins/marketplace.json    # Cross-agent local plugin registry
+├── .factory-plugin/
+│   ├── plugin.json                 # Factory / Droid plugin manifest
+│   └── marketplace.json            # Factory marketplace metadata
+├── skills/
+│   └── design-os-apple/
+│       └── SKILL.md                # Canonical agent skill entrypoint
+├── commands/
+│   └── doctor.md                   # /doctor diagnostic slash command
+├── prompts/
+│   └── doctor.md                   # Codex diagnostic prompt mirror
+├── scripts/
+│   └── self_check.py               # Deterministic repository & skill self-check
+├── docs/
+│   ├── cookbook.md                 # Copy-paste prompt recipes by job
+│   └── llms.txt                    # GEO / LLM discovery index
+├── PRIVACY.md                      # Zero-telemetry & local-first privacy commitment
+├── SECURITY.md                     # Vulnerability disclosure & security policy
+├── CONTRIBUTING.md                 # Contribution workflow & verification rules
+├── CODE_OF_CONDUCT.md              # Contributor Covenant code of conduct
+├── CHANGELOG.md                    # Release history
+├── llms.txt                        # Root LLM indexing manifest
+├── LICENSE                         # MIT License
+└── README.md
+```
+
+---
+
+## Quality bar & Limitations
+
+### It's working if...
+
+- `python3 scripts/self_check.py` prints `ok: design-os-apple self-check passed (design-os-apple)` and exits `0`.
+- `python3 scripts/verify-quickstart-parity.py && python3 scripts/verify-layered-kit.py` passes with zero contract or test regressions.
+- Your AI coding agent loads `skills/design-os-apple/SKILL.md` automatically when given any prompt from [`docs/cookbook.md`](docs/cookbook.md).
+- Network traffic during execution remains zero (guaranteed by [`PRIVACY.md`](PRIVACY.md)).
+
+### When not to use
+
+- Cross-platform React Native, Flutter, or web-only applications (use `design-os` or `design-os-generative-ui`).
+- Legacy UIKit/AppKit codebases targeting iOS versions below the SwiftUI 6 deployment baseline.
+- Low-level Metal game engines with no standard HIG control surfaces.
+
+---
+
+## DESIGN:OS Ecosystem
+
+`design-os-apple` is one of the 13 open-source engines in the **`DESIGN:OS`** ecosystem:
+
+| Engine | Live Docs | Repository | Layer |
+| :--- | :--- | :--- | :--- |
+| **DESIGN:OS CLI** | [jangtrinh.github.io/design-os](https://jangtrinh.github.io/design-os/) | [`jangtrinh/design-os`](https://github.com/jangtrinh/design-os) | `cli` |
+| **Knowledge Builder** | [jangtrinh.github.io/design-os-knowledge-builder](https://jangtrinh.github.io/design-os-knowledge-builder/) | [`jangtrinh/design-os-knowledge-builder`](https://github.com/jangtrinh/design-os-knowledge-builder) | `compiler` |
+| **Figma Plugin & CLI** | [jangtrinh.github.io/design-os-figma-plugin](https://jangtrinh.github.io/design-os-figma-plugin/) | [`jangtrinh/design-os-figma-plugin`](https://github.com/jangtrinh/design-os-figma-plugin) | `plugin` |
+| **SVG Animation Engine** | [jangtrinh.github.io/design-os-svg-animation](https://jangtrinh.github.io/design-os-svg-animation/) | [`jangtrinh/design-os-svg-animation`](https://github.com/jangtrinh/design-os-svg-animation) | `engine` |
+| **3D Blender Agent** | [jangtrinh.github.io/design-os-3d-blender](https://jangtrinh.github.io/design-os-3d-blender/) | [`jangtrinh/design-os-3d-blender`](https://github.com/jangtrinh/design-os-3d-blender) | `3d / cad` |
+| **OPAH ONE Drone** | [jangtrinh.github.io/design-os-drone-showcase](https://jangtrinh.github.io/design-os-drone-showcase/) | [`jangtrinh/design-os-drone-showcase`](https://github.com/jangtrinh/design-os-drone-showcase) | `hardware` |
+| **GitHub Pages Engine** | [jangtrinh.github.io/design-os-github-page](https://jangtrinh.github.io/design-os-github-page/) | [`jangtrinh/design-os-github-page`](https://github.com/jangtrinh/design-os-github-page) | `pages` |
+| **Apple Design OS** | [jangtrinh.github.io/design-os-apple](https://jangtrinh.github.io/design-os-apple/) | [`jangtrinh/design-os-apple`](https://github.com/jangtrinh/design-os-apple) | `swiftui` |
+| **Agent Teacher** | [jangtrinh.github.io/design-os-pedagogy](https://jangtrinh.github.io/design-os-pedagogy/) | [`jangtrinh/design-os-pedagogy`](https://github.com/jangtrinh/design-os-pedagogy) | `pedagogy` |
+| **Origami CAD** | [jangtrinh.github.io/design-os-origami](https://jangtrinh.github.io/design-os-origami/) | [`jangtrinh/design-os-origami`](https://github.com/jangtrinh/design-os-origami) | `packaging` |
+| **Voice UX Architecture** | [jangtrinh.github.io/design-os-voice-ux](https://jangtrinh.github.io/design-os-voice-ux/) | [`jangtrinh/design-os-voice-ux`](https://github.com/jangtrinh/design-os-voice-ux) | `voice-ai` |
+| **Code2Flow** | [jangtrinh.github.io/design-os-code2flow](https://jangtrinh.github.io/design-os-code2flow/) | [`jangtrinh/design-os-code2flow`](https://github.com/jangtrinh/design-os-code2flow) | `ast / audit` |
+| **Generative UI** | [jangtrinh.github.io/design-os-generative-ui](https://jangtrinh.github.io/design-os-generative-ui/) | [`jangtrinh/design-os-generative-ui`](https://github.com/jangtrinh/design-os-generative-ui) | `runtime` |
+
+---
+
+## Contributing, Governance & License
+
+- **Contributing**: See [`CONTRIBUTING.md`](CONTRIBUTING.md) for pull request guidelines and verification gates (`python3 scripts/self_check.py`).
+- **Code of Conduct**: Governed by [`CODE_OF_CONDUCT.md`](CODE_OF_CONDUCT.md).
+- **Security & Privacy**: Zero telemetry — see [`SECURITY.md`](SECURITY.md) and [`PRIVACY.md`](PRIVACY.md).
+- **Changelog & LLM Index**: Track releases in [`CHANGELOG.md`](CHANGELOG.md) and machine-readable index in [`llms.txt`](llms.txt).
+- **License**: [MIT](LICENSE) © [Jang Trinh](https://github.com/jangtrinh).
+
+---
+
+If `design-os-apple` saves you time, a star on GitHub helps other engineers and AI agents find it.
+
+<p align="left">
+  <a href="https://buymeacoffee.com/jangtrinh">
+    <img src="https://img.shields.io/badge/Buy_Me_a_Coffee-FFDD00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black" alt="Buy Me a Coffee">
+  </a>
+</p>

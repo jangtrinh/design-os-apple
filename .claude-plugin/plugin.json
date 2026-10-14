@@ -1,0 +1,21 @@
+{
+  "name": "design-os-apple",
+  "description": "Native Swift 6.2 & SwiftUI component system, adaptive color engine, and multi-platform specimen verifier for iOS 26, iPadOS 26, and macOS 26.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jang Trinh",
+    "url": "https://github.com/jangtrinh"
+  },
+  "homepage": "https://jangtrinh.github.io/design-os-apple/",
+  "repository": "https://github.com/jangtrinh/design-os-apple",
+  "license": "MIT",
+  "keywords": [
+    "swiftui",
+    "ios",
+    "macos",
+    "apple-hig",
+    "design-system",
+    "swift-6",
+    "design-os"
+  ]
+}

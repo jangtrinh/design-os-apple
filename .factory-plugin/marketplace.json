@@ -1,0 +1,15 @@
+{
+  "name": "design-os-apple",
+  "metadata": {
+    "description": "Native Swift 6.2 & SwiftUI component system, adaptive color engine, and multi-platform specimen verifier for iOS 26, iPadOS 26, and macOS 26."
+  },
+  "owner": {
+    "name": "Jang Trinh"
+  },
+  "plugins": [
+    {
+      "name": "design-os-apple",
+      "source": "./"
+    }
+  ]
+}

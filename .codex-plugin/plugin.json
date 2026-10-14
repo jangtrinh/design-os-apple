@@ -1,0 +1,42 @@
+{
+  "name": "design-os-apple",
+  "description": "Native Swift 6.2 & SwiftUI component system, adaptive color engine, and multi-platform specimen verifier for iOS 26, iPadOS 26, and macOS 26.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Jang Trinh",
+    "url": "https://github.com/jangtrinh"
+  },
+  "homepage": "https://jangtrinh.github.io/design-os-apple/",
+  "repository": "https://github.com/jangtrinh/design-os-apple",
+  "license": "MIT",
+  "keywords": [
+    "swiftui",
+    "ios",
+    "macos",
+    "apple-hig",
+    "design-system",
+    "swift-6",
+    "design-os"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "Apple Design OS",
+    "shortDescription": "Native Swift 6.2 & SwiftUI component system, adaptive color engine, and multi-platform specimen verifier for iOS 26, iPadOS 26, and macOS 26.",
+    "longDescription": "Ship HIG-compliant SwiftUI interfaces with semantic tokens (`DesignOSAdaptiveColor`), Liquid Glass & tactile depth, Dynamic Type safety, and automated simulator specimen verification.",
+    "developerName": "DESIGN:OS",
+    "category": "Developer Tools",
+    "capabilities": [
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://jangtrinh.github.io/design-os-apple/",
+    "privacyPolicyURL": "https://github.com/jangtrinh/design-os-apple/blob/main/PRIVACY.md",
+    "defaultPrompt": [
+      "Build a native SwiftUI settings and telemetry screen using DesignOSApple semantic tokens, 44pt minimum hit targets, and Dynamic Type.",
+      "Audit our SwiftUI views against the Apple HIG gate for hardcoded colors, missing accessibility labels, and Reduce Motion fallbacks.",
+      "Run the portable contract verifiers for quickstart parity, app style registry, and layered UI-kit specimens."
+    ],
+    "brandColor": "#202020",
+    "logo": "./docs/images/cover.png"
+  }
+}
