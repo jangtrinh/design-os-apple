@@ -16,7 +16,7 @@ The layered implementation is merged into main through PR 3. The catalog is pinn
 - [Evidence and publication scope](https://jangtrinh.github.io/design-os-apple/marketing/proof.html): Current and historical evidence boundaries.
 - [Source repository](https://github.com/jangtrinh/design-os-apple): Swift package and examples.
 - [Getting started](https://github.com/jangtrinh/design-os-apple/blob/main/docs/getting-started.md): Package setup and first compiling view.
-- [MIT license](https://github.com/jangtrinh/design-os-apple/blob/main/LICENSE): Software licensing; does not relicense third-party assets.
+- [PolyForm Shield 1.0.0 license](https://github.com/jangtrinh/design-os-apple/blob/main/LICENSE): Software licensing; does not relicense third-party assets.
 
 ## Coverage and limits
 

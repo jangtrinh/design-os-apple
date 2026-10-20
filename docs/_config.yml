@@ -27,7 +27,7 @@ nav:
 footer:
   - { title: Repository, url: "https://github.com/jangtrinh/design-os-apple" }
   - { title: Documentation, url: "https://github.com/jangtrinh/design-os-apple/tree/main/docs" }
-  - { title: MIT License, url: "https://github.com/jangtrinh/design-os-apple/blob/main/LICENSE" }
+  - { title: PolyForm Shield 1.0.0, url: "https://github.com/jangtrinh/design-os-apple/blob/main/LICENSE" }
 
 plugins:
   - jekyll-seo-tag

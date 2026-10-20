@@ -23,7 +23,7 @@ The six homepage images and README overview retain their original [adcf88a sourc
 
 Source coverage, compiler/tests, fixture execution, image review and full product acceptance are different claims. No screenshot or green run alone establishes every visual state, physical-device behavior, live AI or camera integration, complete VoiceOver behavior, performance or every supported OS version. The native controls and app actions remain caller-owned.
 
-The MIT software license does not grant rights in third-party imagery or products. Published fixtures use original synthetic example content. Source and image provenance remain pinned; private review material is not published.
+The PolyForm Shield software license does not grant rights in third-party imagery or products. Published fixtures use original synthetic example content. Source and image provenance remain pinned; private review material is not published.
 
 ## Crawlability and machine-readable content
 
