@@ -175,7 +175,7 @@ Interactive screenshots of the task application were captured from real executed
 
 ### Attribution & Platform Rights Notice
 
-These specimen screenshots are repository-generated implementation artifacts demonstrating native SwiftUI navigation behavior on Apple platform simulators. Apple platform visual styles, UI components, and SF Symbols are proprietary to Apple Inc. and depicted here for technical reference and interoperability demonstration only. They are distinguished from third-party or Apple official reference imagery and are not subject to blanket MIT code licensing.
+These specimen screenshots are repository-generated implementation artifacts demonstrating native SwiftUI navigation behavior on Apple platform simulators. Apple platform visual styles, UI components, and SF Symbols are proprietary to Apple Inc. and depicted here for technical reference and interoperability demonstration only. They are distinguished from third-party or Apple official reference imagery and are not covered by the repository's code license.
 
 ### Rotation Diagnostic Classification & Strict Task 1470 Evidence
 
